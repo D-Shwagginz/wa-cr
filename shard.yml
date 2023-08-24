@@ -1,0 +1,14 @@
+name: wad-reader
+version: 0.0.1
+
+authors:
+  - Ian Rash <ian@sol.vin>
+  - D. Shwagginz <devin@shwagg.in>
+
+targets:
+  wad-reader:
+    main: src/wad-reader.cr
+
+crystal: 1.8.1
+
+license: MIT

@@ -1,14 +1,16 @@
 class WAD
   class Directory
     property file_pos = 0_u32
+    property index_in_wad = 0_i32
     property size = 0_u32
     property name = ""
 
-    def self.read(io) : Directory
+    def self.read(io, index = 0) : Directory
       directory = Directory.new
       directory.file_pos = io.read_bytes(UInt32, IO::ByteFormat::LittleEndian)
       directory.size = io.read_bytes(UInt32, IO::ByteFormat::LittleEndian)
       directory.name = io.gets(8).to_s.gsub("\u0000", "")
+      directory.index_in_wad = index
       directory
     end
   end
@@ -80,8 +82,8 @@ class WAD
             map.name = directory.name
             10.times do 
               file.read_at(wad.directory_pointer+(d_index*16), 16) do |io|
-                puts wad.directory_pointer+(d_index*16)
-                map.insert_next_property(Directory.read(io))
+                wad.directory_pointer+(d_index*16)
+                map.insert_next_property(Directory.read(io, d_index))
                 d_index += 1
               end
             end

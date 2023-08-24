@@ -78,7 +78,7 @@ class WAD
           if directory.name =~ /^E\dM\d/ || directory.name =~ /MAP\d\d/
             map = Map.new
             map.name = directory.name
-            1.times do 
+            10.times do 
               file.read_at(wad.directory_pointer+(d_index*16), 16) do |io|
                 puts wad.directory_pointer+(d_index*16)
                 map.insert_next_property(Directory.read(io))

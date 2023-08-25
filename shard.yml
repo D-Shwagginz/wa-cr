@@ -9,6 +9,11 @@ targets:
   wad-reader:
     main: src/wad-reader.cr
 
+dependencies:
+  raylib-cr:
+    github: sol-vin/raylib-cr
+        
+
 crystal: 1.8.1
 
 license: MIT

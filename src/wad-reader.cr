@@ -1,3 +1,4 @@
 require "./wad-reader/**"
 
-pp WAD.read("./rsrc/DOOM.WAD")
+# mywad = WAD.read("./rsrc/DOOM.WAD")
+# pp mywad

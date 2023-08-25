@@ -1,70 +1,18 @@
+require "bit_array"
+
+require "./directory"
+require "./map"
+
 # Raw WAD
 class WAD
-  # WAD Directory
-  class Directory
-    # An integer holding a pointer to the start of the lump's data in the file.
-    property file_pos = 0_u32
-    # Index of file in the WAD.
-    property index_in_wad = 0_i32
-    # An integer representing the size of the lump in bytes.
-    property size = 0_u32
-    # An ASCII string defining the lump's name.
-    property name = ""
-
-    # Read an io from the WAD and convert it into a Directory.
-    def self.read(io, index = 0) : Directory
-      directory = Directory.new
-      directory.file_pos = io.read_bytes(UInt32, IO::ByteFormat::LittleEndian)
-      directory.size = io.read_bytes(UInt32, IO::ByteFormat::LittleEndian)
-      directory.name = io.gets(8).to_s.gsub("\u0000", "")
-      directory.index_in_wad = index
-      directory
-    end
+  enum Type
+    Broken
+    Internal
+    Patch
   end
 
-  # Map containing all directories of data lumps.
-  class Map
-    property name = ""
-    property things = Directory.new
-    property linedefs = Directory.new
-    property sidedefs = Directory.new
-    property vertexes = Directory.new
-    property segs = Directory.new
-    property ssectors = Directory.new
-    property nodes = Directory.new
-    property sectors = Directory.new
-    property reject = Directory.new
-    property blockmap = Directory.new
-
-    # Times that a property has been inserted.
-    @times_inserted = 0
-
-    # Inserts a property into the map based off *times_inserted*.
-    def insert_next_property(prop)
-      case @times_inserted
-      when 0
-        @things = prop
-      when 1
-        @linedefs = prop
-      when 2
-        @sidedefs = prop
-      when 3
-        @vertexes = prop
-      when 4
-        @segs = prop
-      when 5
-        @ssectors = prop
-      when 6
-        @nodes = prop
-      when 7
-        @sectors = prop
-      when 8
-        @reject = prop
-      when 9
-        @blockmap = prop
-      end
-      @times_inserted += 1
-    end
+  def self.parse
+    parsed_map.name = map.name
   end
 
   # Reads in a WAD file.
@@ -75,7 +23,14 @@ class WAD
       # Sets the header. Can only be the ASCII characters "IWAD" or "PWAD".
       header_slice = Bytes.new(4)
       file.read(header_slice)
-      type = String.new(header_slice)
+      string_type = String.new(header_slice)
+      if string_type =~ /^IWAD$/
+        wad.type = Type::Internal
+      elsif string_type =~ /^PWAD$/
+        wad.type = Type::Patch
+      else
+        raise("TYPE IS BAD: #{string_type}")
+      end
       # An integer specifying the number of lumps in the WAD.
       wad.directories_count = file.read_bytes(UInt32, IO::ByteFormat::LittleEndian)
       # An integer holding a pointer to the location of the directory.
@@ -84,22 +39,42 @@ class WAD
       d_index = 0
 
       while d_index < wad.directories_count
-        file.read_at(wad.directory_pointer + (d_index*16), 16) do |io|
-          d_index += 1
+
+        directory_start = wad.directory_pointer + (d_index*Directory::SIZE)
+        file.read_at(directory_start, Directory::SIZE) do |io|
           directory = Directory.read(io)
           wad.directories << directory
-          if directory.name =~ /^E\dM\d/ || directory.name =~ /MAP\d\d/
+
+          if Map.is_map?(directory.name)
             map = Map.new
             map.name = directory.name
-            10.times do
-              file.read_at(wad.directory_pointer + (d_index*16), 16) do |io|
-                wad.directory_pointer + (d_index*16)
-                map.insert_next_property(Directory.read(io, d_index))
-                d_index += 1
+            directory = Directory.new
+            loop do
+              d_index += 1
+              directory_start = wad.directory_pointer + (d_index*Directory::SIZE)
+              break if directory_start + Directory::SIZE > wad.directory_pointer + (wad.directories_count*Directory::SIZE)
+              file.read_at(directory_start, Directory::SIZE) do |io|
+                directory = Directory.read(io, d_index)
+                break if Map.is_map? directory.name
+                map.insert_next_property(directory)
               end
             end
+
+            file.read_at(map.things_directory.file_pos, map.things_directory.size) do |io|
+              map.things = Map.parse_things(io, map.things_directory)
+            end
+
+            map.linedefs = Map.parse_linedefs(wad, map.linedefs_directory)
+            map.sidedefs = Map.parse_sidedefs(wad, map.sidedefs_directory)
+            map.vertexes = Map.parse_vertexes(wad, map.vertexes_directory)
+            map.segs = Map.parse_segs(wad, map.segs_directory)
+            map.ssectors = Map.parse_ssectors(wad, map.ssectors_directory)
+            map.nodes = Map.parse_nodes(wad, map.nodes_directory)
+            map.sectors = Map.parse_sectors(wad, map.sectors_directory)
+
             wad.maps << map
           end
+          d_index += 1
         end
       end
     end
@@ -107,7 +82,7 @@ class WAD
   end
 
   # Type of WAD. Either "IWAD" or "PWAD"
-  property type = ""
+  property type : Type = Type::Broken
   # The file/WAD name and directory.
   property filename = ""
   # An integer specifying the number of lumps in the WAD.

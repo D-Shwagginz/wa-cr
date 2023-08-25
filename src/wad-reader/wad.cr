@@ -48,14 +48,18 @@ class WAD
           if Map.is_map?(directory.name)
             map = Map.new
             map.name = directory.name
-            directory = Directory.new
-            loop do
+            map_directory_end_reached = false
+            until(map_directory_end_reached)
               d_index += 1
               directory_start = wad.directory_pointer + (d_index*Directory::SIZE)
               break if directory_start + Directory::SIZE > wad.directory_pointer + (wad.directories_count*Directory::SIZE)
               file.read_at(directory_start, Directory::SIZE) do |io|
                 directory = Directory.read(io, d_index)
-                break if Map.is_map? directory.name
+                if Map.is_map? directory.name
+                  d_index -= 1
+                  map_directory_end_reached = true
+                  break
+                end
                 map.insert_next_property(directory)
               end
             end

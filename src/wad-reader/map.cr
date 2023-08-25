@@ -1,6 +1,6 @@
 # Map containing all directories of data lumps.
 class WAD
-  struct Map
+  class Map
     # Parses a list of things given the directory and wad
     # TODO: PASS IO
     def self.parse_things(io : IO, directory : Directory) : Array(Things)

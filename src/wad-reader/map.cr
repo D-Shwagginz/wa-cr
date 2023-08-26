@@ -1,12 +1,12 @@
 # Map containing all directories of data lumps.
 class WAD
   class Map
-    # Parses a list of things given the directory and wad
-    # TODO: PASS IO
+    # Parses a list of things given the directory and io
     def self.parse_things(io : IO, directory : Directory) : Array(Things)
       parsed_things = [] of Things
       things_index = 0
-      while things_index*10 < directory.size
+      entry_length = 10
+      while things_index*entry_length < directory.size
         thing = Things.new
         thing.x_position = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
         thing.y_position = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
@@ -19,185 +19,191 @@ class WAD
       parsed_things
     end
 
-    # Parses a list of linedefs given the directory and wad
-    def self.parse_linedefs(wad : WAD, directory : WAD::Directory) : Array(Linedefs)
+    # Parses a list of linedefs given the directory and io
+    def self.parse_linedefs(io : IO, directory : Directory) : Array(Linedefs)
       parsed_linedefs = [] of Linedefs
       linedefs_index = 0
-      File.open(wad.filename) do |file|
-        file.read_at(directory.file_pos, directory.size) do |io|
-          while linedefs_index*14 < directory.size
-            linedef = Linedefs.new
-            linedef.start_vertex = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            linedef.end_vertex = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            linedef.flags = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            linedef.special_type = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            linedef.sector_tag = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            linedef.front_sidedef = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            linedef.back_sidedef = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            linedefs_index += 1
-            parsed_linedefs << linedef
-          end
-        end
+      entry_length = 14
+      while linedefs_index*entry_length < directory.size
+        linedef = Linedefs.new
+        linedef.start_vertex = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        linedef.end_vertex = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        linedef.flags = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        linedef.special_type = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        linedef.sector_tag = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        linedef.front_sidedef = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        linedef.back_sidedef = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        linedefs_index += 1
+        parsed_linedefs << linedef
       end
       parsed_linedefs
     end
 
-    # Parses a list of sidedefs given the directory and wad
-    def self.parse_sidedefs(wad : WAD, directory : WAD::Directory) : Array(Sidedefs)
+    # Parses a list of sidedefs given the directory and io
+    def self.parse_sidedefs(io : IO, directory : Directory) : Array(Sidedefs)
       parsed_sidedefs = [] of Sidedefs
       sidedefs_index = 0
-      File.open(wad.filename) do |file|
-        file.read_at(directory.file_pos, directory.size) do |io|
-          while sidedefs_index*30 < directory.size
-            sidedef = Sidedefs.new
-            sidedef.x_offset = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            sidedef.y_offset = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            sidedef.name_tex_up = io.gets(8).to_s.gsub("\u0000", "")
-            sidedef.name_tex_low = io.gets(8).to_s.gsub("\u0000", "")
-            sidedef.name_tex_mid = io.gets(8).to_s.gsub("\u0000", "")
-            sidedef.facing_sector_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            sidedefs_index += 1
-            parsed_sidedefs << sidedef
-          end
-        end
+      entry_length = 30
+      while sidedefs_index*entry_length < directory.size
+        sidedef = Sidedefs.new
+        sidedef.x_offset = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        sidedef.y_offset = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        sidedef.name_tex_up = io.gets(8).to_s.gsub("\u0000", "")
+        sidedef.name_tex_low = io.gets(8).to_s.gsub("\u0000", "")
+        sidedef.name_tex_mid = io.gets(8).to_s.gsub("\u0000", "")
+        sidedef.facing_sector_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        sidedefs_index += 1
+        parsed_sidedefs << sidedef
       end
       parsed_sidedefs
     end
 
-    # Parses a list of vertexes given the directory and wad
-    def self.parse_vertexes(wad : WAD, directory : WAD::Directory) : Array(Vertexes)
+    # Parses a list of vertexes given the directory and io
+    def self.parse_vertexes(io : IO, directory : Directory) : Array(Vertexes)
       parsed_vertexes = [] of Vertexes
       vertexes_index = 0
-      File.open(wad.filename) do |file|
-        file.read_at(directory.file_pos, directory.size) do |io|
-          while vertexes_index*4 < directory.size
-            vertex = Vertexes.new
-            vertex.x_position = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            vertex.y_position = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            vertexes_index += 1
-            parsed_vertexes << vertex
-          end
-        end
+      entry_length = 4
+      while vertexes_index*entry_length < directory.size
+        vertex = Vertexes.new
+        vertex.x_position = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        vertex.y_position = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        vertexes_index += 1
+        parsed_vertexes << vertex
       end
       parsed_vertexes
     end
 
-    # Parses a list of segs given the directory and wad
-    def self.parse_segs(wad : WAD, directory : WAD::Directory) : Array(Segs)
+    # Parses a list of segs given the directory and io
+    def self.parse_segs(io : IO, directory : Directory) : Array(Segs)
       parsed_segs = [] of Segs
       segs_index = 0
-      File.open(wad.filename) do |file|
-        file.read_at(directory.file_pos, directory.size) do |io|
-          while segs_index*12 < directory.size
-            seg = Segs.new
-            seg.start_vertex_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            seg.end_vertex_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            seg.angle = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            seg.lindef_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            seg.direction = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            seg.offset = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            segs_index += 1
-            parsed_segs << seg
-          end
-        end
+      entry_length = 12
+      while segs_index*entry_length < directory.size
+        seg = Segs.new
+        seg.start_vertex_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        seg.end_vertex_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        seg.angle = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        seg.lindef_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        seg.direction = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        seg.offset = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        segs_index += 1
+        parsed_segs << seg
       end
       parsed_segs
     end
 
-    # Parses a list of ssectors given the directory and wad
-    def self.parse_ssectors(wad : WAD, directory : WAD::Directory) : Array(Ssectors)
+    # Parses a list of ssectors given the directory and io
+    def self.parse_ssectors(io : IO, directory : Directory) : Array(Ssectors)
       parsed_ssectors = [] of Ssectors
       ssectors_index = 0
-      File.open(wad.filename) do |file|
-        file.read_at(directory.file_pos, directory.size) do |io|
-          while ssectors_index*4 < directory.size
-            ssector = Ssectors.new
-            ssector.seg_count = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            ssector.first_seg_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            ssectors_index += 1
-            parsed_ssectors << ssector
-          end
-        end
+      entry_length = 4
+      while ssectors_index*entry_length < directory.size
+        ssector = Ssectors.new
+        ssector.seg_count = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        ssector.first_seg_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        ssectors_index += 1
+        parsed_ssectors << ssector
       end
       parsed_ssectors
     end
 
-    # Parses a list of nodes given the directory and wad
-    def self.parse_nodes(wad : WAD, directory : WAD::Directory) : Array(Nodes)
+    # Parses a list of nodes given the directory and io
+    def self.parse_nodes(io : IO, directory : Directory) : Array(Nodes)
       parsed_nodes = [] of Nodes
       nodes_index = 0
-      File.open(wad.filename) do |file|
-        file.read_at(directory.file_pos, directory.size) do |io|
-          while nodes_index*28 < directory.size
-            node = Nodes.new
-            node.x_coord = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            node.y_coord = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            node.x_change_to_end = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            node.y_change_to_end = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+      entry_length = 28
+      while nodes_index*entry_length < directory.size
+        node = Nodes.new
+        node.x_coord = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        node.y_coord = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        node.x_change_to_end = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        node.y_change_to_end = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
 
-            # WARNING: Don't use 'X.times do' with read_bytes. Causes compiler bug
+        # WARNING: Don't use 'X.times do' with read_bytes. Causes compiler bug
 
-            node.right_bound_box << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            node.right_bound_box << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            node.right_bound_box << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            node.right_bound_box << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        node.right_bound_box << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        node.right_bound_box << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        node.right_bound_box << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        node.right_bound_box << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
 
-            node.left_bound_box << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            node.left_bound_box << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            node.left_bound_box << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            node.left_bound_box << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        node.left_bound_box << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        node.left_bound_box << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        node.left_bound_box << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        node.left_bound_box << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
 
-            node.right_child = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            node.left_child = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            nodes_index += 1
-            parsed_nodes << node
-          end
-        end
+        node.right_child = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        node.left_child = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        nodes_index += 1
+        parsed_nodes << node
       end
       parsed_nodes
     end
 
-    # Parses a list of sectors given the directory and wad
-    def self.parse_sectors(wad : WAD, directory : WAD::Directory) : Array(Sectors)
+    # Parses a list of sectors given the directory and io
+    def self.parse_sectors(io : IO, directory : Directory) : Array(Sectors)
       parsed_sectors = [] of Sectors
       sectors_index = 0
-      File.open(wad.filename) do |file|
-        file.read_at(directory.file_pos, directory.size) do |io|
-          while sectors_index*26 < directory.size
-            sector = Sectors.new
-            sector.floor_height = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            sector.ceiling_height = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            sector.name_tex_floor = io.gets(8).to_s.gsub("\u0000", "")
-            sector.name_tex_ceiling = io.gets(8).to_s.gsub("\u0000", "")
-            sector.light_level = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            sector.special_type = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            sector.tag_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-            sectors_index += 1
-            parsed_sectors << sector
-          end
-        end
+      entry_length = 26
+      while sectors_index*entry_length < directory.size
+        sector = Sectors.new
+        sector.floor_height = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        sector.ceiling_height = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        sector.name_tex_floor = io.gets(8).to_s.gsub("\u0000", "")
+        sector.name_tex_ceiling = io.gets(8).to_s.gsub("\u0000", "")
+        sector.light_level = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        sector.special_type = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        sector.tag_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        sectors_index += 1
+        parsed_sectors << sector
       end
       parsed_sectors
     end
 
-    # Parses a reject table given the directory, wad, and number of sectors
-    def self.parse_reject(wad : WAD, directory : WAD::Directory) : Reject
-      parsed_reject = Reject.new
+    # Parses a reject table given the directory, sectors, and io
+    def self.parse_reject(io : IO, directory : Directory, sectors : Int32 = 0) : Array(BitArray)
+      parsed_reject = [] of BitArray
+      reject_size = (sectors**2)/8
       reject_index = 0
-      reject_slice = Bytes.new(1)
-      bit_array = BitArray.new(8)
-      File.open(wad.filename) do |file|
-        file.read_at(directory.file_pos, directory.size) do |io|
-          while reject_index < directory.size
-            bit_array[(reject_index) - (8*(reject_index//8))] = io.read_bytes(Int8, IO::ByteFormat::LittleEndian).bit((reject_index + 1) - (8*(reject_index//8))) == 1
-            puts bit_array
-
-            reject_index += 1
-            # parsed_reject.reject_table <<
+      sector_byte_loop = 0
+      current_byte_slice = Bytes.new(directory.size)
+      io.read_fully(current_byte_slice)
+      current_byte_slice_array = current_byte_slice.to_a
+      sectors.times do |time|
+        bit_array = BitArray.new(sectors)
+        bit_array.size.times do |time|
+          bit_array[time] = current_byte_slice_array[0].bit(sector_byte_loop) == 1
+          if sector_byte_loop == 7
+            sector_byte_loop = 0
+            current_byte_slice_array.delete_at(0)
+          else
+            sector_byte_loop += 1
           end
         end
+        reject_index += 1
+        parsed_reject << bit_array
       end
       parsed_reject
+    end
+
+    # Parses a blockmap given the directory and io
+    def self.parse_blockmap(io : IO, directory : Directory) : Blockmap
+      parsed_blockmap = Blockmap.new
+      blocklist_length = 0
+
+      parsed_blockmap.header.grid_origin_x = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+      parsed_blockmap.header.grid_origin_y = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+      parsed_blockmap.header.num_of_columns = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+      parsed_blockmap.header.num_of_rows = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+
+      blocklist_length = directory.size-(16*4)
+
+      parsed_blockmap.num_of_blocks.times do |time|
+        parsed_blockmap.offsets << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+      end
+
+      # blocklist_length -= parsed_blockmap.num_of_blocks
+
+      parsed_blockmap
     end
 
     struct Things
@@ -283,11 +289,26 @@ class WAD
       property tag_num = 0_i16
     end
 
-    struct Reject
-      property reject_table : Array(BitArray) = [] of BitArray
-    end
+    class Blockmap
+      struct Header
+        property grid_origin_x = 0_i16
+        property grid_origin_y = 0_i16
+        property num_of_columns = 0_i16
+        property num_of_rows = 0_i16
+      end
 
-    struct Blockmap
+      class Blocklist
+        property linedefs_in_block = [] of Int16
+      end
+
+      # There are N blocks, which is equal to columns × rows (from the header).
+      def num_of_blocks
+        header.num_of_columns * header.num_of_rows
+      end
+
+      property header = Header.new
+      property offsets = [] of Int16
+      property blocklists = [] of Blocklist
     end
 
     property name = ""
@@ -310,8 +331,8 @@ class WAD
     property ssectors = [] of Ssectors
     property nodes = [] of Nodes
     property sectors = [] of Sectors
-    property reject = [] of Reject
-    property blockmap = [] of Blockmap
+    property reject = [] of BitArray
+    property blockmap = Blockmap.new
 
     def self.is_map?(name)
       name =~ /^E\dM\d/ || name =~ /MAP\d\d/

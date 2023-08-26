@@ -5,6 +5,13 @@ require "./map"
 
 # Raw WAD
 class WAD
+  # Parses a given X for a map
+  macro map_parse_x(x_to_set)
+    file.read_at(map.{{x_to_set}}_directory.file_pos, map.{{x_to_set}}_directory.size) do |io|
+      map.{{x_to_set}} = Map.parse_{{x_to_set}}(io, map.{{x_to_set}}_directory)
+    end
+  end
+
   enum Type
     Broken
     Internal
@@ -39,7 +46,6 @@ class WAD
       d_index = 0
 
       while d_index < wad.directories_count
-
         directory_start = wad.directory_pointer + (d_index*Directory::SIZE)
         file.read_at(directory_start, Directory::SIZE) do |io|
           directory = Directory.read(io)
@@ -49,7 +55,7 @@ class WAD
             map = Map.new
             map.name = directory.name
             map_directory_end_reached = false
-            until(map_directory_end_reached)
+            until (map_directory_end_reached)
               d_index += 1
               directory_start = wad.directory_pointer + (d_index*Directory::SIZE)
               break if directory_start + Directory::SIZE > wad.directory_pointer + (wad.directories_count*Directory::SIZE)
@@ -64,17 +70,52 @@ class WAD
               end
             end
 
-            file.read_at(map.things_directory.file_pos, map.things_directory.size) do |io|
-              map.things = Map.parse_things(io, map.things_directory)
+            map_parse_x(things)
+            map_parse_x(linedefs)
+            map_parse_x(sidedefs)
+            map_parse_x(vertexes)
+            map_parse_x(segs)
+            map_parse_x(ssectors)
+            map_parse_x(nodes)
+            map_parse_x(sectors)
+
+            file.read_at(map.reject_directory.file_pos, map.reject_directory.size) do |io|
+              map.reject = Map.parse_reject(io, map.reject_directory, map.sectors.size)
             end
 
-            map.linedefs = Map.parse_linedefs(wad, map.linedefs_directory)
-            map.sidedefs = Map.parse_sidedefs(wad, map.sidedefs_directory)
-            map.vertexes = Map.parse_vertexes(wad, map.vertexes_directory)
-            map.segs = Map.parse_segs(wad, map.segs_directory)
-            map.ssectors = Map.parse_ssectors(wad, map.ssectors_directory)
-            map.nodes = Map.parse_nodes(wad, map.nodes_directory)
-            map.sectors = Map.parse_sectors(wad, map.sectors_directory)
+            map_parse_x(blockmap)
+
+            # file.read_at(map.things_directory.file_pos, map.things_directory.size) do |io|
+            #   map.things = Map.parse_things(io, map.things_directory)
+            # end
+
+            # file.read_at(map.linedefs_directory.file_pos, map.linedefs_directory.size) do |io|
+            #   map.linedefs = Map.parse_linedefs(io, map.linedefs_directory)
+            # end
+
+            # file.read_at(map.sidedefs_directory.file_pos, map.sidedefs_directory.size) do |io|
+            #   map.sidedefs = Map.parse_sidedefs(io, map.sidedefs_directory)
+            # end
+
+            # file.read_at(map.vertexes_directory.file_pos, map.vertexes_directory.size) do |io|
+            #   map.vertexes = Map.parse_vertexes(io, map.vertexes_directory)
+            # end
+
+            # file.read_at(map.segs_directory.file_pos, map.segs_directory.size) do |io|
+            #   map.segs = Map.parse_segs(io, map.segs_directory)
+            # end
+
+            # file.read_at(map.ssectors_directory.file_pos, map.ssectors_directory.size) do |io|
+            #   map.ssectors = Map.parse_ssectors(io, map.ssectors_directory)
+            # end
+
+            # file.read_at(map.nodes_directory.file_pos, map.nodes_directory.size) do |io|
+            #   map.nodes = Map.parse_nodes(io, map.nodes_directory)
+            # end
+
+            # file.read_at(map.sectors_directory.file_pos, map.sectors_directory.size) do |io|
+            #   map.sectors = Map.parse_sectors(io, map.sectors_directory)
+            # end
 
             wad.maps << map
           end

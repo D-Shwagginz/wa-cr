@@ -62,7 +62,6 @@ class WAD
           # Reads directory *io* and pushes it onto *wad.directories*.
           directory = Directory.read(io)
           wad.directories << directory
-
           # Parses map if *directory.name* is of format 'ExMx' or 'MAPxx' .
           if Map.is_map?(directory.name)
             # Creates a new map variable with *directory.name*.
@@ -81,11 +80,11 @@ class WAD
               # Reads the directory at *directory_start* of *Directory::Size*.
               file.read_at(directory_start, Directory::SIZE) do |io|
                 # Reads directory *io* and pushes it onto *wad.directories*.
-                directory = Directory.read(io, d_index)
+                directory = Directory.read(io)
                 # Checks if it has reached the end of the map's lumps
                 # By seeing if the *directory.name* is a map, showing
                 # it reached the next map.
-                if Map.is_map? directory.name
+                if Map.is_map?(directory.name) || !Map::MAP_CONTENTS.includes?(directory.name)
                   d_index -= 1
                   map_directory_end_reached = true
                   break
@@ -131,6 +130,10 @@ class WAD
   property directory_pointer = 0_u32
   # Array of maps in the WAD.
   property maps = [] of Map
+  # Array of Doom speaker sounds
+  property pcsounds = [] of PcSound
+  # Array of Doom sounds
+  property sounds = [] of Sound
   # Array of all directories in the WAD.
   property directories = [] of Directory
 end

@@ -1,6 +1,7 @@
 # wad-reader
 
-Used to parse .wad files into useable Crystal code
+
+Used to parse .wad files into usable Crystal code
 
 ## Installation
 

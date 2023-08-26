@@ -11,6 +11,7 @@ class WAD
 
     # Read an io from the WAD and convert it into a Directory.
     def self.read(io, index = 0) : Directory
+      # Creates a new directory and sets all the properties
       directory = Directory.new
       directory.file_pos = io.read_bytes(UInt32, IO::ByteFormat::LittleEndian)
       directory.size = io.read_bytes(UInt32, IO::ByteFormat::LittleEndian)

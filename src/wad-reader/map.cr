@@ -160,18 +160,17 @@ class WAD
     end
 
     # Parses a reject table given the directory, sectors, and io
-    def self.parse_reject(io : IO, directory : Directory, sectors : Int32 = 0) : Array(BitArray)
-      parsed_reject = [] of BitArray
+    def self.parse_reject(io : IO, directory : Directory, sectors : Int32 = 0) : Reject
       reject_size = (sectors**2)/8
       reject_index = 0
       sector_byte_loop = 0
       current_byte_slice = Bytes.new(directory.size)
       io.read_fully(current_byte_slice)
       current_byte_slice_array = current_byte_slice.to_a
-      sectors.times do |time|
-        bit_array = BitArray.new(sectors)
-        bit_array.size.times do |time|
-          bit_array[time] = current_byte_slice_array[0].bit(sector_byte_loop) == 1
+      bit_array = BitArray.new(sectors**2)
+      sectors.times do |y|
+        sectors.times do |x|
+          bit_array[x + y * sectors] = current_byte_slice_array[0].bit(sector_byte_loop) == 1
           if sector_byte_loop == 7
             sector_byte_loop = 0
             current_byte_slice_array.delete_at(0)
@@ -180,9 +179,8 @@ class WAD
           end
         end
         reject_index += 1
-        parsed_reject << bit_array
       end
-      parsed_reject
+      Reject.new(bit_array)
     end
 
     # Parses a blockmap given the directory and io
@@ -195,7 +193,7 @@ class WAD
       parsed_blockmap.header.num_of_columns = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
       parsed_blockmap.header.num_of_rows = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
 
-      blocklist_length = directory.size-(16*4)
+      blocklist_length = directory.size - (16*4)
 
       parsed_blockmap.num_of_blocks.times do |time|
         parsed_blockmap.offsets << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
@@ -289,6 +287,20 @@ class WAD
       property tag_num = 0_i16
     end
 
+    class Reject
+      property data : BitArray = BitArray.new(0)
+      @sectors = 0
+
+      # Outputs the truthiness of the bit at the given *x, y*
+      def [](x, y)
+        data[x + y * @sectors]
+      end
+
+      def initialize(@data = BitArray.new(0))
+        @sectors = Math.sqrt(data.size).to_i32
+      end
+    end
+
     class Blockmap
       struct Header
         property grid_origin_x = 0_i16
@@ -331,7 +343,7 @@ class WAD
     property ssectors = [] of Ssectors
     property nodes = [] of Nodes
     property sectors = [] of Sectors
-    property reject = [] of BitArray
+    property reject : Reject = Reject.new
     property blockmap = Blockmap.new
 
     def self.is_map?(name)

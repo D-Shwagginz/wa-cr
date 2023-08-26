@@ -6,9 +6,9 @@ require "./map"
 # Raw WAD
 class WAD
   # Parses a given X for a map
-  macro map_parse_x(x_to_set)
-    file.read_at(map.{{x_to_set}}_directory.file_pos, map.{{x_to_set}}_directory.size) do |io|
-      map.{{x_to_set}} = Map.parse_{{x_to_set}}(io, map.{{x_to_set}}_directory)
+  macro map_parse(name)
+    file.read_at(map.{{name}}_directory.file_pos, map.{{name}}_directory.size) do |io|
+      map.{{name}} = Map.parse_{{name}}(io, map.{{name}}_directory)
     end
   end
 
@@ -70,20 +70,20 @@ class WAD
               end
             end
 
-            map_parse_x(things)
-            map_parse_x(linedefs)
-            map_parse_x(sidedefs)
-            map_parse_x(vertexes)
-            map_parse_x(segs)
-            map_parse_x(ssectors)
-            map_parse_x(nodes)
-            map_parse_x(sectors)
+            map_parse(things)
+            map_parse(linedefs)
+            map_parse(sidedefs)
+            map_parse(vertexes)
+            map_parse(segs)
+            map_parse(ssectors)
+            map_parse(nodes)
+            map_parse(sectors)
 
             file.read_at(map.reject_directory.file_pos, map.reject_directory.size) do |io|
               map.reject = Map.parse_reject(io, map.reject_directory, map.sectors.size)
             end
 
-            map_parse_x(blockmap)
+            map_parse(blockmap)
 
             # file.read_at(map.things_directory.file_pos, map.things_directory.size) do |io|
             #   map.things = Map.parse_things(io, map.things_directory)

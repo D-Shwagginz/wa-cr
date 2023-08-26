@@ -146,6 +146,7 @@ class WAD
     end
 
     # Parses a lump of ssectors given the directory and io.
+
     def self.parse_ssectors(io : IO, directory : Directory) : Array(Ssectors)
       # Creates a list for all ssectors that will be parsed from the lump.
       parsed_ssectors = [] of Ssectors
@@ -170,6 +171,7 @@ class WAD
     end
 
     # Parses a lump of nodes given the directory and io.
+
     def self.parse_nodes(io : IO, directory : Directory) : Array(Nodes)
       # Creates a list for all nodes that will be parsed from the lump.
       parsed_nodes = [] of Nodes
@@ -211,6 +213,7 @@ class WAD
     end
 
     # Parses a lump of sectors given the directory and io.
+
     def self.parse_sectors(io : IO, directory : Directory) : Array(Sectors)
       # Creates a list for all sectors that will be parsed from the lump.
       parsed_sectors = [] of Sectors
@@ -240,6 +243,7 @@ class WAD
     end
 
     # Parses a reject lump given the directory, io, and number of sectors.
+
     def self.parse_reject(io : IO, directory : Directory, sectors : Int32 = 0) : Reject
       # DEPRECATED: Use directory.size instead.
       reject_size = (sectors**2)/8
@@ -274,6 +278,7 @@ class WAD
         end
         # Iterates the index.
         reject_index += 1
+
       end
       # Returns reject.
       Reject.new(bit_array)

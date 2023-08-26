@@ -62,7 +62,6 @@ class WAD
           # Reads directory *io* and pushes it onto *wad.directories*.
           directory = Directory.read(io)
           wad.directories << directory
-          puts directory.name
           # Parses map if *directory.name* is of format 'ExMx' or 'MAPxx' .
           if Map.is_map?(directory.name)
             # Creates a new map variable with *directory.name*.

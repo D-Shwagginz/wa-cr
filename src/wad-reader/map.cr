@@ -2,8 +2,10 @@
 class WAD
   # Map containing all directories of data lumps.
   class Map
+    MAP_CONTENTS = ["THINGS", "LINEDEFS", "SIDEDEFS", "VERTEXES", "SEGS", "SSECTORS", "NODES", "SECTORS", "REJECT", "BLOCKMAP", "BEHAVIOR"]
+
     # Parses a lump of things given the directory and io.
-    protected def self.parse_things(io : IO, directory : Directory) : Array(Things)
+    def self.parse_things(io : IO, directory : Directory) : Array(Things)
       # Creates a list for all things that will be parsed from the lump.
       parsed_things = [] of Things
       # Sets the index to loop through.
@@ -30,7 +32,7 @@ class WAD
     end
 
     # Parses a lump of linedefs given the directory and io.
-    protected def self.parse_linedefs(io : IO, directory : Directory) : Array(Linedefs)
+    def self.parse_linedefs(io : IO, directory : Directory) : Array(Linedefs)
       # Creates a list for all linedefs that will be parsed from the lump.
       parsed_linedefs = [] of Linedefs
       # Sets the index to loop through.
@@ -59,7 +61,7 @@ class WAD
     end
 
     # Parses a lump of sidedefs given the directory and io.
-    protected def self.parse_sidedefs(io : IO, directory : Directory) : Array(Sidedefs)
+    def self.parse_sidedefs(io : IO, directory : Directory) : Array(Sidedefs)
       # Creates a list for all sidedefs that will be parsed from the lump.
       parsed_sidedefs = [] of Sidedefs
       # Sets the index to loop through.
@@ -87,7 +89,7 @@ class WAD
     end
 
     # Parses a lump of vertexes given the directory and io.
-    protected def self.parse_vertexes(io : IO, directory : Directory) : Array(Vertexes)
+    def self.parse_vertexes(io : IO, directory : Directory) : Array(Vertexes)
       # Creates a list for all vertexes that will be parsed from the lump.
       parsed_vertexes = [] of Vertexes
       # Sets the index to loop through.
@@ -111,7 +113,7 @@ class WAD
     end
 
     # Parses a lump of segs given the directory and io.
-    protected def self.parse_segs(io : IO, directory : Directory) : Array(Segs)
+    def self.parse_segs(io : IO, directory : Directory) : Array(Segs)
       # Creates a list for all segs that will be parsed from the lump.
       parsed_segs = [] of Segs
       # Sets the index to loop through.
@@ -144,7 +146,7 @@ class WAD
     end
 
     # Parses a lump of ssectors given the directory and io.
-    protected def self.parse_ssectors(io : IO, directory : Directory) : Array(Ssectors)
+    def self.parse_ssectors(io : IO, directory : Directory) : Array(Ssectors)
       # Creates a list for all ssectors that will be parsed from the lump.
       parsed_ssectors = [] of Ssectors
       # Sets the index to loop through.
@@ -168,7 +170,7 @@ class WAD
     end
 
     # Parses a lump of nodes given the directory and io.
-    protected def self.parse_nodes(io : IO, directory : Directory) : Array(Nodes)
+    def self.parse_nodes(io : IO, directory : Directory) : Array(Nodes)
       # Creates a list for all nodes that will be parsed from the lump.
       parsed_nodes = [] of Nodes
       # Sets the index to loop trough.
@@ -209,7 +211,7 @@ class WAD
     end
 
     # Parses a lump of sectors given the directory and io.
-    protected def self.parse_sectors(io : IO, directory : Directory) : Array(Sectors)
+    def self.parse_sectors(io : IO, directory : Directory) : Array(Sectors)
       # Creates a list for all sectors that will be parsed from the lump.
       parsed_sectors = [] of Sectors
       # Sets the index to loop through.
@@ -238,7 +240,7 @@ class WAD
     end
 
     # Parses a reject lump given the directory, io, and number of sectors.
-    protected def self.parse_reject(io : IO, directory : Directory, sectors : Int32 = 0) : Reject
+    def self.parse_reject(io : IO, directory : Directory, sectors : Int32 = 0) : Reject
       # DEPRECATED: Use directory.size instead.
       reject_size = (sectors**2)/8
       # Sets the index to loop through.
@@ -278,7 +280,7 @@ class WAD
     end
 
     # Parses a blockmap lump given the directory and io.
-    protected def self.parse_blockmap(io : IO, directory : Directory) : Blockmap
+    def self.parse_blockmap(io : IO, directory : Directory) : Blockmap
       # Creates a new blockmap.
       parsed_blockmap = Blockmap.new
       # Reads the header.
@@ -451,35 +453,9 @@ class WAD
       property blocklists = [] of Blocklist
     end
 
-    # The name of the map.
-    property name = ""
-    # The directories of all map lumps.
-    property things_directory : Directory = Directory.new
-    property linedefs_directory : Directory = Directory.new
-    property sidedefs_directory : Directory = Directory.new
-    property vertexes_directory : Directory = Directory.new
-    property segs_directory : Directory = Directory.new
-    property ssectors_directory : Directory = Directory.new
-    property nodes_directory : Directory = Directory.new
-    property sectors_directory : Directory = Directory.new
-    property reject_directory : Directory = Directory.new
-    property blockmap_directory : Directory = Directory.new
-
-    # The parsed lumps of the map.
-    property things = [] of Things
-    property linedefs = [] of Linedefs
-    property sidedefs = [] of Sidedefs
-    property vertexes = [] of Vertexes
-    property segs = [] of Segs
-    property ssectors = [] of Ssectors
-    property nodes = [] of Nodes
-    property sectors = [] of Sectors
-    property reject : Reject = Reject.new
-    property blockmap = Blockmap.new
-
-    # Checks to see if *name* is a map with the format 'ExMx' or 'MAPxx'.
+    # Checks to see if *name* is a map with the name format 'ExMx' or 'MAPxx'.
     def self.is_map?(name)
-      name =~ /^E\dM\d/ || name =~ /MAP\d\d/
+      name =~ /^E\dM\d/ || name =~ /^MAP\d\d/
     end
 
     # Inserts a property into the map based off *times_inserted*.
@@ -506,6 +482,32 @@ class WAD
       when "BLOCKMAP"
         @blockmap_directory = prop
       end
+
+      # The name of the map.
+      property name = ""
+      # The directories of all map lumps.
+      property things_directory : Directory = Directory.new
+      property linedefs_directory : Directory = Directory.new
+      property sidedefs_directory : Directory = Directory.new
+      property vertexes_directory : Directory = Directory.new
+      property segs_directory : Directory = Directory.new
+      property ssectors_directory : Directory = Directory.new
+      property nodes_directory : Directory = Directory.new
+      property sectors_directory : Directory = Directory.new
+      property reject_directory : Directory = Directory.new
+      property blockmap_directory : Directory = Directory.new
+
+      # The parsed lumps of the map.
+      property things = [] of Things
+      property linedefs = [] of Linedefs
+      property sidedefs = [] of Sidedefs
+      property vertexes = [] of Vertexes
+      property segs = [] of Segs
+      property ssectors = [] of Ssectors
+      property nodes = [] of Nodes
+      property sectors = [] of Sectors
+      property reject : Reject = Reject.new
+      property blockmap = Blockmap.new
     end
   end
 end

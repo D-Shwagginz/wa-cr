@@ -1,9 +1,31 @@
 require "bit_array"
 require "./directory"
 require "./map"
+require "debug"
+
+{% if flag?(:debug) %}
+  Debug.enabled = true
+{% end %}
 
 # Reads and stores the data of a WAD file.
 class WAD
+  # Type of WAD: Either IWAD, PWAD, or Broken.
+  property type : Type = Type::Broken
+  # The file/WAD name and directory.
+  property filename = ""
+  # An integer specifying the number of lumps in the WAD.
+  property directories_count = 0_u32
+  # An integer holding a pointer to the location of the directory.
+  property directory_pointer = 0_u32
+  # Array of maps in the WAD.
+  property maps = [] of Map
+  # Array of Doom speaker sounds
+  property pcsounds = [] of PcSound
+  # Array of Doom sounds
+  property sounds = [] of Sound
+  # Array of all directories in the WAD.
+  property directories = [] of Directory
+
   # :nodoc:
   # Macro that parses a given *name* for a map.
   # WARNING: Only use at the end of self.read with *name* being a .map parse method.
@@ -65,8 +87,7 @@ class WAD
           # Parses map if *directory.name* is of format 'ExMx' or 'MAPxx' .
           if Map.is_map?(directory.name)
             # Creates a new map variable with *directory.name*.
-            map = Map.new
-            map.name = directory.name
+            map = Map.new(directory.name)
             # Creates a variable to show that the directory has ended.
             # and runs until the end has been reached.
             map_directory_end_reached = false
@@ -111,6 +132,10 @@ class WAD
             #
             wad.maps << map
           end
+
+          if PcSound.is_pcsound?(directory.name)
+          end
+
           # Iterates the directory index.
           d_index += 1
         end
@@ -119,21 +144,4 @@ class WAD
     # Returns the read parsed file.
     wad
   end
-
-  # Type of WAD: Either IWAD, PWAD, or Broken.
-  property type : Type = Type::Broken
-  # The file/WAD name and directory.
-  property filename = ""
-  # An integer specifying the number of lumps in the WAD.
-  property directories_count = 0_u32
-  # An integer holding a pointer to the location of the directory.
-  property directory_pointer = 0_u32
-  # Array of maps in the WAD.
-  property maps = [] of Map
-  # Array of Doom speaker sounds
-  property pcsounds = [] of PcSound
-  # Array of Doom sounds
-  property sounds = [] of Sound
-  # Array of all directories in the WAD.
-  property directories = [] of Directory
 end

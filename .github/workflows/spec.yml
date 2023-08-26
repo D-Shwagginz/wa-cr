@@ -1,8 +1,8 @@
-name: Build
+name: Run Tests
 on: [push, pull_request]
 jobs:
   build:
-    name: Build
+    name: Run Tests
     runs-on: ubuntu-latest
     steps:
       - name: Download source

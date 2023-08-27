@@ -1,5 +1,9 @@
 version: 2.0
 shards:
+  debug:
+    git: https://github.com/sija/debug.cr.git
+    version: 2.0.2
+
   raylib-cr:
     git: https://github.com/sol-vin/raylib-cr.git
     version: 4.6+git.commit.0e8003c5412b36b843edaaaade55e526371ca1cd

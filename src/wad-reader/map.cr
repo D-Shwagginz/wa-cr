@@ -4,6 +4,35 @@ class WAD
   class Map
     MAP_CONTENTS = ["THINGS", "LINEDEFS", "SIDEDEFS", "VERTEXES", "SEGS", "SSECTORS", "NODES", "SECTORS", "REJECT", "BLOCKMAP", "BEHAVIOR"]
 
+    # The name of the map.
+    property name = ""
+    # The directories of all map lumps.
+    property things_directory : Directory = Directory.new
+    property linedefs_directory : Directory = Directory.new
+    property sidedefs_directory : Directory = Directory.new
+    property vertexes_directory : Directory = Directory.new
+    property segs_directory : Directory = Directory.new
+    property ssectors_directory : Directory = Directory.new
+    property nodes_directory : Directory = Directory.new
+    property sectors_directory : Directory = Directory.new
+    property reject_directory : Directory = Directory.new
+    property blockmap_directory : Directory = Directory.new
+
+    # The parsed lumps of the map.
+    property things = [] of Things
+    property linedefs = [] of Linedefs
+    property sidedefs = [] of Sidedefs
+    property vertexes = [] of Vertexes
+    property segs = [] of Segs
+    property ssectors = [] of Ssectors
+    property nodes = [] of Nodes
+    property sectors = [] of Sectors
+    property reject : Reject = Reject.new
+    property blockmap = Blockmap.new
+
+    def initialize(@name = "")
+    end
+
     # Parses a lump of things given the directory and io.
     def self.parse_things(io : IO, directory : Directory) : Array(Things)
       # Creates a list for all things that will be parsed from the lump.
@@ -278,7 +307,6 @@ class WAD
         end
         # Iterates the index.
         reject_index += 1
-
       end
       # Returns reject.
       Reject.new(bit_array)
@@ -487,32 +515,6 @@ class WAD
       when "BLOCKMAP"
         @blockmap_directory = prop
       end
-
-      # The name of the map.
-      property name = ""
-      # The directories of all map lumps.
-      property things_directory : Directory = Directory.new
-      property linedefs_directory : Directory = Directory.new
-      property sidedefs_directory : Directory = Directory.new
-      property vertexes_directory : Directory = Directory.new
-      property segs_directory : Directory = Directory.new
-      property ssectors_directory : Directory = Directory.new
-      property nodes_directory : Directory = Directory.new
-      property sectors_directory : Directory = Directory.new
-      property reject_directory : Directory = Directory.new
-      property blockmap_directory : Directory = Directory.new
-
-      # The parsed lumps of the map.
-      property things = [] of Things
-      property linedefs = [] of Linedefs
-      property sidedefs = [] of Sidedefs
-      property vertexes = [] of Vertexes
-      property segs = [] of Segs
-      property ssectors = [] of Ssectors
-      property nodes = [] of Nodes
-      property sectors = [] of Sectors
-      property reject : Reject = Reject.new
-      property blockmap = Blockmap.new
     end
   end
 end

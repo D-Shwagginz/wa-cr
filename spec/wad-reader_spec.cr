@@ -103,4 +103,24 @@ describe WAD do
     mywad.maps.find! { |m| m.name == "E2M5" }.blockmap.blocklists[5].linedefs_in_block[1].should eq 480
     mywad.maps.find! { |m| m.name == "E3M1" }.blockmap.blocklists[8].linedefs_in_block[2].should eq 1
   end
+
+  it "should properly set pc sounds" do
+    mywad = WAD.read("./rsrc/DOOM.WAD")
+
+    mywad.pcsounds.find! { |m| m.name == "DPSAWIDL" }.samples[3].should eq 63
+    mywad.pcsounds.find! { |m| m.name == "DPDOROPN" }.samples[23].should eq 24
+    mywad.pcsounds.find! { |m| m.name == "DPSTNMOV" }.format_num.should eq 0
+    mywad.pcsounds.find! { |m| m.name == "DPSWTCHX" }.samples_num.should eq 8
+    mywad.pcsounds.find! { |m| m.name == "DPSLOP" }.samples[19].should eq 12
+  end
+
+  it "should properly set sounds" do
+    mywad = WAD.read("./rsrc/DOOM.WAD")
+
+    mywad.sounds.find! { |m| m.name == "DSSHOTGN" }.format_num.should eq 3
+    mywad.sounds.find! { |m| m.name == "DSSAWIDL" }.sample_rate.should eq 11025
+    mywad.sounds.find! { |m| m.name == "DSRLAUNC" }.samples_num.should eq 15483
+    mywad.sounds.find! { |m| m.name == "DSSWTCHX" }.samples[0].should eq 126
+    mywad.sounds.find! { |m| m.name == "DSSLOP" }.samples[11].should eq 129
+  end
 end

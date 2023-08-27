@@ -12,6 +12,8 @@ targets:
 dependencies:
   raylib-cr:
     github: sol-vin/raylib-cr
+  debug:
+    github: Sija/debug.cr
         
 
 crystal: 1.8.1

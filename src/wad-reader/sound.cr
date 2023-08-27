@@ -47,7 +47,7 @@ class WAD
       sound.samples_num = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
 
       # Bleeds the pad bytes out.
-      (PAD_BYTES+2).times do
+      (PAD_BYTES + 2).times do
         io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
       end
 
@@ -66,6 +66,13 @@ class WAD
     end
 
     # Exports to wav given an *io*.
+    #
+    # Example: Makes a 'wav' file from *MYWAD* sound with name "DSPISTOL"
+    # ```
+    # File.read(FilePath) do |io|
+    #   MYWAD.sounds.find! { |m| m.name == "DSPISTOL" }.to_wav(io)
+    # end
+    # ```
     def to_wav(io : IO)
       io << "RIFF"
       # Size of the overall file - 8 bytes, in bytes (32-bit integer).

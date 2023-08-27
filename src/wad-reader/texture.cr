@@ -1,0 +1,2 @@
+class WAD
+end

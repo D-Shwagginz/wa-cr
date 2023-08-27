@@ -203,4 +203,16 @@ describe WAD do
     mywad.playpal.pallets[13].colors[171].g.should eq 167
     mywad.playpal.pallets[13].colors[255].b.should eq 94
   end
+
+  it "should properly set the colormap" do
+    mywad = WAD.read("./rsrc/DOOM.WAD")
+
+    mywad.colormap.tables[0].table[0].should eq 0
+    mywad.colormap.tables[0].table[208].should eq 4
+    mywad.colormap.tables[0].table[255].should eq 255
+    mywad.colormap.tables[1].table[88].should eq 89
+    mywad.colormap.tables[2].table[3].should eq 105
+    mywad.colormap.tables[33].table[255].should eq 0
+    mywad.colormap.tables[33].table[255].should eq 0
+  end
 end

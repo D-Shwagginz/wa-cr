@@ -22,6 +22,8 @@ class WAD
   property dmxgus : Dmxgus = Dmxgus.new
   # Playpal
   property playpal : Playpal = Playpal.new
+  # Colormap
+  property colormap : Colormap = Colormap.new
   # Array of all directories in the WAD.
   property directories = [] of Directory
 
@@ -167,9 +169,17 @@ class WAD
             end
           end
 
+          # Parses playpal if *directory.name* is "PLAYPAL"
           if Playpal.is_playpal?(directory.name)
             file.read_at(directory.file_pos, directory.size) do |io|
               wad.playpal = Playpal.parse(io)
+            end
+          end
+
+          # Parses colormap if *directory.name* is "COLORMAP"
+          if Colormap.is_colormap?(directory.name)
+            file.read_at(directory.file_pos, directory.size) do |io|
+              wad.colormap = Colormap.parse(io)
             end
           end
 

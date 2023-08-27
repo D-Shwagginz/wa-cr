@@ -7,4 +7,4 @@ require "debug"
   Debug.enabled = true
 {% end %}
 
-# mywad = WAD.read("./rsrc/DOOM.WAD")
+mywad = WAD.read("./rsrc/DOOM.WAD")

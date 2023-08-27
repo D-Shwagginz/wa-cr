@@ -40,4 +40,34 @@ class WAD
       !!(name =~ /^PLAYPAL/)
     end
   end
+
+  # The color map
+  class Colormap
+    property tables = [] of Table
+
+    # A colormap containing it's table's data
+    struct Table
+      property table = [] of UInt8
+    end
+
+    def self.parse(io)
+      colormap = Colormap.new
+      amount_of_tables = 34
+      length_of_table = 256
+
+      amount_of_tables.times do
+        table = Table.new
+        length_of_table.times do
+          table.table << io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+        end
+        colormap.tables << table
+      end
+      colormap
+    end
+
+    # Checks to see if *name* is "COLORMAP"
+    def self.is_colormap?(name)
+      !!(name =~ /^COLORMAP/)
+    end
+  end
 end

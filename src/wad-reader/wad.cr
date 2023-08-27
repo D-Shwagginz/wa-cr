@@ -16,6 +16,8 @@ class WAD
   property sounds = [] of Sound
   # Array of music
   property music = [] of Music
+  # Genmidi
+  property genmidi : Genmidi = Genmidi.new
   # Array of all directories in the WAD.
   property directories = [] of Directory
 
@@ -144,6 +146,13 @@ class WAD
           if Music.is_music?(directory.name)
             file.read_at(directory.file_pos, directory.size) do |io|
               wad.music << Music.parse(io, directory.name)
+            end
+          end
+
+          # Parses genmidi if *directory.name* is "GENMIDI"
+          if Genmidi.is_genmidi?(directory.name)
+            file.read_at(directory.file_pos, directory.size) do |io|
+              wad.genmidi = Genmidi.parse(io)
             end
           end
 

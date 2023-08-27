@@ -28,7 +28,7 @@ class WAD
       io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
 
       # Reads in the instruments.
-      music.instr_cnt.times do 
+      music.instr_cnt.times do
         music.instruments << io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
       end
 
@@ -44,6 +44,46 @@ class WAD
   # "Instrument data for the DMX sound library to use for OPL synthesis".
   class Genmidi
     property header = ""
+    property instr_datas = [] of InstrumentData
+
+    # "The header is followed by 175 36-byte records of instrument data".
+    struct InstrumentData
+      property header = [] of Int8 | Int16
+      property voice1_data = [] of Int8 | Int16
+      property voice2_data = [] of Int8 | Int16
+    end
+
+    def self.parse(io)
+      genmidi = Genmidi.new
+      # Reads the file header
+      genmidi.header = io.gets(8).to_s.gsub("\u0000", "")
+
+      instrument_data_records_count = 175
+
+      instrument_data_records_count.times do
+        instr_data = InstrumentData.new
+
+        # Reads instrument data's header
+        instr_data.header << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        instr_data.header << io.read_bytes(Int8, IO::ByteFormat::LittleEndian)
+        instr_data.header << io.read_bytes(Int8, IO::ByteFormat::LittleEndian)
+        # Reads instrument data's first voice's data
+        # First 14 bytes are all 1 byte in size
+        14.times do
+          instr_data.voice1_data << io.read_bytes(Int8, IO::ByteFormat::LittleEndian)
+        end
+        instr_data.voice1_data << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        # reads instrument data's second voice's data
+        # First 14 bytes are all 1 byte in size
+        14.times do
+          instr_data.voice2_data << io.read_bytes(Int8, IO::ByteFormat::LittleEndian)
+        end
+        instr_data.voice2_data << io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+
+        genmidi.instr_datas << instr_data
+      end
+      genmidi
+    end
 
     def self.is_genmidi?(name)
       !!(name =~ /^GENMIDI/)

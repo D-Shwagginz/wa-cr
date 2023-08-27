@@ -159,14 +159,22 @@ describe WAD do
     File.delete("./rsrc/spectest.wav")
   end
 
-  it "should properly read music file" do 
+  it "should properly read music file" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
-    puts mywad.music.find! { |m| m.name == "D_E1M5" }.identifier.should eq "MUS\u001A"
-    puts mywad.music.find! { |m| m.name == "D_E3M2" }.identifier.should eq "MUS\u001A"
-    puts mywad.music.find! { |m| m.name == "D_E2M8" }.score_len.should eq 45988
-    puts mywad.music.find! { |m| m.name == "D_BUNNY" }.score_start.should eq 50
-    puts mywad.music.find! { |m| m.name == "D_E2M1" }.channels.should eq 6
+    mywad.music.find! { |m| m.name == "D_E1M5" }.identifier.should eq "MUS\u001A"
+    mywad.music.find! { |m| m.name == "D_E3M2" }.identifier.should eq "MUS\u001A"
+    mywad.music.find! { |m| m.name == "D_E2M8" }.score_len.should eq 45988
+    mywad.music.find! { |m| m.name == "D_BUNNY" }.score_start.should eq 50
+    mywad.music.find! { |m| m.name == "D_E2M1" }.channels.should eq 6
+  end
 
+  it "should properly set the genmidi" do
+    mywad = WAD.read("./rsrc/DOOM.WAD")
+
+    mywad.genmidi.header.should eq "#OPL_II#"
+    mywad.genmidi.instr_datas[0].header[0].should eq 0
+    mywad.genmidi.instr_datas[27].voice1_data[2].should eq 50
+    mywad.genmidi.instr_datas[172].voice2_data[-1].should eq 0
   end
 end

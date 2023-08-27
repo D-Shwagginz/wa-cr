@@ -129,11 +129,20 @@ class WAD
             end
             map_parse(blockmap)
 
-            #
+            # Pushes map onto the list of maps
             wad.maps << map
           end
 
           if PcSound.is_pcsound?(directory.name)
+            file.read_at(directory.file_pos, directory.size) do |io|
+              wad.pcsounds << PcSound.parse(io)
+            end
+          end
+
+          if Sound.is_sound?(directory.name)
+            file.read_at(directory.file_pos, directory.size) do |io|
+              wad.sounds << Sound.parse(io)
+            end
           end
 
           # Iterates the directory index.

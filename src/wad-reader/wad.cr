@@ -135,13 +135,13 @@ class WAD
 
           if PcSound.is_pcsound?(directory.name)
             file.read_at(directory.file_pos, directory.size) do |io|
-              wad.pcsounds << PcSound.parse(io)
+              wad.pcsounds << PcSound.parse(io, directory.name)
             end
           end
 
           if Sound.is_sound?(directory.name)
             file.read_at(directory.file_pos, directory.size) do |io|
-              wad.sounds << Sound.parse(io)
+              wad.sounds << Sound.parse(io, directory.name)
             end
           end
 

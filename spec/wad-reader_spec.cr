@@ -158,4 +158,15 @@ describe WAD do
     File.exists?("./rsrc/spectest.wav").should be_true
     File.delete("./rsrc/spectest.wav")
   end
+
+  it "should properly read music file" do 
+    mywad = WAD.read("./rsrc/DOOM.WAD")
+
+    puts mywad.music.find! { |m| m.name == "D_E1M5" }.identifier.should eq "MUS\u001A"
+    puts mywad.music.find! { |m| m.name == "D_E3M2" }.identifier.should eq "MUS\u001A"
+    puts mywad.music.find! { |m| m.name == "D_E2M8" }.score_len.should eq 45988
+    puts mywad.music.find! { |m| m.name == "D_BUNNY" }.score_start.should eq 50
+    puts mywad.music.find! { |m| m.name == "D_E2M1" }.channels.should eq 6
+
+  end
 end

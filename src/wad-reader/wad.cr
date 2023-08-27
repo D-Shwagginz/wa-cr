@@ -1,12 +1,3 @@
-require "bit_array"
-require "./directory"
-require "./map"
-require "debug"
-
-{% if flag?(:debug) %}
-  Debug.enabled = true
-{% end %}
-
 # Reads and stores the data of a WAD file.
 class WAD
   # Type of WAD: Either IWAD, PWAD, or Broken.
@@ -19,10 +10,16 @@ class WAD
   property directory_pointer = 0_u32
   # Array of maps in the WAD.
   property maps = [] of Map
-  # Array of Doom speaker sounds
+  # Array of speaker sounds
   property pcsounds = [] of PcSound
-  # Array of Doom sounds
+  # Array of sounds
   property sounds = [] of Sound
+  # Array of music
+  property music = [] of Music
+  # Genmidi
+  property genmidi : Genmidi = Genmidi.new
+  # Dmxgus
+  property dmxgus : Dmxgus = Dmxgus.new
   # Array of all directories in the WAD.
   property directories = [] of Directory
 
@@ -133,15 +130,38 @@ class WAD
             wad.maps << map
           end
 
+          # Parses pc sound if *directory.name* is of format 'DPx..x'
           if PcSound.is_pcsound?(directory.name)
             file.read_at(directory.file_pos, directory.size) do |io|
               wad.pcsounds << PcSound.parse(io, directory.name)
             end
           end
 
+          # Parses sound if *directory.name* is of format 'DSx..x'
           if Sound.is_sound?(directory.name)
             file.read_at(directory.file_pos, directory.size) do |io|
               wad.sounds << Sound.parse(io, directory.name)
+            end
+          end
+
+          # Parses music if *directory.name* is of format 'D_x..x'
+          if Music.is_music?(directory.name)
+            file.read_at(directory.file_pos, directory.size) do |io|
+              wad.music << Music.parse(io, directory.name)
+            end
+          end
+
+          # Parses genmidi if *directory.name* is "GENMIDI"
+          if Genmidi.is_genmidi?(directory.name)
+            file.read_at(directory.file_pos, directory.size) do |io|
+              wad.genmidi = Genmidi.parse(io)
+            end
+          end
+
+          # Parses dmxgus if *directory.name* is "DMXGUS"
+          if Dmxgus.is_dmxgus?(directory.name)
+            file.read_at(directory.file_pos, directory.size) do |io|
+              wad.dmxgus = Dmxgus.parse(io)
             end
           end
 

@@ -158,4 +158,35 @@ describe WAD do
     File.exists?("./rsrc/spectest.wav").should be_true
     File.delete("./rsrc/spectest.wav")
   end
+
+  it "should properly read music file" do
+    mywad = WAD.read("./rsrc/DOOM.WAD")
+
+    mywad.music.find! { |m| m.name == "D_E1M5" }.identifier.should eq "MUS\u001A"
+    mywad.music.find! { |m| m.name == "D_E3M2" }.identifier.should eq "MUS\u001A"
+    mywad.music.find! { |m| m.name == "D_E2M8" }.score_len.should eq 45988
+    mywad.music.find! { |m| m.name == "D_BUNNY" }.score_start.should eq 50
+    mywad.music.find! { |m| m.name == "D_E2M1" }.channels.should eq 6
+  end
+
+  it "should properly set the genmidi" do
+    mywad = WAD.read("./rsrc/DOOM.WAD")
+
+    mywad.genmidi.header.should eq "#OPL_II#"
+    mywad.genmidi.instr_datas[0].header[0].should eq 0
+    mywad.genmidi.instr_datas[27].voice1_data[2].should eq 50
+    mywad.genmidi.instr_datas[172].voice2_data[-1].should eq 0
+  end
+
+  it "should properly set the dmxgus" do
+    mywad = WAD.read("./rsrc/DOOM.WAD")
+
+    mywad.dmxgus.instr_datas[0].patch.should eq 0
+    mywad.dmxgus.instr_datas[2].c_k.should eq 1
+    mywad.dmxgus.instr_datas[5].filename.should eq "epiano2"
+    mywad.dmxgus.instr_datas[158].b_k.should eq 128
+    mywad.dmxgus.instr_datas[189].patch.should eq 215
+    mywad.dmxgus.instr_datas[50].d_k.should eq 50
+    mywad.dmxgus.instr_datas[72].a_k.should eq 73
+  end
 end

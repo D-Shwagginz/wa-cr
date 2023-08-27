@@ -1,3 +1,10 @@
 require "./wad-reader/**"
+require "raylib-cr"
+require "bit_array"
+require "debug"
 
-mywad = WAD.read("./rsrc/DOOM.WAD")
+{% if flag?(:debug) %}
+  Debug.enabled = true
+{% end %}
+
+# mywad = WAD.read("./rsrc/DOOM.WAD")

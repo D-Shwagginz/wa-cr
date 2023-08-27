@@ -20,6 +20,8 @@ class WAD
   property genmidi : Genmidi = Genmidi.new
   # Dmxgus
   property dmxgus : Dmxgus = Dmxgus.new
+  # Playpal
+  property playpal : Playpal = Playpal.new
   # Array of all directories in the WAD.
   property directories = [] of Directory
 
@@ -162,6 +164,12 @@ class WAD
           if Dmxgus.is_dmxgus?(directory.name)
             file.read_at(directory.file_pos, directory.size) do |io|
               wad.dmxgus = Dmxgus.parse(io)
+            end
+          end
+
+          if Playpal.is_playpal?(directory.name)
+            file.read_at(directory.file_pos, directory.size) do |io|
+              wad.playpal = Playpal.parse(io)
             end
           end
 

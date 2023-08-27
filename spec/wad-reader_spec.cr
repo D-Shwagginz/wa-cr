@@ -189,4 +189,18 @@ describe WAD do
     mywad.dmxgus.instr_datas[50].d_k.should eq 50
     mywad.dmxgus.instr_datas[72].a_k.should eq 73
   end
+
+  it "should properly set the playpal" do
+    mywad = WAD.read("./rsrc/DOOM.WAD")
+
+    mywad.playpal.pallets[0].colors[0].r.should eq 0
+    mywad.playpal.pallets[0].colors[0].g.should eq 0
+    mywad.playpal.pallets[0].colors[0].b.should eq 0
+    mywad.playpal.pallets[3].colors[119].g.should eq 98
+    mywad.playpal.pallets[5].colors[255].r.should eq 215
+    mywad.playpal.pallets[6].colors[75].b.should eq 11
+    mywad.playpal.pallets[13].colors[86].r.should eq 175
+    mywad.playpal.pallets[13].colors[171].g.should eq 167
+    mywad.playpal.pallets[13].colors[255].b.should eq 94
+  end
 end

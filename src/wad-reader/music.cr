@@ -85,6 +85,7 @@ class WAD
       genmidi
     end
 
+    # Checks to see if *name* is "GENMIDI"
     def self.is_genmidi?(name)
       !!(name =~ /^GENMIDI/)
     end
@@ -128,6 +129,7 @@ class WAD
       dmxgus
     end
 
+    # Checks to see if *name* is "DMXGUS"
     def self.is_dmxgus?(name)
       !!(name =~ /^DMXGUS/)
     end

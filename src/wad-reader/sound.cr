@@ -65,7 +65,7 @@ class WAD
       !!(name =~ /^DS/)
     end
 
-    # Exports to wav given an *io*
+    # Exports to wav given an *io*.
     def to_wav(io : IO)
       io << "RIFF"
       # Size of the overall file - 8 bytes, in bytes (32-bit integer).

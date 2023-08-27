@@ -92,6 +92,42 @@ class WAD
 
   # "Instrument data for the DMX sound library to use for Gravis Ultrasound soundcards".
   class Dmxgus
+    property instr_datas = [] of InstrumentData
+
+    struct InstrumentData
+      property patch = 0
+      # a = 256, b = 512, c = 768, d = 1024
+      property a_k = 0
+      property b_k = 0
+      property c_k = 0
+      property d_k = 0
+      property filename = ""
+    end
+
+    def self.parse(io)
+      dmxgus = Dmxgus.new
+      # Reads each line of the dmxgus
+      # NOTE: dmxgus is a text file
+      io.gets_to_end.each_line do |line|
+        if line.char_at(0) != '#'
+          instr_data = InstrumentData.new
+
+          split_line = line.split(',')
+
+          instr_data.patch = split_line[0].to_i
+          instr_data.a_k = split_line[1].to_i
+          instr_data.b_k = split_line[2].to_i
+          instr_data.c_k = split_line[3].to_i
+          instr_data.d_k = split_line[4].to_i
+          instr_data.filename = split_line[5]
+
+          dmxgus.instr_datas << instr_data
+        end
+      end
+
+      dmxgus
+    end
+
     def self.is_dmxgus?(name)
       !!(name =~ /^DMXGUS/)
     end

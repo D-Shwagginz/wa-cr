@@ -18,6 +18,8 @@ class WAD
   property music = [] of Music
   # Genmidi
   property genmidi : Genmidi = Genmidi.new
+  # Dmxgus
+  property dmxgus : Dmxgus = Dmxgus.new
   # Array of all directories in the WAD.
   property directories = [] of Directory
 
@@ -153,6 +155,13 @@ class WAD
           if Genmidi.is_genmidi?(directory.name)
             file.read_at(directory.file_pos, directory.size) do |io|
               wad.genmidi = Genmidi.parse(io)
+            end
+          end
+
+          # Parses dmxgus if *directory.name* is "DMXGUS"
+          if Dmxgus.is_dmxgus?(directory.name)
+            file.read_at(directory.file_pos, directory.size) do |io|
+              wad.dmxgus = Dmxgus.parse(io)
             end
           end
 

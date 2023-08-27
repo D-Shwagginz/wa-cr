@@ -43,6 +43,8 @@ class WAD
 
   # "Instrument data for the DMX sound library to use for OPL synthesis".
   class Genmidi
+    property
+
     def self.is_genmidi?(name)
       !!(name =~ /^GENMIDI/)
     end

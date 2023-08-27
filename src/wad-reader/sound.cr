@@ -1,5 +1,6 @@
 # Intends to overload the WAD class.
 class WAD
+  # A pc speaker sound effect.
   class PcSound
     SAMPLE_RATE = 140
     property name = ""
@@ -7,7 +8,7 @@ class WAD
     property samples_num = 0_u16
     property samples = [] of UInt8
 
-    # Parses a pc sound lump
+    # Parses a pc sound lump.
     def self.parse(io, name = "")
       pcsound = PcSound.new
       pcsound.name = name
@@ -29,6 +30,7 @@ class WAD
     end
   end
 
+  # A normal sound effect.
   class Sound
     PAD_BYTES = 18
     property name = ""
@@ -37,7 +39,7 @@ class WAD
     property samples_num = 0_u16
     property samples = [] of UInt8
 
-    # Parses a sound lump
+    # Parses a sound lump.
     def self.parse(io, name = "")
       sound = Sound.new
       sound.name = name
@@ -45,7 +47,7 @@ class WAD
       sound.sample_rate = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
       sound.samples_num = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
 
-      # Bleeds the pad bytes out
+      # Bleeds the pad bytes out.
       PAD_BYTES.times do
         io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
       end

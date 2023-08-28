@@ -24,6 +24,8 @@ class WAD
   property playpal : Playpal = Playpal.new
   # Colormap
   property colormap : Colormap = Colormap.new
+  # The texture maps
+  property texmaps = [] of TextureX
   # Array of all directories in the WAD.
   property directories = [] of Directory
 
@@ -106,8 +108,11 @@ class WAD
                 # Checks if it has reached the end of the map's lumps
                 # By seeing if the *directory.name* is a map, showing
                 # it reached the next map.
-                if Map.is_map?(directory.name) || !Map::MAP_CONTENTS.includes?(directory.name)
+                if Map.is_map?(directory.name)
                   d_index -= 1
+                  map_directory_end_reached = true
+                  break
+                elsif !Map::MAP_CONTENTS.includes?(directory.name)
                   map_directory_end_reached = true
                   break
                 end
@@ -180,6 +185,13 @@ class WAD
           if Colormap.is_colormap?(directory.name)
             file.read_at(directory.file_pos, directory.size) do |io|
               wad.colormap = Colormap.parse(io)
+            end
+          end
+
+          # Parses texture map if *directory.name* is "TEXTUREx"
+          if TextureX.is_texturex?(directory.name)
+            file.read_at(directory.file_pos, directory.size) do |io|
+              wad.texmaps << TextureX.parse(io)
             end
           end
 

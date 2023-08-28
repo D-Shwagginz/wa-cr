@@ -49,6 +49,7 @@ class WAD
     # "The header is followed by 175 36-byte records of instrument data".
     struct InstrumentData
       property header = [] of Int8 | Int16
+      # TODO: Create actual voice data struct
       property voice1_data = [] of Int8 | Int16
       property voice2_data = [] of Int8 | Int16
     end

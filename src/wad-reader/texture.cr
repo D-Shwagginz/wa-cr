@@ -71,6 +71,36 @@ class WAD
     end
   end
 
+  # "The colorful screen shown when Doom exits."
+  class EnDoom
+    property characters = [] of EnDoomChars
+
+    struct EnDoomChars
+      property ascii_value = 0_u8
+      property color = 0_u8
+    end
+
+    def self.parse(io)
+      endoom = EnDoom.new
+      num_of_chars = 2000
+
+      num_of_chars.times do
+        endoomchar = EnDoomChars.new
+
+        endoomchar.ascii_value = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+        endoomchar.color = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+
+        endoom.characters << endoomchar
+      end
+      endoom
+    end
+
+    # Checks to see if *name* is "ENDDOOM"
+    def self.is_texturex?(name)
+      !!(name =~ /^ENDOOM/)
+    end
+  end
+
   # Defines how wall patches from the WAD file should combine to form wall textures.
   class TextureX
     property numtextures = 0_i32
@@ -117,13 +147,13 @@ class WAD
 
         texturemap.patchcount.times do
           patch = Patch.new
-          
+
           patch.originx = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           patch.originy = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           patch.patch = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           patch.stepdir = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           patch.colormap = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-          
+
           texturemap.patches << patch
         end
         texturex.mtextures << texturemap

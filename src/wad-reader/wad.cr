@@ -24,6 +24,8 @@ class WAD
   property playpal : Playpal = Playpal.new
   # Colormap
   property colormap : Colormap = Colormap.new
+  # Endoom
+  property endoom : EnDoom = EnDoom.new
   # The texture maps
   property texmaps = [] of TextureX
   # Array of all directories in the WAD.
@@ -192,6 +194,13 @@ class WAD
           if TextureX.is_texturex?(directory.name)
             file.read_at(directory.file_pos, directory.size) do |io|
               wad.texmaps << TextureX.parse(io)
+            end
+          end
+
+          # Parses EnDoom if *directory.name* is "ENDOOM"
+          if EnDoom.is_texturex?(directory.name)
+            file.read_at(directory.file_pos, directory.size) do |io|
+              wad.endoom = EnDoom.parse(io)
             end
           end
 

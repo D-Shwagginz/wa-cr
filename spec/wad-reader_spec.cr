@@ -233,4 +233,16 @@ describe WAD do
     mywad.texmaps[1].mtextures[0].height.should eq 128
     mywad.texmaps[1].mtextures[0].patches[0].originx.should eq 0
   end
+
+  it "should properly set the EnDoom" do
+    mywad = WAD.read("./rsrc/DOOM.WAD")
+
+    mywad.endoom.characters[0].ascii_value.should eq 32
+    mywad.endoom.characters[0].color.should eq 14
+    mywad.endoom.characters[1].ascii_value.should eq 32
+    mywad.endoom.characters[1].color.should eq 15
+    mywad.endoom.characters[-1].ascii_value.should eq 32
+    mywad.endoom.characters[-1].color.should eq 7
+
+  end
 end

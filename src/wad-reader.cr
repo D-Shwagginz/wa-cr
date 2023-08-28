@@ -7,5 +7,4 @@ require "debug"
   Debug.enabled = true
 {% end %}
 
-mywad = WAD.read("./rsrc/DOOM.WAD")
-# puts mywad.graphics[0].name
+# mywad = WAD.read("./rsrc/DOOM.WAD")

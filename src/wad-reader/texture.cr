@@ -2,10 +2,10 @@
 class WAD
   # The set of color palettes
   class Playpal
-    property pallets = [] of Pallet
+    property palettes = [] of Palette
 
-    # A color pallet
-    struct Pallet
+    # A color palette
+    class Palette
       property colors = [] of Color
     end
 
@@ -22,15 +22,15 @@ class WAD
       amount_of_palettes = 14
 
       amount_of_palettes.times do
-        pallet = Pallet.new
+        palette = Palette.new
         (colors_per_palette).to_i.times do
           color = Color.new
           color.r = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
           color.g = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
           color.b = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
-          pallet.colors << color
+          palette.colors << color
         end
-        playpal.pallets << pallet
+        playpal.palettes << palette
       end
       playpal
     end
@@ -46,7 +46,7 @@ class WAD
     property tables = [] of Table
 
     # A colormap containing it's table's data
-    struct Table
+    class Table
       property table = [] of UInt8
     end
 
@@ -108,7 +108,7 @@ class WAD
     property mtextures = [] of TextureMap
 
     # "The binary contents of the maptexture_t structure starts with a header of 22 bytes, followed by all the map patches."
-    struct TextureMap
+    class TextureMap
       property name = ""
       property masked : Bool = false
       property width = 0_i16
@@ -191,37 +191,37 @@ class WAD
 
   # A WAD graphic
   class Graphic
-    property name = ""
-    property width = 0_u16
-    property height = 0_u16
-    property leftoffset = 0_i16
-    property rightoffset = 0_i16
-    property columnoffsets = [] of UInt32
-    property columns = [] of Column
-    property predicted_size = 0
+    property name : String = ""
+    property width : UInt16 = 0_u16
+    property height : UInt16 = 0_u16
+    property leftoffset : Int16 = 0_i16
+    property rightoffset : Int16 = 0_i16
+    property columnoffsets : Array(UInt32) = [] of UInt32
+    property columns : Array(Column) = [] of Column
+    property predicted_size : UInt32 = 0_u32
 
-    struct Column
-      property posts = [] of Post
+    class Column
+      property posts : Array(Post) = [] of Post
     end
 
     # A column of pixel data
-    struct Post
-      property topdelta = 0_u8
-      property length = 0_u8
-      property data = [] of UInt8
-      property row_column_data = [] of Row_column_pixel
+    class Post
+      property topdelta : UInt8 = 0_u8
+      property length : UInt8 = 0_u8
+      property data : Array(UInt8) = [] of UInt8
+      property row_column_data : Array(RowColumnPixel) = [] of RowColumnPixel
     end
 
-    struct Row_column_pixel
-      property pixel = 0_u8
-      property row = 0
-      property column = 0
+    struct RowColumnPixel
+      property pixel : UInt8 = 0_u8
+      property row : UInt32 = 0_u32
+      property column : UInt32 = 0_u32
     end
 
     def self.parse(file, directory)
       begin
         graphic = Graphic.new
-        graphic.name = name
+        graphic.name = directory.name
 
         file.read_at(directory.file_pos, directory.size) do |io|
           graphic.width = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
@@ -241,34 +241,52 @@ class WAD
 
               loop do
                 rowstart = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
-                puts rowstart if rowstart == 255
-
-                break if rowstart == 255
                 post = Post.new
                 post.topdelta = rowstart
-                post.length = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
-                dummy = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+                break if rowstart == 255
 
-                post.length.times do |j|
-                  # pixel = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
-                  # post.data << pixel
-                  # row_column_pixel = Row_column_pixel.new
-                  # row_column_pixel.pixel = pixel
-                  # row_column_pixel.row = j + rowstart
-                  # row_column_pixel.column = i
-                  # column.posts << post
-                end
+                post.length = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+                graphic.predicted_size += post.length.to_u32 + 4.to_u32
+                dummy = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+                # break if dummy == 255
+                # post.length.times do |j|
+                #   pixel = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+                #   post.data << pixel
+                #   row_column_pixel = RowColumnPixel.new
+                #   row_column_pixel.pixel = pixel
+                #   row_column_pixel.row = j + rowstart
+                #   row_column_pixel.column = i
+                #   column.posts << post
+                # end
+
+                pixel_parse(i, column, post, io)
+                dummy = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
               end
               graphic.columns << column
             end
           end
         end
+        # puts directory.name
+        # puts graphic.predicted_size
+        # puts directory.size
         return graphic
       rescue e : IO::EOFError
         return nil
       rescue e : ArgumentError
         return nil
       end
+    end
+
+    def self.pixel_parse(pixel_column, column, post, io)
+      post.length.times do |j|
+        pixel = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+        post.data << pixel
+        row_column_pixel = RowColumnPixel.new
+        row_column_pixel.pixel = pixel
+        row_column_pixel.row = j.to_u32 + post.topdelta.to_u32
+        row_column_pixel.column = pixel_column
+      end
+      column.posts << post
     end
 
     # Checks to see if *name* is "S_START".

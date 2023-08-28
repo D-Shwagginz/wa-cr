@@ -8,3 +8,4 @@ require "debug"
 {% end %}
 
 mywad = WAD.read("./rsrc/DOOM.WAD")
+# puts mywad.graphics[0].name

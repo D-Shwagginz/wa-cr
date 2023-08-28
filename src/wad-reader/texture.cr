@@ -166,4 +166,143 @@ class WAD
       !!(name =~ /^TEXTURE\d/)
     end
   end
+
+  # Includes all the names for wall patches.
+  class Pnames
+    property num_patches = 0_i32
+    property patches = [] of String
+
+    def self.parse(io)
+      pnames = Pnames.new
+
+      pnames.num_patches = io.read_bytes(Int32, IO::ByteFormat::LittleEndian)
+
+      pnames.num_patches.times do
+        pnames.patches << io.gets(8).to_s.gsub("\u0000", "")
+      end
+      pnames
+    end
+
+    # Checks to see if *name* is "PNAMES"
+    def self.is_pnames?(name)
+      !!(name =~ /^PNAMES/)
+    end
+  end
+
+  # A WAD graphic
+  class Graphic
+    property name = ""
+    property width = 0_u16
+    property height = 0_u16
+    property leftoffset = 0_i16
+    property rightoffset = 0_i16
+    property columnoffsets = [] of UInt32
+    property columns = [] of Column
+    property predicted_size = 0
+
+    struct Column
+      property posts = [] of Post
+    end
+
+    # A column of pixel data
+    struct Post
+      property topdelta = 0_u8
+      property length = 0_u8
+      property data = [] of UInt8
+      property row_column_data = [] of Row_column_pixel
+    end
+
+    struct Row_column_pixel
+      property pixel = 0_u8
+      property row = 0
+      property column = 0
+    end
+
+    def self.parse(file, directory)
+      begin
+        graphic = Graphic.new
+        graphic.name = name
+
+        file.read_at(directory.file_pos, directory.size) do |io|
+          graphic.width = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
+          graphic.height = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
+          graphic.leftoffset = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+          graphic.rightoffset = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+
+          graphic.width.times do
+            graphic.columnoffsets << io.read_bytes(UInt32, IO::ByteFormat::LittleEndian)
+          end
+          graphic.predicted_size += (graphic.width*4) + 8
+
+          graphic.width.times do |i|
+            file.read_at(directory.file_pos + graphic.columnoffsets[i], directory.size) do |io|
+              rowstart = 0
+              column = Column.new
+
+              loop do
+                rowstart = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+                puts rowstart if rowstart == 255
+
+                break if rowstart == 255
+                post = Post.new
+                post.topdelta = rowstart
+                post.length = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+                dummy = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+
+                post.length.times do |j|
+                  # pixel = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+                  # post.data << pixel
+                  # row_column_pixel = Row_column_pixel.new
+                  # row_column_pixel.pixel = pixel
+                  # row_column_pixel.row = j + rowstart
+                  # row_column_pixel.column = i
+                  # column.posts << post
+                end
+              end
+              graphic.columns << column
+            end
+          end
+        end
+        return graphic
+      rescue e : IO::EOFError
+        return nil
+      rescue e : ArgumentError
+        return nil
+      end
+    end
+
+    # Checks to see if *name* is "S_START".
+    def self.is_sprite_mark_start?(name)
+      name =~ /^S_START/
+    end
+
+    # Checks to see if *name* is "S_END".
+    def self.is_sprite_mark_end?(name)
+      name =~ /^S_END/
+    end
+  end
+
+  class Flat
+    property colors = [] of UInt8
+
+    def self.parse(io)
+      flat = Flat.new
+      lump_bytes = 4096
+
+      lump_bytes.times do
+        flat.color << io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+      end
+      flat
+    end
+
+    # Checks to see if *name* is "F_START".
+    def self.is_flat_mark_start?(name)
+      name =~ /^F_START/
+    end
+
+    # Checks to see if *name* is "F_END".
+    def self.is_flat_mark_end?(name)
+      name =~ /^F_END/
+    end
+  end
 end

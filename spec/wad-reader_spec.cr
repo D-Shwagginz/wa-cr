@@ -243,6 +243,19 @@ describe WAD do
     mywad.endoom.characters[1].color.should eq 15
     mywad.endoom.characters[-1].ascii_value.should eq 32
     mywad.endoom.characters[-1].color.should eq 7
+  end
 
+  it "should properly set the Pnames" do
+    mywad = WAD.read("./rsrc/DOOM.WAD")
+
+    mywad.pnames.num_patches.should eq 350
+    mywad.pnames.patches[0].should eq "WALL00_3"
+    mywad.pnames.patches[111].should eq "WALL57_4"
+    mywad.pnames.patches[219].should eq "PS18A0"
+    mywad.pnames.patches[349].should eq "SW2_4"
+  end
+
+  it "should properly set the graphics" do
+    mywad = WAD.read("./rsrc/DOOM.WAD")
   end
 end

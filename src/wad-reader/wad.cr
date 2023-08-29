@@ -20,6 +20,22 @@ class WAD
   property genmidi : Genmidi = Genmidi.new
   # Dmxgus
   property dmxgus : Dmxgus = Dmxgus.new
+  # Playpal
+  property playpal : Playpal = Playpal.new
+  # Colormap
+  property colormap : Colormap = Colormap.new
+  # Endoom
+  property endoom : EnDoom = EnDoom.new
+  # The texture maps
+  property texmaps = [] of TextureX
+  # Pnames
+  property pnames : Pnames = Pnames.new
+  # Graphics and patches
+  property graphics = [] of Graphic
+  # Sprites
+  property sprites = [] of Graphic
+  # Flats
+  property flats = [] of Flat
   # Array of all directories in the WAD.
   property directories = [] of Directory
 
@@ -102,8 +118,11 @@ class WAD
                 # Checks if it has reached the end of the map's lumps
                 # By seeing if the *directory.name* is a map, showing
                 # it reached the next map.
-                if Map.is_map?(directory.name) || !Map::MAP_CONTENTS.includes?(directory.name)
+                if Map.is_map?(directory.name)
                   d_index -= 1
+                  map_directory_end_reached = true
+                  break
+                elsif !Map::MAP_CONTENTS.includes?(directory.name)
                   map_directory_end_reached = true
                   break
                 end
@@ -163,6 +182,111 @@ class WAD
             file.read_at(directory.file_pos, directory.size) do |io|
               wad.dmxgus = Dmxgus.parse(io)
             end
+          end
+
+          # Parses playpal if *directory.name* is "PLAYPAL"
+          if Playpal.is_playpal?(directory.name)
+            file.read_at(directory.file_pos, directory.size) do |io|
+              wad.playpal = Playpal.parse(io)
+            end
+          end
+
+          # Parses colormap if *directory.name* is "COLORMAP"
+          if Colormap.is_colormap?(directory.name)
+            file.read_at(directory.file_pos, directory.size) do |io|
+              wad.colormap = Colormap.parse(io)
+            end
+          end
+
+          # Parses texture map if *directory.name* is "TEXTUREx"
+          if TextureX.is_texturex?(directory.name)
+            file.read_at(directory.file_pos, directory.size) do |io|
+              wad.texmaps << TextureX.parse(io)
+            end
+          end
+
+          # Parses EnDoom if *directory.name* is "ENDOOM"
+          if EnDoom.is_texturex?(directory.name)
+            file.read_at(directory.file_pos, directory.size) do |io|
+              wad.endoom = EnDoom.parse(io)
+            end
+          end
+
+          # Parses Pnames if *directory.name* is "PNAMES"
+          if Pnames.is_pnames?(directory.name)
+            file.read_at(directory.file_pos, directory.size) do |io|
+              wad.pnames = Pnames.parse(io)
+            end
+          end
+
+          # Parses sprites if *directory.name* is "S_START".
+          if Graphic.is_sprite_mark_start?(directory.name)
+            # Creates a variable to show that the directory has ended.
+            # and runs until the end has been reached.
+            sprite_directory_end_reached = false
+            until (sprite_directory_end_reached)
+              # Iterates the directory index.
+              d_index += 1
+              # The start of the directory.
+              directory_start = wad.directory_pointer + (d_index*Directory::SIZE)
+              # Breaks if the the end of the directory is greater than the end of the WAD's total directories.
+              break if directory_start + Directory::SIZE > wad.directory_pointer + (wad.directories_count*Directory::SIZE)
+              # Reads the directory at *directory_start* of *Directory::Size*.
+              file.read_at(directory_start, Directory::SIZE) do |io|
+                # Reads directory *io* and pushes it onto *wad.directories*.
+                directory = Directory.read(io)
+                # Checks if it has reached the end of the map's lumps
+                # By seeing if the *directory.name* is a map, showing
+                # it reached the next map.
+                if Graphic.is_sprite_mark_end?(directory.name)
+                  sprite_directory_end_reached = true
+                  break
+                end
+                # Parses Sprite if the size is the correct size of the lump
+                Graphic.parse(file, directory).try do |graphic|
+                  wad.sprites << graphic
+                end
+              end
+            end
+          end
+
+          # Parses flats if *directory.name* is "F_START".
+          if Flat.is_flat_mark_start?(directory.name)
+            # Creates a variable to show that the directory has ended.
+            # and runs until the end has been reached.
+            flat_directory_end_reached = false
+            until (flat_directory_end_reached)
+              # Iterates the directory index.
+              d_index += 1
+              # The start of the directory.
+              directory_start = wad.directory_pointer + (d_index*Directory::SIZE)
+              # Breaks if the the end of the directory is greater than the end of the WAD's total directories.
+              break if directory_start + Directory::SIZE > wad.directory_pointer + (wad.directories_count*Directory::SIZE)
+              # Reads the directory at *directory_start* of *Directory::Size*.
+              file.read_at(directory_start, Directory::SIZE) do |io|
+                # Reads directory *io* and pushes it onto *wad.directories*.
+                directory = Directory.read(io)
+                # Checks if it has reached the end of the map's lumps
+                # By seeing if the *directory.name* is a map, showing
+                # it reached the next map.
+                if Flat.is_flat_mark_end?(directory.name)
+                  flat_directory_end_reached = true
+                  break
+                end
+                # Parses Flat
+                file.read_at(directory.file_pos, directory.size) do |io|
+                  begin
+                    wad.flats << Flat.parse(io, directory.name)
+                  rescue e : IO::EOFError
+                  end
+                end
+              end
+            end
+          end
+
+          # Parses Graphic if the size is the correct size of the lump
+          Graphic.parse(file, directory).try do |graphic|
+            wad.graphics << graphic
           end
 
           # Iterates the directory index.

@@ -49,6 +49,7 @@ class WAD
     # "The header is followed by 175 36-byte records of instrument data".
     struct InstrumentData
       property header = [] of Int8 | Int16
+      # TODO: Create actual voice data struct
       property voice1_data = [] of Int8 | Int16
       property voice2_data = [] of Int8 | Int16
     end
@@ -85,6 +86,7 @@ class WAD
       genmidi
     end
 
+    # Checks to see if *name* is "GENMIDI"
     def self.is_genmidi?(name)
       !!(name =~ /^GENMIDI/)
     end
@@ -128,6 +130,7 @@ class WAD
       dmxgus
     end
 
+    # Checks to see if *name* is "DMXGUS"
     def self.is_dmxgus?(name)
       !!(name =~ /^DMXGUS/)
     end

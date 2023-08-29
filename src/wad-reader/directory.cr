@@ -10,7 +10,13 @@ class WAD
     property name = ""
 
     # Read an io from the WAD and convert it into a Directory.
-
+    #
+    # Example: Reads a directory from a WAD *file* with *directory_start* and *Directory::SIZE*
+    # ```
+    # file.read_at(directory_start, Directory::SIZE) do |io|
+    #   directory = Directory.read(io)
+    # end
+    # ```
     def self.read(io) : Directory
       # Creates a new directory and sets all the properties
       directory = Directory.new

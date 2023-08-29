@@ -241,10 +241,10 @@ class WAD
                 if Graphic.is_sprite_mark_end?(directory.name)
                   sprite_directory_end_reached = true
                   break
-                  # Parses Sprite if the size is the correct size of the lump
-                  Graphic.parse(file, directory).try do |graphic|
-                    wad.sprites << graphic
-                  end
+                end
+                # Parses Sprite if the size is the correct size of the lump
+                Graphic.parse(file, directory).try do |graphic|
+                  wad.sprites << graphic
                 end
               end
             end
@@ -272,9 +272,12 @@ class WAD
                 if Flat.is_flat_mark_end?(directory.name)
                   flat_directory_end_reached = true
                   break
-                  # Parses Flat
-                  file.read_at(directory.file_pos, directory.size) do |io|
-                    wad.flats << Flat.parse(io)
+                end
+                # Parses Flat
+                file.read_at(directory.file_pos, directory.size) do |io|
+                  begin 
+                  wad.flats << Flat.parse(io, directory.name)
+                  rescue e : IO::EOFError
                   end
                 end
               end

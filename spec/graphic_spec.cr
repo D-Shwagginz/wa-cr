@@ -78,10 +78,6 @@ describe WAD::Graphic do
       "RP1_1", "RP1_2", *("RP2_1".."RP2_4"), *("SW2_1".."SW2_8"), "DUCT1", "PS15A0", "PS18A0", "SKY2", "SKY3",
     ]
 
-    mywad.graphics[-(texturenamesend.size)..-1].map(&.name)
-
     (texturenamesend == mywad.graphics[-(texturenamesend.size)..-1].map(&.name)).should be_true
   end
-
-  
 end

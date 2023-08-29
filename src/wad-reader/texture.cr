@@ -303,6 +303,7 @@ class WAD
         row_column_pixel.pixel = pixel
         row_column_pixel.row = j.to_u32 + post.topdelta.to_u32
         row_column_pixel.column = pixel_column.to_u32
+        post.row_column_data << row_column_pixel
       end
       column.posts << post
     end
@@ -319,14 +320,16 @@ class WAD
   end
 
   class Flat
+    property name = ""
     property colors = [] of UInt8
 
-    def self.parse(io)
+    def self.parse(io, name)
       flat = Flat.new
+      flat.name = name
       lump_bytes = 4096
 
       lump_bytes.times do
-        flat.color << io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+        flat.colors << io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
       end
       flat
     end

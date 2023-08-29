@@ -19,13 +19,13 @@ describe WAD::Graphic do
     mywad.sprites[-1].columnoffsets[-1].should eq 0x05BE
 
     texturenamesstart = [
-      "CHGGA0", "CHGGB0", "CHGFA0", "CHGFB0", "SAWGA0", "SAWGB0", "SAWGC0"
+      "CHGGA0", "CHGGB0", "CHGFA0", "CHGFB0", "SAWGA0", "SAWGB0", "SAWGC0",
     ]
 
     (texturenamesstart == mywad.sprites[0...texturenamesstart.size].map(&.name)).should be_true
 
     texturenamesend = [
-      "PINVA0", "PINVB0", "PINVC0", "PINVD0", "FCANA0", "FCANB0", "FCANC0"
+      "PINVA0", "PINVB0", "PINVC0", "PINVD0", "FCANA0", "FCANB0", "FCANC0",
     ]
 
     (texturenamesend == mywad.sprites[-(texturenamesend.size)..-1].map(&.name)).should be_true

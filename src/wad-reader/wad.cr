@@ -275,8 +275,8 @@ class WAD
                 end
                 # Parses Flat
                 file.read_at(directory.file_pos, directory.size) do |io|
-                  begin 
-                  wad.flats << Flat.parse(io, directory.name)
+                  begin
+                    wad.flats << Flat.parse(io, directory.name)
                   rescue e : IO::EOFError
                   end
                 end

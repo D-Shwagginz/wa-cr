@@ -243,7 +243,10 @@ class WAD
                 rowstart = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
                 post = Post.new
                 post.topdelta = rowstart
-                break if rowstart == 255
+                if rowstart == 255
+                  graphic.predicted_size += 1
+                  break
+                end
 
                 post.length = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
                 graphic.predicted_size += post.length.to_u32 + 4.to_u32
@@ -262,14 +265,29 @@ class WAD
                 pixel_parse(i, column, post, io)
                 dummy = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
               end
+
               graphic.columns << column
+
+              if graphic.columns.size == graphic.width
+                begin
+                  while graphic.predicted_size < directory.size && (i = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian))
+                    if i != 0
+                      break
+                    end
+                    graphic.predicted_size += 1
+                  end
+                rescue e : IO::EOFError
+                end
+              end
             end
           end
         end
-        # puts directory.name
-        # puts graphic.predicted_size
-        # puts directory.size
-        return graphic
+
+        if directory.size == graphic.predicted_size
+          return graphic
+        else
+          return nil
+        end
       rescue e : IO::EOFError
         return nil
       rescue e : ArgumentError
@@ -284,7 +302,7 @@ class WAD
         row_column_pixel = RowColumnPixel.new
         row_column_pixel.pixel = pixel
         row_column_pixel.row = j.to_u32 + post.topdelta.to_u32
-        row_column_pixel.column = pixel_column
+        row_column_pixel.column = pixel_column.to_u32
       end
       column.posts << post
     end

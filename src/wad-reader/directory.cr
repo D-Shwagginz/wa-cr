@@ -12,7 +12,7 @@ class WAD
     # Read an io from the WAD and convert it into a Directory.
     #
     # Example: Reads a directory from a WAD *file* with *directory_start* and *Directory::SIZE*
-    # ```crystal
+    # ```
     # file.read_at(directory_start, Directory::SIZE) do |io|
     #   directory = Directory.read(io)
     # end

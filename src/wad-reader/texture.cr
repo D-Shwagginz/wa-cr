@@ -195,7 +195,7 @@ class WAD
     property width : UInt16 = 0_u16
     property height : UInt16 = 0_u16
     property leftoffset : Int16 = 0_i16
-    property rightoffset : Int16 = 0_i16
+    property topoffset : Int16 = 0_i16
     property columnoffsets : Array(UInt32) = [] of UInt32
     property columns : Array(Column) = [] of Column
     property predicted_size : UInt32 = 0_u32
@@ -227,7 +227,7 @@ class WAD
           graphic.width = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
           graphic.height = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
           graphic.leftoffset = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-          graphic.rightoffset = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+          graphic.topoffset = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
 
           graphic.width.times do
             graphic.columnoffsets << io.read_bytes(UInt32, IO::ByteFormat::LittleEndian)
@@ -317,18 +317,36 @@ class WAD
     def self.is_sprite_mark_end?(name)
       name =~ /^S_END/
     end
+
+    # Converts a graphic to a raylib image using a palette
+    def self.to_tex(graphic : Graphic, palette : Playpal::Palette) : R::Image
+      image = R.gen_image_color(graphic.width, graphic.height, R::BLANK)
+      graphic.columns.each do |column|
+        column.posts.each do |post|
+          post.row_column_data.each do |pixel|
+            palette_r = palette.colors[pixel.pixel].r
+            palette_g = palette.colors[pixel.pixel].g
+            palette_b = palette.colors[pixel.pixel].b
+            R.image_draw_pixel(pointerof(image), pixel.column, pixel.row, R::Color.new(r: palette_r, g: palette_g, b: palette_b, a: 255))
+          end
+        end
+      end
+      image
+    end
   end
 
   class Flat
     property name = ""
     property colors = [] of UInt8
+    property lump_bytes = 4096
+    property width = 64
+    property height = 64
 
     def self.parse(io, name)
       flat = Flat.new
       flat.name = name
-      lump_bytes = 4096
 
-      lump_bytes.times do
+      flat.lump_bytes.times do
         flat.colors << io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
       end
       flat
@@ -342,6 +360,20 @@ class WAD
     # Checks to see if *name* is "F_END".
     def self.is_flat_mark_end?(name)
       name =~ /^F_END/
+    end
+
+    # Converts a flat to a raylib image using a palette
+    def self.to_tex(flat : Flat, palette : Playpal::Palette) : R::Image
+      image = R.gen_image_color(flat.width, flat.height, R::BLANK)
+      flat.height.times do |y|
+        flat.width.times do |x|
+          palette_r = palette.colors[flat.colors[x + y * flat.height]].r
+          palette_g = palette.colors[flat.colors[x + y * flat.height]].g
+          palette_b = palette.colors[flat.colors[x + y * flat.height]].b
+          R.image_draw_pixel(pointerof(image), x, y, R::Color.new(r: palette_r, g: palette_g, b: palette_b, a: 255))
+        end
+      end
+      image
     end
   end
 end

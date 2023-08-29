@@ -9,5 +9,5 @@ describe WAD::Map::Nodes do
     mywad.maps.find! { |m| m.name == "E2M5" }.nodes[473].x_coord.should eq -1920
     mywad.maps.find! { |m| m.name == "E1M9" }.nodes[286].left_bound_box[3].should eq 2688
     mywad.maps.find! { |m| m.name == "E3M2" }.nodes[110].right_child.should eq 103
-  end  
+  end
 end

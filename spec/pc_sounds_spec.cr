@@ -9,5 +9,5 @@ describe WAD::PcSound do
     mywad.pcsounds.find! { |m| m.name == "DPSTNMOV" }.format_num.should eq 0
     mywad.pcsounds.find! { |m| m.name == "DPSWTCHX" }.samples_num.should eq 8
     mywad.pcsounds.find! { |m| m.name == "DPSLOP" }.samples[19].should eq 12
-  end  
+  end
 end

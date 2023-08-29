@@ -317,22 +317,6 @@ class WAD
     def self.is_sprite_mark_end?(name)
       name =~ /^S_END/
     end
-
-    # Converts a graphic to a raylib image using a palette
-    def self.to_tex(graphic : Graphic, palette : Playpal::Palette) : R::Image
-      image = R.gen_image_color(graphic.width, graphic.height, R::BLANK)
-      graphic.columns.each do |column|
-        column.posts.each do |post|
-          post.row_column_data.each do |pixel|
-            palette_r = palette.colors[pixel.pixel].r
-            palette_g = palette.colors[pixel.pixel].g
-            palette_b = palette.colors[pixel.pixel].b
-            R.image_draw_pixel(pointerof(image), pixel.column, pixel.row, R::Color.new(r: palette_r, g: palette_g, b: palette_b, a: 255))
-          end
-        end
-      end
-      image
-    end
   end
 
   class Flat
@@ -360,20 +344,6 @@ class WAD
     # Checks to see if *name* is "F_END".
     def self.is_flat_mark_end?(name)
       name =~ /^F_END/
-    end
-
-    # Converts a flat to a raylib image using a palette
-    def self.to_tex(flat : Flat, palette : Playpal::Palette) : R::Image
-      image = R.gen_image_color(flat.width, flat.height, R::BLANK)
-      flat.height.times do |y|
-        flat.width.times do |x|
-          palette_r = palette.colors[flat.colors[x + y * flat.height]].r
-          palette_g = palette.colors[flat.colors[x + y * flat.height]].g
-          palette_b = palette.colors[flat.colors[x + y * flat.height]].b
-          R.image_draw_pixel(pointerof(image), x, y, R::Color.new(r: palette_r, g: palette_g, b: palette_b, a: 255))
-        end
-      end
-      image
     end
   end
 end

@@ -1,13 +1,4 @@
 require "./wad-reader/**"
-require "raylib-cr"
-require "bit_array"
-require "debug"
-
-alias R = Raylib
-
-{% if flag?(:debug) %}
-  Debug.enabled = true
-{% end %}
 
 # mywad = WAD.read("./rsrc/DOOM.WAD")
 # graphic = mywad.graphics.find! { |m| m.name == "STFEVL0" }

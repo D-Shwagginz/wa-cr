@@ -193,7 +193,6 @@ class WAD
     property columnoffsets : Array(UInt32) = [] of UInt32
     property columns : Array(Column) = [] of Column
 
-    
     class Column
       property posts : Array(Post) = [] of Post
     end
@@ -213,7 +212,6 @@ class WAD
     end
   end
 
-
   # A WAD graphic
   class Graphic
     property name : String = ""
@@ -229,37 +227,37 @@ class WAD
       data[x + y * width]
     end
 
+    def reset_data
+      (width*height).times do
+        @data << nil
+      end
+    end
 
-    def self.parse(file, directory)
+    def self.parse(file : File, directory : Directory)
       begin
         graphic_parse = GraphicParse.new
         graphic = Graphic.new
         graphic.name = directory.name
 
-        file.read_at(directory.file_pos, directory.size) do |file|
-          graphic.width = file.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
-          graphic.height = file.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
-          graphic.leftoffset = file.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-          graphic.topoffset = file.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-
-          graphic.width.times do |x|
-            graphic.height.times do |y|
-              graphic.data << nil
-            end
-          end
+        file.read_at(directory.file_pos, directory.size) do |g_io|
+          graphic.width = g_io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
+          graphic.height = g_io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
+          graphic.leftoffset = g_io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+          graphic.topoffset = g_io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
 
           graphic.width.times do
-            graphic_parse.columnoffsets << file.read_bytes(UInt32, IO::ByteFormat::LittleEndian)
+            graphic_parse.columnoffsets << g_io.read_bytes(UInt32, IO::ByteFormat::LittleEndian)
           end
+
           graphic.file_size += (graphic.width*4) + 8
 
           graphic.width.times do |i|
-            file.read_at(directory.file_pos + graphic_parse.columnoffsets[i], directory.size) do |io|
+            file.read_at(directory.file_pos + graphic_parse.columnoffsets[i], directory.size) do |c_io|
               rowstart = 0
               column = GraphicParse::Column.new
 
               loop do
-                rowstart = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+                rowstart = c_io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
                 post = GraphicParse::Post.new
                 post.topdelta = rowstart
                 if rowstart == 255
@@ -267,10 +265,10 @@ class WAD
                   break
                 end
 
-                post.length = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+                post.length = c_io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
                 graphic.file_size += post.length.to_u32 + 4.to_u32
-                dummy = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
-                # break if dummy == 255
+                dummy = c_io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+
                 # post.length.times do |j|
                 #   pixel = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
                 #   post.data << pixel
@@ -278,18 +276,18 @@ class WAD
                 #   row_column_pixel.pixel = pixel
                 #   row_column_pixel.row = j + rowstart
                 #   row_column_pixel.column = i
-                #   column.posts << post
                 # end
+                # column.posts << post
 
-                pixel_parse(i, column, post, io)
-                dummy = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+                pixel_parse(i, column, post, c_io)
+                dummy = c_io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
               end
 
               graphic_parse.columns << column
 
               if graphic_parse.columns.size == graphic.width
                 begin
-                  while graphic.file_size < directory.size && (i = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian))
+                  while (graphic.file_size < directory.size) && (i = c_io.read_bytes(UInt8, IO::ByteFormat::LittleEndian))
                     if i != 0
                       break
                     end
@@ -300,7 +298,10 @@ class WAD
               end
             end
           end
+        end
 
+        if directory.size == graphic.file_size
+          graphic.reset_data
           graphic_parse.columns.each do |column|
             column.posts.each do |post|
               post.row_column_data.each do |pixel|
@@ -308,9 +309,6 @@ class WAD
               end
             end
           end
-        end
-
-        if directory.size == graphic.file_size
           return graphic
         else
           return nil
@@ -367,6 +365,10 @@ class WAD
     property width = 64
     property height = 64
 
+    def [](x, y)
+      color[x + y * width]
+    end
+
     def self.parse(io, name)
       flat = Flat.new
       flat.name = name
@@ -374,6 +376,7 @@ class WAD
       flat.lump_bytes.times do
         flat.colors << io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
       end
+
       flat
     end
 

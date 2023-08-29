@@ -68,7 +68,7 @@ class WAD
     # Exports to wav given an *io*.
     #
     # Example: Makes a 'wav' file from *MYWAD* sound with name "DSPISTOL"
-    # ```
+    # ```crystal
     # File.read(FilePath) do |io|
     #   MYWAD.sounds.find! { |m| m.name == "DSPISTOL" }.to_wav(io)
     # end

@@ -32,8 +32,7 @@ class WAD
 
     def initialize(@name = "")
     end
-
-    # Parses a lump of things given the directory and io.
+    
     def self.parse_things(io : IO, directory : Directory) : Array(Things)
       # Creates a list for all things that will be parsed from the lump.
       parsed_things = [] of Things

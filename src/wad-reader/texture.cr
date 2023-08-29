@@ -342,20 +342,6 @@ class WAD
     def self.is_sprite_mark_end?(name)
       name =~ /^S_END/
     end
-
-    def [](x, y) : RowColumnPixel
-      raise "Out of bounds" if x > width || y > height
-      columns.each do |column|
-        column.posts.each do |post|
-          post.row_column_data.each do |pixel|
-            if pixel.row == y && pixel.column == x
-              return pixel
-            end
-          end
-        end
-      end
-      raise "Pixel did not exist"
-    end
   end
 
   class Flat

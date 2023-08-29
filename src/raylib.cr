@@ -20,7 +20,7 @@ class WAD::Graphic
     image
   end
 
-  def [](x, y) : R::Color
+  def get_color(x, y) : R::Color
     raise "Out of bounds" if x > width || y > height
     columns.each do |column|
       column.posts.each do |post|
@@ -53,7 +53,7 @@ class WAD::Flat
     image
   end
 
-  def [](x, y) : R::Color
+  def get_color(x, y) : R::Color
     raise "Out of bounds" if x > width || y > height
     height.each do |y|
       width.each do |x|

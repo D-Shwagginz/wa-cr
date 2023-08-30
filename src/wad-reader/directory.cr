@@ -1,5 +1,6 @@
-# WAD Directory
+# Intends to overload the WAD class.
 class WAD
+  # A directory which points to a start of a lump with its size and name
   struct Directory
     SIZE = 16
     # An integer holding a pointer to the start of the lump's data in the file.

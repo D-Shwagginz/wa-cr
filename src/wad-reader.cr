@@ -1,7 +1,7 @@
 require "./wad-reader/**"
 require "./raylib"
 
-# mywad = WAD.read("./rsrc/DOOM.WAD")
+mywad = WAD.read("./rsrc/DOOM.WAD")
 # palette = mywad.playpal.palettes[0]
 # test_texture = mywad.get_texture("SUPPORT3", palette)
 

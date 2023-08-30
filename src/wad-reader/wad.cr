@@ -43,6 +43,8 @@ class WAD
   property sprites = [] of Graphic
   # Flats
   property flats = [] of Flat
+  # Demos
+  property demos = [] of Demo
   # Array of all directories in the WAD.
   property directories = [] of Directory
 
@@ -294,6 +296,15 @@ class WAD
           # Parses Graphic if the size is the correct size of the lump
           Graphic.parse(file, directory).try do |graphic|
             wad.graphics << graphic
+          end
+
+          # Parses Demo if the first byte is == 109, showing the doom version
+          file.read_at(directory.file_pos, directory.size) do |is_demo_io|
+            if Demo.is_demo?(is_demo_io)
+              file.read_at(directory.file_pos, directory.size) do |io|
+                wad.demos << Demo.parse(io)
+              end
+            end
           end
 
           # Iterates the directory index.

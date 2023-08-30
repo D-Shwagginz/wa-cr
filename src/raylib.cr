@@ -3,6 +3,43 @@ require "./wad-reader/**"
 
 alias R = Raylib
 
+class WAD
+  # Gets a texture as a raylib image given the texture name and a palette
+  def get_texture(name, palette : Playpal::Palette) : R::Image
+    texmaps.each do |texmapx|
+      if texturemap = texmapx.mtextures.find { |m| m.name == name }
+        if texturemap.name == name
+          image = R.gen_image_color(texturemap.width, texturemap.height, R::BLANK)
+
+          texturemap.patches.each do |texmap_patch|
+            patch_name = pnames.patches[texmap_patch.patch]
+            patch_image = graphics.find! { |m| m.name == patch_name }.to_tex(palette)
+            R.image_draw(
+              pointerof(image),
+              patch_image,
+              R::Rectangle.new(
+                x: 0,
+                y: 0,
+                width: patch_image.width,
+                height: patch_image.height
+              ),
+              R::Rectangle.new(
+                x: texmap_patch.originx,
+                y: texmap_patch.originy,
+                width: patch_image.width,
+                height: patch_image.height
+              ), R::WHITE
+            )
+            R.unload_image(patch_image)
+          end
+          return image
+        end
+      end
+    end
+    return R.gen_image_color(64, 64, R::PURPLE)
+  end
+end
+
 class WAD::Graphic
   # Converts a graphic to a raylib image using a palette
   def to_tex(palette : Playpal::Palette) : R::Image

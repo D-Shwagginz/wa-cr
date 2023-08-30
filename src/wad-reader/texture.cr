@@ -189,16 +189,9 @@ class WAD
     end
   end
 
-  # A WAD graphic
-  class Graphic
-    property name : String = ""
-    property width : UInt16 = 0_u16
-    property height : UInt16 = 0_u16
-    property leftoffset : Int16 = 0_i16
-    property topoffset : Int16 = 0_i16
+  class GraphicParse
     property columnoffsets : Array(UInt32) = [] of UInt32
     property columns : Array(Column) = [] of Column
-    property predicted_size : UInt32 = 0_u32
 
     class Column
       property posts : Array(Post) = [] of Post
@@ -217,41 +210,65 @@ class WAD
       property row : UInt32 = 0_u32
       property column : UInt32 = 0_u32
     end
+  end
 
-    def self.parse(file, directory)
+  # A WAD graphic
+  class Graphic
+    property name : String = ""
+    property width : UInt16 = 0_u16
+    property height : UInt16 = 0_u16
+    property leftoffset : Int16 = 0_i16
+    property topoffset : Int16 = 0_i16
+    property file_size : UInt32 = 0_u32
+
+    getter data : Array(UInt8?) = [] of UInt8?
+
+    def [](x, y)
+      data[x + y * width]
+    end
+
+    def reset_data
+      (width*height).times do
+        @data << nil
+      end
+    end
+
+    def self.parse(file : File, directory : Directory)
       begin
+        graphic_parse = GraphicParse.new
         graphic = Graphic.new
         graphic.name = directory.name
 
-        file.read_at(directory.file_pos, directory.size) do |io|
-          graphic.width = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
-          graphic.height = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
-          graphic.leftoffset = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-          graphic.topoffset = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        file.read_at(directory.file_pos, directory.size) do |g_io|
+          graphic.width = g_io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
+          graphic.height = g_io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
+          graphic.leftoffset = g_io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+          graphic.topoffset = g_io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
 
           graphic.width.times do
-            graphic.columnoffsets << io.read_bytes(UInt32, IO::ByteFormat::LittleEndian)
+            graphic_parse.columnoffsets << g_io.read_bytes(UInt32, IO::ByteFormat::LittleEndian)
           end
-          graphic.predicted_size += (graphic.width*4) + 8
+
+          graphic.file_size += (graphic.width*4) + 8
 
           graphic.width.times do |i|
-            file.read_at(directory.file_pos + graphic.columnoffsets[i], directory.size) do |io|
+            file.read_at(directory.file_pos + graphic_parse.columnoffsets[i], directory.size) do |c_io|
               rowstart = 0
-              column = Column.new
+              column = GraphicParse::Column.new
 
               loop do
-                rowstart = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
-                post = Post.new
+                rowstart = c_io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+                post = GraphicParse::Post.new
                 post.topdelta = rowstart
                 if rowstart == 255
-                  graphic.predicted_size += 1
+                  graphic.file_size += 1
                   break
                 end
 
-                post.length = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
-                graphic.predicted_size += post.length.to_u32 + 4.to_u32
-                dummy = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
-                # break if dummy == 255
+                post.length = c_io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+                graphic.file_size += post.length.to_u32 + 4.to_u32
+                dummy = c_io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+
                 # post.length.times do |j|
                 #   pixel = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
                 #   post.data << pixel
@@ -259,22 +276,22 @@ class WAD
                 #   row_column_pixel.pixel = pixel
                 #   row_column_pixel.row = j + rowstart
                 #   row_column_pixel.column = i
-                #   column.posts << post
                 # end
+                # column.posts << post
 
-                pixel_parse(i, column, post, io)
-                dummy = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+                pixel_parse(i, column, post, c_io)
+                dummy = c_io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
               end
 
-              graphic.columns << column
+              graphic_parse.columns << column
 
-              if graphic.columns.size == graphic.width
+              if graphic_parse.columns.size == graphic.width
                 begin
-                  while graphic.predicted_size < directory.size && (i = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian))
+                  while (graphic.file_size < directory.size) && (i = c_io.read_bytes(UInt8, IO::ByteFormat::LittleEndian))
                     if i != 0
                       break
                     end
-                    graphic.predicted_size += 1
+                    graphic.file_size += 1
                   end
                 rescue e : IO::EOFError
                 end
@@ -283,7 +300,15 @@ class WAD
           end
         end
 
-        if directory.size == graphic.predicted_size
+        if directory.size == graphic.file_size
+          graphic.reset_data
+          graphic_parse.columns.each do |column|
+            column.posts.each do |post|
+              post.row_column_data.each do |pixel|
+                graphic.data[pixel.column + pixel.row * graphic.width] = pixel.pixel
+              end
+            end
+          end
           return graphic
         else
           return nil
@@ -299,7 +324,7 @@ class WAD
       post.length.times do |j|
         pixel = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
         post.data << pixel
-        row_column_pixel = RowColumnPixel.new
+        row_column_pixel = GraphicParse::RowColumnPixel.new
         row_column_pixel.pixel = pixel
         row_column_pixel.row = j.to_u32 + post.topdelta.to_u32
         row_column_pixel.column = pixel_column.to_u32
@@ -317,22 +342,6 @@ class WAD
     def self.is_sprite_mark_end?(name)
       name =~ /^S_END/
     end
-
-    # Converts a graphic to a raylib image using a palette
-    def self.to_tex(graphic : Graphic, palette : Playpal::Palette) : R::Image
-      image = R.gen_image_color(graphic.width, graphic.height, R::BLANK)
-      graphic.columns.each do |column|
-        column.posts.each do |post|
-          post.row_column_data.each do |pixel|
-            palette_r = palette.colors[pixel.pixel].r
-            palette_g = palette.colors[pixel.pixel].g
-            palette_b = palette.colors[pixel.pixel].b
-            R.image_draw_pixel(pointerof(image), pixel.column, pixel.row, R::Color.new(r: palette_r, g: palette_g, b: palette_b, a: 255))
-          end
-        end
-      end
-      image
-    end
   end
 
   class Flat
@@ -342,6 +351,10 @@ class WAD
     property width = 64
     property height = 64
 
+    def [](x, y)
+      color[x + y * width]
+    end
+
     def self.parse(io, name)
       flat = Flat.new
       flat.name = name
@@ -349,6 +362,7 @@ class WAD
       flat.lump_bytes.times do
         flat.colors << io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
       end
+
       flat
     end
 
@@ -360,20 +374,6 @@ class WAD
     # Checks to see if *name* is "F_END".
     def self.is_flat_mark_end?(name)
       name =~ /^F_END/
-    end
-
-    # Converts a flat to a raylib image using a palette
-    def self.to_tex(flat : Flat, palette : Playpal::Palette) : R::Image
-      image = R.gen_image_color(flat.width, flat.height, R::BLANK)
-      flat.height.times do |y|
-        flat.width.times do |x|
-          palette_r = palette.colors[flat.colors[x + y * flat.height]].r
-          palette_g = palette.colors[flat.colors[x + y * flat.height]].g
-          palette_b = palette.colors[flat.colors[x + y * flat.height]].b
-          R.image_draw_pixel(pointerof(image), x, y, R::Color.new(r: palette_r, g: palette_g, b: palette_b, a: 255))
-        end
-      end
-      image
     end
   end
 end

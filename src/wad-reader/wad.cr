@@ -1,3 +1,10 @@
+require "bit_array"
+require "debug"
+
+{% if flag?(:debug) %}
+  Debug.enabled = true
+{% end %}
+
 # Reads and stores the data of a WAD file.
 class WAD
   # Type of WAD: Either IWAD, PWAD, or Broken.

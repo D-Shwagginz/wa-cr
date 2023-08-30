@@ -2,6 +2,7 @@
 class WAD
   # A doom demo which saves player input states
   class Demo
+    property name = ""
     property game_version = 0_u8
     property skill_level = 0_u8
     property episode = 0_u8
@@ -15,14 +16,15 @@ class WAD
     property player2 : Bool = false
     property player3 : Bool = false
     property player4 : Bool = false
-    property interactions = [] of Interaction
+    property input_actions = [] of InputAction
 
     # Each input action for the demo
     struct InputAction
-      property movement_forward_back = 0_u8
-      property strafing = 0_u8
-      property turning = 0_u8
-      property action : Interaction = Interaction.new
+      property movement_forward_back = 0_i8
+      property strafing = 0_i8
+      property turning = 0_i8
+      property action = 0_u8
+      property expanded_action : Interaction = Interaction.new
     end
 
     # "This byte encodes multiple actions in different bits"
@@ -50,7 +52,7 @@ class WAD
       property special_mode : Bool = false
     end
 
-    def self.parse(io)
+    def self.parse(io, name)
       demo = Demo.new
 
       demo.game_version = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
@@ -67,45 +69,44 @@ class WAD
       demo.player3 = (io.read_bytes(UInt8, IO::ByteFormat::LittleEndian) == 1)
       demo.player4 = (io.read_bytes(UInt8, IO::ByteFormat::LittleEndian) == 1)
 
-      while (start_byte = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)) != 0x80
+      while (start_byte = io.read_bytes(Int8, IO::ByteFormat::LittleEndian)) != -128
         inputaction = InputAction.new
 
         inputaction.movement_forward_back = start_byte
-        inputaction.strafing = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
-        inputaction.turning = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
-        action = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+        inputaction.strafing = io.read_bytes(Int8, IO::ByteFormat::LittleEndian)
+        inputaction.turning = io.read_bytes(Int8, IO::ByteFormat::LittleEndian)
+        inputaction.action = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
 
         action_bits = BitArray.new(8)
 
         8.times do |time|
-          action_bits[time] = action.bit(7 - time) == 1
+          action_bits[time] = inputaction.action.bit(7 - time) == 1
         end
 
-        interaction = Interaction.new
+        inputaction.expanded_action.special_mode = action_bits[7]
 
-        interaction.special_mode = action_bits[7]
+        if inputaction.expanded_action.special_mode
+          inputaction.expanded_action.shoot_pause = action_bits[0]
+          inputaction.expanded_action.interact_save = action_bits[1]
 
-        if interaction.special_mode
-          interaction.shoot_pause = action_bits[0]
-          interaction.interact_save = action_bits[1]
-
-          if interaction.interact_save
-            interaction.save_slot += 1 if action_bits[2]
-            interaction.save_slot += 2 if action_bits[3]
-            interaction.save_slot += 4 if action_bits[4]
+          if inputaction.expanded_action.interact_save
+            inputaction.expanded_action.save_slot += 1 if action_bits[2]
+            inputaction.expanded_action.save_slot += 2 if action_bits[3]
+            inputaction.expanded_action.save_slot += 4 if action_bits[4]
           end
         else
-          interaction.weapon_switch = action_bits[2]
+          inputaction.expanded_action.weapon_switch = action_bits[2]
 
-          if interaction.weapon_switch
-            interaction.weapon_slot += 1 if action_bits[3]
-            interaction.weapon_slot += 2 if action_bits[4]
-            interaction.weapon_slot += 4 if action_bits[5]
+          if inputaction.expanded_action.weapon_switch
+            inputaction.expanded_action.weapon_slot += 1 if action_bits[3]
+            inputaction.expanded_action.weapon_slot += 2 if action_bits[4]
+            inputaction.expanded_action.weapon_slot += 4 if action_bits[5]
           else
-            interaction.interact_save = action_bits[1]
-            interaction.shoot_pause = action_bits[0]
+            inputaction.expanded_action.interact_save = action_bits[1]
+            inputaction.expanded_action.shoot_pause = action_bits[0]
           end
         end
+        demo.input_actions << inputaction
       end
       demo
     end

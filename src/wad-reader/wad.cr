@@ -302,7 +302,7 @@ class WAD
           file.read_at(directory.file_pos, directory.size) do |is_demo_io|
             if Demo.is_demo?(is_demo_io)
               file.read_at(directory.file_pos, directory.size) do |io|
-                wad.demos << Demo.parse(io)
+                wad.demos << Demo.parse(io, directory.name)
               end
             end
           end

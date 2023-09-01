@@ -96,7 +96,7 @@ class WAD
     end
 
     # Checks to see if *name* is "ENDDOOM"
-    def self.is_texturex?(name)
+    def self.is_endoom?(name)
       !!(name =~ /^ENDOOM/)
     end
   end
@@ -344,6 +344,7 @@ class WAD
     end
   end
 
+  # A WAD flat
   class Flat
     property name = ""
     property colors = [] of UInt8

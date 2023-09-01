@@ -14,6 +14,8 @@ class WAD
     property dummy = 0_u16
     property instruments = [] of UInt16
 
+    property song = [] of UInt8
+
     def self.parse(io, name = "")
       music = Music.new
       music.name = name
@@ -30,6 +32,15 @@ class WAD
       # Reads in the instruments.
       music.instr_cnt.times do
         music.instruments << io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
+      end
+
+      # Reads the rest of the mus file just to have that data
+      loop do
+        begin
+          music.song << io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+        rescue e : IO::EOFError
+          break
+        end
       end
 
       music

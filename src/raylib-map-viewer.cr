@@ -32,7 +32,7 @@ module MapViewer
     palette = mywad.playpal.palettes[0]
     loaded_textures = [] of Texture
 
-    if map = mywad.maps.find { |m| m.name == MAP_NAME }
+    if map = mywad.maps[MAP_NAME]
     else
       raise "#{MAP_NAME} is not a map in #{mywad}"
     end

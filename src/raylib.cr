@@ -1,7 +1,10 @@
 require "raylib-cr"
 require "./wad-reader/**"
+require "./rcamera.cr"
 
 alias R = Raylib
+alias RM = Raymath
+alias RC = Rcamera
 
 class WAD
   # Gets a texture as a raylib image given the texture name and a palette
@@ -13,7 +16,7 @@ class WAD
 
           texturemap.patches.each do |texmap_patch|
             patch_name = pnames.patches[texmap_patch.patch]
-            patch_image = graphics.find! { |m| m.name == patch_name }.to_tex(palette)
+            patch_image = graphics.find! { |m| m.name == patch_name.upcase }.to_tex(palette)
             R.image_draw(
               pointerof(image),
               patch_image,

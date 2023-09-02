@@ -97,10 +97,8 @@ class WAD
       end
 
       if graphics.has_key?(directory.name)
-        if directory.name == "HELP1"
-        written_directory.size = graphics[directory.name].write(io)
-        written_directories << written_directory
-        end
+          written_directory.size = graphics[directory.name].write(io)
+          written_directories << written_directory
       end
 
       #   if sprites.has_key?(directory.name)

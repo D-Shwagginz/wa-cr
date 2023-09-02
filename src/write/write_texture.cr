@@ -137,23 +137,26 @@ class WAD
       buffer = IO::Memory.new
 
       width.times do |x|
-
         column_offsets << buffer.pos.to_u32
         y = 0_u8
         operator = true
+        empty_post = false
 
         until y == height
           pixel = self.[x.to_i, y.to_i]
 
           if pixel.nil? && !operator
-            buffer.write_bytes(dummy_value.to_u8, IO::ByteFormat::LittleEndian)
             operator = true
-
+            if y != height - 1
+              buffer.write_bytes(dummy_value.to_u8, IO::ByteFormat::LittleEndian)
+              empty_post = true
+            end
           elsif !pixel.nil? && operator
+            empty_post = false
             row_start = y
-            pixel_count = 0_u8
+            pixel_count = 1_u8
             dummy_value = 0_u8
-            
+
             buffer.write_bytes(row_start.to_u8, IO::ByteFormat::LittleEndian)
             buffer.write_bytes(pixel_count.to_u8, IO::ByteFormat::LittleEndian)
             buffer.write_bytes(dummy_value.to_u8, IO::ByteFormat::LittleEndian)
@@ -161,14 +164,16 @@ class WAD
             offset = buffer.pos.to_u32
             operator = false
 
+            buffer.write_bytes(pixel.to_u8, IO::ByteFormat::LittleEndian)
           elsif !pixel.nil? && !operator
+            empty_post = false
             pixel_count += 1_u8
 
             if offset > 0 && pixel_count > 0
               previous_offset = buffer.pos
-              buffer.pos=(offset-2)
+              buffer.pos=(offset - 2)
               buffer.write_bytes(pixel_count.to_u8, IO::ByteFormat::LittleEndian)
-              buffer.pos=previous_offset
+              buffer.pos = previous_offset
             end
 
             buffer.write_bytes(pixel.to_u8, IO::ByteFormat::LittleEndian)
@@ -178,33 +183,39 @@ class WAD
         end
 
         if operator || y == height
-          pixel = 0
+          if empty_post
+            buffer.pos=(buffer.pos-1)
+          end
 
-          buffer.write_bytes(pixel.to_u8, IO::ByteFormat::LittleEndian)
+          buffer.pos=(buffer.pos-1)
+
+          if buffer.read_bytes(UInt8, IO::ByteFormat::LittleEndian) != 255
+            pixel = 0
+
+            buffer.write_bytes(pixel.to_u8, IO::ByteFormat::LittleEndian)
+          end
 
           row_start = 255
 
           buffer.write_bytes(row_start.to_u8, IO::ByteFormat::LittleEndian)
         end
-
       end
 
-      buffer.pos=0
+      buffer.pos = 0
 
-      offset = io.pos-file_start_position
+      offset = io.pos - file_start_position
 
-      io.pos=file_start_position+8
+      io.pos = file_start_position + 8
 
       column_offsets.size.times do |time|
-        column_offset = column_offsets[time] + offset + column_offsets.size
+        column_offset = column_offsets[time] + offset + (column_offsets.size*4)
 
         io.write_bytes(column_offset.to_u32, IO::ByteFormat::LittleEndian)
       end
 
       IO.copy(buffer, io)
 
-      lump_size = io.pos.to_u32-file_start_position.to_u32
-      puts lump_size
+      lump_size = io.pos.to_u32 - file_start_position.to_u32
       lump_size
     end
   end

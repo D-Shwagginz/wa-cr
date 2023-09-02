@@ -1,7 +1,15 @@
 require "./write/**"
 
 class WAD
-  # Writes a WAD class to a WAD file
+  # Writes a WAD class to an io
+  #
+  # Example:
+  # ```
+  # mywad = WAD.read("./rsrc/DOOM.WAD")
+  # File.open("./rsrc/mynewwad.WAD", "w+") do |file|
+  #   mywad.write(file)
+  # end
+  # ```
   def write(io)
     written_directories = [] of Directory
     write_directory_pointer = 0_u32

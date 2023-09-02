@@ -2,7 +2,6 @@
 class WAD
   # A music track.
   class Music
-    property name = ""
     property identifier = ""
     property score_len = 0_u16
     property score_start = 0_u16
@@ -16,9 +15,8 @@ class WAD
 
     property song = [] of UInt8
 
-    def self.parse(io, name = "")
+    def self.parse(io)
       music = Music.new
-      music.name = name
       # Reads the data.
       music.identifier = io.gets(4).to_s
       music.score_len = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)

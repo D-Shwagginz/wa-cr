@@ -2,7 +2,6 @@
 class WAD
   # A doom demo which saves player input states
   class Demo
-    property name = ""
     property game_version = 0_u8
     property skill_level = 0_u8
     property episode = 0_u8
@@ -52,7 +51,15 @@ class WAD
       property special_mode : Bool = false
     end
 
-    def self.parse(io, name)
+    # Parses an io in a demo format
+    #
+    # Example: Reads an io and puts out a demo
+    # ```
+    # File.open("Path/To/Demo") do |file|
+    #   my_demo = WAD::Demo.parse(file)
+    # end
+    # ```
+    def self.parse(io)
       demo = Demo.new
 
       demo.game_version = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
@@ -112,6 +119,16 @@ class WAD
     end
 
     # Checks if the demo is of doom version 1,9
+    #
+    # Example:
+    # ```
+    # File.open("Path/To/Demo") do |file|
+    #   if WAD::Demo.is_demo(file)
+    #     puts "Is Demo"
+    #   else
+    #     puts "Is not Demo"
+    #   end
+    # ```
     def self.is_demo?(io)
       begin
         return 109 == io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)

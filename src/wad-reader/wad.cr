@@ -67,6 +67,11 @@ class WAD
   end
 
   # Reads in a WAD file given the *filename*.
+  #
+  # Example:
+  # ```
+  # mywad = WAD.read("Path/To/Wad")
+  # ```
   def self.read(filename) : WAD
     # Creates a new WAD variable with *filename*.
     wad = WAD.new
@@ -171,14 +176,14 @@ class WAD
           # Parses sound if *directory.name* is of format 'DSx..x'
           if Sound.is_sound?(directory.name)
             file.read_at(directory.file_pos, directory.size) do |io|
-              wad.sounds[directory.name] = Sound.parse(io, directory.name)
+              wad.sounds[directory.name] = Sound.parse(io)
             end
           end
 
           # Parses music if *directory.name* is of format 'D_x..x'
           if Music.is_music?(directory.name)
             file.read_at(directory.file_pos, directory.size) do |io|
-              wad.music[directory.name] = Music.parse(io, directory.name)
+              wad.music[directory.name] = Music.parse(io)
             end
           end
 
@@ -307,7 +312,7 @@ class WAD
           file.read_at(directory.file_pos, directory.size) do |is_demo_io|
             if Demo.is_demo?(is_demo_io)
               file.read_at(directory.file_pos, directory.size) do |io|
-                wad.demos[directory.name] = Demo.parse(io, directory.name)
+                wad.demos[directory.name] = Demo.parse(io)
               end
             end
           end
@@ -322,6 +327,11 @@ class WAD
   end
 
   # Cuts a string down to length *len* if it is larger than *len*
+  #
+  # Example:
+  # ```
+  # WAD.string_cut("Aberdine", 4) # => "Aber"
+  # ```
   def self.string_cut(string : String, len : Int = 8) : String
     if string.size > len
       return string[0..(len - 1)]
@@ -331,6 +341,12 @@ class WAD
   end
 
   # Cuts a slice down to length *len* if it is larger than *len*
+  #
+  # Example:
+  # ```
+  # my_slice = "My Test Slice".to_slice # => Bytes[77, 121, 32, 84, 101, 115, 116, 32, 83, 108, 105, 99, 101]
+  # WAD.slice_cut(my_slice, 5) # => Bytes[77, 121, 32, 84, 101]
+  # ```
   def self.slice_cut(slice : Slice, len : Int = 8) : Slice
     if slice.size > len
       return slice[0..(len - 1)]

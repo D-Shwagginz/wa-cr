@@ -32,16 +32,14 @@ class WAD
   # A normal sound effect.
   class Sound
     PAD_BYTES = 16
-    property name = ""
     property format_num = 0_u16
     property sample_rate = 0_u16
     property samples_num = 0_u16
     property samples = [] of UInt8
 
     # Parses a sound lump.
-    def self.parse(io, name = "")
+    def self.parse(io)
       sound = Sound.new
-      sound.name = name
       sound.format_num = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
       sound.sample_rate = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
       sound.samples_num = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)

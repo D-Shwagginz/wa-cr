@@ -50,7 +50,6 @@ class WAD
       end
 
       if maps.has_key?(directory.name)
-        if directory.name == "MAP01"
         written_directory.size = 0
         written_directories << written_directory
         maps[directory.name].write(io).each do |lump_dir|
@@ -61,7 +60,6 @@ class WAD
           written_directories << written_directory
         end
         next
-      end
       end
 
       if pcsounds.has_key?(directory.name)

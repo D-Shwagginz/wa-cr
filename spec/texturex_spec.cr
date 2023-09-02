@@ -11,10 +11,10 @@ describe WAD::TextureX do
     mywad.texmaps.values[1].offsets[0].should eq 648
     mywad.texmaps.values[1].offsets[1].should eq 680
     mywad.texmaps.values[1].offsets[2].should eq 712
-    mywad.texmaps.values[0].mtextures[0].name.gsub("\u0000", "") = "AASTINKY"
+    mywad.texmaps.values[0].mtextures[0].name.gsub("\u0000", "").should eq "AASTINKY"
     mywad.texmaps.values[0].mtextures[0].width.should eq 24
     mywad.texmaps.values[0].mtextures[0].patches[1].originx.should eq 12
-    mywad.texmaps.values[1].mtextures[0].name.gsub("\u0000", "") = "ASHWALL"
+    mywad.texmaps.values[1].mtextures[0].name.gsub("\u0000", "").should eq "ASHWALL"
     mywad.texmaps.values[1].mtextures[0].height.should eq 128
     mywad.texmaps.values[1].mtextures[0].patches[0].originx.should eq 0
   end

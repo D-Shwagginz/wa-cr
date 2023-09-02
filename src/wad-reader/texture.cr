@@ -96,7 +96,7 @@ class WAD
     end
 
     # Checks to see if *name* is "ENDDOOM"
-    def self.is_texturex?(name)
+    def self.is_endoom?(name)
       !!(name =~ /^ENDOOM/)
     end
   end
@@ -138,7 +138,7 @@ class WAD
 
       texturex.offsets.each do
         texturemap = TextureMap.new
-        texturemap.name = io.gets(8).to_s.gsub("\u0000", "")
+        texturemap.name = io.gets(8).to_s
         texturemap.masked = io.read_bytes(Int32, IO::ByteFormat::LittleEndian) != 0
         texturemap.width = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
         texturemap.height = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
@@ -178,7 +178,7 @@ class WAD
       pnames.num_patches = io.read_bytes(Int32, IO::ByteFormat::LittleEndian)
 
       pnames.num_patches.times do
-        pnames.patches << io.gets(8).to_s.gsub("\u0000", "")
+        pnames.patches << io.gets(8).to_s
       end
       pnames
     end
@@ -317,6 +317,8 @@ class WAD
         return nil
       rescue e : ArgumentError
         return nil
+      rescue e : OverflowError
+        return nil
       end
     end
 
@@ -344,6 +346,7 @@ class WAD
     end
   end
 
+  # A WAD flat
   class Flat
     property name = ""
     property colors = [] of UInt8
@@ -352,7 +355,7 @@ class WAD
     property height = 64
 
     def [](x, y)
-      color[x + y * width]
+      colors[x + y * width]
     end
 
     def self.parse(io, name)

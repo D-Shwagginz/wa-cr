@@ -14,11 +14,13 @@ class WAD
     property dummy = 0_u16
     property instruments = [] of UInt16
 
+    property song = [] of UInt8
+
     def self.parse(io, name = "")
       music = Music.new
       music.name = name
       # Reads the data.
-      music.identifier = io.gets(4).to_s.gsub("\u0000", "")
+      music.identifier = io.gets(4).to_s
       music.score_len = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
       music.score_start = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
       music.channels = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
@@ -30,6 +32,15 @@ class WAD
       # Reads in the instruments.
       music.instr_cnt.times do
         music.instruments << io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
+      end
+
+      # Reads the rest of the mus file just to have that data
+      loop do
+        begin
+          music.song << io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
+        rescue e : IO::EOFError
+          break
+        end
       end
 
       music
@@ -45,6 +56,7 @@ class WAD
   class Genmidi
     property header = ""
     property instr_datas = [] of InstrumentData
+    property instr_names = [] of String
 
     # "The header is followed by 175 36-byte records of instrument data".
     struct InstrumentData
@@ -57,7 +69,7 @@ class WAD
     def self.parse(io)
       genmidi = Genmidi.new
       # Reads the file header
-      genmidi.header = io.gets(8).to_s.gsub("\u0000", "")
+      genmidi.header = io.gets(8).to_s
 
       instrument_data_records_count = 175
 
@@ -83,6 +95,11 @@ class WAD
 
         genmidi.instr_datas << instr_data
       end
+
+      instrument_data_records_count.times do
+        genmidi.instr_names << io.gets(32).to_s
+      end
+
       genmidi
     end
 
@@ -132,7 +149,7 @@ class WAD
 
     # Checks to see if *name* is "DMXGUS"
     def self.is_dmxgus?(name)
-      !!(name =~ /^DMXGUS/)
+      !!(name =~ /^DMXGUS/) || !!(name =~ /^DMXGUS\d/)
     end
   end
 end

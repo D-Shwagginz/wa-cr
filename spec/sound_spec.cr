@@ -5,7 +5,7 @@ describe WAD::Sound do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
     File.open("./rsrc/spectest.wav", "w+") do |io|
-      mywad.sounds.find! { |m| m.name == "DSPISTOL" }.to_wav(io)
+      mywad.sounds["DSPISTOL"].to_wav(io)
     end
     File.exists?("./rsrc/spectest.wav").should be_true
     File.delete("./rsrc/spectest.wav")

@@ -25,3 +25,7 @@ Used to parse .wad files into usable Crystal code
 
 - [Devin Shwagginz](https://github.com/D-Shwagginz) - creator and maintainer
 - [Ian Rash](https://github.com/sol-vin) - co-creator
+
+## Limitations
+
+* Demos won't work properly because of how the doom engines psuedo-random number generator functions. If the wads are different at all, the demos won't function

@@ -7,6 +7,8 @@ require "debug"
 
 # Reads and stores the data of a WAD file.
 class WAD
+  # The size of the header in bytes
+  HEADER_SIZE = 16
   # Type of WAD: Either IWAD, PWAD, or Broken.
   property type : Type = Type::Broken
   # The file/WAD name and directory.
@@ -16,13 +18,13 @@ class WAD
   # An integer holding a pointer to the location of the directory.
   property directory_pointer = 0_u32
   # Array of maps in the WAD.
-  property maps = [] of Map
+  property maps = {} of String => Map
   # Array of speaker sounds
-  property pcsounds = [] of PcSound
+  property pcsounds = {} of String => PcSound
   # Array of sounds
-  property sounds = [] of Sound
+  property sounds = {} of String => Sound
   # Array of music
-  property music = [] of Music
+  property music = {} of String => Music
   # Genmidi
   property genmidi : Genmidi = Genmidi.new
   # Dmxgus
@@ -34,17 +36,17 @@ class WAD
   # Endoom
   property endoom : EnDoom = EnDoom.new
   # The texture maps
-  property texmaps = [] of TextureX
+  property texmaps = {} of String => TextureX
   # Pnames
   property pnames : Pnames = Pnames.new
   # Graphics and patches
-  property graphics = [] of Graphic
+  property graphics = {} of String => Graphic
   # Sprites
-  property sprites = [] of Graphic
+  property sprites = {} of String => Graphic
   # Flats
-  property flats = [] of Flat
+  property flats = {} of String => Flat
   # Demos
-  property demos = [] of Demo
+  property demos = {} of String => Demo
   # Array of all directories in the WAD.
   property directories = [] of Directory
 
@@ -133,6 +135,7 @@ class WAD
                   break
                 elsif !Map::MAP_CONTENTS.includes?(directory.name)
                   map_directory_end_reached = true
+                  wad.directories << directory
                   break
                 end
                 # Inserts the directory into the map.
@@ -155,27 +158,27 @@ class WAD
             map_parse(blockmap)
 
             # Pushes map onto the list of maps
-            wad.maps << map
+            wad.maps[map.name] = map
           end
 
           # Parses pc sound if *directory.name* is of format 'DPx..x'
           if PcSound.is_pcsound?(directory.name)
             file.read_at(directory.file_pos, directory.size) do |io|
-              wad.pcsounds << PcSound.parse(io, directory.name)
+              wad.pcsounds[directory.name] = PcSound.parse(io, directory.name)
             end
           end
 
           # Parses sound if *directory.name* is of format 'DSx..x'
           if Sound.is_sound?(directory.name)
             file.read_at(directory.file_pos, directory.size) do |io|
-              wad.sounds << Sound.parse(io, directory.name)
+              wad.sounds[directory.name] = Sound.parse(io, directory.name)
             end
           end
 
           # Parses music if *directory.name* is of format 'D_x..x'
           if Music.is_music?(directory.name)
             file.read_at(directory.file_pos, directory.size) do |io|
-              wad.music << Music.parse(io, directory.name)
+              wad.music[directory.name] = Music.parse(io, directory.name)
             end
           end
 
@@ -210,12 +213,12 @@ class WAD
           # Parses texture map if *directory.name* is "TEXTUREx"
           if TextureX.is_texturex?(directory.name)
             file.read_at(directory.file_pos, directory.size) do |io|
-              wad.texmaps << TextureX.parse(io)
+              wad.texmaps[directory.name] = TextureX.parse(io)
             end
           end
 
           # Parses EnDoom if *directory.name* is "ENDOOM"
-          if EnDoom.is_texturex?(directory.name)
+          if EnDoom.is_endoom?(directory.name)
             file.read_at(directory.file_pos, directory.size) do |io|
               wad.endoom = EnDoom.parse(io)
             end
@@ -244,6 +247,7 @@ class WAD
               file.read_at(directory_start, Directory::SIZE) do |io|
                 # Reads directory *io* and pushes it onto *wad.directories*.
                 directory = Directory.read(io)
+                wad.directories << directory
                 # Checks if it has reached the end of the map's lumps
                 # By seeing if the *directory.name* is a map, showing
                 # it reached the next map.
@@ -253,7 +257,7 @@ class WAD
                 end
                 # Parses Sprite if the size is the correct size of the lump
                 Graphic.parse(file, directory).try do |graphic|
-                  wad.sprites << graphic
+                  wad.sprites[directory.name] = graphic
                 end
               end
             end
@@ -275,6 +279,7 @@ class WAD
               file.read_at(directory_start, Directory::SIZE) do |io|
                 # Reads directory *io* and pushes it onto *wad.directories*.
                 directory = Directory.read(io)
+                wad.directories << directory
                 # Checks if it has reached the end of the map's lumps
                 # By seeing if the *directory.name* is a map, showing
                 # it reached the next map.
@@ -285,7 +290,7 @@ class WAD
                 # Parses Flat
                 file.read_at(directory.file_pos, directory.size) do |io|
                   begin
-                    wad.flats << Flat.parse(io, directory.name)
+                    wad.flats[directory.name] = Flat.parse(io, directory.name)
                   rescue e : IO::EOFError
                   end
                 end
@@ -295,14 +300,14 @@ class WAD
 
           # Parses Graphic if the size is the correct size of the lump
           Graphic.parse(file, directory).try do |graphic|
-            wad.graphics << graphic
+            wad.graphics[directory.name] = graphic
           end
 
           # Parses Demo if the first byte is == 109, showing the doom version
           file.read_at(directory.file_pos, directory.size) do |is_demo_io|
             if Demo.is_demo?(is_demo_io)
               file.read_at(directory.file_pos, directory.size) do |io|
-                wad.demos << Demo.parse(io, directory.name)
+                wad.demos[directory.name] = Demo.parse(io, directory.name)
               end
             end
           end
@@ -314,5 +319,23 @@ class WAD
     end
     # Returns the read parsed file.
     wad
+  end
+
+  # Cuts a string down to length *len* if it is larger than *len*
+  def self.string_cut(string : String, len : Int = 8) : String
+    if string.size > len
+      return string[0..(len - 1)]
+    else
+      return string
+    end
+  end
+
+  # Cuts a slice down to length *len* if it is larger than *len*
+  def self.slice_cut(slice : Slice, len : Int = 8) : Slice
+    if slice.size > len
+      return slice[0..(len - 1)]
+    else
+      return slice
+    end
   end
 end

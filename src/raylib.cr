@@ -1,22 +1,21 @@
 require "raylib-cr"
 require "./wad-reader/**"
-require "./rcamera.cr"
 
 alias R = Raylib
 alias RM = Raymath
-alias RC = Rcamera
+alias RC = Raylib
 
 class WAD
   # Gets a texture as a raylib image given the texture name and a palette
   def get_texture(name, palette : Playpal::Palette) : R::Image
     texmaps.each do |texmapx|
-      if texturemap = texmapx.mtextures.find { |m| m.name == name }
+      if texturemap = texmapx[1].mtextures.find { |m| m.name == name }
         if texturemap.name == name
           image = R.gen_image_color(texturemap.width, texturemap.height, R::BLANK)
 
           texturemap.patches.each do |texmap_patch|
             patch_name = pnames.patches[texmap_patch.patch]
-            patch_image = graphics.find! { |m| m.name == patch_name.upcase }.to_tex(palette)
+            patch_image = graphics[patch_name.upcase].to_tex(palette)
             R.image_draw(
               pointerof(image),
               patch_image,

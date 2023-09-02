@@ -43,6 +43,9 @@ class WAD
         lump_size += 1_u32
       end
 
+      io.write_bytes(0x80, IO::ByteFormat::LittleEndian)
+      lump_size += 1_u32
+
       lump_size
     end
   end

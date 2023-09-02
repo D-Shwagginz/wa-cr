@@ -30,21 +30,22 @@ class WAD
       io.write_bytes(samples_num.to_u16, IO::ByteFormat::LittleEndian)
       lump_size += 2_u32
 
-      (PAD_BYTES + 2).times do
-        io.write_bytes(0.to_u8, IO::ByteFormat::LittleEndian)
-        lump_size += 1_u32
-      end
-
+      # pad bytes
       io.write_bytes(0.to_u16, IO::ByteFormat::LittleEndian)
       lump_size += 2_u32
+
+      PAD_BYTES.times do
+        io.write_bytes(samples[0].to_u8, IO::ByteFormat::LittleEndian)
+        lump_size += 1_u32
+      end
 
       samples.each do |sample|
         io.write_bytes(sample.to_u8, IO::ByteFormat::LittleEndian)
         lump_size += 1_u32
       end
 
-      (PAD_BYTES + 2).times do
-        io.write_bytes(0.to_u8, IO::ByteFormat::LittleEndian)
+      PAD_BYTES.times do
+        io.write_bytes(samples[-1].to_u8, IO::ByteFormat::LittleEndian)
         lump_size += 1_u32
       end
 

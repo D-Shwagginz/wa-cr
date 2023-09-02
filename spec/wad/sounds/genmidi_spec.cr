@@ -1,4 +1,4 @@
-require "./spec_helper"
+require "../../spec_helper"
 
 describe WAD::Genmidi do
   it "should properly set the genmidi" do

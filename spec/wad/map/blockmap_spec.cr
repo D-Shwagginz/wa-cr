@@ -1,6 +1,6 @@
-require "./spec_helper"
+require "../../spec_helper"
 
-describe WAD::Map::Blockmap do
+describe WAD::Map::Blockmap, tags: "map" do
   it "should properly set map blockmap" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 

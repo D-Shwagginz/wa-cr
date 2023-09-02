@@ -1,4 +1,4 @@
-require "./spec_helper"
+require "../../spec_helper"
 
 describe WAD::Flat do
   it "should properly set the flats" do

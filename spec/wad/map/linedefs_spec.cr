@@ -1,6 +1,6 @@
-require "./spec_helper"
+require "../../spec_helper"
 
-describe WAD::Map::Linedefs do
+describe WAD::Map::Linedefs, tags: "map" do
   it "should properly set map linedefs" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 

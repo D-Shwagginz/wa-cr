@@ -1,4 +1,4 @@
-require "./spec_helper"
+require "../../spec_helper"
 
 describe WAD::TextureX do
   it "should properly set the textureX's" do

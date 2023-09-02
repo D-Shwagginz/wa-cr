@@ -1,6 +1,6 @@
-require "./spec_helper"
+require "../../spec_helper"
 
-describe WAD::Map::Things do
+describe WAD::Map::Things, tags: "map" do
   it "should properly set map things" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 

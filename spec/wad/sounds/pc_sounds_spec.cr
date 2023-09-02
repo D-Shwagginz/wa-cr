@@ -1,4 +1,4 @@
-require "./spec_helper"
+require "../../spec_helper"
 
 describe WAD::PcSound do
   it "should properly set pc sounds" do

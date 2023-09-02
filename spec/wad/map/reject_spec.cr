@@ -1,6 +1,6 @@
-require "./spec_helper"
+require "../../spec_helper"
 
-describe WAD::Map::Reject do
+describe WAD::Map::Reject, tags: "map" do
   it "should properly set map reject" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 

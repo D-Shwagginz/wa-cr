@@ -1,6 +1,6 @@
-require "./spec_helper"
+require "../../spec_helper"
 
-describe WAD::Map::Sidedefs do
+describe WAD::Map::Sidedefs, tags: "map" do
   it "should properly set map sidedefs" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 

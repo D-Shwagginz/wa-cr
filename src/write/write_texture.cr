@@ -122,11 +122,11 @@ class WAD
   # A WAD graphic
   class Graphic
     def write(io) : UInt32
+      file_start_position = io.pos
       dummy_value = 0_u8
       pixel_count = 0_u8
       lump_size = 0_u32
       column_offsets = [] of UInt32
-      x = 0
       offset = 0_u32
 
       io.write_bytes(width.to_u16, IO::ByteFormat::LittleEndian)
@@ -136,20 +136,17 @@ class WAD
 
       buffer = IO::Memory.new
 
-      loop do
-        break if x == width
+      width.times do |x|
 
         column_offsets << buffer.pos.to_u32
         y = 0_u8
         operator = true
 
-        loop do
-          break if y == height
-          pixel = data[x.to_i + y.to_i * width]
+        until y == height
+          pixel = self.[x.to_i, y.to_i]
 
           if pixel.nil? && !operator
             buffer.write_bytes(dummy_value.to_u8, IO::ByteFormat::LittleEndian)
-
             operator = true
 
           elsif !pixel.nil? && operator
@@ -169,7 +166,7 @@ class WAD
 
             if offset > 0 && pixel_count > 0
               previous_offset = buffer.pos
-              buffer.pos=(buffer.pos-(offset-2))
+              buffer.pos=(offset-2)
               buffer.write_bytes(pixel_count.to_u8, IO::ByteFormat::LittleEndian)
               buffer.pos=previous_offset
             end
@@ -188,30 +185,25 @@ class WAD
           row_start = 255
 
           buffer.write_bytes(row_start.to_u8, IO::ByteFormat::LittleEndian)
-
-          buffer.write_bytes(0.to_u8, IO::ByteFormat::LittleEndian)
         end
 
-        x += 1
       end
 
       buffer.pos=0
 
-      offset = io.pos
+      offset = io.pos-file_start_position
 
-      io.pos=8
+      io.pos=file_start_position+8
 
       column_offsets.size.times do |time|
-        column_offset = column_offsets[time] + offset
+        column_offset = column_offsets[time] + offset + column_offsets.size
 
         io.write_bytes(column_offset.to_u32, IO::ByteFormat::LittleEndian)
       end
 
       IO.copy(buffer, io)
 
-      io.pos=0
-      lump_size = io.each_byte.size.to_u32
-
+      lump_size = io.pos.to_u32-file_start_position.to_u32
       puts lump_size
       lump_size
     end

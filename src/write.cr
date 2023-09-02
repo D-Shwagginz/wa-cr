@@ -16,57 +16,43 @@ class WAD
       if Genmidi.is_genmidi?(directory.name)
         written_directory.size = genmidi.write(io)
         written_directories << written_directory
+        next
       end
 
       if Dmxgus.is_dmxgus?(directory.name)
         written_directory.size = dmxgus.write(io)
         written_directories << written_directory
+        next
       end
 
       if Playpal.is_playpal?(directory.name)
         written_directory.size = playpal.write(io)
         written_directories << written_directory
+        next
       end
 
       if Colormap.is_colormap?(directory.name)
         written_directory.size = colormap.write(io)
         written_directories << written_directory
+        next
       end
 
       if EnDoom.is_endoom?(directory.name)
         written_directory.size = endoom.write(io)
         written_directories << written_directory
+        next
       end
 
       if Pnames.is_pnames?(directory.name)
         written_directory.size = pnames.write(io)
         written_directories << written_directory
-      end
-
-      if Graphic.is_sprite_mark_start?(directory.name)
-        written_directory.size = 0
-        written_directories << written_directory
-      end
-
-      if Graphic.is_sprite_mark_end?(directory.name)
-        written_directory.size = 0
-        written_directories << written_directory
-      end
-
-      if Flat.is_flat_mark_start?(directory.name)
-        written_directory.size = 0
-        written_directories << written_directory
-      end
-
-      if Flat.is_flat_mark_end?(directory.name)
-        written_directory.size = 0
-        written_directories << written_directory
+        next
       end
 
       if maps.has_key?(directory.name)
+        if directory.name == "MAP01"
         written_directory.size = 0
         written_directories << written_directory
-
         maps[directory.name].write(io).each do |lump_dir|
           written_directory = Directory.new
           written_directory.name = lump_dir.name
@@ -74,44 +60,60 @@ class WAD
           written_directory.size = lump_dir.size
           written_directories << written_directory
         end
+        next
+      end
       end
 
       if pcsounds.has_key?(directory.name)
         written_directory.size = pcsounds[directory.name].write(io)
         written_directories << written_directory
+        next
       end
 
       if sounds.has_key?(directory.name)
         written_directory.size = sounds[directory.name].write(io)
         written_directories << written_directory
+        next
       end
 
       if music.has_key?(directory.name)
         written_directory.size = music[directory.name].write(io)
         written_directories << written_directory
+        next
       end
 
       if texmaps.has_key?(directory.name)
         written_directory.size = texmaps[directory.name].write(io)
         written_directories << written_directory
+        next
       end
 
       if graphics.has_key?(directory.name)
-          written_directory.size = graphics[directory.name].write(io)
-          written_directories << written_directory
+        written_directory.size = graphics[directory.name].write(io)
+        written_directories << written_directory
+        next
       end
 
-      #   if sprites.has_key?(directory.name)
-      #     written_directories << written_directory
-      #   end
+      if sprites.has_key?(directory.name)
+        written_directory.size = sprites[directory.name].write(io)
+        written_directories << written_directory
+        next
+      end
 
-      #   if flats.has_key?(directory.name)
-      #     written_directories << written_directory
-      #   end
+      if flats.has_key?(directory.name)
+        written_directory.size = flats[directory.name].write(io)
+        written_directories << written_directory
+        next
+      end
 
-      #   if demos.has_key?(directory.name)
-      #     written_directories << written_directory
-      #   end
+      if demos.has_key?(directory.name)
+        written_directory.size = demos[directory.name].write(io)
+        written_directories << written_directory
+        next
+      end
+
+      written_directory.size = 0
+      written_directories << written_directory
     end
 
     write_directory_pointer = io.pos

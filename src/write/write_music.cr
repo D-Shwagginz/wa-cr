@@ -70,7 +70,7 @@ class WAD
 
       instr_names.each do |name|
         name_slice = Bytes.new(32)
-        name_slice.copy_from(name.to_slice)
+        name_slice.copy_from(WAD.slice_cut(WAD.string_cut(name, 32).to_slice, 32))
         io.write(name_slice)
         lump_size += 32_u32
       end

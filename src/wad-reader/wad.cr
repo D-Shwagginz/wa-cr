@@ -320,4 +320,22 @@ class WAD
     # Returns the read parsed file.
     wad
   end
+
+  # Cuts a string down to length *len* if it is larger than *len*
+  def self.string_cut(string : String, len : Int = 8) : String
+    if string.size > len
+      return string[0..(len - 1)]
+    else
+      return string
+    end
+  end
+
+  # Cuts a slice down to length *len* if it is larger than *len*
+  def self.slice_cut(slice : Slice, len : Int = 8) : Slice
+    if slice.size > len
+      return slice[0..(len - 1)]
+    else
+      return slice
+    end
+  end
 end

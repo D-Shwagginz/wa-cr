@@ -20,7 +20,7 @@ class WAD
       music = Music.new
       music.name = name
       # Reads the data.
-      music.identifier = io.gets(4).to_s.gsub("\u0000", "")
+      music.identifier = io.gets(4).to_s
       music.score_len = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
       music.score_start = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
       music.channels = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
@@ -69,7 +69,7 @@ class WAD
     def self.parse(io)
       genmidi = Genmidi.new
       # Reads the file header
-      genmidi.header = io.gets(8).to_s.gsub("\u0000", "")
+      genmidi.header = io.gets(8).to_s
 
       instrument_data_records_count = 175
 
@@ -97,7 +97,7 @@ class WAD
       end
 
       instrument_data_records_count.times do
-        genmidi.instr_names << io.gets(32).to_s.gsub("\u0000", "")
+        genmidi.instr_names << io.gets(32).to_s
       end
 
       genmidi
@@ -149,7 +149,7 @@ class WAD
 
     # Checks to see if *name* is "DMXGUS"
     def self.is_dmxgus?(name)
-      !!(name =~ /^DMXGUS/)
+      !!(name =~ /^DMXGUS/) || !!(name =~ /^DMXGUS\d/)
     end
   end
 end

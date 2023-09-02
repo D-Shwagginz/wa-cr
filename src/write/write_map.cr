@@ -90,19 +90,19 @@ class WAD
           io.write_bytes(sidedef.y_offset.to_i16, IO::ByteFormat::LittleEndian)
           lump_size += 2_u32
 
-          string_slice = Bytes.new(8)
-          string_slice.copy_from(sidedef.name_tex_up.to_slice)
-          io.write(string_slice)
+          name_slice = Bytes.new(8)
+          name_slice.copy_from(WAD.slice_cut(WAD.string_cut(sidedef.name_tex_up).to_slice))
+          io.write(name_slice)
           lump_size += 8_u32
 
-          string_slice = Bytes.new(8)
-          string_slice.copy_from(sidedef.name_tex_low.to_slice)
-          io.write(string_slice)
+          name_slice = Bytes.new(8)
+          name_slice.copy_from(WAD.slice_cut(WAD.string_cut(sidedef.name_tex_low).to_slice))
+          io.write(name_slice)
           lump_size += 8_u32
 
-          string_slice = Bytes.new(8)
-          string_slice.copy_from(sidedef.name_tex_mid.to_slice)
-          io.write(string_slice)
+          name_slice = Bytes.new(8)
+          name_slice.copy_from(WAD.slice_cut(WAD.string_cut(sidedef.name_tex_mid).to_slice))
+          io.write(name_slice)
           lump_size += 8_u32
 
           io.write_bytes(sidedef.facing_sector_num.to_i16, IO::ByteFormat::LittleEndian)
@@ -238,14 +238,14 @@ class WAD
           io.write_bytes(sector.ceiling_height.to_i16, IO::ByteFormat::LittleEndian)
           lump_size += 2_u32
 
-          string_slice = Bytes.new(8)
-          string_slice.copy_from(sector.name_tex_floor.to_slice)
-          io.write(string_slice)
+          name_slice = Bytes.new(8)
+          name_slice.copy_from(WAD.slice_cut(WAD.string_cut(sector.name_tex_floor).to_slice))
+          io.write(name_slice)
           lump_size += 8_u32
 
-          string_slice = Bytes.new(8)
-          string_slice.copy_from(sector.name_tex_ceiling.to_slice)
-          io.write(string_slice)
+          name_slice = Bytes.new(8)
+          name_slice.copy_from(WAD.slice_cut(WAD.string_cut(sector.name_tex_ceiling).to_slice))
+          io.write(name_slice)
           lump_size += 8_u32
 
           io.write_bytes(sector.light_level.to_i16, IO::ByteFormat::LittleEndian)

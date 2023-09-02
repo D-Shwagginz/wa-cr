@@ -62,9 +62,9 @@ class WAD
       end
 
       mtextures.each do |texture|
-        string_slice = Bytes.new(8)
-        string_slice.copy_from(texture.name.to_slice)
-        io.write(string_slice)
+        name_slice = Bytes.new(8)
+        name_slice.copy_from(WAD.slice_cut(WAD.string_cut(texture.name).to_slice))
+        io.write(name_slice)
         lump_size += 8_u32
 
         if texture.masked
@@ -110,9 +110,9 @@ class WAD
       lump_size += 4_u32
 
       patches.each do |patch|
-        patch_slice = Bytes.new(8)
-        patch_slice.copy_from(patch.to_slice)
-        io.write(patch_slice)
+        name_slice = Bytes.new(8)
+        name_slice.copy_from(WAD.slice_cut(WAD.string_cut(patch).to_slice))
+        io.write(name_slice)
         lump_size += 8_u32
       end
       lump_size
@@ -183,21 +183,27 @@ class WAD
         end
 
         if operator || y == height
-          if empty_post
-            buffer.pos=(buffer.pos-1)
+          if buffer.pos != 0
+            if empty_post
+              buffer.pos=(buffer.pos - 1)
+            end
+
+            buffer.pos=(buffer.pos - 1)
+
+            if buffer.read_bytes(UInt8, IO::ByteFormat::LittleEndian) != 255
+              pixel = 0
+
+              buffer.write_bytes(pixel.to_u8, IO::ByteFormat::LittleEndian)
+            end
+
+            row_start = 255
+
+            buffer.write_bytes(row_start.to_u8, IO::ByteFormat::LittleEndian)
+          else
+            row_start = 255
+
+            buffer.write_bytes(row_start.to_u8, IO::ByteFormat::LittleEndian)
           end
-
-          buffer.pos=(buffer.pos-1)
-
-          if buffer.read_bytes(UInt8, IO::ByteFormat::LittleEndian) != 255
-            pixel = 0
-
-            buffer.write_bytes(pixel.to_u8, IO::ByteFormat::LittleEndian)
-          end
-
-          row_start = 255
-
-          buffer.write_bytes(row_start.to_u8, IO::ByteFormat::LittleEndian)
         end
       end
 
@@ -222,5 +228,17 @@ class WAD
 
   # A WAD flat
   class Flat
+    def write(io) : UInt32
+      lump_size = 0_u32
+
+      width.times do |y|
+        height.times do |x|
+          io.write_bytes(self.[x, y].to_u8, IO::ByteFormat::LittleEndian)
+          lump_size += 1_u32
+        end
+      end
+
+      lump_size
+    end
   end
 end

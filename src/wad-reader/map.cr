@@ -28,7 +28,7 @@ class WAD
     property nodes = [] of Nodes
     property sectors = [] of Sectors
     property reject : Reject = Reject.new
-    property blockmap = Blockmap.new
+    property blockmap : Blockmap = Blockmap.new
 
     def initialize(@name = "")
     end
@@ -159,7 +159,7 @@ class WAD
 
         seg.angle = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
 
-        seg.lindef_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
+        seg.linedef_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
 
         seg.direction = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
 
@@ -273,6 +273,7 @@ class WAD
     # Parses a reject lump given the directory, io, and number of sectors.
 
     def self.parse_reject(io : IO, directory : Directory, sectors : Int32 = 0) : Reject
+      reject = Reject.new
       # DEPRECATED: Use directory.size instead.
       reject_size = (sectors**2)/8
       # Sets the index to loop through.
@@ -285,6 +286,7 @@ class WAD
       io.read_fully(byte_slice)
       # Converts *byte_slice* into an array.
       byte_slice_array = byte_slice.to_a
+      reject.byte_data = byte_slice.to_a
       # Creates a bit array with size sectors squared.
       bit_array = BitArray.new(sectors**2)
       # Does the 'y'.
@@ -308,7 +310,8 @@ class WAD
         reject_index += 1
       end
       # Returns reject.
-      Reject.new(bit_array)
+      reject.data = bit_array
+      reject
     end
 
     # Parses a blockmap lump given the directory and io.
@@ -397,7 +400,7 @@ class WAD
       property end_vertex_num = 0_i16
       # Angle, full circle is -32768 to 32767.
       property angle = 0_i16
-      property lindef_num = 0_i16
+      property linedef_num = 0_i16
       # Direction, 0 (same as linedef) or 1 (opposite of linedef).
       property direction = 0_i16
       # Offset, distance along linedef to start of seg.
@@ -448,6 +451,7 @@ class WAD
     # Class of a reject.
     class Reject
       property data : BitArray = BitArray.new(0)
+      property byte_data = [] of UInt8
       @sectors = 0
 
       # Outputs the truthiness of the bit at the given *x, y*.

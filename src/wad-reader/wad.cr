@@ -7,6 +7,8 @@ require "debug"
 
 # Reads and stores the data of a WAD file.
 class WAD
+  # The size of the header in bytes
+  HEADER_SIZE = 16
   # Type of WAD: Either IWAD, PWAD, or Broken.
   property type : Type = Type::Broken
   # The file/WAD name and directory.
@@ -133,6 +135,7 @@ class WAD
                   break
                 elsif !Map::MAP_CONTENTS.includes?(directory.name)
                   map_directory_end_reached = true
+                  wad.directories << directory
                   break
                 end
                 # Inserts the directory into the map.

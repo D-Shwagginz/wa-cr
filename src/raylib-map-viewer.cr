@@ -3,16 +3,6 @@ require "./raylib"
 require "./wad-reader/**"
 require "raylib-cr/rlgl"
 
-class Texture
-  property name : String = ""
-  property texture : R::Texture = R::Texture.new
-  property offset : R::Vector2 = R::Vector2.new
-  property size : R::Vector2 = R::Vector2.new
-
-  def initialize(@name : String, @texture : R::Texture, @offset : R::Vector2, @size : R::Vector2)
-  end
-end
-
 module MapViewer
   VERSION = "0.1alpha"
   # Screen Resolution
@@ -25,6 +15,16 @@ module MapViewer
   MOVEMENT_SPEED = 1000
   WAD_LOCATION   = "./rsrc/DOOM.WAD"
   MAP_NAME       = "E1M1"
+
+  class Texture
+    property name : String = ""
+    property texture : R::Texture = R::Texture.new
+    property offset : R::Vector2 = R::Vector2.new
+    property size : R::Vector2 = R::Vector2.new
+
+    def initialize(@name : String, @texture : R::Texture, @offset : R::Vector2, @size : R::Vector2)
+    end
+  end
 
   # Runs the game.
   def self.run

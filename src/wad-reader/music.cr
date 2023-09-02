@@ -56,6 +56,7 @@ class WAD
   class Genmidi
     property header = ""
     property instr_datas = [] of InstrumentData
+    property instr_names = [] of String
 
     # "The header is followed by 175 36-byte records of instrument data".
     struct InstrumentData
@@ -94,6 +95,11 @@ class WAD
 
         genmidi.instr_datas << instr_data
       end
+
+      instrument_data_records_count.times do
+        genmidi.instr_names << io.gets(32).to_s.gsub("\u0000", "")
+      end
+
       genmidi
     end
 

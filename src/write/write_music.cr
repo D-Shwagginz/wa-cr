@@ -2,6 +2,37 @@
 class WAD
   # A music track.
   class Music
+    def write(io) : UInt32
+      lump_size = 0_u32
+
+      io.print(identifier)
+      lump_size += 4_u32
+
+      io.write_bytes(score_len.to_u16, IO::ByteFormat::LittleEndian)
+      lump_size += 2_u32
+      io.write_bytes(score_start.to_u16, IO::ByteFormat::LittleEndian)
+      lump_size += 2_u32
+      io.write_bytes(channels.to_u16, IO::ByteFormat::LittleEndian)
+      lump_size += 2_u32
+      io.write_bytes(sec_channels.to_u16, IO::ByteFormat::LittleEndian)
+      lump_size += 2_u32
+      io.write_bytes(instr_cnt.to_u16, IO::ByteFormat::LittleEndian)
+      lump_size += 2_u32
+
+      io.write_bytes(0.to_u16, IO::ByteFormat::LittleEndian)
+      lump_size += 2_u32
+
+      instruments.each do |instrument|
+        io.write_bytes(instrument.to_u16, IO::ByteFormat::LittleEndian)
+        lump_size += 2_u32
+      end
+
+      song.each do |value|
+        io.write_bytes(value.to_u8, IO::ByteFormat::LittleEndian)
+        lump_size += 1_u32
+      end
+      lump_size
+    end
   end
 
   # "Instrument data for the DMX sound library to use for OPL synthesis".
@@ -35,6 +66,13 @@ class WAD
         end
         io.write_bytes(instr_data.voice2_data[14].to_i16, IO::ByteFormat::LittleEndian)
         lump_size += 2_u32
+      end
+
+      instr_names.each do |name|
+        name_slice = Bytes.new(32)
+        name_slice.copy_from(name.to_slice)
+        io.write(name_slice)
+        lump_size += 32_u32
       end
       lump_size
     end
@@ -71,8 +109,8 @@ class WAD
         io.print(",")
         lump_size += ",".bytesize.to_u32
 
-        io.print(instr_data.patch.to_s)
-        lump_size += instr_data.patch.to_s.bytesize.to_u32
+        io.print(instr_data.filename)
+        lump_size += instr_data.filename.bytesize.to_u32
         io.print("\n")
         lump_size += "\n".bytesize.to_u32
       end

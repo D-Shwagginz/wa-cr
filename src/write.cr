@@ -43,42 +43,77 @@ class WAD
         written_directories << written_directory
       end
 
-    #   if maps.has_key?(directory.name)
-    #     written_directories << written_directory
-    #   end
+      if Graphic.is_sprite_mark_start?(directory.name)
+        written_directory.size = 0
+        written_directories << written_directory
+      end
 
-    #   if pcsounds.has_key?(directory.name)
-    #     written_directory.size = pcsounds[directory.name].write(io)
-    #     written_directories << written_directory
-    #   end
+      if Graphic.is_sprite_mark_end?(directory.name)
+        written_directory.size = 0
+        written_directories << written_directory
+      end
 
-    #   if sounds.has_key?(directory.name)
-    #     written_directories << written_directory
-    #   end
+      if Flat.is_flat_mark_start?(directory.name)
+        written_directory.size = 0
+        written_directories << written_directory
+      end
 
-    #   if music.has_key?(directory.name)
-    #     written_directories << written_directory
-    #   end
+      if Flat.is_flat_mark_end?(directory.name)
+        written_directory.size = 0
+        written_directories << written_directory
+      end
 
-    #   if texmaps.has_key?(directory.name)
-    #     written_directories << written_directory
-    #   end
+      if maps.has_key?(directory.name)
+        written_directory.size = 0
+        written_directories << written_directory
 
-    #   if graphics.has_key?(directory.name)
-    #     written_directories << written_directory
-    #   end
+        maps[directory.name].write(io).each do |lump_dir|
+          written_directory = Directory.new
+          written_directory.name = lump_dir.name
+          written_directory.file_pos = lump_dir.file_pos
+          written_directory.size = lump_dir.size
+          written_directories << written_directory
+        end
+      end
 
-    #   if sprites.has_key?(directory.name)
-    #     written_directories << written_directory
-    #   end
+      if pcsounds.has_key?(directory.name)
+        written_directory.size = pcsounds[directory.name].write(io)
+        written_directories << written_directory
+      end
 
-    #   if flats.has_key?(directory.name)
-    #     written_directories << written_directory
-    #   end
+      if sounds.has_key?(directory.name)
+        written_directory.size = sounds[directory.name].write(io)
+        written_directories << written_directory
+      end
 
-    #   if demos.has_key?(directory.name)
-    #     written_directories << written_directory
-    #   end
+      if music.has_key?(directory.name)
+        written_directory.size = music[directory.name].write(io)
+        written_directories << written_directory
+      end
+
+      if texmaps.has_key?(directory.name)
+        written_directory.size = texmaps[directory.name].write(io)
+        written_directories << written_directory
+      end
+
+      if graphics.has_key?(directory.name)
+        if directory.name == "HELP1"
+        written_directory.size = graphics[directory.name].write(io)
+        written_directories << written_directory
+        end
+      end
+
+      #   if sprites.has_key?(directory.name)
+      #     written_directories << written_directory
+      #   end
+
+      #   if flats.has_key?(directory.name)
+      #     written_directories << written_directory
+      #   end
+
+      #   if demos.has_key?(directory.name)
+      #     written_directories << written_directory
+      #   end
     end
 
     write_directory_pointer = io.pos

@@ -1,10 +1,9 @@
 require "raylib-cr"
 require "./wad-reader/**"
-require "./rcamera.cr"
 
 alias R = Raylib
 alias RM = Raymath
-alias RC = Rcamera
+alias RC = Raylib
 
 class WAD
   # Gets a texture as a raylib image given the texture name and a palette

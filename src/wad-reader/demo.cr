@@ -120,7 +120,7 @@ class WAD
 
     # Checks if the demo is of doom version 1,9
     #
-    # Example:
+    # Example: Returns true if an io is a demo
     # ```
     # File.open("Path/To/Demo") do |file|
     #   if WAD::Demo.is_demo(file)

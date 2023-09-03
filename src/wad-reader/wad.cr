@@ -52,10 +52,11 @@ class WAD
 
   # :nodoc:
   # Macro that parses a given *name* for a map.
-  # WARNING: Only use at the end of self.read with *name* being a .map parse method.
-  macro map_parse(name)
+  # WARNING: Only use at the end of self.read with *name* being a .map parse method
+  # and *class_name* being the name of the class in *Map*.
+  macro map_parse(name, class_name)
     file.read_at(map.{{name}}_directory.file_pos, map.{{name}}_directory.size) do |io|
-      map.{{name}} = Map.parse_{{name}}(io, map.{{name}}_directory)
+      map.{{name}} = Map::{{class_name}}.parse(io, map.{{name}}_directory.size)
     end
   end
 
@@ -149,18 +150,18 @@ class WAD
             end
 
             # Parses each map lump into *map*.
-            map_parse(things)
-            map_parse(linedefs)
-            map_parse(sidedefs)
-            map_parse(vertexes)
-            map_parse(segs)
-            map_parse(ssectors)
-            map_parse(nodes)
-            map_parse(sectors)
+            map_parse(things, Things)
+            map_parse(linedefs, Linedefs)
+            map_parse(sidedefs, Sidedefs)
+            map_parse(vertexes, Vertexes)
+            map_parse(segs, Segs)
+            map_parse(ssectors, Ssectors)
+            map_parse(nodes, Nodes)
+            map_parse(sectors, Sectors)
             file.read_at(map.reject_directory.file_pos, map.reject_directory.size) do |io|
-              map.reject = Map.parse_reject(io, map.reject_directory, map.sectors.size)
+              map.reject = Map::Reject.parse(io, map.reject_directory.size, map.sectors.size)
             end
-            map_parse(blockmap)
+            map_parse(blockmap, Blockmap)
 
             # Pushes map onto the list of maps
             wad.maps[map.name] = map
@@ -345,7 +346,7 @@ class WAD
   # Example:
   # ```
   # my_slice = "My Test Slice".to_slice # => Bytes[77, 121, 32, 84, 101, 115, 116, 32, 83, 108, 105, 99, 101]
-  # WAD.slice_cut(my_slice, 5) # => Bytes[77, 121, 32, 84, 101]
+  # WAD.slice_cut(my_slice, 5)          # => Bytes[77, 121, 32, 84, 101]
   # ```
   def self.slice_cut(slice : Slice, len : Int = 8) : Slice
     if slice.size > len

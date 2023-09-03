@@ -17,10 +17,11 @@ class WAD
     #   directory = Directory.read(io)
     # end
     # ```
-    def self.read(io : IO) : Directory
+    def self.read(io : IO, file_offset : UInt32 = 0) : Directory
       # Creates a new directory and sets all the properties
       directory = Directory.new
       directory.file_pos = io.read_bytes(UInt32, IO::ByteFormat::LittleEndian)
+      directory.file_pos += file_offset
       directory.size = io.read_bytes(UInt32, IO::ByteFormat::LittleEndian)
       directory.name = io.gets(8).to_s.gsub("\u0000", "")
       directory

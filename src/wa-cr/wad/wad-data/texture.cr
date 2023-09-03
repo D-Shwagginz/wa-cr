@@ -331,7 +331,7 @@ class WAD
     #   my_graphic = WAD::Graphic.parse(file, 0, file.size)
     # end
     # ```
-    def self.parse(file : File, file_pos : Int, size : Int)
+    def self.parse(file : File | IO, file_pos : Int, size : Int)
       begin
         graphic_parse = GraphicParse.new
         graphic = Graphic.new

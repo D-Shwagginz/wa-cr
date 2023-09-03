@@ -75,6 +75,7 @@ class WAD
 
   def self.read(file : IO) : WAD
     wad = WAD.new
+    start_pos = file.pos.to_u32
     # Sets the WAD type: Can only be the ASCII characters "IWAD" or "PWAD".
     header_slice = Bytes.new(4)
     file.read(header_slice)
@@ -95,7 +96,7 @@ class WAD
     # An integer specifying the number of lumps in the WAD.
     wad.directories_count = file.read_bytes(UInt32, IO::ByteFormat::LittleEndian)
     # An integer holding a pointer to the start location of the directories.
-    wad.directory_pointer = file.read_bytes(UInt32, IO::ByteFormat::LittleEndian)
+    wad.directory_pointer = file.read_bytes(UInt32, IO::ByteFormat::LittleEndian) + start_pos
     # Index of the current directory.
     d_index = 0
 
@@ -107,7 +108,7 @@ class WAD
       # Reads the directory at *directory_start* of *Directory::Size*.
       file.read_at(directory_start, Directory::SIZE) do |io|
         # Reads directory *io* and pushes it onto *wad.directories*.
-        directory = Directory.read(io)
+        directory = Directory.read(io, start_pos)
         wad.directories << directory
         # Parses map if *directory.name* is of format 'ExMx' or 'MAPxx' .
         if Map.is_map?(directory.name)
@@ -126,7 +127,7 @@ class WAD
             # Reads the directory at *directory_start* of *Directory::Size*.
             file.read_at(directory_start, Directory::SIZE) do |io|
               # Reads directory *io* and pushes it onto *wad.directories*.
-              directory = Directory.read(io)
+              directory = Directory.read(io, start_pos)
               # Checks if it has reached the end of the map's lumps
               # By seeing if the *directory.name* is a map, showing
               # it reached the next map.
@@ -247,7 +248,7 @@ class WAD
             # Reads the directory at *directory_start* of *Directory::Size*.
             file.read_at(directory_start, Directory::SIZE) do |io|
               # Reads directory *io* and pushes it onto *wad.directories*.
-              directory = Directory.read(io)
+              directory = Directory.read(io, start_pos)
               wad.directories << directory
               # Checks if it has reached the end of the map's lumps
               # By seeing if the *directory.name* is a map, showing
@@ -279,7 +280,7 @@ class WAD
             # Reads the directory at *directory_start* of *Directory::Size*.
             file.read_at(directory_start, Directory::SIZE) do |io|
               # Reads directory *io* and pushes it onto *wad.directories*.
-              directory = Directory.read(io)
+              directory = Directory.read(io, start_pos)
               wad.directories << directory
               # Checks if it has reached the end of the map's lumps
               # By seeing if the *directory.name* is a map, showing

@@ -1,6 +1,9 @@
-# wa-cr
+![logo](logo/Logo.png)
+
+# Where's all the Crystal? | wa-cr
 
 Used to parse .wad files into usable Crystal code
+as well as writing out a .wad or .lmp files
 
 ## Installation
 

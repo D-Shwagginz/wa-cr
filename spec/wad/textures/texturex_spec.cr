@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
-describe WAD::TextureX do
-  it "should properly set the textureX's" do
+describe WAD::TextureX, tags: "textures" do
+  it "should properly set the textureX's", tags: "texturex" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
     mywad.texmaps.values[0].numtextures.should eq 125

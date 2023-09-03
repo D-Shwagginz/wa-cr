@@ -1,6 +1,6 @@
 require "../spec_helper"
 
-describe WAD::Demo do
+describe WAD::Demo, tags: "demos" do
   it "should properly set the demos" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 

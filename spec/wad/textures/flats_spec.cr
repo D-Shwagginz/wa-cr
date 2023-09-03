@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
-describe WAD::Flat do
-  it "should properly set the flats" do
+describe WAD::Flat, tags: "textures" do
+  it "should properly set the flats", tags: "flats" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
     texturenamesstart = [

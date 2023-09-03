@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
-describe WAD::Sound do
-  it "should properly set sounds" do
+describe WAD::Sound, tags: "sounds" do
+  it "should properly set sounds", tags: "sound" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
     mywad.sounds["DSSHOTGN"].format_num.should eq 3

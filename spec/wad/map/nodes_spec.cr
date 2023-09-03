@@ -1,13 +1,12 @@
 require "../../spec_helper"
 
 describe WAD::Map::Nodes, tags: "map" do
-  it "should properly set map nodes" do
+  it "should properly set map nodes", tags: "nodes" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
-    mywad.maps["E2M4"].nodes[284].right_bound_box[1].should eq -1152
-    mywad.maps["E1M3"].nodes[303].y_coord.should eq -2112
-    mywad.maps["E2M5"].nodes[473].x_coord.should eq -1920
-    mywad.maps["E1M9"].nodes[286].left_bound_box[3].should eq 2688
-    mywad.maps["E3M2"].nodes[110].right_child.should eq 103
+    node_check(mywad, "E1M1", 89, 128, -3200, -64, 128)
+    node_check(mywad, "E1M6", 293, 0, -64, -128, 0)
+    node_check(mywad, "E2M2", 499, -32, 3680, 0, -32)
+    node_check(mywad, "E2M6", 63, 1024, 2560, 192, 0)
   end
 end

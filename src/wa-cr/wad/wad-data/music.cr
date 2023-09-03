@@ -150,7 +150,7 @@ class WAD
     struct InstrumentData
       property patch : Int32 = 0
       # a = 256, b = 512, c = 768, d = 1024
-      property a_k  : Int32 = 0
+      property a_k : Int32 = 0
       property b_k : Int32 = 0
       property c_k : Int32 = 0
       property d_k : Int32 = 0

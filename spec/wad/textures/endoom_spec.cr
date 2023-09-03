@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
-describe WAD::Pnames do
-  it "should properly set the EnDoom" do
+describe WAD::Pnames, tags: "textures" do
+  it "should properly set the EnDoom", tags: "endoom" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
     mywad.endoom.characters[0].ascii_value.should eq 32

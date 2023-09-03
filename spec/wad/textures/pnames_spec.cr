@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
-describe WAD::Pnames do
-  it "should properly set the Pnames" do
+describe WAD::Pnames, tags: "textures" do
+  it "should properly set the Pnames", tags: "pnames" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
     mywad.pnames.num_patches.should eq 350

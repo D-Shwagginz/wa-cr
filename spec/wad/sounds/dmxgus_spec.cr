@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
-describe WAD::Dmxgus do
-  it "should properly set the dmxgus" do
+describe WAD::Dmxgus, tags: "sounds" do
+  it "should properly set the dmxgus", tags: "dmxgus" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
     mywad.dmxgus.instr_datas[0].patch.should eq 0

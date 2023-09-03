@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
 describe WAD::Map::Reject, tags: "map" do
-  it "should properly set map reject" do
+  it "should properly set map reject", tags: "reject" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
     mywad.maps["E1M2"].reject[1, 2].should eq false

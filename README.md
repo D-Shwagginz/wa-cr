@@ -1,4 +1,4 @@
-![logo](logo/Logo.png)
+![logo](logo/wa-cr.png)
 
 # Where's all the Crystal? | wa-cr
 

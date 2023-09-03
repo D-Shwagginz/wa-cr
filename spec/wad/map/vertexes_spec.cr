@@ -1,16 +1,14 @@
 require "../../spec_helper"
 
 describe WAD::Map::Vertexes, tags: "map" do
-  it "should properly set map vertexes", tags: ["vertex", "v"] do
+  it "should properly set map vertexes", tags: "vertexes" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
-    vertex_check(mywad, map_name: "E1M1", vertex_index: 126, x_pos: 1664, y_pos: -2432)
-    vertex_check(mywad, map_name: "E1M2", vertex_index: 757, x_pos: -392, y_pos: 2320)
-
-    mywad.maps["E1M7"].vertexes[695].x_position.should eq 1664
-    mywad.maps["E2M8"].vertexes[78].y_position.should eq -224
-    mywad.maps["E3M5"].vertexes[1198].x_position.should eq -16
-    mywad.maps["E1M3"].vertexes[382].y_position.should eq -2304
-    mywad.maps["E3M2"].vertexes[0].x_position.should eq 1984
+    vertex_check(mywad, "E1M1", 126, 1664, -2432)
+    vertex_check(mywad, "E1M2", 757, -392, 2320)
+    vertex_check(mywad, "E1M6", 366, 2880, -1888)
+    vertex_check(mywad, "E2M1", 370, 192, 128)
+    vertex_check(mywad, "E3M1", 45, -192, -96)
+    vertex_check(mywad, "E3M9", 47, 0, -0)
   end
 end

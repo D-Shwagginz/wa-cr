@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
-describe WAD::Sound do
-  it "should properly create sound file" do
+describe WAD::Sound, tags: "sounds" do
+  it "should properly create sound file", tags: "sound-to-wad" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
     File.open("./rsrc/spectest.wav", "w+") do |io|

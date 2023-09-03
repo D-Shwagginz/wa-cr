@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
-describe WAD::Graphic do
-  it "should properly set the graphics" do
+describe WAD::Graphic, tags: "textures" do
+  it "should properly set the graphics", tags: "graphics" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
     texturenamesstart = [

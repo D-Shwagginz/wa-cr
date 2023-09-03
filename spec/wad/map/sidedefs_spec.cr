@@ -1,13 +1,12 @@
 require "../../spec_helper"
 
 describe WAD::Map::Sidedefs, tags: "map" do
-  it "should properly set map sidedefs" do
+  it "should properly set map sidedefs", tags: "sidedefs" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
-    mywad.maps["E3M2"].sidedefs[210].x_offset.should eq 113
-    mywad.maps["E1M6"].sidedefs[1523].name_tex_up.gsub("\u0000", "").should eq "COMPUTE2"
-    mywad.maps["E2M1"].sidedefs[350].name_tex_mid.gsub("\u0000", "").should eq "SLADWALL"
-    mywad.maps["E3M6"].sidedefs[52].facing_sector_num.should eq 4
-    mywad.maps["E2M4"].sidedefs[1438].name_tex_low.gsub("\u0000", "").should eq "GRAYTALL"
+    sidedef_check(mywad, "E1M9", 297, 0, 0, "BROWN96", "-", "-", 104)
+    sidedef_check(mywad, "E2M4", 671, 0, 0, "STONE3", "STONE3", "-", 52)
+    sidedef_check(mywad, "E3M3", 1260, 0, 0, "STONE", "-", "-", 147)
+    sidedef_check(mywad, "E3M8", 0, 0, 0, "-", "-", "TEKWALL2", 1)
   end
 end

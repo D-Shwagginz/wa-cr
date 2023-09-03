@@ -29,7 +29,7 @@ class WAD
 
           texturemap.patches.each do |texmap_patch|
             patch_name = pnames.patches[texmap_patch.patch]
-            patch_image = graphics[patch_name.upcase].to_tex(palette)
+            patch_image = graphics[patch_name.upcase.gsub("\u0000", "")].to_tex(palette)
             R.image_draw(
               pointerof(image),
               patch_image,

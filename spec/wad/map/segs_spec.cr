@@ -1,13 +1,12 @@
 require "../../spec_helper"
 
 describe WAD::Map::Segs, tags: "map" do
-  it "should properly set map segs" do
+  it "should properly set map segs", tags: "segs" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
-    mywad.maps["E1M3"].segs[531].angle.should eq 16384
-    mywad.maps["E2M4"].segs[1003].direction.should eq 1
-    mywad.maps["E3M6"].segs[163].offset.should eq 146
-    mywad.maps["E1M2"].segs[1323].start_vertex_num.should eq 545
-    mywad.maps["E3M9"].segs[227].end_vertex_num.should eq 187
+    seg_check(mywad, "E2M1", 61, 332, 229, 2960, 267, 0, 114)
+    seg_check(mywad, "E2M6", 1005, 869, 870, 16384, 1048, 0, 0)
+    seg_check(mywad, "E3M1", 297, 29, 46, -16384, 48, 0, 0)
+    seg_check(mywad, "E3M5", 1687, 926, 928, 24576, 1143, 1, 0)
   end
 end

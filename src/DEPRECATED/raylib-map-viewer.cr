@@ -1,7 +1,6 @@
 require "raylib-cr"
 require "raylib-cr/rlgl"
-require "./raylib"
-require "../**"
+require "../wa-cr/**"
 
 module MapViewer
   VERSION = "0.1alpha"

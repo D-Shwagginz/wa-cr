@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
-describe WAD::Genmidi do
-  it "should properly set the genmidi" do
+describe WAD::Genmidi, tags: "sounds" do
+  it "should properly set the genmidi", tags: "genmidi" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
     mywad.genmidi.header.gsub("\u0000", "").should eq "#OPL_II#"

@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
 describe WAD::Map::Blockmap, tags: "map" do
-  it "should properly set map blockmap" do
+  it "should properly set map blockmap", tags: "blockmap" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
     mywad.maps["E2M1"].blockmap.header.grid_origin_x.should eq -296

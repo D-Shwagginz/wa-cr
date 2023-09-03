@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
-describe WAD::Graphic do
-  it "should properly set the spries" do
+describe WAD::Graphic, tags: "textures" do
+  it "should properly set the spries", tags: "sprites" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
     mywad.sprites.values[0].width.should eq 0x72

@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
-describe WAD::Music do
-  it "should properly read music file" do
+describe WAD::Music, tags: "sounds" do
+  it "should properly read music file", tags: "music" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
     mywad.music["D_E1M5"].identifier.should eq "MUS\u001A"

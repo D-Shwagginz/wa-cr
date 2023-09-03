@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
-describe WAD::PcSound do
-  it "should properly set pc sounds" do
+describe WAD::PcSound, tags: "sounds" do
+  it "should properly set pc sounds", tags: "pcsounds" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
     mywad.pcsounds["DPSAWIDL"].samples[3].should eq 63

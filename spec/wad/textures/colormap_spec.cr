@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
-describe WAD::Colormap do
-  it "should properly set the colormap" do
+describe WAD::Colormap, tags: "textures" do
+  it "should properly set the colormap", tags: "colormap" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
     mywad.colormap.tables[0].table[0].should eq 0

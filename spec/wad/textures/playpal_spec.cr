@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
-describe WAD::Playpal do
-  it "should properly set the playpal" do
+describe WAD::Playpal, tags: "textures" do
+  it "should properly set the playpal", tags: "playpal" do
     mywad = WAD.read("./rsrc/DOOM.WAD")
 
     mywad.playpal.palettes[0].colors[0].r.should eq 0

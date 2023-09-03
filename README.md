@@ -9,7 +9,7 @@ as well as writing out to a .wad or .lmp file or converting files.
 1. Add `wa-cr` to your `shard.yml`:
 ```yml
 dependencies:
-  raylib-cr:
+  wa-cr:
     github: sol-vin/wa-cr
 ```
 

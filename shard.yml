@@ -10,6 +10,8 @@ targets:
     main: src/wa-cr.cr
 
 dependencies:
+  raylib-cr:
+    github: sol-vin/raylib-cr
   debug:
     github: Sija/debug.cr
         

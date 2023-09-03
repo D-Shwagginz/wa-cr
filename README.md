@@ -1,9 +1,9 @@
-![logo](logo/wa-cr.png)
+![logo](../logo/wa-cr.png)
 
 # Where's all the Crystal? | wa-cr
 
 Used to parse .wad files into usable Crystal code
-as well as writing out a .wad or .lmp files
+as well as writing out to a .wad or .lmp file
 
 ## Installation
 
@@ -12,15 +12,13 @@ as well as writing out a .wad or .lmp files
 
 ### Raylib
 
-To use the wa-cr Raylib additions such as converting 
-a graphic to a Raylib Image, you must have raylib downloaded:
+To use the wa-cr Raylib additions you must have raylib installed:
 
 - Install raylib from [github](https://github.com/raysan5/raylib/releases)
 
 ## Usage
 
-* Use WAD.read(*wad location*)
-* Run 'shards run' from the install directory to run the program
+wa-cr includes 
 
 ## Contributing
 
@@ -30,11 +28,11 @@ a graphic to a Raylib Image, you must have raylib downloaded:
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
+## Limitations
+
+* Demos won't work properly because of how the doom engines psuedo-random number generator functions. If the wads are different at all, the demos won't function as intended
+
 ## Contributors
 
 - [Devin Shwagginz](https://github.com/D-Shwagginz) - creator and maintainer
 - [Ian Rash](https://github.com/sol-vin) - co-creator
-
-## Limitations
-
-* Demos won't work properly because of how the doom engines psuedo-random number generator functions. If the wads are different at all, the demos won't function as intended

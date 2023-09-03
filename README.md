@@ -10,6 +10,12 @@ as well as writing out a .wad or .lmp files
 1. Download the [code](https://github.com/sol-vin/wad-reader/archive/refs/heads/master.zip)
 2. Unzip the file wherever you want
 
+### Raylib
+
+To use the wa-cr Raylib additions such as converting a graphic to a Raylib Image, you must have raylib downloaded:
+
+- Install raylib from [github](https://github.com/raysan5/raylib/releases)
+
 ## Usage
 
 * Use WAD.read(*wad location*)

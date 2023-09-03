@@ -23,7 +23,7 @@ For a complete overview visit wa-cr's [docs](https://sol-vin.github.io/wad-reade
 ### Wad Data
 
 Reading in a .wad is as easy as
-```
+```crystal
 # Reads in a wad and sets it to *my_wad*
 my_wad = WAD.read("Path/To/Wad.wad")
 ```

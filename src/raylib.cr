@@ -1,5 +1,5 @@
 require "raylib-cr"
-require "../**"
+require "./wa-cr/**"
 
 # The actual methods
 

@@ -2,12 +2,16 @@
 # Where's all the Crystal? | wa-cr
 
 Used to parse .wad files into usable Crystal code
-as well as writing out to a .wad or .lmp file.
+as well as writing out to a .wad or .lmp file or converting files.
 
 ## Installation
 
-1. Download the [code](https://github.com/sol-vin/wad-reader/archive/refs/heads/master.zip).
-2. Unzip the file wherever you want.
+1. Add `wa-cr` to your `shard.yml`:
+```yml
+dependencies:
+  raylib-cr:
+    github: sol-vin/wa-cr
+```
 
 ### Raylib Additions
 

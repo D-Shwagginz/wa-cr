@@ -1,4 +1,4 @@
-name: wad-reader
+name: wa-cr
 version: 0.0.1
 
 authors:
@@ -6,10 +6,8 @@ authors:
   - D. Shwagginz <dshwagbusiness@gmail.com>
 
 targets:
-  wad-reader:
-    main: src/wad-reader.cr
-  map-viewer:
-    main: src/raylib-map-viewer.cr
+  wa-cr:
+    main: src/wa-cr.cr
 
 dependencies:
   raylib-cr:

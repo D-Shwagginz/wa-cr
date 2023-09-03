@@ -4,7 +4,7 @@ Used to parse .wad files into usable Crystal code
 
 ## Installation
 
-1. Download the [code](https://github.com/sol-vin/wa-cr/archive/refs/heads/master.zip)
+1. Download the [code](https://github.com/sol-vin/wad-reader/archive/refs/heads/master.zip)
 2. Unzip the file wherever you want
 
 ## Usage
@@ -14,7 +14,7 @@ Used to parse .wad files into usable Crystal code
 
 ## Contributing
 
-1. Fork it (<https://github.com/sol-vin/wa-cr/fork>)
+1. Fork it (<https://github.com/sol-vin/wad-reader/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -27,4 +27,4 @@ Used to parse .wad files into usable Crystal code
 
 ## Limitations
 
-* Demos won't work properly because of how the doom engines psuedo-random number generator functions. If the wads are different at all, the demos won't function
+* Demos won't work properly because of how the doom engines psuedo-random number generator functions. If the wads are different at all, the demos won't function as intended

@@ -2,15 +2,15 @@
 class WAD
   # A music track.
   class Music
-    property identifier = ""
-    property score_len = 0_u16
-    property score_start = 0_u16
+    property identifier : String = ""
+    property score_len : UInt16 = 0_u16
+    property score_start : UInt16 = 0_u16
     # Count of primary channels.
-    property channels = 0_u16
+    property channels : UInt16 = 0_u16
     # Count of secondary channels.
-    property sec_channels = 0_u16
-    property instr_cnt = 0_u16
-    property dummy = 0_u16
+    property sec_channels : UInt16 = 0_u16
+    property instr_cnt : UInt16 = 0_u16
+    property dummy : UInt16 = 0_u16
     property instruments = [] of UInt16
 
     property song = [] of UInt8
@@ -23,7 +23,7 @@ class WAD
     #   my_music = WAD::Music.parse(file)
     # end
     # ```
-    def self.parse(io)
+    def self.parse(io : IO)
       music = Music.new
       # Reads the data.
       music.identifier = io.gets(4).to_s
@@ -63,23 +63,23 @@ class WAD
     #   puts "Is not a Music"
     # end
     # ```
-    def self.is_music?(name)
+    def self.is_music?(name : String)
       !!(name =~ /^D_/)
     end
   end
 
   # "Instrument data for the DMX sound library to use for OPL synthesis".
   class Genmidi
-    property header = ""
-    property instr_datas = [] of InstrumentData
-    property instr_names = [] of String
+    property header : String = ""
+    property instr_datas : Array(InstrumentData) = [] of InstrumentData
+    property instr_names : Array(String) = [] of String
 
     # "The header is followed by 175 36-byte records of instrument data".
     struct InstrumentData
-      property header = [] of Int8 | Int16
+      property header : Array(Int8 | Int16) = [] of Int8 | Int16
       # TODO: Create actual voice data struct
-      property voice1_data = [] of Int8 | Int16
-      property voice2_data = [] of Int8 | Int16
+      property voice1_data : Array(Int8 | Int16) = [] of Int8 | Int16
+      property voice2_data : Array(Int8 | Int16) = [] of Int8 | Int16
     end
 
     # Parses a genmidi file given the io
@@ -90,7 +90,7 @@ class WAD
     #   my_genmidi = WAD::Genmidi.parse(file)
     # end
     # ```
-    def self.parse(io)
+    def self.parse(io : IO)
       genmidi = Genmidi.new
       # Reads the file header
       genmidi.header = io.gets(8).to_s
@@ -138,23 +138,23 @@ class WAD
     #   puts "Is not a Genmidi"
     # end
     # ```
-    def self.is_genmidi?(name)
+    def self.is_genmidi?(name : String)
       !!(name =~ /^GENMIDI/)
     end
   end
 
   # "Instrument data for the DMX sound library to use for Gravis Ultrasound soundcards".
   class Dmxgus
-    property instr_datas = [] of InstrumentData
+    property instr_datas : Array(InstrumentData) = [] of InstrumentData
 
     struct InstrumentData
-      property patch = 0
+      property patch : Int32 = 0
       # a = 256, b = 512, c = 768, d = 1024
-      property a_k = 0
-      property b_k = 0
-      property c_k = 0
-      property d_k = 0
-      property filename = ""
+      property a_k  : Int32 = 0
+      property b_k : Int32 = 0
+      property c_k : Int32 = 0
+      property d_k : Int32 = 0
+      property filename : String = ""
     end
 
     # Parses a dmxgus file given the io
@@ -165,7 +165,7 @@ class WAD
     #   my_dmxgus = WAD::Dmxgus.parse(file)
     # end
     # ```
-    def self.parse(io)
+    def self.parse(io : IO)
       dmxgus = Dmxgus.new
       # Reads each line of the dmxgus
       # NOTE: dmxgus is a text file
@@ -200,7 +200,7 @@ class WAD
     #   puts "Is not a Dmxgus"
     # end
     # ```
-    def self.is_dmxgus?(name)
+    def self.is_dmxgus?(name : String)
       !!(name =~ /^DMXGUS/) || !!(name =~ /^DMXGUS\d/)
     end
   end

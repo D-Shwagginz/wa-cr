@@ -2,10 +2,11 @@
 class WAD
   # Map containing all directories of data lumps.
   class Map
+    # A list of things that the map contains
     MAP_CONTENTS = ["THINGS", "LINEDEFS", "SIDEDEFS", "VERTEXES", "SEGS", "SSECTORS", "NODES", "SECTORS", "REJECT", "BLOCKMAP", "BEHAVIOR"]
 
     # The name of the map.
-    property name = ""
+    property name : String = ""
     # The directory of the things lump
     property things_directory : Directory = Directory.new
     # The directory of the linedefs lump
@@ -28,36 +29,36 @@ class WAD
     property blockmap_directory : Directory = Directory.new
 
     # The parsed things lump
-    property things = [] of Things
+    property things : Array(Things) = [] of Things
     # The parsed linedefs lump
-    property linedefs = [] of Linedefs
+    property linedefs : Array(Linedefs) = [] of Linedefs
     # The parsed sidedefs lump
-    property sidedefs = [] of Sidedefs
+    property sidedefs : Array(Sidedefs) = [] of Sidedefs
     # The parsed vertexes lump
-    property vertexes = [] of Vertexes
+    property vertexes : Array(Vertexes) = [] of Vertexes
     # The parsed segs lump
-    property segs = [] of Segs
+    property segs : Array(Segs) = [] of Segs
     # The parsed ssectors lump
-    property ssectors = [] of Ssectors
+    property ssectors : Array(Ssectors) = [] of Ssectors
     # The parsed nodes lump
-    property nodes = [] of Nodes
+    property nodes : Array(Nodes) = [] of Nodes
     # The parsed sectors lump
-    property sectors = [] of Sectors
+    property sectors : Array(Sectors) = [] of Sectors
     # The parsed reject lump
     property reject : Reject = Reject.new
     # The parsed blockmap lump
     property blockmap : Blockmap = Blockmap.new
 
-    def initialize(@name = "")
+    def initialize(@name : String = "")
     end
 
     # Structure of a thing.
     struct Things
-      property x_position = 0_i16
-      property y_position = 0_i16
-      property angle_facing = 0_i16
-      property thing_type = 0_i16
-      property flags = 0_i16
+      property x_position : Int16 = 0_i16
+      property y_position : Int16 = 0_i16
+      property angle_facing : Int16 = 0_i16
+      property thing_type : Int16 = 0_i16
+      property flags : Int16 = 0_i16
 
       # Parses a things list given the io and the size
       #
@@ -67,7 +68,7 @@ class WAD
       #   my_things = WAD::Map::Things.parse(file)
       # end
       # ```
-      def self.parse(io : IO, lump_size) : Array(Things)
+      def self.parse(io : IO, lump_size : Int) : Array(Things)
         # Creates a list for all things that will be parsed from the lump.
         parsed_things = [] of Things
         # Sets the index to loop through.
@@ -96,13 +97,13 @@ class WAD
 
     # Structure of a linedef.
     struct Linedefs
-      property start_vertex = 0_i16
-      property end_vertex = 0_i16
-      property flags = 0_i16
-      property special_type = 0_i16
-      property sector_tag = 0_i16
-      property front_sidedef = 0_i16
-      property back_sidedef = 0_i16
+      property start_vertex : Int16 = 0_i16
+      property end_vertex : Int16 = 0_i16
+      property flags : Int16 = 0_i16
+      property special_type : Int16 = 0_i16
+      property sector_tag : Int16 = 0_i16
+      property front_sidedef : Int16 = 0_i16
+      property back_sidedef : Int16 = 0_i16
 
       # Parses a linedefs list given the io and the size
       #
@@ -112,7 +113,7 @@ class WAD
       #   my_linedefs = WAD::Map::Linedefs.parse(file)
       # end
       # ```
-      def self.parse(io : IO, lump_size) : Array(Linedefs)
+      def self.parse(io : IO, lump_size : Int) : Array(Linedefs)
         # Creates a list for all linedefs that will be parsed from the lump.
         parsed_linedefs = [] of Linedefs
         # Sets the index to loop through.
@@ -143,13 +144,13 @@ class WAD
 
     # Structure of a sidedef.
     struct Sidedefs
-      property x_offset = 0_i16
-      property y_offset = 0_i16
-      property name_tex_up = ""
-      property name_tex_low = ""
-      property name_tex_mid = ""
+      property x_offset : Int16 = 0_i16
+      property y_offset : Int16 = 0_i16
+      property name_tex_up : String = ""
+      property name_tex_low : String = ""
+      property name_tex_mid : String = ""
       # Sector number this sidedef 'faces'.
-      property facing_sector_num = 0_i16
+      property facing_sector_num : Int16 = 0_i16
 
       # Parses a sidedefs list given the io and the size
       #
@@ -159,7 +160,7 @@ class WAD
       #   my_sidedefs = WAD::Map::Sidedefs.parse(file)
       # end
       # ```
-      def self.parse(io : IO, lump_size) : Array(Sidedefs)
+      def self.parse(io : IO, lump_size : Int) : Array(Sidedefs)
         # Creates a list for all sidedefs that will be parsed from the lump.
         parsed_sidedefs = [] of Sidedefs
         # Sets the index to loop through.
@@ -189,8 +190,8 @@ class WAD
 
     # Structure of a vertex.
     struct Vertexes
-      property x_position = 0_i16
-      property y_position = 0_i16
+      property x_position : Int16 = 0_i16
+      property y_position : Int16 = 0_i16
 
       # Parses a vertexes list given the io and the size
       #
@@ -200,7 +201,7 @@ class WAD
       #   my_vertexes = WAD::Map::Vertexes.parse(file)
       # end
       # ```
-      def self.parse(io : IO, lump_size) : Array(Vertexes)
+      def self.parse(io : IO, lump_size : Int) : Array(Vertexes)
         # Creates a list for all vertexes that will be parsed from the lump.
         parsed_vertexes = [] of Vertexes
         # Sets the index to loop through.
@@ -226,15 +227,15 @@ class WAD
 
     # Structure of a seg.
     struct Segs
-      property start_vertex_num = 0_i16
-      property end_vertex_num = 0_i16
+      property start_vertex_num : Int16 = 0_i16
+      property end_vertex_num : Int16 = 0_i16
       # Angle, full circle is -32768 to 32767.
-      property angle = 0_i16
-      property linedef_num = 0_i16
+      property angle : Int16 = 0_i16
+      property linedef_num : Int16 = 0_i16
       # Direction, 0 (same as linedef) or 1 (opposite of linedef).
-      property direction = 0_i16
+      property direction : Int16 = 0_i16
       # Offset, distance along linedef to start of seg.
-      property offset = 0_i16
+      property offset : Int16 = 0_i16
 
       # Parses a segs list given the io and the size
       #
@@ -244,7 +245,7 @@ class WAD
       #   my_segs = WAD::Map::Segs.parse(file)
       # end
       # ```
-      def self.parse(io : IO, lump_size) : Array(Segs)
+      def self.parse(io : IO, lump_size : Int) : Array(Segs)
         # Creates a list for all segs that will be parsed from the lump.
         parsed_segs = [] of Segs
         # Sets the index to loop through.
@@ -279,8 +280,8 @@ class WAD
 
     # Structure of a ssector.
     struct Ssectors
-      property seg_count = 0_i16
-      property first_seg_num = 0_i16
+      property seg_count : Int16 = 0_i16
+      property first_seg_num : Int16 = 0_i16
 
       # Parses a ssectors list given the io and the size
       #
@@ -290,7 +291,7 @@ class WAD
       #   my_ssectors = WAD::Map::Ssectors.parse(file)
       # end
       # ```
-      def self.parse(io : IO, lump_size) : Array(Ssectors)
+      def self.parse(io : IO, lump_size : Int) : Array(Ssectors)
         # Creates a list for all ssectors that will be parsed from the lump.
         parsed_ssectors = [] of Ssectors
         # Sets the index to loop through.
@@ -317,13 +318,13 @@ class WAD
     # Structure of a node.
     struct Nodes
       # X coordinate of partition line start.
-      property x_coord = 0_i16
+      property x_coord : Int16 = 0_i16
       # Y coordinate of partition line start.
-      property y_coord = 0_i16
+      property y_coord : Int16 = 0_i16
       # Change in x from start to end of partition line.
-      property x_change_to_end = 0_i16
+      property x_change_to_end : Int16 = 0_i16
       # Change in y from start to end of partition line.
-      property y_change_to_end = 0_i16
+      property y_change_to_end : Int16 = 0_i16
 
       # Each of the two bounding boxes describe a rectangle which is
       # the area covered by each of the two child nodes respectively.
@@ -331,11 +332,11 @@ class WAD
       # A bounding box consists of four short values (top, bottom, left and right)
       # giving the upper and lower bounds of the y coordinate and the lower and upper
       # bounds of the x coordinate (in that order).
-      property right_bound_box = [] of Int16
-      property left_bound_box = [] of Int16
+      property right_bound_box : Array(Int16) = [] of Int16
+      property left_bound_box : Array(Int16) = [] of Int16
 
-      property right_child = 0_i16
-      property left_child = 0_i16
+      property right_child : Int16 = 0_i16
+      property left_child : Int16 = 0_i16
 
       # Parses a nodes list given the io and the size
       #
@@ -345,7 +346,7 @@ class WAD
       #   my_nodes = WAD::Map::Nodes.parse(file)
       # end
       # ```
-      def self.parse(io : IO, lump_size) : Array(Nodes)
+      def self.parse(io : IO, lump_size : Int) : Array(Nodes)
         # Creates a list for all nodes that will be parsed from the lump.
         parsed_nodes = [] of Nodes
         # Sets the index to loop trough.
@@ -388,13 +389,13 @@ class WAD
 
     # Structure of a sector.
     struct Sectors
-      property floor_height = 0_i16
-      property ceiling_height = 0_i16
-      property name_tex_floor = ""
-      property name_tex_ceiling = ""
-      property light_level = 0_i16
-      property special_type = 0_i16
-      property tag_num = 0_i16
+      property floor_height : Int16 = 0_i16
+      property ceiling_height : Int16 = 0_i16
+      property name_tex_floor : String = ""
+      property name_tex_ceiling : String = ""
+      property light_level : Int16 = 0_i16
+      property special_type : Int16 = 0_i16
+      property tag_num : Int16 = 0_i16
 
       # Parses a sectors list given the io and the size
       #
@@ -404,7 +405,7 @@ class WAD
       #   my_sectors = WAD::Map::Sectors.parse(file)
       # end
       # ```
-      def self.parse(io : IO, lump_size) : Array(Sectors)
+      def self.parse(io : IO, lump_size : Int) : Array(Sectors)
         # Creates a list for all sectors that will be parsed from the lump.
         parsed_sectors = [] of Sectors
         # Sets the index to loop through.
@@ -436,15 +437,15 @@ class WAD
     # Class of a reject.
     class Reject
       property data : BitArray = BitArray.new(0)
-      property byte_data = [] of UInt8
-      @sectors = 0
+      property byte_data : Array(UInt8) = [] of UInt8
+      @sectors : Int32 = 0
 
       # Outputs the truthiness of the bit at the given *x, y*.
-      def [](x, y)
+      def [](x : Int, y : Int)
         data[x + y * @sectors]
       end
 
-      def initialize(@data = BitArray.new(0))
+      def initialize(@data : BitArray = BitArray.new(0))
         @sectors = Math.sqrt(data.size).to_i32
       end
 
@@ -456,7 +457,7 @@ class WAD
       #   my_reject = WAD::Map::Reject.parse(file)
       # end
       # ```
-      def self.parse(io : IO, lump_size, sectors : Int32 = 0) : Reject
+      def self.parse(io : IO, lump_size : Int, sectors : Int = 0) : Reject
         reject = Reject.new
         # DEPRECATED: Use lump_size instead.
         reject_size = (sectors**2)/8
@@ -503,15 +504,15 @@ class WAD
     class Blockmap
       # Structure of the blockmap header.
       struct Header
-        property grid_origin_x = 0_i16
-        property grid_origin_y = 0_i16
-        property num_of_columns = 0_u16
-        property num_of_rows = 0_u16
+        property grid_origin_x : Int16 = 0_i16
+        property grid_origin_y : Int16 = 0_i16
+        property num_of_columns : UInt16 = 0_u16
+        property num_of_rows : UInt16 = 0_u16
       end
 
       # Class of the blockmap blocklist
       class Blocklist
-        property linedefs_in_block = [] of UInt16
+        property linedefs_in_block : Array(UInt16) = [] of UInt16
       end
 
       # There are N blocks, which is equal to columns × rows (from the header).
@@ -519,9 +520,9 @@ class WAD
         header.num_of_columns * header.num_of_rows
       end
 
-      property header = Header.new
-      property offsets = [] of Int16
-      property blocklists = [] of Blocklist
+      property header : Header = Header.new
+      property offsets : Array(Int16) = [] of Int16
+      property blocklists : Array(Blocklist) = [] of Blocklist
 
       # Parses a blockmap list given the io and the size
       #
@@ -531,7 +532,7 @@ class WAD
       #   my_blockmap = WAD::Map::Blockmap.parse(file)
       # end
       # ```
-      def self.parse(io : IO, lump_size) : Blockmap
+      def self.parse(io : IO, lump_size : Int) : Blockmap
         # Creates a new blockmap.
         parsed_blockmap = Blockmap.new
         # Reads the header.
@@ -585,7 +586,7 @@ class WAD
     #   puts "Is not a Map"
     # end
     # ```
-    def self.is_map?(name)
+    def self.is_map?(name : String)
       name =~ /^E\dM\d/ || name =~ /^MAP\d\d/
     end
 
@@ -600,7 +601,7 @@ class WAD
     #   puts "Is not a Map"
     # end
     # ```
-    def insert_next_property(prop)
+    def insert_next_property(prop : Directory)
       case prop.name
       when "THINGS"
         @things_directory = prop

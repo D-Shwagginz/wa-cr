@@ -3,9 +3,9 @@ class WAD
   # A pc speaker sound effect.
   class PcSound
     SAMPLE_RATE = 140
-    property format_num = 0_u16
-    property samples_num = 0_u16
-    property samples = [] of UInt8
+    property format_num : UInt16 = 0_u16
+    property samples_num : UInt16 = 0_u16
+    property samples : Array(UInt8) = [] of UInt8
 
     # Parses a pc sound lump.
     #
@@ -15,7 +15,7 @@ class WAD
     #   my_pcsound = WAD::PcSound.parse(file)
     # end
     # ```
-    def self.parse(io)
+    def self.parse(io : IO)
       pcsound = PcSound.new
       pcsound.format_num = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
       pcsound.samples_num = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
@@ -39,7 +39,7 @@ class WAD
     #   puts "Is not a Pc Sound"
     # end
     # ```
-    def self.is_pcsound?(name)
+    def self.is_pcsound?(name : String)
       !!(name =~ /^DP/)
     end
   end
@@ -47,10 +47,10 @@ class WAD
   # A normal sound effect.
   class Sound
     PAD_BYTES = 16
-    property format_num = 0_u16
-    property sample_rate = 0_u16
-    property samples_num = 0_u16
-    property samples = [] of UInt8
+    property format_num : UInt16 = 0_u16
+    property sample_rate : UInt16 = 0_u16
+    property samples_num : UInt16 = 0_u16
+    property samples : Array(UInt8) = [] of UInt8
 
     # Parses a sound lump.
     #
@@ -60,7 +60,7 @@ class WAD
     #   my_sound = WAD::Sound.parse(file)
     # end
     # ```
-    def self.parse(io)
+    def self.parse(io : IO)
       sound = Sound.new
       sound.format_num = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
       sound.sample_rate = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
@@ -91,7 +91,7 @@ class WAD
     #   puts "Is not a Sound"
     # end
     # ```
-    def self.is_sound?(name)
+    def self.is_sound?(name : String)
       !!(name =~ /^DS/)
     end
 

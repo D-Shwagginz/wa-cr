@@ -2,18 +2,18 @@
 class WAD
   # Color palettes for various situations.
   class Playpal
-    property palettes = [] of Palette
+    property palettes : Array(Palette) = [] of Palette
 
     # A color palette
     class Palette
-      property colors = [] of Color
+      property colors : Array(Color) = [] of Color
     end
 
     # A color
     struct Color
-      property r = 0_u8
-      property g = 0_u8
-      property b = 0_u8
+      property r : UInt8 = 0_u8
+      property g : UInt8 = 0_u8
+      property b : UInt8 = 0_u8
     end
 
     # Parses a playpal file given the io
@@ -24,7 +24,7 @@ class WAD
     #   my_playpal = WAD::Playpal.parse(file)
     # end
     # ```
-    def self.parse(io)
+    def self.parse(io : IO)
       playpal = Playpal.new
       colors_per_palette = 256
       amount_of_palettes = 14
@@ -54,18 +54,18 @@ class WAD
     #   puts "Is not a Playpal"
     # end
     # ```
-    def self.is_playpal?(name)
+    def self.is_playpal?(name : String)
       !!(name =~ /^PLAYPAL/)
     end
   end
 
   # Map to adjust pixel values for reduced brightness.
   class Colormap
-    property tables = [] of Table
+    property tables : Array(Table) = [] of Table
 
     # A colormap containing it's table's data
     class Table
-      property table = [] of UInt8
+      property table : Array(UInt8) = [] of UInt8
     end
 
     # Parses a colormap file given the io
@@ -76,7 +76,7 @@ class WAD
     #   my_colormap = WAD::Colormap.parse(file)
     # end
     # ```
-    def self.parse(io)
+    def self.parse(io : IO)
       colormap = Colormap.new
       amount_of_tables = 34
       length_of_table = 256
@@ -102,18 +102,18 @@ class WAD
     #   puts "Is not a ColorMap"
     # end
     # ```
-    def self.is_colormap?(name)
+    def self.is_colormap?(name : String)
       !!(name =~ /^COLORMAP/)
     end
   end
 
   # The colorful screen shown when Doom exits.
   class EnDoom
-    property characters = [] of EnDoomChars
+    property characters : Array(EnDoomChars) = [] of EnDoomChars
 
     struct EnDoomChars
-      property ascii_value = 0_u8
-      property color = 0_u8
+      property ascii_value : UInt8 = 0_u8
+      property color : UInt8 = 0_u8
     end
 
     # Parses a endoom file given the io
@@ -124,7 +124,7 @@ class WAD
     #   my_endoom = WAD::EnDoom.parse(file)
     # end
     # ```
-    def self.parse(io)
+    def self.parse(io : IO)
       endoom = EnDoom.new
       num_of_chars = 2000
 
@@ -150,35 +150,35 @@ class WAD
     #   puts "Is not a EnDoom"
     # end
     # ```
-    def self.is_endoom?(name)
+    def self.is_endoom?(name : String)
       !!(name =~ /^ENDOOM/)
     end
   end
 
   # Defines how wall patches from the WAD file should combine to form wall textures.
   class TextureX
-    property numtextures = 0_i32
-    property offsets = [] of Int32
-    property mtextures = [] of TextureMap
+    property numtextures : Int32 = 0_i32
+    property offsets : Array(Int32) = [] of Int32
+    property mtextures : Array(TextureMap) = [] of TextureMap
 
     # "The binary contents of the maptexture_t structure starts with a header of 22 bytes, followed by all the map patches."
     class TextureMap
-      property name = ""
+      property name : String = ""
       property masked : Bool = false
-      property width = 0_i16
-      property height = 0_i16
-      property columndirectory = 0_i32
-      property patchcount = 0_i16
-      property patches = [] of Patch
+      property width : Int16 = 0_i16
+      property height : Int16 = 0_i16
+      property columndirectory : Int32 = 0_i32
+      property patchcount : Int16 = 0_i16
+      property patches : Array(Patch) = [] of Patch
     end
 
     # "The binary contents of the mappatch_t structure contains 10 bytes defining how the patch should be drawn inside the texture."
     struct Patch
-      property originx = 0_i16
-      property originy = 0_i16
-      property patch = 0_i16
-      property stepdir = 0_i16
-      property colormap = 0_i16
+      property originx : Int16 = 0_i16
+      property originy : Int16 = 0_i16
+      property patch : Int16 = 0_i16
+      property stepdir : Int16 = 0_i16
+      property colormap : Int16 = 0_i16
     end
 
     # Parses a texture map file given the io
@@ -189,7 +189,7 @@ class WAD
     #   my_texturemap = WAD::TextureX.parse(file)
     # end
     # ```
-    def self.parse(io)
+    def self.parse(io : IO)
       texturex = TextureX.new
       texturex.numtextures = io.read_bytes(Int32, IO::ByteFormat::LittleEndian)
 
@@ -234,15 +234,15 @@ class WAD
     #   puts "Is not a Texture Map"
     # end
     # ```
-    def self.is_texturex?(name)
+    def self.is_texturex?(name : String)
       !!(name =~ /^TEXTURE\d/)
     end
   end
 
   # Includes all the names for wall patches.
   class Pnames
-    property num_patches = 0_i32
-    property patches = [] of String
+    property num_patches : Int32 = 0_i32
+    property patches : Array(String) = [] of String
 
     # Parses a pnames file given the io
     #
@@ -252,7 +252,7 @@ class WAD
     #   my_pnames = WAD::Pnames.parse(file)
     # end
     # ```
-    def self.parse(io)
+    def self.parse(io : IO)
       pnames = Pnames.new
 
       pnames.num_patches = io.read_bytes(Int32, IO::ByteFormat::LittleEndian)
@@ -274,7 +274,7 @@ class WAD
     #   puts "Is not a Pnames"
     # end
     # ```
-    def self.is_pnames?(name)
+    def self.is_pnames?(name : String)
       !!(name =~ /^PNAMES/)
     end
   end
@@ -313,7 +313,7 @@ class WAD
 
     getter data : Array(UInt8?) = [] of UInt8?
 
-    def [](x, y)
+    def [](x : Int, y : Int)
       data[x + y * width]
     end
 
@@ -331,7 +331,7 @@ class WAD
     #   my_graphic = WAD::Graphic.parse(file, 0, File.size("Path/To/Graphic"))
     # end
     # ```
-    def self.parse(file : File, file_pos, size)
+    def self.parse(file : File, file_pos : Int, size : Int)
       begin
         graphic_parse = GraphicParse.new
         graphic = Graphic.new
@@ -419,7 +419,8 @@ class WAD
       end
     end
 
-    # Parses pixel stuff for parsing a graphic
+    # Parses pixel stuff for parsing a graphic.
+    # Used because of a bug in the Crystal compiler
     def self.pixel_parse(pixel_column, column, post, io)
       post.length.times do |j|
         pixel = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
@@ -444,7 +445,7 @@ class WAD
     #   puts "Is not a Sprite Marker Start"
     # end
     # ```
-    def self.is_sprite_mark_start?(name)
+    def self.is_sprite_mark_start?(name : String)
       name =~ /^S_START/
     end
 
@@ -459,19 +460,19 @@ class WAD
     #   puts "Is not a Sprite Marker End"
     # end
     # ```
-    def self.is_sprite_mark_end?(name)
+    def self.is_sprite_mark_end?(name : String)
       name =~ /^S_END/
     end
   end
 
   # A WAD flat
   class Flat
-    property colors = [] of UInt8
-    property lump_bytes = 4096
-    property width = 64
-    property height = 64
+    property colors : Array(UInt8) = [] of UInt8
+    property lump_bytes : Int32 = 4096
+    property width : Int32 = 64
+    property height : Int32 = 64
 
-    def [](x, y)
+    def [](x : Int, y : Int)
       colors[x + y * width]
     end
 
@@ -483,7 +484,7 @@ class WAD
     #   my_flat = WAD::Flat.parse(file)
     # end
     # ```
-    def self.parse(io)
+    def self.parse(io : IO)
       flat = Flat.new
 
       flat.lump_bytes.times do
@@ -504,7 +505,7 @@ class WAD
     #   puts "Is not a Flat Marker Start"
     # end
     # ```
-    def self.is_flat_mark_start?(name)
+    def self.is_flat_mark_start?(name : String)
       name =~ /^F_START/
     end
 
@@ -519,7 +520,7 @@ class WAD
     #   puts "Is not a Flat Marker End"
     # end
     # ```
-    def self.is_flat_mark_end?(name)
+    def self.is_flat_mark_end?(name : String)
       name =~ /^F_END/
     end
   end

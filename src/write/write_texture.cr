@@ -11,7 +11,7 @@ class WAD
     #   mywad.playpal.write(file)
     # end
     # ```
-    def write(io) : UInt32
+    def write(io : IO) : UInt32
       lump_size = 0_u32
 
       palettes.each do |palette|
@@ -39,7 +39,7 @@ class WAD
     #   mywad.colormap.write(file)
     # end
     # ```
-    def write(io) : UInt32
+    def write(io : IO) : UInt32
       lump_size = 0_u32
       tables.each do |table|
         table.table.each do |value|
@@ -62,7 +62,7 @@ class WAD
     #   mywad.endoom.write(file)
     # end
     # ```
-    def write(io) : UInt32
+    def write(io : IO) : UInt32
       lump_size = 0_u32
 
       characters.each do |character|
@@ -86,7 +86,7 @@ class WAD
     #   mywad.texmaps.values[0].write(file)
     # end
     # ```
-    def write(io) : UInt32
+    def write(io : IO) : UInt32
       lump_size = 0_u32
 
       io.write_bytes(numtextures.to_i32, IO::ByteFormat::LittleEndian)
@@ -148,7 +148,7 @@ class WAD
     #   mywad.pnames.write(file)
     # end
     # ```
-    def write(io) : UInt32
+    def write(io : IO) : UInt32
       lump_size = 0_u32
 
       io.write_bytes(num_patches.to_i32, IO::ByteFormat::LittleEndian)
@@ -175,7 +175,7 @@ class WAD
     #   mywad.graphic.values[0].write(file)
     # end
     # ```
-    def write(io) : UInt32
+    def write(io : IO) : UInt32
       file_start_position = io.pos
       dummy_value = 0_u8
       pixel_count = 0_u8
@@ -291,7 +291,7 @@ class WAD
     #   mywad.flat.values[0].write(file)
     # end
     # ```
-    def write(io) : UInt32
+    def write(io : IO) : UInt32
       lump_size = 0_u32
 
       width.times do |y|

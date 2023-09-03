@@ -11,7 +11,7 @@ class WAD
     #   mywad.music.values[0].write(file)
     # end
     # ```
-    def write(io) : UInt32
+    def write(io : IO) : UInt32
       lump_size = 0_u32
 
       io.print(identifier)
@@ -55,7 +55,7 @@ class WAD
     #   mywad.genmidi.write(file)
     # end
     # ```
-    def write(io) : UInt32
+    def write(io : IO) : UInt32
       lump_size = 0_u32
 
       io.print(header)
@@ -107,7 +107,7 @@ class WAD
     #   mywad.dmxgus.write(file)
     # end
     # ```
-    def write(io) : UInt32
+    def write(io : IO) : UInt32
       lump_size = 0_u32
 
       instr_datas.each do |instr_data|

@@ -21,7 +21,7 @@ class WAD
   #   Raylib::WHITE
   # )
   # ```
-  def get_texture(name, palette : Playpal::Palette) : R::Image
+  def get_texture(name : String, palette : Playpal::Palette) : R::Image
     texmaps.each do |texmapx|
       if texturemap = texmapx[1].mtextures.find { |m| m.name == name }
         if texturemap.name == name
@@ -95,7 +95,7 @@ class WAD::Graphic
   #   my_pixel
   # )
   # ```
-  def get_color(x, y) : R::Color
+  def get_color(x : Int, y : Int) : R::Color
     raise "Out of bounds" if x > width || y > height
     if pixel = self[x, y]
       palette_r = palette.colors[pixel].r
@@ -146,7 +146,7 @@ class WAD::Flat
   #   my_pixel
   # )
   # ```
-  def get_color(x, y) : R::Color
+  def get_color(x : Int, y : Int) : R::Color
     raise "Out of bounds" if x > width || y > height
     if pixel = self[x, y]
       palette_r = palette.colors[pixel].r

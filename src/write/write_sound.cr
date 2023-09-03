@@ -11,7 +11,7 @@ class WAD
     #   mywad.pcsound.values[0].write(file)
     # end
     # ```
-    def write(io) : UInt32
+    def write(io : IO) : UInt32
       lump_size = 0_u32
 
       io.write_bytes(format_num.to_u16, IO::ByteFormat::LittleEndian)
@@ -38,7 +38,7 @@ class WAD
     #   mywad.sound.values[0].write(file)
     # end
     # ```
-    def write(io) : UInt32
+    def write(io : IO) : UInt32
       lump_size = 0_u32
 
       io.write_bytes(format_num.to_u16, IO::ByteFormat::LittleEndian)

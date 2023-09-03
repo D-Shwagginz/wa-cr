@@ -11,7 +11,7 @@ class WAD
     #   mywad.maps.values[0].write(file)
     # end
     # ```
-    def write(io) : Array(Directory)
+    def write(io : IO) : Array(Directory)
       written_map_directories = [] of Directory
 
       written_map_directories << Things.write(io, things)
@@ -40,7 +40,7 @@ class WAD
       #   WAD::Map::Things.write(mywad.maps.values[0].things)
       # end
       # ```
-      def self.write(io, things : Array(Things)) : Directory
+      def self.write(io : IO, things : Array(Things)) : Directory
         written_directory = Directory.new
         written_directory.name = "THINGS"
         written_directory.file_pos = io.pos.to_u32
@@ -76,7 +76,7 @@ class WAD
       #   WAD::Map::Linedefs.write(mywad.maps.values[0].linedefs)
       # end
       # ```
-      def self.write(io, linedefs : Array(Linedefs)) : Directory
+      def self.write(io : IO, linedefs : Array(Linedefs)) : Directory
         written_directory = Directory.new
         written_directory.name = "LINEDEFS"
         written_directory.file_pos = io.pos.to_u32
@@ -116,7 +116,7 @@ class WAD
       #   WAD::Map::Sidedefs.write(mywad.maps.values[0].sidedefs)
       # end
       # ```
-      def self.write(io, sidedefs : Array(Sidedefs)) : Directory
+      def self.write(io : IO, sidedefs : Array(Sidedefs)) : Directory
         written_directory = Directory.new
         written_directory.name = "SIDEDEFS"
         written_directory.file_pos = io.pos.to_u32
@@ -164,7 +164,7 @@ class WAD
       #   WAD::Map::Vertexes.write(mywad.maps.values[0].vertexes)
       # end
       # ```
-      def self.write(io, vertexes : Array(Vertexes)) : Directory
+      def self.write(io : IO, vertexes : Array(Vertexes)) : Directory
         written_directory = Directory.new
         written_directory.name = "VERTEXES"
         written_directory.file_pos = io.pos.to_u32
@@ -194,7 +194,7 @@ class WAD
       #   WAD::Map::Segs.write(mywad.maps.values[0].segs)
       # end
       # ```
-      def self.write(io, segs : Array(Segs)) : Directory
+      def self.write(io : IO, segs : Array(Segs)) : Directory
         written_directory = Directory.new
         written_directory.name = "SEGS"
         written_directory.file_pos = io.pos.to_u32
@@ -233,7 +233,7 @@ class WAD
       #   WAD::Map::Ssectors.write(mywad.maps.values[0].ssectors)
       # end
       # ```
-      def self.write(io, ssectors : Array(Ssectors)) : Directory
+      def self.write(io : IO, ssectors : Array(Ssectors)) : Directory
         written_directory = Directory.new
         written_directory.name = "SSECTORS"
         written_directory.file_pos = io.pos.to_u32
@@ -264,7 +264,7 @@ class WAD
       #   WAD::Map::Nodes.write(mywad.maps.values[0].nodes)
       # end
       # ```
-      def self.write(io, nodes : Array(Nodes)) : Directory
+      def self.write(io : IO, nodes : Array(Nodes)) : Directory
         written_directory = Directory.new
         written_directory.name = "NODES"
         written_directory.file_pos = io.pos.to_u32
@@ -314,7 +314,7 @@ class WAD
       #   WAD::Map::Sectors.write(mywad.maps.values[0].sectors)
       # end
       # ```
-      def self.write(io, sectors : Array(Sectors)) : Directory
+      def self.write(io : IO, sectors : Array(Sectors)) : Directory
         written_directory = Directory.new
         written_directory.name = "SECTORS"
         written_directory.file_pos = io.pos.to_u32
@@ -362,7 +362,7 @@ class WAD
       #   WAD::Map::Reject.write(mywad.maps.values[0].reject)
       # end
       # ```
-      def self.write(io, reject : Reject) : Directory
+      def self.write(io : IO, reject : Reject) : Directory
         written_directory = Directory.new
         written_directory.name = "REJECT"
         written_directory.file_pos = io.pos.to_u32
@@ -391,7 +391,7 @@ class WAD
       #   WAD::Map::Blockmap.write(mywad.maps.values[0].blockmap)
       # end
       # ```
-      def self.write(io, blockmap : Blockmap) : Directory
+      def self.write(io : IO, blockmap : Blockmap) : Directory
         written_directory = Directory.new
         written_directory.name = "BLOCKMAP"
         written_directory.file_pos = io.pos.to_u32

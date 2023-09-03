@@ -11,7 +11,7 @@ class WAD
     #   mywad.demos.values[0].write(file)
     # end
     # ```
-    def write(io) : UInt32
+    def write(io : IO) : UInt32
       lump_size = 0_u32
 
       io.write_bytes(game_version.to_u8, IO::ByteFormat::LittleEndian)

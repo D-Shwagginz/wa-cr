@@ -10,7 +10,7 @@ class WAD
   #   mywad.write(file)
   # end
   # ```
-  def write(io)
+  def write(io : IO)
     written_directories = [] of Directory
     write_directory_pointer = 0_u32
 
@@ -133,7 +133,7 @@ class WAD
     _write_header(io, written_directories.size.to_u32, write_directory_pointer)
   end
 
-  private def _write_header(io, directories_size = 0, directory_pointer = 0)
+  private def _write_header(io : IO, directories_size : Int = 0, directory_pointer : Int = 0)
     case type
     when Type::Internal
       io.print("IWAD")
@@ -146,7 +146,7 @@ class WAD
     io.write_bytes(directory_pointer.to_u32, IO::ByteFormat::LittleEndian)
   end
 
-  private def _write_directory(io, directory)
+  private def _write_directory(io : IO, directory : Directory)
     io.write_bytes(directory.file_pos.to_u32, IO::ByteFormat::LittleEndian)
     io.write_bytes(directory.size.to_u32, IO::ByteFormat::LittleEndian)
     name_slice = Bytes.new(8)

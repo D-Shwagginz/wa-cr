@@ -12,19 +12,19 @@ class WAD
   # Type of WAD: Either IWAD, PWAD, or Broken.
   property type : Type = Type::Broken
   # The file/WAD name and directory.
-  property filename = ""
+  property filename : String = ""
   # An integer specifying the number of lumps in the WAD.
-  property directories_count = 0_u32
+  property directories_count : UInt32 = 0_u32
   # An integer holding a pointer to the location of the directory.
-  property directory_pointer = 0_u32
+  property directory_pointer : UInt32 = 0_u32
   # Array of maps in the WAD.
-  property maps = {} of String => Map
+  property maps : Hash(String, Map) = {} of String => Map
   # Array of speaker sounds in the WAD.
-  property pcsounds = {} of String => PcSound
+  property pcsounds : Hash(String, PcSound) = {} of String => PcSound
   # Array of sounds in the WAD.
-  property sounds = {} of String => Sound
+  property sounds : Hash(String, Sound) = {} of String => Sound
   # Array of music in the WAD.
-  property music = {} of String => Music
+  property music : Hash(String, Music) = {} of String => Music
   # The Genmidi in the WAD.
   property genmidi : Genmidi = Genmidi.new
   # The Dmxgus in the WAD.
@@ -36,19 +36,19 @@ class WAD
   # The Endoom in the WAD.
   property endoom : EnDoom = EnDoom.new
   # Array of texture maps in the WAD.
-  property texmaps = {} of String => TextureX
+  property texmaps : Hash(String, TextureX) = {} of String => TextureX
   # The Pnames in the WAD.
   property pnames : Pnames = Pnames.new
   # Array of Graphics and patches in the WAD.
-  property graphics = {} of String => Graphic
+  property graphics : Hash(String, Graphic) = {} of String => Graphic
   # Array of Sprites in the WAD.
-  property sprites = {} of String => Graphic
+  property sprites : Hash(String, Graphic) = {} of String => Graphic
   # Array of Flats in the WAD.
-  property flats = {} of String => Flat
+  property flats : Hash(String, Flat) = {} of String => Flat
   # Array of Demos in the WAD.
-  property demos = {} of String => Demo
+  property demos : Hash(String, Demo) = {} of String => Demo
   # Array of all directories in the WAD.
-  property directories = [] of Directory
+  property directories : Array(Directory) = [] of Directory
 
   # :nodoc:
   # Macro that parses a given *name* for a map.
@@ -73,10 +73,10 @@ class WAD
   # ```
   # mywad = WAD.read("Path/To/Wad")
   # ```
-  def self.read(filename) : WAD
+  def self.read(filename : Path | String) : WAD
     # Creates a new WAD variable with *filename*.
     wad = WAD.new
-    wad.filename = filename
+    wad.filename = filename.to_s
 
     # Opens the *filename* and sets according things.
     File.open(filename) do |file|

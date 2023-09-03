@@ -4,11 +4,11 @@ class WAD
   struct Directory
     SIZE = 16
     # An integer holding a pointer to the start of the lump's data in the file.
-    property file_pos = 0_u32
+    property file_pos : UInt32 = 0_u32
     # An integer representing the size of the lump in bytes.
-    property size = 0_u32
+    property size : UInt32 = 0_u32
     # An ASCII string defining the lump's name.
-    property name = ""
+    property name : String = ""
 
     # Read an io from the WAD and convert it into a Directory.
     #
@@ -18,7 +18,7 @@ class WAD
     #   directory = Directory.read(io)
     # end
     # ```
-    def self.read(io) : Directory
+    def self.read(io : IO) : Directory
       # Creates a new directory and sets all the properties
       directory = Directory.new
       directory.file_pos = io.read_bytes(UInt32, IO::ByteFormat::LittleEndian)

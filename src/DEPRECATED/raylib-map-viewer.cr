@@ -4,14 +4,13 @@ require "../wa-cr/wad/**"
 require "../wa-cr/raylib"
 
 # :nodoc:
-# Assigns the alias for Raylib
-alias R = Raylib
-# :nodoc:
-# Assigns the alias for Raymath
-alias RM = Raymath
-
-# :nodoc:
 module MapViewer
+  # Assigns the alias for Raylib
+  alias R = Raylib
+  # :nodoc:
+  # Assigns the alias for Raymath
+  alias RM = Raymath
+
   VERSION = "0.1alpha"
   # Screen Resolution
   RESX = 1280

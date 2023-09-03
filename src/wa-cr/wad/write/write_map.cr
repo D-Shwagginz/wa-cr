@@ -1,4 +1,3 @@
-# Intends to overload the WAD class.
 class WAD
   # Map containing all directories of data lumps.
   class Map

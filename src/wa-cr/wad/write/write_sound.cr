@@ -1,4 +1,3 @@
-# Intends to overload the WAD class.
 class WAD
   # A pc speaker sound effect.
   class PcSound

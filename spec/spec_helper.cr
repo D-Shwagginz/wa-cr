@@ -90,7 +90,7 @@ def_check(
     map_check(nodes, x_coord, x_coord),
     map_check(nodes, y_coord, y_coord),
     map_check(nodes, x_change_to_end, x_change),
-    map_check(nodes, y_change_to_end, y_change)
+    map_check(nodes, y_change_to_end, y_change),
   ]
 )
 
@@ -104,6 +104,6 @@ def_check(
     map_check(sectors, name_tex_ceiling.gsub("\u0000", ""), ceiling),
     map_check(sectors, light_level, light),
     map_check(sectors, special_type, type),
-    map_check(sectors, tag_num, tag)
+    map_check(sectors, tag_num, tag),
   ]
 )

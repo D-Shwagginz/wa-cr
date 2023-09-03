@@ -1,4 +1,3 @@
-# Intends to overload the WAD class.
 class WAD
   # The set of color palettes
   class Playpal

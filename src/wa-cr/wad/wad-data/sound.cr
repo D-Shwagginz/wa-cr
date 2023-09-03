@@ -1,4 +1,3 @@
-# Intends to overload the WAD class.
 class WAD
   # A pc speaker sound effect.
   class PcSound
@@ -97,9 +96,9 @@ class WAD
 
     # Writes to wav file given an output *io*.
     #
-    # Example: Makes a 'wav' file from *MYWAD* sound with name "DSPISTOL"
+    # Example: Writes a 'wav' file from the *MYWAD* sound with name "DSPISTOL"
     # ```
-    # File.read(FilePath) do |io|
+    # File.read("./rsrc/sound.wav", "w+") do |io|
     #   MYWAD.sounds["DSPISTOL"].to_wav(io)
     # end
     # ```

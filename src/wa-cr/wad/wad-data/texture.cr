@@ -1,4 +1,3 @@
-# Intends to overload the WAD class.
 class WAD
   # Color palettes for various situations.
   class Playpal
@@ -279,6 +278,7 @@ class WAD
     end
   end
 
+  # :nodoc:
   # A class used as a middle man for parsing a doom graphic
   class GraphicParse
     property columnoffsets : Array(UInt32) = [] of UInt32

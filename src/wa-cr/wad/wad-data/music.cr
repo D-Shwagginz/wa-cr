@@ -1,4 +1,3 @@
-# Intends to overload the WAD class.
 class WAD
   # A music track.
   class Music

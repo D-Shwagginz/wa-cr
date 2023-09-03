@@ -1,4 +1,3 @@
-# Intends to overload the WAD class.
 class WAD
   # A directory which points to a start of a lump with its size and name
   struct Directory

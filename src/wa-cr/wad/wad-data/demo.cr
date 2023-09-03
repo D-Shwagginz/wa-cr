@@ -1,4 +1,3 @@
-# Intends to overload the WAD class.
 class WAD
   # A doom demo which saves player input states
   class Demo

@@ -28,7 +28,7 @@ Reading in a .wad is as easy as
 my_wad = WAD.read("Path/To/Wad.wad")
 ```
 You can read in specific .lmp files too. <sup> *.lmp* : an exported doom lump.</sup>
-```
+```crystal
 # Reads in a sound lump file and sets it to *my_sound*
 File.open("Path/To/Sound.lmp") do |file|
   my_sound = WAD::Sound.parse(file)
@@ -37,7 +37,7 @@ end
 ### Lump Writing
 
 You can write out .lmp files from the parsed data as well.
-```
+```crystal
 # Writes the lump *my_graphic* to a .lmp file
 File.open("Path/To/MyLump.lmp", "w+") do |file|
   my_graphic.write(file)
@@ -46,7 +46,7 @@ end
 ### Sound Converting
 
 Converting doom-formatted sound data to a .wav file is just as simple.
-```
+```crystal
 # Writes *my_sound* to a .wav file
 File.open("Path/To/WriteSound.wav") do |file|
   my_sound.to_wav(file)
@@ -56,7 +56,7 @@ end
 
 wa-cr takes advantage of [raylib-cr](https://github.com/sol-vin/raylib-cr) with ways to convert doom<br>
 graphics to raylib images and draw said images to the screen
-```
+```crystal
 # You'll need to require the wa-cr raylib additions as well as wa-cr
 require "wa-cr/raylib"
 

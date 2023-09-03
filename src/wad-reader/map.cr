@@ -6,28 +6,46 @@ class WAD
 
     # The name of the map.
     property name = ""
-    # The directories of all map lumps.
+    # The directory of the things lump
     property things_directory : Directory = Directory.new
+    # The directory of the linedefs lump
     property linedefs_directory : Directory = Directory.new
+    # The directory of the sidedefs lump
     property sidedefs_directory : Directory = Directory.new
+    # The directory of the vertexes lump
     property vertexes_directory : Directory = Directory.new
+    # The directory of the segs lump
     property segs_directory : Directory = Directory.new
+    # The directory of the ssectors lump
     property ssectors_directory : Directory = Directory.new
+    # The directory of the nodes lump
     property nodes_directory : Directory = Directory.new
+    # The directory of the sectors lump
     property sectors_directory : Directory = Directory.new
+    # The directory of the reject lump
     property reject_directory : Directory = Directory.new
+    # The directory of the blockmap lump
     property blockmap_directory : Directory = Directory.new
 
-    # The parsed lumps of the map.
+    # The parsed things lump
     property things = [] of Things
+    # The parsed linedefs lump
     property linedefs = [] of Linedefs
+    # The parsed sidedefs lump
     property sidedefs = [] of Sidedefs
+    # The parsed vertexes lump
     property vertexes = [] of Vertexes
+    # The parsed segs lump
     property segs = [] of Segs
+    # The parsed ssectors lump
     property ssectors = [] of Ssectors
+    # The parsed nodes lump
     property nodes = [] of Nodes
+    # The parsed sectors lump
     property sectors = [] of Sectors
+    # The parsed reject lump
     property reject : Reject = Reject.new
+    # The parsed blockmap lump
     property blockmap : Blockmap = Blockmap.new
 
     def initialize(@name = "")

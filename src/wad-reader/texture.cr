@@ -1,6 +1,6 @@
 # Intends to overload the WAD class.
 class WAD
-  # The set of color palettes
+  # Color palettes for various situations.
   class Playpal
     property palettes = [] of Palette
 
@@ -59,7 +59,7 @@ class WAD
     end
   end
 
-  # The color map
+  # Map to adjust pixel values for reduced brightness.
   class Colormap
     property tables = [] of Table
 
@@ -107,7 +107,7 @@ class WAD
     end
   end
 
-  # "The colorful screen shown when Doom exits."
+  # The colorful screen shown when Doom exits.
   class EnDoom
     property characters = [] of EnDoomChars
 
@@ -279,6 +279,7 @@ class WAD
     end
   end
 
+  # A class used as a middle man for parsing a doom graphic
   class GraphicParse
     property columnoffsets : Array(UInt32) = [] of UInt32
     property columns : Array(Column) = [] of Column

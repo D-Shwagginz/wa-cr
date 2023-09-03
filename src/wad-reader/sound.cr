@@ -95,7 +95,7 @@ class WAD
       !!(name =~ /^DS/)
     end
 
-    # Exports to wav given an *io*.
+    # Writes to wav file given an output *io*.
     #
     # Example: Makes a 'wav' file from *MYWAD* sound with name "DSPISTOL"
     # ```

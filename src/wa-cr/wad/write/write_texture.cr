@@ -8,6 +8,9 @@ class WAD
     # mywad = WAD.read("./rsrc/DOOM.WAD")
     # File.open("./rsrc/playpal.lmp", "w+") do |file|
     #   mywad.playpal.write(file)
+    #   directory = WAD::Directory.new
+    #   directory.name = "MYPLAYPL"
+    #   doom1wad.directories << directory
     # end
     # ```
     def write(io : IO) : UInt32
@@ -172,6 +175,9 @@ class WAD
     # mywad = WAD.read("./rsrc/DOOM.WAD")
     # File.open("./rsrc/graphic.lmp", "w+") do |file|
     #   mywad.graphic.values[0].write(file)
+    #   directory = WAD::Directory.new
+    #   directory.name = "MYGRAPH"
+    #   doom1wad.directories << directory
     # end
     # ```
     def write(io : IO) : UInt32

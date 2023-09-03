@@ -150,7 +150,7 @@ class WAD
     io.write_bytes(directory.file_pos.to_u32, IO::ByteFormat::LittleEndian)
     io.write_bytes(directory.size.to_u32, IO::ByteFormat::LittleEndian)
     name_slice = Bytes.new(8)
-    name_slice.copy_from(directory.name.to_slice)
+    name_slice.copy_from(WAD.string_cut(directory.name).to_slice)
     io.write(name_slice)
   end
 end

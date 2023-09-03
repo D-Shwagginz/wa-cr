@@ -328,14 +328,13 @@ class WAD
     # Example: Opens a graphic io and parses it
     # ```
     # File.open("Path/To/Graphic") do |file|
-    #   my_graphic = WAD::Graphic.parse(file, 0, File.size("Path/To/Graphic"))
+    #   my_graphic = WAD::Graphic.parse(file, 0, file.size)
     # end
     # ```
     def self.parse(file : File, file_pos : Int, size : Int)
       begin
         graphic_parse = GraphicParse.new
         graphic = Graphic.new
-
         file.read_at(file_pos, size) do |g_io|
           graphic.width = g_io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
           graphic.height = g_io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
@@ -349,7 +348,7 @@ class WAD
           graphic.file_size += (graphic.width*4) + 8
 
           graphic.width.times do |i|
-            file.read_at(file_pos + graphic_parse.columnoffsets[i], size) do |c_io|
+            file.read_at(file_pos + graphic_parse.columnoffsets[i], size - graphic_parse.columnoffsets[i]) do |c_io|
               rowstart = 0
               column = GraphicParse::Column.new
 

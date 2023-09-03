@@ -34,6 +34,12 @@ File.open("Path/To/Sound.lmp") do |file|
   my_sound = WAD::Sound.parse(file)
 end
 ```
+You can also add the data into the wad file.
+```crystal
+my_wad.sounds["MYSOUND"] = my_sound
+# You have to create a new directory with the same name as the data you inserted. 
+mywad.new_dir("MYSOUND")
+```
 ### Lump Writing
 
 You can write out .lmp files from the parsed data as well.

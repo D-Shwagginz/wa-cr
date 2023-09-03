@@ -1,7 +1,7 @@
 require "raylib-cr"
-require "./raylib"
-require "./wa-cr/**"
 require "raylib-cr/rlgl"
+require "./raylib"
+require "../**"
 
 module MapViewer
   VERSION = "0.1alpha"
@@ -13,7 +13,7 @@ module MapViewer
   VRESY =  720
 
   MOVEMENT_SPEED = 1000
-  WAD_LOCATION   = "./rsR/DOOM.WAD"
+  WAD_LOCATION   = "./rsrc/DOOM.WAD"
   MAP_NAME       = "E1M1"
 
   class Texture

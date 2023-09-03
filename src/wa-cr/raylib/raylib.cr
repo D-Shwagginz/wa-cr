@@ -1,5 +1,5 @@
 require "raylib-cr"
-require "./wa-cr/**"
+require "../**"
 
 # Assigns the alias for Raylib
 alias R = Raylib

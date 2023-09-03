@@ -13,11 +13,20 @@ dependencies:
     github: sol-vin/wa-cr
 ```
 
+2. Run `shards install`
+
 ### Raylib Additions
 
-To use the wa-cr Raylib additions you must have raylib installed:
+To use the wa-cr Raylib additions you must perform some extra steps
 
-- Install raylib from [github](https://github.com/raysan5/raylib/releases).
+1. Install raylib from [github](https://github.com/raysan5/raylib/releases).
+
+2. Add `raylib-cr` to your `shard.yml`:
+```yml
+dependencies:
+  raylib-cr:
+    github: sol-vin/raylib-cr
+```
 
 ## Usage
 

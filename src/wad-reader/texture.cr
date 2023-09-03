@@ -16,6 +16,14 @@ class WAD
       property b = 0_u8
     end
 
+    # Parses a playpal file given the io
+    #
+    # Example: Opens a playpal io and parses it
+    # ```
+    # File.open("Path/To/Playpal") do |file|
+    #   my_playpal = WAD::Playpal.parse(file)
+    # end
+    # ```
     def self.parse(io)
       playpal = Playpal.new
       colors_per_palette = 256
@@ -36,6 +44,16 @@ class WAD
     end
 
     # Checks to see if *name* is "PLAYPAL"
+    #
+    # Example: Returns true if the name is a playpal
+    # ```
+    # playpal_name = "PLAYPAL"
+    # if WAD::Playpal.is_playpal?(playpal_name)
+    #   puts "Is a Playpal"
+    # else
+    #   puts "Is not a Playpal"
+    # end
+    # ```
     def self.is_playpal?(name)
       !!(name =~ /^PLAYPAL/)
     end
@@ -50,6 +68,14 @@ class WAD
       property table = [] of UInt8
     end
 
+    # Parses a colormap file given the io
+    #
+    # Example: Opens a colormap io and parses it
+    # ```
+    # File.open("Path/To/Colormap") do |file|
+    #   my_colormap = WAD::Colormap.parse(file)
+    # end
+    # ```
     def self.parse(io)
       colormap = Colormap.new
       amount_of_tables = 34
@@ -66,6 +92,16 @@ class WAD
     end
 
     # Checks to see if *name* is "COLORMAP"
+    #
+    # Example: Returns true if the name is a colormap
+    # ```
+    # colormap_name = "COLORMAP"
+    # if WAD::Colormap.is_colormap?(genmidi_name)
+    #   puts "Is a ColorMap"
+    # else
+    #   puts "Is not a ColorMap"
+    # end
+    # ```
     def self.is_colormap?(name)
       !!(name =~ /^COLORMAP/)
     end
@@ -80,6 +116,14 @@ class WAD
       property color = 0_u8
     end
 
+    # Parses a endoom file given the io
+    #
+    # Example: Opens a endoom io and parses it
+    # ```
+    # File.open("Path/To/EnDoom") do |file|
+    #   my_endoom = WAD::EnDoom.parse(file)
+    # end
+    # ```
     def self.parse(io)
       endoom = EnDoom.new
       num_of_chars = 2000
@@ -96,6 +140,16 @@ class WAD
     end
 
     # Checks to see if *name* is "ENDDOOM"
+    #
+    # Example: Returns true if the name is a endoom
+    # ```
+    # endoom_name = "ENDOOM"
+    # if WAD::EnDoom.is_endoom?(endoom_name)
+    #   puts "Is a EnDoom"
+    # else
+    #   puts "Is not a EnDoom"
+    # end
+    # ```
     def self.is_endoom?(name)
       !!(name =~ /^ENDOOM/)
     end
@@ -127,6 +181,14 @@ class WAD
       property colormap = 0_i16
     end
 
+    # Parses a texture map file given the io
+    #
+    # Example: Opens a texture map io and parses it
+    # ```
+    # File.open("Path/To/TextureMap") do |file|
+    #   my_texturemap = WAD::TextureX.parse(file)
+    # end
+    # ```
     def self.parse(io)
       texturex = TextureX.new
       texturex.numtextures = io.read_bytes(Int32, IO::ByteFormat::LittleEndian)
@@ -162,6 +224,16 @@ class WAD
     end
 
     # Checks to see if *name* is "TEXTUREx"
+    #
+    # Example: Returns true if the name is a texture map
+    # ```
+    # texturemap_name = "TEXTURE1"
+    # if WAD::TextureX.is_texturex?(texturemap_name)
+    #   puts "Is a Texture Map"
+    # else
+    #   puts "Is not a Texture Map"
+    # end
+    # ```
     def self.is_texturex?(name)
       !!(name =~ /^TEXTURE\d/)
     end
@@ -172,6 +244,14 @@ class WAD
     property num_patches = 0_i32
     property patches = [] of String
 
+    # Parses a pnames file given the io
+    #
+    # Example: Opens a pnames io and parses it
+    # ```
+    # File.open("Path/To/Pnames") do |file|
+    #   my_pnames = WAD::Pnames.parse(file)
+    # end
+    # ```
     def self.parse(io)
       pnames = Pnames.new
 
@@ -184,6 +264,16 @@ class WAD
     end
 
     # Checks to see if *name* is "PNAMES"
+    #
+    # Example: Returns true if the name is a pnames
+    # ```
+    # pnames_name = "PNAMES"
+    # if WAD::Pnames.is_pnames?(pnames_name)
+    #   puts "Is a Pnames"
+    # else
+    #   puts "Is not a Pnames"
+    # end
+    # ```
     def self.is_pnames?(name)
       !!(name =~ /^PNAMES/)
     end
@@ -214,7 +304,6 @@ class WAD
 
   # A WAD graphic
   class Graphic
-    property name : String = ""
     property width : UInt16 = 0_u16
     property height : UInt16 = 0_u16
     property leftoffset : Int16 = 0_i16
@@ -233,13 +322,20 @@ class WAD
       end
     end
 
-    def self.parse(file : File, directory : Directory)
+    # Parses a graphic file given the io, the start of the file, and the size of the file
+    #
+    # Example: Opens a graphic io and parses it
+    # ```
+    # File.open("Path/To/Graphic") do |file|
+    #   my_graphic = WAD::Graphic.parse(file, 0, File.size("Path/To/Graphic"))
+    # end
+    # ```
+    def self.parse(file : File, file_pos, size)
       begin
         graphic_parse = GraphicParse.new
         graphic = Graphic.new
-        graphic.name = directory.name
 
-        file.read_at(directory.file_pos, directory.size) do |g_io|
+        file.read_at(file_pos, size) do |g_io|
           graphic.width = g_io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
           graphic.height = g_io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
           graphic.leftoffset = g_io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
@@ -252,7 +348,7 @@ class WAD
           graphic.file_size += (graphic.width*4) + 8
 
           graphic.width.times do |i|
-            file.read_at(directory.file_pos + graphic_parse.columnoffsets[i], directory.size) do |c_io|
+            file.read_at(file_pos + graphic_parse.columnoffsets[i], size) do |c_io|
               rowstart = 0
               column = GraphicParse::Column.new
 
@@ -287,7 +383,7 @@ class WAD
 
               if graphic_parse.columns.size == graphic.width
                 begin
-                  while (graphic.file_size < directory.size) && (i = c_io.read_bytes(UInt8, IO::ByteFormat::LittleEndian))
+                  while (graphic.file_size < size) && (i = c_io.read_bytes(UInt8, IO::ByteFormat::LittleEndian))
                     if i != 0
                       break
                     end
@@ -322,6 +418,7 @@ class WAD
       end
     end
 
+    # Parses pixel stuff for parsing a graphic
     def self.pixel_parse(pixel_column, column, post, io)
       post.length.times do |j|
         pixel = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
@@ -336,11 +433,31 @@ class WAD
     end
 
     # Checks to see if *name* is "S_START".
+    #
+    # Example: Returns true if the name is a sprite marker start
+    # ```
+    # sprite_mark_name = "S_START"
+    # if WAD::Graphic.is_sprite_mark_start?(sprite_mark_name)
+    #   puts "Is a Sprite Marker Start"
+    # else
+    #   puts "Is not a Sprite Marker Start"
+    # end
+    # ```
     def self.is_sprite_mark_start?(name)
       name =~ /^S_START/
     end
 
     # Checks to see if *name* is "S_END".
+    #
+    # Example: Returns true if the name is a sprite marker end
+    # ```
+    # sprite_mark_name = "S_END"
+    # if WAD::Graphic.is_sprite_mark_end?(sprite_mark_name)
+    #   puts "Is a Sprite Marker End"
+    # else
+    #   puts "Is not a Sprite Marker End"
+    # end
+    # ```
     def self.is_sprite_mark_end?(name)
       name =~ /^S_END/
     end
@@ -348,7 +465,6 @@ class WAD
 
   # A WAD flat
   class Flat
-    property name = ""
     property colors = [] of UInt8
     property lump_bytes = 4096
     property width = 64
@@ -358,9 +474,16 @@ class WAD
       colors[x + y * width]
     end
 
-    def self.parse(io, name)
+    # Parses a flat file given the io
+    #
+    # Example: Opens a flat io and parses it
+    # ```
+    # File.open("Path/To/Flat") do |file|
+    #   my_flat = WAD::Flat.parse(file)
+    # end
+    # ```
+    def self.parse(io)
       flat = Flat.new
-      flat.name = name
 
       flat.lump_bytes.times do
         flat.colors << io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
@@ -370,11 +493,31 @@ class WAD
     end
 
     # Checks to see if *name* is "F_START".
+    #
+    # Example: Returns true if the name is a flat marker start
+    # ```
+    # flat_mark_name = "F_START"
+    # if WAD::Flat.is_flat_mark_start?(flat_mark_name)
+    #   puts "Is a Flat Marker Start"
+    # else
+    #   puts "Is not a Flat Marker Start"
+    # end
+    # ```
     def self.is_flat_mark_start?(name)
       name =~ /^F_START/
     end
 
     # Checks to see if *name* is "F_END".
+    #
+    # Example: Returns true if the name is a flat marker end
+    # ```
+    # flat_mark_name = "F_END"
+    # if WAD::Flat.is_flat_mark_end?(flat_mark_name)
+    #   puts "Is a Flat Marker End"
+    # else
+    #   puts "Is not a Flat Marker End"
+    # end
+    # ```
     def self.is_flat_mark_end?(name)
       name =~ /^F_END/
     end

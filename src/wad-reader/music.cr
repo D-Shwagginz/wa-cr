@@ -15,6 +15,14 @@ class WAD
 
     property song = [] of UInt8
 
+    # Parses a music file given the io
+    #
+    # Example: Opens a music io and parses it
+    # ```
+    # File.open("Path/To/Music") do |file|
+    #   my_music = WAD::Music.parse(file)
+    # end
+    # ```
     def self.parse(io)
       music = Music.new
       # Reads the data.
@@ -45,6 +53,16 @@ class WAD
     end
 
     # Checks to see if *name* is music with name format 'D_x..x'.
+    #
+    # Example: Returns true if the name is a music
+    # ```
+    # music_name = "D_E1M1"
+    # if WAD::Music.is_music?(music_name)
+    #   puts "Is a Music"
+    # else
+    #   puts "Is not a Music"
+    # end
+    # ```
     def self.is_music?(name)
       !!(name =~ /^D_/)
     end
@@ -64,6 +82,14 @@ class WAD
       property voice2_data = [] of Int8 | Int16
     end
 
+    # Parses a genmidi file given the io
+    #
+    # Example: Opens a genmidi io and parses it
+    # ```
+    # File.open("Path/To/Genmidi") do |file|
+    #   my_genmidi = WAD::Genmidi.parse(file)
+    # end
+    # ```
     def self.parse(io)
       genmidi = Genmidi.new
       # Reads the file header
@@ -101,7 +127,17 @@ class WAD
       genmidi
     end
 
-    # Checks to see if *name* is "GENMIDI"
+    # Checks to see if *name* is "GENMIDI".
+    #
+    # Example: Returns true if the name is a genmidi
+    # ```
+    # genmidi_name = "GENMIDI"
+    # if WAD::Genmidi.is_genmidi?(genmidi_name)
+    #   puts "Is a Genmidi"
+    # else
+    #   puts "Is not a Genmidi"
+    # end
+    # ```
     def self.is_genmidi?(name)
       !!(name =~ /^GENMIDI/)
     end
@@ -121,6 +157,14 @@ class WAD
       property filename = ""
     end
 
+    # Parses a dmxgus file given the io
+    #
+    # Example: Opens a dmxgus io and parses it
+    # ```
+    # File.open("Path/To/Dmxgus") do |file|
+    #   my_dmxgus = WAD::Dmxgus.parse(file)
+    # end
+    # ```
     def self.parse(io)
       dmxgus = Dmxgus.new
       # Reads each line of the dmxgus
@@ -146,6 +190,16 @@ class WAD
     end
 
     # Checks to see if *name* is "DMXGUS"
+    #
+    # Example: Returns true if the name is a dmxgus
+    # ```
+    # dmxgus_name = "DMXGUS"
+    # if WAD::Dmxgus.is_dmxgus?(dmxgus_name)
+    #   puts "Is a Dmxgus"
+    # else
+    #   puts "Is not a Dmxgus"
+    # end
+    # ```
     def self.is_dmxgus?(name)
       !!(name =~ /^DMXGUS/) || !!(name =~ /^DMXGUS\d/)
     end

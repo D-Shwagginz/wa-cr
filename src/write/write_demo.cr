@@ -2,6 +2,15 @@
 class WAD
   # A doom demo which saves player input states
   class Demo
+    # Writes a demo given an output io and returns the size of the written lump
+    #
+    # Example: Writes a demo in *mywad* to a file
+    # ```
+    # mywad = WAD.read("./rsrc/DOOM.WAD")
+    # File.open("./rsrc/demo.lmp", "w+") do |file|
+    #   mywad.demos.values[0].write(file)
+    # end
+    # ```
     def write(io) : UInt32
       lump_size = 0_u32
 

@@ -19,33 +19,33 @@ class WAD
   property directory_pointer = 0_u32
   # Array of maps in the WAD.
   property maps = {} of String => Map
-  # Array of speaker sounds
+  # Array of speaker sounds in the WAD.
   property pcsounds = {} of String => PcSound
-  # Array of sounds
+  # Array of sounds in the WAD.
   property sounds = {} of String => Sound
-  # Array of music
+  # Array of music in the WAD.
   property music = {} of String => Music
-  # Genmidi
+  # The Genmidi in the WAD.
   property genmidi : Genmidi = Genmidi.new
-  # Dmxgus
+  # The Dmxgus in the WAD.
   property dmxgus : Dmxgus = Dmxgus.new
-  # Playpal
+  # The Playpal in the WAD.
   property playpal : Playpal = Playpal.new
-  # Colormap
+  # The Colormap in the WAD.
   property colormap : Colormap = Colormap.new
-  # Endoom
+  # The Endoom in the WAD.
   property endoom : EnDoom = EnDoom.new
-  # The texture maps
+  # Array of texture maps in the WAD.
   property texmaps = {} of String => TextureX
-  # Pnames
+  # The Pnames in the WAD.
   property pnames : Pnames = Pnames.new
-  # Graphics and patches
+  # Array of Graphics and patches in the WAD.
   property graphics = {} of String => Graphic
-  # Sprites
+  # Array of Sprites in the WAD.
   property sprites = {} of String => Graphic
-  # Flats
+  # Array of Flats in the WAD.
   property flats = {} of String => Flat
-  # Demos
+  # Array of Demos in the WAD.
   property demos = {} of String => Demo
   # Array of all directories in the WAD.
   property directories = [] of Directory
@@ -170,7 +170,7 @@ class WAD
           # Parses pc sound if *directory.name* is of format 'DPx..x'
           if PcSound.is_pcsound?(directory.name)
             file.read_at(directory.file_pos, directory.size) do |io|
-              wad.pcsounds[directory.name] = PcSound.parse(io, directory.name)
+              wad.pcsounds[directory.name] = PcSound.parse(io)
             end
           end
 
@@ -262,7 +262,7 @@ class WAD
                   break
                 end
                 # Parses Sprite if the size is the correct size of the lump
-                Graphic.parse(file, directory).try do |graphic|
+                Graphic.parse(file, directory.file_pos, directory.size).try do |graphic|
                   wad.sprites[directory.name] = graphic
                 end
               end

@@ -1,9 +1,10 @@
 require "raylib-cr"
 require "./wad-reader/**"
 
+# Assigns the alias for Raylib
 alias R = Raylib
+# Assigns the alias for Raymath
 alias RM = Raymath
-alias RC = Raylib
 
 class WAD
   # Gets a texture as a raylib image given the texture name and a palette

@@ -558,7 +558,7 @@ class WAD
 
     # Checks to see if *name* is a map with the name format 'ExMx' or 'MAPxx'.
     #
-    # Example: Returns true if the name is map
+    # Example: Returns true if the name is a map
     # ```
     # map_name = "E1M1"
     # if WAD::Map.is_map?(map_name)

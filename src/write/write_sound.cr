@@ -2,6 +2,15 @@
 class WAD
   # A pc speaker sound effect.
   class PcSound
+    # Writes a pc sound given an output io and returns the size of the written lump
+    #
+    # Example: Writes a pc sound in *mywad* to a file
+    # ```
+    # mywad = WAD.read("./rsrc/DOOM.WAD")
+    # File.open("./rsrc/pcsound.lmp", "w+") do |file|
+    #   mywad.pcsound.values[0].write(file)
+    # end
+    # ```
     def write(io) : UInt32
       lump_size = 0_u32
 
@@ -20,6 +29,15 @@ class WAD
 
   # A normal sound effect.
   class Sound
+    # Writes a sound given an output io and returns the size of the written lump
+    #
+    # Example: Writes a sound in *mywad* to a file
+    # ```
+    # mywad = WAD.read("./rsrc/DOOM.WAD")
+    # File.open("./rsrc/sound.lmp", "w+") do |file|
+    #   mywad.sound.values[0].write(file)
+    # end
+    # ```
     def write(io) : UInt32
       lump_size = 0_u32
 

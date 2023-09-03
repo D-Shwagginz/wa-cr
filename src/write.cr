@@ -3,7 +3,7 @@ require "./write/**"
 class WAD
   # Writes a WAD class to an io
   #
-  # Example:
+  # Example: Writes a wad file to *mynewwad.WAD*
   # ```
   # mywad = WAD.read("./rsrc/DOOM.WAD")
   # File.open("./rsrc/mynewwad.WAD", "w+") do |file|

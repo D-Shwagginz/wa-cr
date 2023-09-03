@@ -2,6 +2,15 @@
 class WAD
   # The set of color palettes
   class Playpal
+    # Writes a playpal given an output io and returns the size of the written lump
+    #
+    # Example: Writes a playpal in *mywad* to a file
+    # ```
+    # mywad = WAD.read("./rsrc/DOOM.WAD")
+    # File.open("./rsrc/playpal.lmp", "w+") do |file|
+    #   mywad.playpal.write(file)
+    # end
+    # ```
     def write(io) : UInt32
       lump_size = 0_u32
 
@@ -21,6 +30,15 @@ class WAD
 
   # The color map
   class Colormap
+    # Writes a colormap given an output io and returns the size of the written lump
+    #
+    # Example: Writes a colormap in *mywad* to a file
+    # ```
+    # mywad = WAD.read("./rsrc/DOOM.WAD")
+    # File.open("./rsrc/colormap.lmp", "w+") do |file|
+    #   mywad.colormap.write(file)
+    # end
+    # ```
     def write(io) : UInt32
       lump_size = 0_u32
       tables.each do |table|
@@ -35,6 +53,15 @@ class WAD
 
   # "The colorful screen shown when Doom exits."
   class EnDoom
+    # Writes a endoom given an output io and returns the size of the written lump
+    #
+    # Example: Writes a endoom in *mywad* to a file
+    # ```
+    # mywad = WAD.read("./rsrc/DOOM.WAD")
+    # File.open("./rsrc/endoom.lmp", "w+") do |file|
+    #   mywad.endoom.write(file)
+    # end
+    # ```
     def write(io) : UInt32
       lump_size = 0_u32
 
@@ -50,6 +77,15 @@ class WAD
 
   # Defines how wall patches from the WAD file should combine to form wall textures.
   class TextureX
+    # Writes a texture map given an output io and returns the size of the written lump
+    #
+    # Example: Writes a texture map in *mywad* to a file
+    # ```
+    # mywad = WAD.read("./rsrc/DOOM.WAD")
+    # File.open("./rsrc/texturex.lmp", "w+") do |file|
+    #   mywad.texmaps.values[0].write(file)
+    # end
+    # ```
     def write(io) : UInt32
       lump_size = 0_u32
 
@@ -103,6 +139,15 @@ class WAD
 
   # Includes all the names for wall patches.
   class Pnames
+    # Writes a pnames given an output io and returns the size of the written lump
+    #
+    # Example: Writes a pnames in *mywad* to a file
+    # ```
+    # mywad = WAD.read("./rsrc/DOOM.WAD")
+    # File.open("./rsrc/pnames.lmp", "w+") do |file|
+    #   mywad.pnames.write(file)
+    # end
+    # ```
     def write(io) : UInt32
       lump_size = 0_u32
 
@@ -121,6 +166,15 @@ class WAD
 
   # A WAD graphic
   class Graphic
+    # Writes a graphic given an output io and returns the size of the written lump
+    #
+    # Example: Writes a graphic in *mywad* to a file
+    # ```
+    # mywad = WAD.read("./rsrc/DOOM.WAD")
+    # File.open("./rsrc/graphic.lmp", "w+") do |file|
+    #   mywad.graphic.values[0].write(file)
+    # end
+    # ```
     def write(io) : UInt32
       file_start_position = io.pos
       dummy_value = 0_u8
@@ -228,6 +282,15 @@ class WAD
 
   # A WAD flat
   class Flat
+    # Writes a flat given an output io and returns the size of the written lump
+    #
+    # Example: Writes a flat in *mywad* to a file
+    # ```
+    # mywad = WAD.read("./rsrc/DOOM.WAD")
+    # File.open("./rsrc/flat.lmp", "w+") do |file|
+    #   mywad.flat.values[0].write(file)
+    # end
+    # ```
     def write(io) : UInt32
       lump_size = 0_u32
 

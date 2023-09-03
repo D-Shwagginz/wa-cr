@@ -2,6 +2,15 @@
 class WAD
   # A music track.
   class Music
+    # Writes a music given an output io and returns the size of the written lump
+    #
+    # Example: Writes a music in *mywad* to a file
+    # ```
+    # mywad = WAD.read("./rsrc/DOOM.WAD")
+    # File.open("./rsrc/music.lmp", "w+") do |file|
+    #   mywad.music.values[0].write(file)
+    # end
+    # ```
     def write(io) : UInt32
       lump_size = 0_u32
 
@@ -37,6 +46,15 @@ class WAD
 
   # "Instrument data for the DMX sound library to use for OPL synthesis".
   class Genmidi
+    # Writes a genmidi given an output io and returns the size of the written lump
+    #
+    # Example: Writes a genmidi in *mywad* to a file
+    # ```
+    # mywad = WAD.read("./rsrc/DOOM.WAD")
+    # File.open("./rsrc/genmidi.lmp", "w+") do |file|
+    #   mywad.genmidi.write(file)
+    # end
+    # ```
     def write(io) : UInt32
       lump_size = 0_u32
 
@@ -80,6 +98,15 @@ class WAD
 
   # "Instrument data for the DMX sound library to use for Gravis Ultrasound soundcards".
   class Dmxgus
+    # Writes a dmxgus given an output io and returns the size of the written lump
+    #
+    # Example: Writes a dmxgus in *mywad* to a file
+    # ```
+    # mywad = WAD.read("./rsrc/DOOM.WAD")
+    # File.open("./rsrc/dmxgus.lmp", "w+") do |file|
+    #   mywad.dmxgus.write(file)
+    # end
+    # ```
     def write(io) : UInt32
       lump_size = 0_u32
 

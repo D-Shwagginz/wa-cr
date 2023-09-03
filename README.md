@@ -1,5 +1,5 @@
+![logo](logo/wa-cr.png)
 ![logo](../logo/wa-cr.png)
-
 # Where's all the Crystal? | wa-cr
 
 Used to parse .wad files into usable Crystal code

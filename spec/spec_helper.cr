@@ -1,5 +1,5 @@
 require "spec"
-require "../src/wad-reader"
+require "../src/wa-cr"
 require "../src/write"
 
 def vertex_check(mywad : WAD, map_name : String, vertex_index : Int, x_pos : Int, y_pos : Int)

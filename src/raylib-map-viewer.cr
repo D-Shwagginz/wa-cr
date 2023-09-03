@@ -1,6 +1,6 @@
 require "raylib-cr"
 require "./raylib"
-require "./wad-reader/**"
+require "./wa-cr/**"
 require "raylib-cr/rlgl"
 
 module MapViewer

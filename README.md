@@ -1,11 +1,10 @@
-# wad-reader
-
+# wa-cr
 
 Used to parse .wad files into usable Crystal code
 
 ## Installation
 
-1. Download the [code](https://github.com/sol-vin/wad-reader/archive/refs/heads/master.zip)
+1. Download the [code](https://github.com/sol-vin/wa-cr/archive/refs/heads/master.zip)
 2. Unzip the file wherever you want
 
 ## Usage
@@ -15,7 +14,7 @@ Used to parse .wad files into usable Crystal code
 
 ## Contributing
 
-1. Fork it (<https://github.com/sol-vin/wad-reader/fork>)
+1. Fork it (<https://github.com/sol-vin/wa-cr/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

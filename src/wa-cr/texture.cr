@@ -397,7 +397,7 @@ class WAD
           end
         end
 
-        if directory.size == graphic.file_size
+        if size == graphic.file_size
           graphic.reset_data
           graphic_parse.columns.each do |column|
             column.posts.each do |post|

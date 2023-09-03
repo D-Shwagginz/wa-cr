@@ -296,7 +296,7 @@ class WAD
                 # Parses Flat
                 file.read_at(directory.file_pos, directory.size) do |io|
                   begin
-                    wad.flats[directory.name] = Flat.parse(io, directory.name)
+                    wad.flats[directory.name] = Flat.parse(io)
                   rescue e : IO::EOFError
                   end
                 end
@@ -305,7 +305,7 @@ class WAD
           end
 
           # Parses Graphic if the size is the correct size of the lump
-          Graphic.parse(file, directory).try do |graphic|
+          Graphic.parse(file, directory.file_pos, directory.size).try do |graphic|
             wad.graphics[directory.name] = graphic
           end
 

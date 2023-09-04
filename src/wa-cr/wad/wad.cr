@@ -5,7 +5,57 @@ require "debug"
   Debug.enabled = true
 {% end %}
 
-# Reads and stores the data of a WAD file.
+# ### Reading a .WAD file's data
+#
+# To simply read in a WAD file, you just call `WAD.read(file : Path | String | IO) : WAD`:
+#
+# ```
+# my_string_wad = WAD.read("Path/To/Wad")
+# my_path_wad = WAD.read(Path["Path/To/Wad"])
+#
+# File.open("Path/To/Wad") do |file|
+#   my_io_wad = WAD.read(file)
+# end
+# ```
+#
+# ### Using the `WAD`'s data
+#
+# wa-cr sorts the the parsed wad's data into easy to use variables.
+#
+# To get the sample rate of the sound *"MYSOUND"*:
+#
+# ```
+# my_wad.sounds["MYSOUND"].sample_rate # => returns the sample rate of the sound
+# ```
+#
+# To get *y_position* of the 34th thing in the map *"MAP23"*:
+#
+# ```
+# # Gets the thing index 33 because it is zero indexed: the 33rd index is the 34th thing
+# my_wad.maps["MAP23"].things[33].y_position # => returns the y_position of the thing
+# ```
+#
+# ### Lumps
+#
+# You can also read in .lmp lump files:
+#
+# NOTE: `Graphic.parse` can take 2 arguments: The file to read and
+# the position of the start of the data (Default is 0. Should almost always be 0 when reading a .lmp)
+# ```
+# File.open("Path/To/MyGraphic.lmp") do |file|
+#   my_graphic = WAD::Graphic.parse(file)
+# end
+# ```
+# ```
+# File.open("Path/To/MyFlat.lmp") do |file|
+#   my_flat = WAD::Flat.parse(file)
+# end
+# ```
+# ```
+# File.open("Path/To/MySound.lmp") do |file|
+#   my_sound = WAD::Sound.parse(file)
+# end
+# ```
 class WAD
   # The size of the header in bytes
   HEADER_SIZE = 16
@@ -60,6 +110,13 @@ class WAD
 
   # Creates a new empty directory with *name* and puts it onto the list of directories.
   # WARNING: Directory will not work if *name* is not the correct name of the data
+  #
+  # ```
+  # File.open("Path/To/MySound.lmp", "w+") do |file|
+  #   my_wad.["MYSOUND"] = WAD::Sound.parse(file)
+  #   my_wad.new_dir("MYSOUND")
+  # end
+  # ```
   def new_dir(name : String)
     directory = WAD::Directory.new
     directory.name = name
@@ -73,6 +130,13 @@ class WAD
     Patch
   end
 
+  # Reads in a WAD file given the *io*:
+  #
+  # ```
+  # File.open("Path/To/Wad") do |file|
+  #   my_wad = WAD.read(file)
+  # end
+  # ```
   def self.read(file : IO) : WAD
     wad = WAD.new
     start_pos = file.pos.to_u32
@@ -258,7 +322,7 @@ class WAD
                 break
               end
               # Parses Sprite if the size is the correct size of the lump
-              Graphic.parse(file, directory.file_pos, directory.size).try do |graphic|
+              Graphic.parse(file, directory.file_pos).try do |graphic|
                 wad.sprites[directory.name] = graphic
               end
             end
@@ -321,11 +385,10 @@ class WAD
     wad
   end
 
-  # Reads in a WAD file given the *filename*.
+  # Reads in a WAD file given the *filename*:
   #
-  # Example:
   # ```
-  # mywad = WAD.read("Path/To/Wad")
+  # my_wad = WAD.read("Path/To/Wad")
   # ```
   def self.read(filename : Path | String) : WAD
     # Opens the *filename* and sets according things.

@@ -1,13 +1,13 @@
-class WAD
+module WritingAdditions
   # A music track.
-  class Music
+  module Music
     # Writes a music given an output io and returns the size of the written lump
     #
-    # Example: Writes a music in *mywad* to a file
+    # Writes a music in *my_wad* to a file:
     # ```
-    # mywad = WAD.read("./rsrc/DOOM.WAD")
+    # my_wad = WAD.read("./rsrc/DOOM.WAD")
     # File.open("./rsrc/music.lmp", "w+") do |file|
-    #   mywad.music.values[0].write(file)
+    #   my_wad.music.values[0].write(file)
     # end
     # ```
     def write(io : IO) : UInt32
@@ -44,14 +44,14 @@ class WAD
   end
 
   # "Instrument data for the DMX sound library to use for OPL synthesis".
-  class Genmidi
+  module Genmidi
     # Writes a genmidi given an output io and returns the size of the written lump
     #
-    # Example: Writes a genmidi in *mywad* to a file
+    # Writes a genmidi in *my_wad* to a file:
     # ```
-    # mywad = WAD.read("./rsrc/DOOM.WAD")
+    # my_wad = WAD.read("./rsrc/DOOM.WAD")
     # File.open("./rsrc/genmidi.lmp", "w+") do |file|
-    #   mywad.genmidi.write(file)
+    #   my_wad.genmidi.write(file)
     # end
     # ```
     def write(io : IO) : UInt32
@@ -87,7 +87,7 @@ class WAD
 
       instr_names.each do |name|
         name_slice = Bytes.new(32)
-        name_slice.copy_from(WAD.slice_cut(WAD.string_cut(name, 32).to_slice, 32))
+        name_slice.copy_from(::WAD.slice_cut(::WAD.string_cut(name, 32).to_slice, 32))
         io.write(name_slice)
         lump_size += 32_u32
       end
@@ -96,14 +96,14 @@ class WAD
   end
 
   # "Instrument data for the DMX sound library to use for Gravis Ultrasound soundcards".
-  class Dmxgus
+  module Dmxgus
     # Writes a dmxgus given an output io and returns the size of the written lump
     #
-    # Example: Writes a dmxgus in *mywad* to a file
+    # Writes a dmxgus in *my_wad* to a file:
     # ```
-    # mywad = WAD.read("./rsrc/DOOM.WAD")
+    # my_wad = WAD.read("./rsrc/DOOM.WAD")
     # File.open("./rsrc/dmxgus.lmp", "w+") do |file|
-    #   mywad.dmxgus.write(file)
+    #   my_wad.dmxgus.write(file)
     # end
     # ```
     def write(io : IO) : UInt32

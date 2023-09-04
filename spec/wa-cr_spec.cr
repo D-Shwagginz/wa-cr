@@ -2,7 +2,7 @@ require "./spec_helper"
 
 describe WAD do
   it "should properly set the wad type" do
-    mywad = WAD.read("./rsrc/DOOM.WAD")
-    (mywad.type == WAD::Type::Internal).should be_true
+    my_wad = WAD.read("./rsrc/DOOM.WAD")
+    (my_wad.type == WAD::Type::Internal).should be_true
   end
 end

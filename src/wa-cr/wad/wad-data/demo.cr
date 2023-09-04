@@ -71,7 +71,7 @@ class WAD
 
     # Parses an io in a demo format
     #
-    # Example: Reads an io and puts out a demo
+    # Reads an io and puts out a demo:
     # ```
     # File.open("Path/To/Demo") do |file|
     #   my_demo = WAD::Demo.parse(file)
@@ -138,7 +138,7 @@ class WAD
 
     # Checks if the demo is of doom version 1,9
     #
-    # Example: Returns true if an io is a demo
+    # Returns true if an io is a demo:
     # ```
     # File.open("Path/To/Demo") do |file|
     #   if WAD::Demo.is_demo(file)

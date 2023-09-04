@@ -1,20 +1,44 @@
 require "raylib-cr"
 require "./wa-cr/**"
 
-# The actual methods
-
-# Additions to help wa-cr with graphical conversions using Raylib
+# ### Additions to help wa-cr with graphical conversions using Raylib
+#
+# To use these additions, just require it:
+#
+# ```
+# require "wa-cr/raylib"
+# ```
+#
+# Here's some examples of this addition:
+#
+# ```
+# require "wa-cr/raylib"
+#
+# # Gets the palette to use for the images
+# palette = myw_ad.playpal.palettes[0]
+#
+# my_wad.get_texture("NameOfTexture", palette) # => Raylib::Image
+#
+# my_graphic.to_tex(palette) # => Raylib::Image
+#
+# # You can also get pixel data from the image
+# my_graphic.get_color(x, y) # => Raylib::Color
+#
+# my_flat.to_tex(palette) # => Raylib::Image
+#
+# my_flat.get_color(x, y) # => Raylib::Color
+# ```
 module RaylibAdditions
   # Reads and stores the data of a WAD file.
   module WAD
     # Gets a texture as a raylib image given the texture name and a palette
     #
-    # Example: Takes the name of a texture from TextureX and a palette
-    # and converts the texture to a Raylib Image and draws that image.
+    # Takes the name of a texture from TextureX and a palette
+    # and converts the texture to a Raylib Image and draws that image:
     # ```
     # require "wa-cr/raylib"
-    # palette = mywad.playpal.palettes[0]
-    # my_image = mywad.get_texture("STARTAN3", palette)
+    # palette = my_wad.playpal.palettes[0]
+    # my_image = my_wad.get_texture("STARTAN3", palette)
     # Raylib.draw_texture(
     #   Raylib.load_texture_from_image(my_image),
     #   0,
@@ -58,15 +82,15 @@ module RaylibAdditions
   end
 
   # A WAD graphic
-  module WAD::Graphic
+  module Graphic
     # Converts a graphic to a raylib image using a palette
     #
-    # Example: Converts a graphic to a Raylib Image given a palette
-    # and draws that image.
+    # Converts a graphic to a Raylib Image given a palette
+    # and draws that image:
     # ```
     # require "wa-cr/raylib"
-    # palette = mywad.playpal.palettes[0]
-    # my_image = mywad.graphics["HELP1"].to_tex(palette)
+    # palette = my_wad.playpal.palettes[0]
+    # my_image = my_wad.graphics["HELP1"].to_tex(palette)
     # Raylib.draw_texture(
     #   Raylib.load_texture_from_image(my_image),
     #   0,
@@ -88,11 +112,11 @@ module RaylibAdditions
 
     # Returns a Raylib Color for the pixel of a graphic
     #
-    # Example: Gets the Raylib Color of the pixel [2, 4] and draws it
+    # Gets the Raylib Color of the pixel [2, 4] and draws it:
     # ```
     # require "wa-cr/raylib"
-    # palette = mywad.playpal.palettes[0]
-    # my_pixel = mywad.graphics["HELP1"].get_color(2, 4)
+    # palette = my_wad.playpal.palettes[0]
+    # my_pixel = my_wad.graphics["HELP1"].get_color(2, 4)
     # Raylib.draw_pixel(
     #   0,
     #   0,
@@ -113,15 +137,15 @@ module RaylibAdditions
   end
 
   # A WAD flat
-  module WAD::Flat
+  module Flat
     # Converts a flat to a raylib image using a palette
     #
-    # Example: Converts a flat to a Raylib Image given a palette
+    # Converts a flat to a Raylib Image given a palette:
     # and draws that image.
     # ```
     # require "wa-cr/raylib"
-    # palette = mywad.playpal.palettes[0]
-    # my_image = mywad.flats["FLOOR0_1"].to_tex(palette)
+    # palette = my_wad.playpal.palettes[0]
+    # my_image = my_wad.flats["FLOOR0_1"].to_tex(palette)
     # Raylib.draw_texture(
     #   Raylib.load_texture_from_image(my_image),
     #   0,
@@ -142,11 +166,11 @@ module RaylibAdditions
 
     # Returns a Raylib Color for the pixel of a flat
     #
-    # Example: Gets the Raylib Color of the pixel [5, 2] and draws it
+    # Gets the Raylib Color of the pixel [5, 2] and draws it:
     # ```
     # require "wa-cr/raylib"
-    # palette = mywad.playpal.palettes[0]
-    # my_pixel = mywad.flat["FLOOR0_1"].get_color(5, 2)
+    # palette = my_wad.playpal.palettes[0]
+    # my_pixel = my_wad.flat["FLOOR0_1"].get_color(5, 2)
     # Raylib.draw_pixel(
     #   0,
     #   0,
@@ -172,9 +196,9 @@ class WAD
 end
 
 class WAD::Graphic
-  include RaylibAdditions::WAD::Graphic
+  include RaylibAdditions::Graphic
 end
 
 class WAD::Flat
-  include RaylibAdditions::WAD::Flat
+  include RaylibAdditions::Flat
 end

@@ -61,7 +61,7 @@ class WAD
 
       # Parses a things list given the io and the size
       #
-      # Example: Opens a things lump and parses it
+      # Opens a things lump and parses it:
       # ```
       # File.open("Path/To/Things") do |file|
       #   my_things = WAD::Map::Things.parse(file)
@@ -106,7 +106,7 @@ class WAD
 
       # Parses a linedefs list given the io and the size
       #
-      # Example: Opens a linedefs lump and parses it
+      # Opens a linedefs lump and parses it:
       # ```
       # File.open("Path/To/Linedefs") do |file|
       #   my_linedefs = WAD::Map::Linedefs.parse(file)
@@ -153,7 +153,7 @@ class WAD
 
       # Parses a sidedefs list given the io and the size
       #
-      # Example: Opens a sidedefs lump and parses it
+      # Opens a sidedefs lump and parses it:
       # ```
       # File.open("Path/To/Sidedefs") do |file|
       #   my_sidedefs = WAD::Map::Sidedefs.parse(file)
@@ -194,7 +194,7 @@ class WAD
 
       # Parses a vertexes list given the io and the size
       #
-      # Example: Opens a vertexes lump and parses it
+      # Opens a vertexes lump and parses it:
       # ```
       # File.open("Path/To/Vertexes") do |file|
       #   my_vertexes = WAD::Map::Vertexes.parse(file)
@@ -238,7 +238,7 @@ class WAD
 
       # Parses a segs list given the io and the size
       #
-      # Example: Opens a segs lump and parses it
+      # Opens a segs lump and parses it:
       # ```
       # File.open("Path/To/Segs") do |file|
       #   my_segs = WAD::Map::Segs.parse(file)
@@ -284,7 +284,7 @@ class WAD
 
       # Parses a ssectors list given the io and the size
       #
-      # Example: Opens a ssectors lump and parses it
+      # Opens a ssectors lump and parses it:
       # ```
       # File.open("Path/To/Ssectors") do |file|
       #   my_ssectors = WAD::Map::Ssectors.parse(file)
@@ -339,7 +339,7 @@ class WAD
 
       # Parses a nodes list given the io and the size
       #
-      # Example: Opens a nodes lump and parses it
+      # Opens a nodes lump and parses it:
       # ```
       # File.open("Path/To/Nodes") do |file|
       #   my_nodes = WAD::Map::Nodes.parse(file)
@@ -398,7 +398,7 @@ class WAD
 
       # Parses a sectors list given the io and the size
       #
-      # Example: Opens a sectors lump and parses it
+      # Opens a sectors lump and parses it:
       # ```
       # File.open("Path/To/Sectors") do |file|
       #   my_sectors = WAD::Map::Sectors.parse(file)
@@ -525,7 +525,7 @@ class WAD
 
       # Parses a blockmap list given the io and the size
       #
-      # Example: Opens a blockmap lump and parses it
+      # Opens a blockmap lump and parses it:
       # ```
       # File.open("Path/To/Blockmap") do |file|
       #   my_blockmap = WAD::Map::Blockmap.parse(file)
@@ -576,7 +576,7 @@ class WAD
 
     # Checks to see if *name* is a map with the name format 'ExMx' or 'MAPxx'.
     #
-    # Example: Returns true if the name is a map
+    # Returns true if the name is a map:
     # ```
     # map_name = "E1M1"
     # if WAD::Map.is_map?(map_name)
@@ -591,7 +591,7 @@ class WAD
 
     # Inserts a property into the map based off *times_inserted*.
     #
-    # Example: Inserts a directory based off of the property
+    # Inserts a directory based off of the property:
     # ```
     # map_name = "E1M1"
     # if WAD::Map.is_map?(map_name)

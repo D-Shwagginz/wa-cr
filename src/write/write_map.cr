@@ -1,17 +1,17 @@
-class WAD
+module WritingAdditions
   # Map containing all directories of data lumps.
-  class Map
+  module Map
     # Writes a map given an output io and returns the directories of the written lumps
     #
-    # Example: Writes a map in *mywad* to a file
+    # Writes a map in *my_wad* to a file:
     # ```
-    # mywad = WAD.read("./rsrc/DOOM.WAD")
+    # my_wad = WAD.read("./rsrc/DOOM.WAD")
     # File.open("./rsrc/map.lmp", "w+") do |file|
-    #   mywad.maps.values[0].write(file)
+    #   my_wad.maps.values[0].write(file)
     # end
     # ```
-    def write(io : IO) : Array(Directory)
-      written_map_directories = [] of Directory
+    def write(io : IO) : Array(::WAD::Directory)
+      written_map_directories = [] of ::WAD::Directory
 
       written_map_directories << Things.write(io, things)
       written_map_directories << Linedefs.write(io, linedefs)
@@ -30,17 +30,17 @@ class WAD
     # Structure of a thing.
     struct Things
       # Writes a list of things given an output io and the things
-      # to write and and returns the size of the written directory
+      # to write and returns the written directory
       #
-      # Example: Writes things in *mywad* to a file
+      # Writes things in *my_wad* to a file:
       # ```
-      # mywad = WAD.read("./rsrc/DOOM.WAD")
+      # my_wad = WAD.read("./rsrc/DOOM.WAD")
       # File.open("./rsrc/things.lmp", "w+") do |file|
-      #   WAD::Map::Things.write(mywad.maps.values[0].things)
+      #   WAD::Map::Things.write(my_wad.maps.values[0].things)
       # end
       # ```
-      def self.write(io : IO, things : Array(Things)) : Directory
-        written_directory = Directory.new
+      def self.write(io : IO, things : Array(::WAD::Map::Things)) : ::WAD::Directory
+        written_directory = ::WAD::Directory.new
         written_directory.name = "THINGS"
         written_directory.file_pos = io.pos.to_u32
 
@@ -66,17 +66,17 @@ class WAD
     # Structure of a linedef.
     struct Linedefs
       # Writes a list of linedefs given an output io and the linedefs
-      # to write and and returns the size of the written directory
+      # to write and returns the written directory
       #
-      # Example: Writes linedefs in *mywad* to a file
+      # Writes linedefs in *my_wad* to a file:
       # ```
-      # mywad = WAD.read("./rsrc/DOOM.WAD")
+      # my_wad = WAD.read("./rsrc/DOOM.WAD")
       # File.open("./rsrc/linedefs.lmp", "w+") do |file|
-      #   WAD::Map::Linedefs.write(mywad.maps.values[0].linedefs)
+      #   WAD::Map::Linedefs.write(my_wad.maps.values[0].linedefs)
       # end
       # ```
-      def self.write(io : IO, linedefs : Array(Linedefs)) : Directory
-        written_directory = Directory.new
+      def self.write(io : IO, linedefs : Array(::WAD::Map::Linedefs)) : ::WAD::Directory
+        written_directory = ::WAD::Directory.new
         written_directory.name = "LINEDEFS"
         written_directory.file_pos = io.pos.to_u32
 
@@ -106,17 +106,17 @@ class WAD
     # Structure of a sidedef.
     struct Sidedefs
       # Writes a list of sidedefs given an output io and the sidedefs
-      # to write and and returns the size of the written directory
+      # to write and returns the written directory
       #
-      # Example: Writes sidedefs in *mywad* to a file
+      # Writes sidedefs in *my_wad* to a file:
       # ```
-      # mywad = WAD.read("./rsrc/DOOM.WAD")
+      # my_wad = WAD.read("./rsrc/DOOM.WAD")
       # File.open("./rsrc/sidedefs.lmp", "w+") do |file|
-      #   WAD::Map::Sidedefs.write(mywad.maps.values[0].sidedefs)
+      #   WAD::Map::Sidedefs.write(my_wad.maps.values[0].sidedefs)
       # end
       # ```
-      def self.write(io : IO, sidedefs : Array(Sidedefs)) : Directory
-        written_directory = Directory.new
+      def self.write(io : IO, sidedefs : Array(::WAD::Map::Sidedefs)) : ::WAD::Directory
+        written_directory = ::WAD::Directory.new
         written_directory.name = "SIDEDEFS"
         written_directory.file_pos = io.pos.to_u32
 
@@ -129,17 +129,17 @@ class WAD
           lump_size += 2_u32
 
           name_slice = Bytes.new(8)
-          name_slice.copy_from(WAD.slice_cut(WAD.string_cut(sidedef.name_tex_up).to_slice))
+          name_slice.copy_from(::WAD.slice_cut(::WAD.string_cut(sidedef.name_tex_up).to_slice))
           io.write(name_slice)
           lump_size += 8_u32
 
           name_slice = Bytes.new(8)
-          name_slice.copy_from(WAD.slice_cut(WAD.string_cut(sidedef.name_tex_low).to_slice))
+          name_slice.copy_from(::WAD.slice_cut(::WAD.string_cut(sidedef.name_tex_low).to_slice))
           io.write(name_slice)
           lump_size += 8_u32
 
           name_slice = Bytes.new(8)
-          name_slice.copy_from(WAD.slice_cut(WAD.string_cut(sidedef.name_tex_mid).to_slice))
+          name_slice.copy_from(::WAD.slice_cut(::WAD.string_cut(sidedef.name_tex_mid).to_slice))
           io.write(name_slice)
           lump_size += 8_u32
 
@@ -154,17 +154,17 @@ class WAD
     # Structure of a vertex.
     struct Vertexes
       # Writes a list of vertexes given an output io and the vertexes
-      # to write and and returns the size of the written directory
+      # to write and returns the written directory
       #
-      # Example: Writes vertexes in *mywad* to a file
+      # Writes vertexes in *my_wad* to a file:
       # ```
-      # mywad = WAD.read("./rsrc/DOOM.WAD")
+      # my_wad = WAD.read("./rsrc/DOOM.WAD")
       # File.open("./rsrc/vertexes.lmp", "w+") do |file|
-      #   WAD::Map::Vertexes.write(mywad.maps.values[0].vertexes)
+      #   WAD::Map::Vertexes.write(my_wad.maps.values[0].vertexes)
       # end
       # ```
-      def self.write(io : IO, vertexes : Array(Vertexes)) : Directory
-        written_directory = Directory.new
+      def self.write(io : IO, vertexes : Array(::WAD::Map::Vertexes)) : ::WAD::Directory
+        written_directory = ::WAD::Directory.new
         written_directory.name = "VERTEXES"
         written_directory.file_pos = io.pos.to_u32
 
@@ -184,17 +184,17 @@ class WAD
     # Structure of a seg.
     struct Segs
       # Writes a list of segs given an output io and the segs
-      # to write and and returns the size of the written directory
+      # to write and returns the written directory
       #
-      # Example: Writes segs in *mywad* to a file
+      # Writes segs in *my_wad* to a file:
       # ```
-      # mywad = WAD.read("./rsrc/DOOM.WAD")
+      # my_wad = WAD.read("./rsrc/DOOM.WAD")
       # File.open("./rsrc/segs.lmp", "w+") do |file|
-      #   WAD::Map::Segs.write(mywad.maps.values[0].segs)
+      #   WAD::Map::Segs.write(my_wad.maps.values[0].segs)
       # end
       # ```
-      def self.write(io : IO, segs : Array(Segs)) : Directory
-        written_directory = Directory.new
+      def self.write(io : IO, segs : Array(::WAD::Map::Segs)) : ::WAD::Directory
+        written_directory = ::WAD::Directory.new
         written_directory.name = "SEGS"
         written_directory.file_pos = io.pos.to_u32
 
@@ -223,17 +223,17 @@ class WAD
     # Structure of a ssector.
     struct Ssectors
       # Writes a list of ssectors given an output io and the ssectors
-      # to write and and returns the size of the written directory
+      # to write and returns the written directory
       #
-      # Example: Writes ssectors in *mywad* to a file
+      # Writes ssectors in *my_wad* to a file:
       # ```
-      # mywad = WAD.read("./rsrc/DOOM.WAD")
+      # my_wad = WAD.read("./rsrc/DOOM.WAD")
       # File.open("./rsrc/ssectors.lmp", "w+") do |file|
-      #   WAD::Map::Ssectors.write(mywad.maps.values[0].ssectors)
+      #   WAD::Map::Ssectors.write(my_wad.maps.values[0].ssectors)
       # end
       # ```
-      def self.write(io : IO, ssectors : Array(Ssectors)) : Directory
-        written_directory = Directory.new
+      def self.write(io : IO, ssectors : Array(::WAD::Map::Ssectors)) : ::WAD::Directory
+        written_directory = ::WAD::Directory.new
         written_directory.name = "SSECTORS"
         written_directory.file_pos = io.pos.to_u32
 
@@ -254,17 +254,17 @@ class WAD
     # Structure of a node.
     struct Nodes
       # Writes a list of nodes given an output io and the nodes
-      # to write and and returns the size of the written directory
+      # to write and returns the written directory
       #
-      # Example: Writes nodes in *mywad* to a file
+      # Writes nodes in *my_wad* to a file:
       # ```
-      # mywad = WAD.read("./rsrc/DOOM.WAD")
+      # my_wad = WAD.read("./rsrc/DOOM.WAD")
       # File.open("./rsrc/nodes.lmp", "w+") do |file|
-      #   WAD::Map::Nodes.write(mywad.maps.values[0].nodes)
+      #   WAD::Map::Nodes.write(my_wad.maps.values[0].nodes)
       # end
       # ```
-      def self.write(io : IO, nodes : Array(Nodes)) : Directory
-        written_directory = Directory.new
+      def self.write(io : IO, nodes : Array(::WAD::Map::Nodes)) : ::WAD::Directory
+        written_directory = ::WAD::Directory.new
         written_directory.name = "NODES"
         written_directory.file_pos = io.pos.to_u32
 
@@ -304,17 +304,17 @@ class WAD
     # Structure of a sector.
     struct Sectors
       # Writes a list of sectors given an output io and the sectors
-      # to write and and returns the size of the written directory
+      # to write and returns the written directory
       #
-      # Example: Writes sectors in *mywad* to a file
+      # Writes sectors in *my_wad* to a file:
       # ```
-      # mywad = WAD.read("./rsrc/DOOM.WAD")
+      # my_wad = WAD.read("./rsrc/DOOM.WAD")
       # File.open("./rsrc/sectors.lmp", "w+") do |file|
-      #   WAD::Map::Sectors.write(mywad.maps.values[0].sectors)
+      #   WAD::Map::Sectors.write(my_wad.maps.values[0].sectors)
       # end
       # ```
-      def self.write(io : IO, sectors : Array(Sectors)) : Directory
-        written_directory = Directory.new
+      def self.write(io : IO, sectors : Array(::WAD::Map::Sectors)) : ::WAD::Directory
+        written_directory = ::WAD::Directory.new
         written_directory.name = "SECTORS"
         written_directory.file_pos = io.pos.to_u32
 
@@ -327,12 +327,12 @@ class WAD
           lump_size += 2_u32
 
           name_slice = Bytes.new(8)
-          name_slice.copy_from(WAD.slice_cut(WAD.string_cut(sector.name_tex_floor).to_slice))
+          name_slice.copy_from(::WAD.slice_cut(::WAD.string_cut(sector.name_tex_floor).to_slice))
           io.write(name_slice)
           lump_size += 8_u32
 
           name_slice = Bytes.new(8)
-          name_slice.copy_from(WAD.slice_cut(WAD.string_cut(sector.name_tex_ceiling).to_slice))
+          name_slice.copy_from(::WAD.slice_cut(::WAD.string_cut(sector.name_tex_ceiling).to_slice))
           io.write(name_slice)
           lump_size += 8_u32
 
@@ -351,18 +351,18 @@ class WAD
 
     # Class of a reject.
     class Reject
-      # Writes a list of reject given an output io and the reject
-      # to write and and returns the size of the written directory
+      # Writes a reject given an output io and the reject
+      # to write and returns the written directory
       #
-      # Example: Writes reject in *mywad* to a file
+      # Writes reject in *my_wad* to a file:
       # ```
-      # mywad = WAD.read("./rsrc/DOOM.WAD")
+      # my_wad = WAD.read("./rsrc/DOOM.WAD")
       # File.open("./rsrc/reject.lmp", "w+") do |file|
-      #   WAD::Map::Reject.write(mywad.maps.values[0].reject)
+      #   WAD::Map::Reject.write(my_wad.maps.values[0].reject)
       # end
       # ```
-      def self.write(io : IO, reject : Reject) : Directory
-        written_directory = Directory.new
+      def self.write(io : IO, reject : ::WAD::Map::Reject) : ::WAD::Directory
+        written_directory = ::WAD::Directory.new
         written_directory.name = "REJECT"
         written_directory.file_pos = io.pos.to_u32
 
@@ -380,18 +380,18 @@ class WAD
 
     # Class of a blockmap.
     class Blockmap
-      # Writes a list of blockmap given an output io and the blockmap
-      # to write and and returns the size of the written directory
+      # Writes a blockmap given an output io and the blockmap
+      # to write and returns the written directory
       #
-      # Example: Writes blockmap in *mywad* to a file
+      # Writes blockmap in *my_wad* to a file:
       # ```
-      # mywad = WAD.read("./rsrc/DOOM.WAD")
+      # my_wad = WAD.read("./rsrc/DOOM.WAD")
       # File.open("./rsrc/blockmap.lmp", "w+") do |file|
-      #   WAD::Map::Blockmap.write(mywad.maps.values[0].blockmap)
+      #   WAD::Map::Blockmap.write(my_wad.maps.values[0].blockmap)
       # end
       # ```
-      def self.write(io : IO, blockmap : Blockmap) : Directory
-        written_directory = Directory.new
+      def self.write(io : IO, blockmap : ::WAD::Map::Blockmap) : ::WAD::Directory
+        written_directory = ::WAD::Directory.new
         written_directory.name = "BLOCKMAP"
         written_directory.file_pos = io.pos.to_u32
 

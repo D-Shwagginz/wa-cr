@@ -9,7 +9,7 @@ as well as writing out to a .wad or .lmp file or converting files.
 1. Add `wa-cr` to your `shard.yml`:
 ```yml
 dependencies:
-  wa-cr:
+  raylib-cr:
     github: sol-vin/wa-cr
 ```
 
@@ -17,16 +17,9 @@ dependencies:
 
 ### Raylib Additions
 
-To use the wa-cr Raylib additions you must perform some extra steps
+To use the wa-cr Raylib additions you must have raylib installed:
 
-1. Install raylib from [github](https://github.com/raysan5/raylib/releases).
-
-2. Add `raylib-cr` to your `shard.yml`:
-```yml
-dependencies:
-  raylib-cr:
-    github: sol-vin/raylib-cr
-```
+- Install raylib from [github](https://github.com/raysan5/raylib/releases).
 
 ## Usage
 
@@ -35,7 +28,7 @@ Following is a brief overview of what wa-cr can do.<br>
 For a complete overview visit wa-cr's [docs](https://sol-vin.github.io/wad-reader/index.html).
 ### Wad Data
 
-Reading in a .wad is as easy as
+Reading in a .wad is easy by using `WAD.read(file : Path | String | IO) : WAD`
 ```crystal
 # Reads in a wad and sets it to *my_wad*
 my_wad = WAD.read("Path/To/Wad.wad")
@@ -51,12 +44,20 @@ You can also add the data into the wad file.
 ```crystal
 my_wad.sounds["MYSOUND"] = my_sound
 # You have to create a new directory with the same name as the data you inserted. 
-mywad.new_dir("MYSOUND")
+my_wad.new_dir("MYSOUND")
 ```
-### Lump Writing
+### Writing
 
 You can write out .lmp files from the parsed data as well.
 ```crystal
+# Include the wa-cr write library
+require "wa-cr/write"
+
+# Write *my_wad* to *"MyWad.wad"*
+File.open("Path/To/MyWad.wad", "w+") do |file|
+  my_wad.write(file)
+end
+
 # Writes the lump *my_graphic* to a .lmp file
 File.open("Path/To/MyLump.lmp", "w+") do |file|
   my_graphic.write(file)
@@ -76,14 +77,14 @@ end
 wa-cr takes advantage of [raylib-cr](https://github.com/sol-vin/raylib-cr) with ways to convert doom<br>
 graphics to raylib images and draw said images to the screen
 ```crystal
-# You'll need to require the wa-cr raylib additions as well as wa-cr
+# Include the wa-cr raylib library
 require "wa-cr/raylib"
 
-palette = mywad.playpal.palettes[0]
+palette = my_wad.playpal.palettes[0]
 my_graphic_image = my_graphic.to_tex(palette)
 my_flat_image = my_flat.to_tex(palette)
 # You can also get textures from the texture maps
-my_texture_image = mywad.get_texture("texture_name_in_texturex", palette)
+my_texture_image = my_wad.get_texture("texture_name_in_texturex", palette)
 ```
 
 ## Limitations

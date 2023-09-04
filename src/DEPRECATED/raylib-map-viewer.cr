@@ -1,7 +1,7 @@
 require "raylib-cr"
 require "raylib-cr/rlgl"
-require "../wa-cr/wad/**"
-require "../wa-cr/raylib"
+require "../wa-cr/**"
+require "../raylib"
 
 # :nodoc:
 module MapViewer
@@ -35,13 +35,13 @@ module MapViewer
 
   # Runs the game.
   def self.run
-    mywad = WAD.read(WAD_LOCATION)
-    palette = mywad.playpal.palettes[0]
+    my_wad = WAD.read(WAD_LOCATION)
+    palette = my_wad.playpal.palettes[0]
     loaded_textures = [] of Texture
 
-    if map = mywad.maps[MAP_NAME]
+    if map = my_wad.maps[MAP_NAME]
     else
-      raise "#{MAP_NAME} is not a map in #{mywad}"
+      raise "#{MAP_NAME} is not a map in #{my_wad}"
     end
 
     R.init_window(RESX, RESY, "Map Viewer")
@@ -54,7 +54,7 @@ module MapViewer
       front_sidedef = map.sidedefs[linedef.front_sidedef]
 
       if front_sidedef.name_tex_up != "" && !loaded_textures.any? { |m| m.name == front_sidedef.name_tex_up }
-        image = mywad.get_texture(front_sidedef.name_tex_up, palette)
+        image = my_wad.get_texture(front_sidedef.name_tex_up, palette)
         loaded_textures << Texture.new(
           front_sidedef.name_tex_up,
           R.load_texture_from_image(image),
@@ -65,7 +65,7 @@ module MapViewer
       end
 
       if front_sidedef.name_tex_low != "" && !loaded_textures.any? { |m| m.name == front_sidedef.name_tex_low }
-        image = mywad.get_texture(front_sidedef.name_tex_low, palette)
+        image = my_wad.get_texture(front_sidedef.name_tex_low, palette)
         loaded_textures << Texture.new(
           front_sidedef.name_tex_low,
           R.load_texture_from_image(image),
@@ -76,7 +76,7 @@ module MapViewer
       end
 
       if front_sidedef.name_tex_mid != "" && !loaded_textures.any? { |m| m.name == front_sidedef.name_tex_mid }
-        image = mywad.get_texture(front_sidedef.name_tex_mid, palette)
+        image = my_wad.get_texture(front_sidedef.name_tex_mid, palette)
         loaded_textures << Texture.new(
           front_sidedef.name_tex_mid,
           R.load_texture_from_image(image),
@@ -89,7 +89,7 @@ module MapViewer
       back_sidedef = map.sidedefs[linedef.back_sidedef]
 
       if back_sidedef.name_tex_up != "" && !loaded_textures.any? { |m| m.name == back_sidedef.name_tex_up }
-        image = mywad.get_texture(back_sidedef.name_tex_up, palette)
+        image = my_wad.get_texture(back_sidedef.name_tex_up, palette)
         loaded_textures << Texture.new(
           back_sidedef.name_tex_up,
           R.load_texture_from_image(image),
@@ -100,7 +100,7 @@ module MapViewer
       end
 
       if back_sidedef.name_tex_low != "" && !loaded_textures.any? { |m| m.name == back_sidedef.name_tex_low }
-        image = mywad.get_texture(back_sidedef.name_tex_low, palette)
+        image = my_wad.get_texture(back_sidedef.name_tex_low, palette)
         loaded_textures << Texture.new(
           back_sidedef.name_tex_low,
           R.load_texture_from_image(image),
@@ -111,7 +111,7 @@ module MapViewer
       end
 
       if back_sidedef.name_tex_mid != "" && !loaded_textures.any? { |m| m.name == back_sidedef.name_tex_mid }
-        image = mywad.get_texture(back_sidedef.name_tex_mid, palette)
+        image = my_wad.get_texture(back_sidedef.name_tex_mid, palette)
         loaded_textures << Texture.new(
           back_sidedef.name_tex_mid,
           R.load_texture_from_image(image),
@@ -244,6 +244,7 @@ module MapViewer
   end
 end
 
+# :nodoc:
 # Draws a texture in 3D space with pro parameters
 def self.draw_texture_pro_3d(texture : Raylib::Texture2D, souRe_rec : Raylib::Rectangle, dest_rec : Raylib::Rectangle, origin : Raylib::Vector3 = Raylib::Vector3.new(x: 0, y: 0, z: 0), rotation : Float = 0.0, z_rotate : Float = 0.0, pos_z : Float = 0.0, tint : Raylib::Color = Raylib::WHITE)
   if Raylib.texture_ready?(texture)
@@ -273,6 +274,7 @@ def self.draw_texture_pro_3d(texture : Raylib::Texture2D, souRe_rec : Raylib::Re
   end
 end
 
+# :nodoc:
 def self.draw_texture(width : Int, height : Int, flip_x : Bool, texture : Raylib::Texture2D, souRe_rec : Raylib::Rectangle, dest_rec : Raylib::Rectangle, origin : Raylib::Vector3, rotation : Float, pos_z : Float, tint : Raylib::Color)
   RLGL.set_texture(texture.id)
   RLGL.begin(RLGL::QUADS)

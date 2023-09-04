@@ -16,7 +16,7 @@ class WAD
 
     # Parses a music file given the io
     #
-    # Example: Opens a music io and parses it
+    # Opens a music io and parses it:
     # ```
     # File.open("Path/To/Music") do |file|
     #   my_music = WAD::Music.parse(file)
@@ -53,7 +53,7 @@ class WAD
 
     # Checks to see if *name* is music with name format 'D_x..x'.
     #
-    # Example: Returns true if the name is a music
+    # Returns true if the name is a music:
     # ```
     # music_name = "D_E1M1"
     # if WAD::Music.is_music?(music_name)
@@ -83,7 +83,7 @@ class WAD
 
     # Parses a genmidi file given the io
     #
-    # Example: Opens a genmidi io and parses it
+    # Opens a genmidi io and parses it:
     # ```
     # File.open("Path/To/Genmidi") do |file|
     #   my_genmidi = WAD::Genmidi.parse(file)
@@ -128,7 +128,7 @@ class WAD
 
     # Checks to see if *name* is "GENMIDI".
     #
-    # Example: Returns true if the name is a genmidi
+    # Returns true if the name is a genmidi:
     # ```
     # genmidi_name = "GENMIDI"
     # if WAD::Genmidi.is_genmidi?(genmidi_name)
@@ -158,7 +158,7 @@ class WAD
 
     # Parses a dmxgus file given the io
     #
-    # Example: Opens a dmxgus io and parses it
+    # Opens a dmxgus io and parses it:
     # ```
     # File.open("Path/To/Dmxgus") do |file|
     #   my_dmxgus = WAD::Dmxgus.parse(file)
@@ -190,7 +190,7 @@ class WAD
 
     # Checks to see if *name* is "DMXGUS"
     #
-    # Example: Returns true if the name is a dmxgus
+    # Returns true if the name is a dmxgus:
     # ```
     # dmxgus_name = "DMXGUS"
     # if WAD::Dmxgus.is_dmxgus?(dmxgus_name)

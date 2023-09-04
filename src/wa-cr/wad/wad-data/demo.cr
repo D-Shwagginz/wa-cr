@@ -73,11 +73,25 @@ class WAD
     #
     # Reads an io and puts out a demo:
     # ```
+    # my_demo = WAD::Demo.parse("Path/To/Demo")
+    # ```
+    def self.parse(filename : String | Path) : Demo
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Demo invalid"
+    end
+
+    # Parses an io in a demo format
+    #
+    # Reads an io and puts out a demo:
+    # ```
     # File.open("Path/To/Demo") do |file|
     #   my_demo = WAD::Demo.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : Demo
       demo = Demo.new
 
       demo.game_version = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)

@@ -63,11 +63,26 @@ class WAD
       #
       # Opens a things lump and parses it:
       # ```
+      # my_things = WAD::Map::Things.parse("Path/To/Things")
+      # ```
+      def self.parse(filename : String | Path) : Array(Things)
+        File.open(filename) do |file|
+          return self.parse(file)
+        end
+
+        raise "Things invalid"
+      end
+
+      # Parses a things list given the io and the size
+      #
+      # Opens a things lump and parses it:
+      # ```
       # File.open("Path/To/Things") do |file|
       #   my_things = WAD::Map::Things.parse(file)
       # end
       # ```
-      def self.parse(io : IO, lump_size : Int) : Array(Things)
+      def self.parse(io : IO, lump_size : Int = -1) : Array(Things)
+        lump_size = io.size if lump_size < 0
         # Creates a list for all things that will be parsed from the lump.
         parsed_things = [] of Things
         # Sets the index to loop through.
@@ -108,11 +123,26 @@ class WAD
       #
       # Opens a linedefs lump and parses it:
       # ```
+      # my_linedefs = WAD::Map::Linedefs.parse("Path/To/Linedefs")
+      # ```
+      def self.parse(filename : String | Path) : Array(Linedefs)
+        File.open(filename) do |file|
+          return self.parse(file)
+        end
+
+        raise "Linedefs invalid"
+      end
+
+      # Parses a linedefs list given the io and the size
+      #
+      # Opens a linedefs lump and parses it:
+      # ```
       # File.open("Path/To/Linedefs") do |file|
       #   my_linedefs = WAD::Map::Linedefs.parse(file)
       # end
       # ```
-      def self.parse(io : IO, lump_size : Int) : Array(Linedefs)
+      def self.parse(io : IO, lump_size : Int = -1) : Array(Linedefs)
+        lump_size = io.size if lump_size < 0
         # Creates a list for all linedefs that will be parsed from the lump.
         parsed_linedefs = [] of Linedefs
         # Sets the index to loop through.
@@ -155,11 +185,26 @@ class WAD
       #
       # Opens a sidedefs lump and parses it:
       # ```
+      # my_sidedefs = WAD::Map::Sidedefs.parse("Path/To/Sidedefs")
+      # ```
+      def self.parse(filename : String | Path) : Array(Sidedefs)
+        File.open(filename) do |file|
+          return self.parse(file)
+        end
+
+        raise "Sidedefs invalid"
+      end
+
+      # Parses a sidedefs list given the io and the size
+      #
+      # Opens a sidedefs lump and parses it:
+      # ```
       # File.open("Path/To/Sidedefs") do |file|
       #   my_sidedefs = WAD::Map::Sidedefs.parse(file)
       # end
       # ```
-      def self.parse(io : IO, lump_size : Int) : Array(Sidedefs)
+      def self.parse(io : IO, lump_size : Int = 0) : Array(Sidedefs)
+        lump_size = io.size if lump_size < 0
         # Creates a list for all sidedefs that will be parsed from the lump.
         parsed_sidedefs = [] of Sidedefs
         # Sets the index to loop through.
@@ -196,11 +241,26 @@ class WAD
       #
       # Opens a vertexes lump and parses it:
       # ```
+      # my_vertexes = WAD::Map::Vertexes.parse("Path/To/Vertexes")
+      # ```
+      def self.parse(filename : String | Path) : Array(Vertexes)
+        File.open(filename) do |file|
+          return self.parse(file)
+        end
+
+        raise "Vertexes invalid"
+      end
+
+      # Parses a vertexes list given the io and the size
+      #
+      # Opens a vertexes lump and parses it:
+      # ```
       # File.open("Path/To/Vertexes") do |file|
       #   my_vertexes = WAD::Map::Vertexes.parse(file)
       # end
       # ```
-      def self.parse(io : IO, lump_size : Int) : Array(Vertexes)
+      def self.parse(io : IO, lump_size : Int = -1) : Array(Vertexes)
+        lump_size = io.size if lump_size < 0
         # Creates a list for all vertexes that will be parsed from the lump.
         parsed_vertexes = [] of Vertexes
         # Sets the index to loop through.
@@ -240,11 +300,26 @@ class WAD
       #
       # Opens a segs lump and parses it:
       # ```
+      # my_segs = WAD::Map::Segs.parse("Path/To/Segs")
+      # ```
+      def self.parse(filename : String | Path) : Array(Segs)
+        File.open(filename) do |file|
+          return self.parse(file)
+        end
+
+        raise "Segs invalid"
+      end
+
+      # Parses a segs list given the io and the size
+      #
+      # Opens a segs lump and parses it:
+      # ```
       # File.open("Path/To/Segs") do |file|
       #   my_segs = WAD::Map::Segs.parse(file)
       # end
       # ```
-      def self.parse(io : IO, lump_size : Int) : Array(Segs)
+      def self.parse(io : IO, lump_size : Int = -1) : Array(Segs)
+        lump_size = io.size if lump_size < 0
         # Creates a list for all segs that will be parsed from the lump.
         parsed_segs = [] of Segs
         # Sets the index to loop through.
@@ -286,11 +361,26 @@ class WAD
       #
       # Opens a ssectors lump and parses it:
       # ```
+      # my_ssectors = WAD::Map::Ssectors.parse("Path/To/Ssectors")
+      # ```
+      def self.parse(filename : String | Path) : Array(Ssectors)
+        File.open(filename) do |file|
+          return self.parse(file)
+        end
+
+        raise "Ssectors invalid"
+      end
+
+      # Parses a ssectors list given the io and the size
+      #
+      # Opens a ssectors lump and parses it:
+      # ```
       # File.open("Path/To/Ssectors") do |file|
       #   my_ssectors = WAD::Map::Ssectors.parse(file)
       # end
       # ```
-      def self.parse(io : IO, lump_size : Int) : Array(Ssectors)
+      def self.parse(io : IO, lump_size : Int = -1) : Array(Ssectors)
+        lump_size = io.size if lump_size < 0
         # Creates a list for all ssectors that will be parsed from the lump.
         parsed_ssectors = [] of Ssectors
         # Sets the index to loop through.
@@ -332,6 +422,7 @@ class WAD
       # giving the upper and lower bounds of the y coordinate and the lower and upper
       # bounds of the x coordinate (in that order).
       property right_bound_box : Array(Int16) = [] of Int16
+      # :ditto:
       property left_bound_box : Array(Int16) = [] of Int16
 
       property right_child : Int16 = 0_i16
@@ -341,11 +432,26 @@ class WAD
       #
       # Opens a nodes lump and parses it:
       # ```
+      # my_nodes = WAD::Map::Nodes.parse("Path/To/Nodes")
+      # ```
+      def self.parse(filename : String | Path) : Array(Nodes)
+        File.open(filename) do |file|
+          return self.parse(file)
+        end
+
+        raise "Nodes invalid"
+      end
+
+      # Parses a nodes list given the io and the size
+      #
+      # Opens a nodes lump and parses it:
+      # ```
       # File.open("Path/To/Nodes") do |file|
       #   my_nodes = WAD::Map::Nodes.parse(file)
       # end
       # ```
-      def self.parse(io : IO, lump_size : Int) : Array(Nodes)
+      def self.parse(io : IO, lump_size : Int = -1) : Array(Nodes)
+        lump_size = io.size if lump_size < 0
         # Creates a list for all nodes that will be parsed from the lump.
         parsed_nodes = [] of Nodes
         # Sets the index to loop trough.
@@ -400,11 +506,26 @@ class WAD
       #
       # Opens a sectors lump and parses it:
       # ```
+      # my_sectors = WAD::Map::Sectors.parse("Path/To/Sectors")
+      # ```
+      def self.parse(filename : String | Path) : Array(Sectors)
+        File.open(filename) do |file|
+          return self.parse(file)
+        end
+
+        raise "Sectors invalid"
+      end
+
+      # Parses a sectors list given the io and the size
+      #
+      # Opens a sectors lump and parses it:
+      # ```
       # File.open("Path/To/Sectors") do |file|
       #   my_sectors = WAD::Map::Sectors.parse(file)
       # end
       # ```
-      def self.parse(io : IO, lump_size : Int) : Array(Sectors)
+      def self.parse(io : IO, lump_size : Int = -1) : Array(Sectors)
+        lump_size = io.size if lump_size < 0
         # Creates a list for all sectors that will be parsed from the lump.
         parsed_sectors = [] of Sectors
         # Sets the index to loop through.
@@ -589,8 +710,6 @@ class WAD
       name =~ /^E\dM\d/ || name =~ /^MAP\d\d/
     end
 
-    # Inserts a property into the map based off *times_inserted*.
-    #
     # Inserts a directory based off of the property:
     # ```
     # map_name = "E1M1"

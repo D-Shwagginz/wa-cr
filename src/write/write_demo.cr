@@ -5,8 +5,21 @@ module WritingAdditions
     #
     # Writes a demo in *my_wad* to a file:
     # ```
-    # my_wad = WAD.read("./rsrc/DOOM.WAD")
-    # File.open("./rsrc/demo.lmp", "w+") do |file|
+    # my_wad = WAD.read("Path/To/Wad")
+    # my_wad.demos.values[0].write("Path/To/demo.lmp")
+    # ```
+    def write(file : String | Path) : UInt32
+      File.open(file, "w+") do |file|
+        return write(file)
+      end
+    end
+
+    # Writes a demo given an output io and returns the size of the written lump
+    #
+    # Writes a demo in *my_wad* to a file:
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    # File.open("Path/To/demo.lmp", "w+") do |file|
     #   my_wad.demos.values[0].write(file)
     # end
     # ```

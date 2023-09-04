@@ -48,7 +48,7 @@ module RaylibAdditions
     # ```
     def get_texture(name : String, palette : ::WAD::Playpal::Palette) : Raylib::Image
       texmaps.each do |texmapx|
-        if texturemap = texmapx[1].mtextures.find { |m| m.name == name }
+        if texturemap = texmapx.mtextures.find { |m| m.name == name }
           if texturemap.name == name
             image = Raylib.gen_image_color(texturemap.width, texturemap.height, Raylib::BLANK)
 

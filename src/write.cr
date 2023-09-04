@@ -36,26 +36,70 @@ require "./write/**"
 #   my_flat.write(file) # => etc.
 # ```
 #
-#   ### Map Data
+# ### Map Data
 #
 #   To write specific map data, you have to use
 #   the class methods and put in the file to
 #   write, and the parsed map data you want to write:
 #
 # ```
+# File.open("Path/To/Test.file") do |file|
 #   my_map.write(file) # => An array of all written directories in the order listed below
 #
-#   Map::Things.new(file, my_things : Array) # => The written file's directory
-#   Map::Linedefs.new(file, my_linedefs : Array) # => The written file's directory
-#   Map::Sidedefs.new(file, my_sidedefs : Array) # => etc.
-#   Map::Vertexes.new(file, my_vertexes : Array) # => etc.
-#   Map::Segs.new(file, my_segs : Array) # => etc.
-#   Map::Ssectors.new(file, my_ssectors : Array) # => etc.
-#   Map::Nodes.new(file, my_nodes : Array) # => etc.
-#   Map::Sectors.new(file, my_sectors : Array) # => etc.
-#   Map::Reject.new(file, my_reject : Map::Reject) # => etc.
+#   Map::Things.new(file, my_things : Array)             # => The written file's directory
+#   Map::Linedefs.new(file, my_linedefs : Array)         # => The written file's directory
+#   Map::Sidedefs.new(file, my_sidedefs : Array)         # => etc.
+#   Map::Vertexes.new(file, my_vertexes : Array)         # => etc.
+#   Map::Segs.new(file, my_segs : Array)                 # => etc.
+#   Map::Ssectors.new(file, my_ssectors : Array)         # => etc.
+#   Map::Nodes.new(file, my_nodes : Array)               # => etc.
+#   Map::Sectors.new(file, my_sectors : Array)           # => etc.
+#   Map::Reject.new(file, my_reject : Map::Reject)       # => etc.
 #   Map::Blockmap.new(file, my_blockmap : Map::Blockmap) # => etc.
 # end
+# ```
+#
+#
+# ### Quick Writing
+#
+#   wa-cr's writing additions' methods also have overloads
+#   to write to a file by just providing the file path
+#
+# ```
+# # Writes a full wad
+# my_wad.write("Path/To/File") # => Size of the written file
+#
+# # Writes lumps return the size of the written lump
+# my_demo.write(file) # => Size of the written file
+#
+# my_sound.write("Path/To/File")   # => Size of the written file
+# my_pcsound.write("Path/To/File") # => etc.
+#
+# my_music.write("Path/To/File")   # => etc.
+# my_genmidi.write("Path/To/File") # => etc.
+# my_dmxgus.write("Path/To/File")  # => etc.
+#
+# my_playpal.write("Path/To/File")    # => etc.
+# my_colormap.write("Path/To/File")   # => etc.
+# my_endoom.write("Path/To/File")     # => etc.
+# my_texturemap.write("Path/To/File") # => etc.
+# my_pnames.write("Path/To/File")     # => etc.
+# my_graphic.write("Path/To/File")    # => etc.
+# my_flat.write("Path/To/File")       # => etc.
+#
+# # Map Data
+# my_map.write("Path/To/File") # => An array of all written directories in the order listed below
+#
+# Map::Things.new("Path/To/File", my_things : Array)             # => The written file's directory
+# Map::Linedefs.new("Path/To/File", my_linedefs : Array)         # => The written file's directory
+# Map::Sidedefs.new("Path/To/File", my_sidedefs : Array)         # => etc.
+# Map::Vertexes.new("Path/To/File", my_vertexes : Array)         # => etc.
+# Map::Segs.new("Path/To/File", my_segs : Array)                 # => etc.
+# Map::Ssectors.new("Path/To/File", my_ssectors : Array)         # => etc.
+# Map::Nodes.new("Path/To/File", my_nodes : Array)               # => etc.
+# Map::Sectors.new("Path/To/File", my_sectors : Array)           # => etc.
+# Map::Reject.new("Path/To/File", my_reject : Map::Reject)       # => etc.
+# Map::Blockmap.new("Path/To/File", my_blockmap : Map::Blockmap) # => etc.
 # ```
 module WritingAdditions
   # Reads, writes, and stores the data of a WAD file.
@@ -87,12 +131,25 @@ module WritingAdditions
   # end
   # ```
   module WAD
+    # Writes a WAD class to an file and returns the written file's size
+    #
+    # Writes a wad file to *mynewwad.WAD*:
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    # my_wad.write("Path/To/my_wad.WAD")
+    # ```
+    def write(file : String | Path) : UInt32
+      File.open(file, "w+") do |file|
+        return write(file)
+      end
+    end
+
     # Writes a WAD class to an io and returns the written file's size
     #
     # Writes a wad file to *mynewwad.WAD*:
     # ```
-    # my_wad = WAD.read("./rsrc/DOOM.WAD")
-    # File.open("./rsrc/mynewwad.WAD", "w+") do |file|
+    # my_wad = WAD.read("Path/To/Wad")
+    # File.open("Path/To/mynewwad.WAD", "w+") do |file|
     #   my_wad.write(file)
     # end
     # ```
@@ -256,6 +313,14 @@ end
 
 class WAD::Map
   include WritingAdditions::Map
+end
+
+class WAD::Map::Reject
+  include WritingAdditions::Map::Reject
+end
+
+class WAD::Map::Blockmap
+  include WritingAdditions::Map::Blockmap
 end
 
 class WAD::Music

@@ -17,6 +17,8 @@ class WAD
     #   directory = Directory.read(io)
     # end
     # ```
+    #
+    # NOTE: *file_offset* is used when the start of the WAD is offset in a file
     def self.read(io : IO, file_offset : UInt32 = 0) : Directory
       # Creates a new directory and sets all the properties
       directory = Directory.new

@@ -14,7 +14,7 @@ class WAD
     #   my_pcsound = WAD::PcSound.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : PcSound
       pcsound = PcSound.new
       pcsound.format_num = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
       pcsound.samples_num = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
@@ -55,11 +55,25 @@ class WAD
     #
     # Opens a sound io and parses it:
     # ```
+    # my_sound = WAD::Sound.parse("Path/To/Sound")
+    # ```
+    def self.parse(filename : String | Path) : Sound
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Sound invalid"
+    end
+
+    # Parses a sound lump.
+    #
+    # Opens a sound io and parses it:
+    # ```
     # File.open("Path/To/Sound") do |file|
     #   my_sound = WAD::Sound.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : Sound
       sound = Sound.new
       sound.format_num = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
       sound.sample_rate = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
@@ -94,11 +108,17 @@ class WAD
       !!(name =~ /^DS/)
     end
 
+    def to_wav(file : File | Path)
+      File.open(file, "w+") do |io|
+        to_wav(io)
+      end
+    end
+
     # Writes to wav file given an output *io*.
     #
     # Writes a 'wav' file from the *my_wad* sound "DSPISTOL":
     # ```
-    # File.read("./rsrc/sound.wav", "w+") do |io|
+    # File.open("Path/To/MyWav.wav", "w+") do |io|
     #   my_wad.sounds["DSPISTOL"].to_wav(io)
     # end
     # ```

@@ -18,11 +18,25 @@ class WAD
     #
     # Opens a music io and parses it:
     # ```
+    # my_music = WAD::Music.parse("Path/To/Music")
+    # ```
+    def self.parse(filename : String | Path) : Music
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Music invalid"
+    end
+
+    # Parses a music file given the io
+    #
+    # Opens a music io and parses it:
+    # ```
     # File.open("Path/To/Music") do |file|
     #   my_music = WAD::Music.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : Music
       music = Music.new
       # Reads the data.
       music.identifier = io.gets(4).to_s
@@ -85,11 +99,25 @@ class WAD
     #
     # Opens a genmidi io and parses it:
     # ```
+    # my_genmidi = WAD::Genmidi.parse("Path/To/Genmidi")
+    # ```
+    def self.parse(filename : String | Path) : Genmidi
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Genmidi invalid"
+    end
+
+    # Parses a genmidi file given the io
+    #
+    # Opens a genmidi io and parses it:
+    # ```
     # File.open("Path/To/Genmidi") do |file|
     #   my_genmidi = WAD::Genmidi.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : Genmidi
       genmidi = Genmidi.new
       # Reads the file header
       genmidi.header = io.gets(8).to_s
@@ -160,11 +188,25 @@ class WAD
     #
     # Opens a dmxgus io and parses it:
     # ```
+    # my_dmxgus = WAD::Dmxgus.parse("Path/To/Dmxgus")
+    # ```
+    def self.parse(filename : String | Path) : Dmxgus
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Dmxgus invalid"
+    end
+
+    # Parses a dmxgus file given the io
+    #
+    # Opens a dmxgus io and parses it:
+    # ```
     # File.open("Path/To/Dmxgus") do |file|
     #   my_dmxgus = WAD::Dmxgus.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : Dmxgus
       dmxgus = Dmxgus.new
       # Reads each line of the dmxgus
       # NOTE: dmxgus is a text file

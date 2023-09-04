@@ -98,6 +98,9 @@ class WAD
   # Array of all directories in the WAD.
   property directories : Array(Directory) = [] of Directory
 
+  def initialize(@type : Type = Type::Broken)
+  end
+
   # :nodoc:
   # Macro that parses a given *name* for a map.
   # WARNING: Only use at the end of self.read with *name* being a .map parse method
@@ -128,6 +131,60 @@ class WAD
     Broken
     Internal
     Patch
+  end
+
+  # Allows easy parsing of lumps into the WAD
+  #
+  # ```
+  # my_wad = WAD.new(WAD::Type::Internal)
+  #
+  # my_wad.parse("MyTest", "Sound", "Path/To/SoundTest.lmp")
+  # ```
+  #
+  def parse(name : String, type : String, file : Path | String)
+    File.open(file) do |io|
+      parse(name, type, io)
+    end
+  end
+
+  # Allows easy parsing of lumps into the WAD
+  #
+  # ```
+  # my_wad = WAD.new(WAD::Type::Internal)
+  #
+  # File.open("Path/To/Sound.lmp") do |file|
+  #   my_wad.parse("MyTest", "Sound", file)
+  # end
+  # ```
+  #
+  def parse(name : String, type : String, file : IO)
+    case type
+    when "PcSound"
+      pcsounds[name] = PcSound.parse(file)
+      new_dir(name)
+    when "Sound"
+      sounds[name] = Sound.parse(file)
+      new_dir(name)
+    when "Music"
+      music[name] = Music.parse(file)
+      new_dir(name)
+    when "TextureX"
+      texmaps[name] = TextureX.parse(file)
+      new_dir(name)
+    when "Graphic"
+      Graphic.parse(file).try do |graphic|
+        graphics[name] = graphic
+        new_dir(name)
+      end
+    when "Flat"
+      flats[name] = Flat.parse(file)
+      new_dir(name)
+    when "Demo"
+      demos[name] = Demo.parse(file)
+      new_dir(name)
+    else
+      raise "#{type} IS AN INVALID TYPE"
+    end
   end
 
   # Reads in a WAD file given the *io*:
@@ -322,7 +379,7 @@ class WAD
                 break
               end
               # Parses Sprite if the size is the correct size of the lump
-              Graphic.parse(file, directory.file_pos).try do |graphic|
+              Graphic.parse(file, directory.file_pos, directory.size).try do |graphic|
                 wad.sprites[directory.name] = graphic
               end
             end

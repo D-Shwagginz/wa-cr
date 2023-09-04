@@ -19,11 +19,25 @@ class WAD
     #
     # Opens a playpal io and parses it:
     # ```
+    # my_playpal = WAD::Playpal.parse("Path/To/Playpal")
+    # ```
+    def self.parse(filename : String | Path) : Playpal
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Playpal invalid"
+    end
+
+    # Parses a playpal file given the io
+    #
+    # Opens a playpal io and parses it:
+    # ```
     # File.open("Path/To/Playpal") do |file|
     #   my_playpal = WAD::Playpal.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : Playpal
       playpal = Playpal.new
       colors_per_palette = 256
       amount_of_palettes = 14
@@ -71,11 +85,25 @@ class WAD
     #
     # Opens a colormap io and parses it:
     # ```
+    # my_colormap = WAD::Colormap.parse("Path/To/Colormap")
+    # ```
+    def self.parse(filename : String | Path) : Colormap
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Colormap invalid"
+    end
+
+    # Parses a colormap file given the io
+    #
+    # Opens a colormap io and parses it:
+    # ```
     # File.open("Path/To/Colormap") do |file|
     #   my_colormap = WAD::Colormap.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : Colormap
       colormap = Colormap.new
       amount_of_tables = 34
       length_of_table = 256
@@ -119,11 +147,25 @@ class WAD
     #
     # Opens a endoom io and parses it:
     # ```
+    # my_endoom = WAD::EnDoom.parse("Path/To/EnDoom")
+    # ```
+    def self.parse(filename : String | Path) : EnDoom
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "EnDoom invalid"
+    end
+
+    # Parses a endoom file given the io
+    #
+    # Opens a endoom io and parses it:
+    # ```
     # File.open("Path/To/EnDoom") do |file|
     #   my_endoom = WAD::EnDoom.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : EnDoom
       endoom = EnDoom.new
       num_of_chars = 2000
 
@@ -184,11 +226,25 @@ class WAD
     #
     # Opens a texture map io and parses it:
     # ```
+    # my_texturemap = WAD::TextureX.parse("Path/To/TextureMap")
+    # ```
+    def self.parse(filename : String | Path) : TextureX
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Texture map invalid"
+    end
+
+    # Parses a texture map file given the io
+    #
+    # Opens a texture map io and parses it:
+    # ```
     # File.open("Path/To/TextureMap") do |file|
     #   my_texturemap = WAD::TextureX.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : TextureX
       texturex = TextureX.new
       texturex.numtextures = io.read_bytes(Int32, IO::ByteFormat::LittleEndian)
 
@@ -247,11 +303,25 @@ class WAD
     #
     # Example: Opens a pnames io and parses it
     # ```
+    # my_pnames = WAD::Pnames.parse("Path/To/Pnames")
+    # ```
+    def self.parse(filename : String | Path) : Pnames
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Pnames invalid"
+    end
+
+    # Parses a pnames file given the io
+    #
+    # Example: Opens a pnames io and parses it
+    # ```
     # File.open("Path/To/Pnames") do |file|
     #   my_pnames = WAD::Pnames.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : Pnames
       pnames = Pnames.new
 
       pnames.num_patches = io.read_bytes(Int32, IO::ByteFormat::LittleEndian)
@@ -304,6 +374,10 @@ class WAD
   end
 
   # A WAD graphic
+  #
+  # NOTE: Graphic has no `is_graphic?` method.
+  # Instead, `Graphic#parse` will return `nil` if
+  # *io* is not a valid graphic
   class Graphic
     property width : UInt16 = 0_u16
     property height : UInt16 = 0_u16
@@ -327,13 +401,27 @@ class WAD
     #
     # Opens a graphic io and parses it:
     # ```
+    # my_graphic = WAD::Graphic.parse("Path/To/Graphic")
+    # ```
+    def self.parse(filename : String | Path) : Graphic
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Graphic invalid"
+    end
+
+    # Parses a graphic file given the io and the start of the data in the file
+    #
+    # Opens a graphic io and parses it:
+    # ```
     # File.open("Path/To/Graphic") do |file|
     #   my_graphic = WAD::Graphic.parse(file)
     # end
     # ```
-    def self.parse(file : File | IO, file_pos : Int = 0)
+    def self.parse(file : File | IO, file_pos : Int = 0, size : Int = -1) : Graphic | Nil
       begin
-        size = file.size
+        size = file.size if size < 0
         graphic_parse = GraphicParse.new
         graphic = Graphic.new
         file.read_at(file_pos, size) do |g_io|
@@ -419,6 +507,7 @@ class WAD
       end
     end
 
+    # :nodoc:
     # Parses pixel stuff for parsing a graphic.
     # Used because of a bug in the Crystal compiler
     def self.pixel_parse(pixel_column, column, post, io)
@@ -480,11 +569,25 @@ class WAD
     #
     # Opens a flat io and parses it:
     # ```
+    # my_flat = WAD::Flat.parse("Path/To/Flat")
+    # ```
+    def self.parse(filename : String | Path) : Flat
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Flat invalid"
+    end
+
+    # Parses a flat file given the io
+    #
+    # Opens a flat io and parses it:
+    # ```
     # File.open("Path/To/Flat") do |file|
     #   my_flat = WAD::Flat.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : Flat
       flat = Flat.new
 
       flat.lump_bytes.times do

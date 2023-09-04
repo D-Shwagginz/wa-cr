@@ -5,8 +5,21 @@ module WritingAdditions
     #
     # Writes a music in *my_wad* to a file:
     # ```
-    # my_wad = WAD.read("./rsrc/DOOM.WAD")
-    # File.open("./rsrc/music.lmp", "w+") do |file|
+    # my_wad = WAD.read("Path/To/Wad")
+    # my_wad.music.values[0].write("Path/To/music.lmp")
+    # ```
+    def write(file : String | Path) : UInt32
+      File.open(file, "w+") do |file|
+        return write(file)
+      end
+    end
+
+    # Writes a music given an output io and returns the size of the written lump
+    #
+    # Writes a music in *my_wad* to a file:
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    # File.open("Path/To/music.lmp", "w+") do |file|
     #   my_wad.music.values[0].write(file)
     # end
     # ```
@@ -49,8 +62,21 @@ module WritingAdditions
     #
     # Writes a genmidi in *my_wad* to a file:
     # ```
-    # my_wad = WAD.read("./rsrc/DOOM.WAD")
-    # File.open("./rsrc/genmidi.lmp", "w+") do |file|
+    # my_wad = WAD.read("Path/To/Wad")
+    # my_wad.genmidi.write(file)
+    # ```
+    def write(file : String | Path) : UInt32
+      File.open(file, "w+") do |file|
+        return write(file)
+      end
+    end
+
+    # Writes a genmidi given an output io and returns the size of the written lump
+    #
+    # Writes a genmidi in *my_wad* to a file:
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    # File.open("Path/To/genmidi.lmp", "w+") do |file|
     #   my_wad.genmidi.write(file)
     # end
     # ```
@@ -101,8 +127,21 @@ module WritingAdditions
     #
     # Writes a dmxgus in *my_wad* to a file:
     # ```
-    # my_wad = WAD.read("./rsrc/DOOM.WAD")
-    # File.open("./rsrc/dmxgus.lmp", "w+") do |file|
+    # my_wad = WAD.read("Path/To/Wad")
+    # my_wad.dmxgus.write("Path/To/dmxgus.lmp")
+    # ```
+    def write(file : String | Path) : UInt32
+      File.open(file, "w+") do |file|
+        return write(file)
+      end
+    end
+
+    # Writes a dmxgus given an output io and returns the size of the written lump
+    #
+    # Writes a dmxgus in *my_wad* to a file:
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    # File.open("Path/To/dmxgus.lmp", "w+") do |file|
     #   my_wad.dmxgus.write(file)
     # end
     # ```

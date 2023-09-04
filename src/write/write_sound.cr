@@ -5,9 +5,22 @@ module WritingAdditions
     #
     # Writes a pc sound in *my_wad* to a file:
     # ```
-    # my_wad = WAD.read("./rsrc/DOOM.WAD")
-    # File.open("./rsrc/pcsound.lmp", "w+") do |file|
-    #   my_wad.pcsound.values[0].write(file)
+    # my_wad = WAD.read("Path/To/Wad")
+    # my_wad.pcsounds.values[0].write("Path/To/pcsound.lmp")
+    # ```
+    def write(file : String | Path) : UInt32
+      File.open(file, "w+") do |file|
+        return write(file)
+      end
+    end
+
+    # Writes a pc sound given an output io and returns the size of the written lump
+    #
+    # Writes a pc sound in *my_wad* to a file:
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    # File.open("Path/To/pcsound.lmp", "w+") do |file|
+    #   my_wad.pcsounds.values[0].write(file)
     # end
     # ```
     def write(io : IO) : UInt32
@@ -32,9 +45,22 @@ module WritingAdditions
     #
     # Writes a sound in *my_wad* to a file:
     # ```
-    # my_wad = WAD.read("./rsrc/DOOM.WAD")
-    # File.open("./rsrc/sound.lmp", "w+") do |file|
-    #   my_wad.sound.values[0].write(file)
+    # my_wad = WAD.read("Path/To/Wad")
+    # my_wad.sounds.values[0].write("Path/To/sound.lmp")
+    # ```
+    def write(file : String | Path) : UInt32
+      File.open(file, "w+") do |file|
+        return write(file)
+      end
+    end
+
+    # Writes a sound given an output io and returns the size of the written lump
+    #
+    # Writes a sound in *my_wad* to a file:
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    # File.open("Path/To/sound.lmp", "w+") do |file|
+    #   my_wad.sounds.values[0].write(file)
     # end
     # ```
     def write(io : IO) : UInt32

@@ -1,7 +1,8 @@
 ![logo](logo/wa-cr.png)
+
 # Where's all the Crystal? | wa-cr
 
-Used to parse .wad files into usable Crystal code
+A Crystal library used to parse .wad or .lmp files into usable Crystal code
 as well as writing out to a .wad or .lmp file or converting files.
 
 ## Installation
@@ -23,12 +24,13 @@ To use the wa-cr Raylib additions you must have raylib installed:
 
 ## Usage
 
-wa-cr includes many methods that make jumping into and out of a .wad file very easy.<br>
+wa-cr includes many methods that make jumping into and out of a .wad or .lmp file very easy.<br>
 Following is a brief overview of what wa-cr can do.<br>
-For a complete overview visit wa-cr's [docs](https://sol-vin.github.io/wad-reader/index.html).
+For a complete overview visit wa-cr's [docs](https://sol-vin.github.io/wad-reader/index.html)
+and the [complete overview](https://sol-vin.github.io/wad-reader/A_Overview.html).
 ### Wad Data
 
-Reading in a .wad is easy by using `WAD.read(file : Path | String | IO) : WAD`
+Reading in a .wad is easy by using `WAD.read(file : Path | String | IO)`
 ```crystal
 # Reads in a wad and sets it to *my_wad*
 my_wad = WAD.read("Path/To/Wad.wad")
@@ -36,46 +38,39 @@ my_wad = WAD.read("Path/To/Wad.wad")
 You can read in specific .lmp files too. <sup> *.lmp* : an exported doom lump.</sup>
 ```crystal
 # Reads in a sound lump file and sets it to *my_sound*
-File.open("Path/To/Sound.lmp") do |file|
-  my_sound = WAD::Sound.parse(file)
-end
+my_sound = WAD::Sound.parse("Path/To/Sound.lmp")
 ```
-You can also add the data into the wad file.
+You can also add the data into the wad file with `WAD#parse(name, type, file)`
 ```crystal
-my_wad.sounds["MYSOUND"] = my_sound
-# You have to create a new directory with the same name as the data you inserted. 
-my_wad.new_dir("MYSOUND")
+my_wad.parse("MySound", "Sound", "Path/To/Sound.lmp")
 ```
 ### Writing
 
-You can write out .lmp files from the parsed data as well.
+You can write out .lmp files from the parsed data as well by using `ThingToWrite#write(file : IO)`.
 ```crystal
 # Include the wa-cr write library
 require "wa-cr/write"
 
 # Write *my_wad* to *"MyWad.wad"*
-File.open("Path/To/MyWad.wad", "w+") do |file|
-  my_wad.write(file)
-end
+my_wad.write("Path/To/MyWad.wad")
+
 
 # Writes the lump *my_graphic* to a .lmp file
-File.open("Path/To/MyLump.lmp", "w+") do |file|
-  my_graphic.write(file)
-end
+my_graphic.write("Path/To/MyLump.lmp")
 ```
 ### Sound Converting
 
-Converting doom-formatted sound data to a .wav file is just as simple.
+Converting doom-formatted sound data to a .wav file is just as simple by using `.to_wav(file : IO)`.
 ```crystal
 # Writes *my_sound* to a .wav file
-File.open("Path/To/WriteSound.wav") do |file|
-  my_sound.to_wav(file)
-end
+my_sound.to_wav("Path/To/WriteSound.wav")
 ```
 ### Raylib Additions
 
 wa-cr takes advantage of [raylib-cr](https://github.com/sol-vin/raylib-cr) with ways to convert doom<br>
-graphics to raylib images and draw said images to the screen
+graphics to raylib images and draw said images to the screen<br>
+by using `WAD#get_texture(name : String, palette : Playpal::Palette)`<br>
+or `Graphic|Flat#to_tex(palette : Playpal::Palette)`
 ```crystal
 # Include the wa-cr raylib library
 require "wa-cr/raylib"

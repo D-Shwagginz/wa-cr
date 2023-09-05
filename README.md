@@ -106,4 +106,4 @@ my_texture_image = my_wad.get_texture("texture_name_in_texturex", palette)
 ## Contributors
 
 - [Devin Shwagginz](https://github.com/D-Shwagginz) - creator and maintainer
-- [Ian Rash](https://github.com/sol-vin) - co-creator and creator of [raylib-cr](https://github.com/sol-vin/raylib-cr)
+- [Ian Rash](https://github.com/sol-vin) - co-creator and owner of [raylib-cr](https://github.com/sol-vin/raylib-cr)

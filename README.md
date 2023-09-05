@@ -19,7 +19,7 @@ dependencies:
 ### Raylib Additions
 
 To use the wa-cr [Raylib](https://github.com/raysan5/raylib/releases)
-additions you must have [raylib](https://github.com/raysan5/raylib/releases) installed:
+additions you must have [Raylib](https://github.com/raysan5/raylib/releases) installed:
 
 - Install raylib from [github](https://github.com/raysan5/raylib/releases).
 
@@ -106,4 +106,4 @@ my_texture_image = my_wad.get_texture("texture_name_in_texturex", palette)
 ## Contributors
 
 - [Devin Shwagginz](https://github.com/D-Shwagginz) - creator and maintainer
-- [Ian Rash](https://github.com/sol-vin) - co-creator
+- [Ian Rash](https://github.com/sol-vin) - co-creator and creator of [raylib-cr](https://github.com/sol-vin/raylib-cr)

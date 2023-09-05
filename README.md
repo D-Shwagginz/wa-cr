@@ -31,7 +31,7 @@ For a complete overview visit wa-cr's [docs](https://sol-vin.github.io/wad-reade
 and the [complete overview](https://sol-vin.github.io/wad-reader/A_Overview.html).
 ### Wad Data
 
-Reading in a .wad is easy by using `WAD.read(file : Path | String | IO)`
+Reading in a .wad is easy by using `WAD.read(filepath or io)`
 ```crystal
 # Reads in a wad and sets it to *my_wad*
 my_wad = WAD.read("Path/To/Wad.wad")
@@ -55,7 +55,7 @@ my_new_wad.parse("MySound", "Sound", "Path/To/Sound.lmp")
 ### Writing
 
 You can write out .wad and .lmp files from the parsed data as well by using<br>
-`WAD#write(file : String | Path | IO)` and `ThingToWrite#write(file : String | Path | IO)`
+`WAD#write(filepath or io)` and `ThingToWrite#write(filepath or io)`
 ```crystal
 # Include the wa-cr write library
 require "wa-cr/write"
@@ -69,7 +69,7 @@ my_graphic.write("Path/To/MyLump.lmp")
 ```
 ### Sound Converting
 
-Converting doom-formatted sound data to a .wav file is just as simple by using `Sound#to_wav(file : String | Path | IO)`
+Converting doom-formatted sound data to a .wav file is just as simple by using `Sound#to_wav(filepath or io)`
 ```crystal
 # Writes *my_sound* to a .wav file
 my_sound.to_wav("Path/To/WriteSound.wav")
@@ -82,8 +82,8 @@ graphics to
 [Raylib Images](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L251)
 or [Raylib Colors](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L235C6-L235C6)
 and draw said images or pixels to the screen<br>
-by using `WAD#get_texture(name : String, palette : Playpal::Palette)`<br>
-or `Graphic|Flat#to_tex(palette : Playpal::Palette)`
+by using `WAD#get_texture(name, palette)`<br>
+or `Graphic|Flat#to_tex(palette)`
 ```crystal
 # Include the wa-cr raylib library
 require "wa-cr/raylib"

@@ -54,8 +54,7 @@ my_new_wad.parse("MySound", "Sound", "Path/To/Sound.lmp")
 ``` 
 ### Writing
 
-You can write out .wad and .lmp files from the parsed data as well by using<br>
-`WAD#write(filepath or io)` and `ThingToWrite#write(filepath or io)`
+You can write out .wad and .lmp files from the parsed data as well by using `WAD#write(filepath or io)` and `ThingToWrite#write(filepath or io)`
 ```crystal
 # Include the wa-cr write library
 require "wa-cr/write"
@@ -77,13 +76,10 @@ my_sound.to_wav("Path/To/WriteSound.wav")
 ### Raylib Additions
 
 wa-cr takes advantage of [Raylib](https://github.com/raysan5/raylib/releases)
-and [raylib-cr](https://github.com/sol-vin/raylib-cr) with ways to convert doom<br>
-graphics to
+and [raylib-cr](https://github.com/sol-vin/raylib-cr) with ways to convert doom graphics to
 [Raylib Images](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L251)
 or [Raylib Colors](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L235C6-L235C6)
-and draw said images or pixels to the screen<br>
-by using `WAD#get_texture(name, palette)`<br>
-or `Graphic|Flat#to_tex(palette)`
+and draw said images or pixels to the screen by using `WAD#get_texture(name, palette)` or `Graphic|Flat#to_tex(palette)`
 ```crystal
 # Include the wa-cr raylib library
 require "wa-cr/raylib"

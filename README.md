@@ -31,12 +31,12 @@ For a complete overview visit wa-cr's [docs](https://sol-vin.github.io/wad-reade
 and the [complete overview](https://sol-vin.github.io/wad-reader/A_Overview.html).
 ### Wad Data
 
-Reading in a .wad is easy by using `WAD.read(file : Path | String | IO)`
+Reading in a .wad is easy by using `WAD.read(file : Path | String | IO)`:
 ```crystal
 # Reads in a wad and sets it to *my_wad*
 my_wad = WAD.read("Path/To/Wad.wad")
 ```
-You can read in specific .lmp files too. <sup> *.lmp* : an exported doom lump.</sup>
+You can read in specific .lmp files too: <sup> *.lmp* : an exported doom lump.</sup>
 ```crystal
 # Reads in a sound lump file and sets it to *my_sound*
 my_sound = WAD::Sound.parse("Path/To/Sound.lmp")
@@ -45,17 +45,17 @@ You can also add the data into the wad file with `WAD#parse(name, type, file)`
 ```crystal
 my_wad.parse("MySound", "Sound", "Path/To/Sound.lmp")
 ```
-And you can create entirely new wad files too with `WAD.new(type)`
+And you can create entirely new wad files too with `WAD.new(type)`:
 ```crystal
 my_new_wad = WAD.new(WAD::Type::Internal)
 
-# And you can read data into that new wad too
+# You can read data into that new WAD too
 my_new_wad.parse("MySound", "Sound", "Path/To/Sound.lmp")
 ``` 
 ### Writing
 
-You can write out .wad and .lmp files from the parsed data as well by using `WAD#write(file : String | Path | IO)`
-and `ThingToWrite#write(file : String | Path | IO)`.
+You can write out .wad and .lmp files from the parsed data as well by using<br>
+`WAD#write(file : String | Path | IO)` and `ThingToWrite#write(file : String | Path | IO)`:
 ```crystal
 # Include the wa-cr write library
 require "wa-cr/write"
@@ -69,7 +69,7 @@ my_graphic.write("Path/To/MyLump.lmp")
 ```
 ### Sound Converting
 
-Converting doom-formatted sound data to a .wav file is just as simple by using `Sound#to_wav(file : String | Path | IO)`.
+Converting doom-formatted sound data to a .wav file is just as simple by using `Sound#to_wav(file : String | Path | IO)`:
 ```crystal
 # Writes *my_sound* to a .wav file
 my_sound.to_wav("Path/To/WriteSound.wav")
@@ -83,7 +83,7 @@ graphics to
 or [Raylib Colors](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L235C6-L235C6)
 and draw said images or pixels to the screen<br>
 by using `WAD#get_texture(name : String, palette : Playpal::Palette)`<br>
-or `Graphic|Flat#to_tex(palette : Playpal::Palette)`
+or `Graphic|Flat#to_tex(palette : Playpal::Palette)`:
 ```crystal
 # Include the wa-cr raylib library
 require "wa-cr/raylib"

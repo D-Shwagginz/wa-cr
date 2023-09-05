@@ -10,7 +10,7 @@ as well as writing out to a .wad or .lmp file or converting files.
 1. Add `wa-cr` to your `shard.yml`:
 ```yml
 dependencies:
-  raylib-cr:
+  wa-cr:
     github: sol-vin/wa-cr
 ```
 
@@ -18,7 +18,8 @@ dependencies:
 
 ### Raylib Additions
 
-To use the wa-cr Raylib additions you must have raylib installed:
+To use the wa-cr [Raylib](https://github.com/raysan5/raylib/releases)
+additions you must have [raylib](https://github.com/raysan5/raylib/releases) installed:
 
 - Install raylib from [github](https://github.com/raysan5/raylib/releases).
 
@@ -44,9 +45,17 @@ You can also add the data into the wad file with `WAD#parse(name, type, file)`
 ```crystal
 my_wad.parse("MySound", "Sound", "Path/To/Sound.lmp")
 ```
+And you can create entirely new wad files too with `WAD.new(type)`
+```crystal
+my_new_wad = WAD.new(WAD::Type::Internal)
+
+# And you can read data into that new wad too
+my_new_wad.parse("MySound", "Sound", "Path/To/Sound.lmp")
+``` 
 ### Writing
 
-You can write out .lmp files from the parsed data as well by using `ThingToWrite#write(file : IO)`.
+You can write out .wad and .lmp files from the parsed data as well by using `WAD#write(file : String | Path | IO)`
+and `ThingToWrite#write(file : String | Path | IO)`.
 ```crystal
 # Include the wa-cr write library
 require "wa-cr/write"
@@ -60,15 +69,19 @@ my_graphic.write("Path/To/MyLump.lmp")
 ```
 ### Sound Converting
 
-Converting doom-formatted sound data to a .wav file is just as simple by using `.to_wav(file : IO)`.
+Converting doom-formatted sound data to a .wav file is just as simple by using `Sound#to_wav(file : String | Path | IO)`.
 ```crystal
 # Writes *my_sound* to a .wav file
 my_sound.to_wav("Path/To/WriteSound.wav")
 ```
 ### Raylib Additions
 
-wa-cr takes advantage of [raylib-cr](https://github.com/sol-vin/raylib-cr) with ways to convert doom<br>
-graphics to raylib images and draw said images to the screen<br>
+wa-cr takes advantage of [Raylib](https://github.com/raysan5/raylib/releases)
+and [raylib-cr](https://github.com/sol-vin/raylib-cr) with ways to convert doom<br>
+graphics to
+[Raylib Images](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L251)
+or [Raylib Colors](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L235C6-L235C6)
+and draw said images or pixels to the screen<br>
 by using `WAD#get_texture(name : String, palette : Playpal::Palette)`<br>
 or `Graphic|Flat#to_tex(palette : Playpal::Palette)`
 ```crystal

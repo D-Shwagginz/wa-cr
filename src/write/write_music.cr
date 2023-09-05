@@ -6,7 +6,7 @@ module WritingAdditions
     # Writes a music in *my_wad* to a file:
     # ```
     # my_wad = WAD.read("Path/To/Wad")
-    # my_wad.music.values[0].write("Path/To/music.lmp")
+    # my_wad.music["MyMusic"].write("Path/To/music.lmp")
     # ```
     def write(file : String | Path) : UInt32
       File.open(file, "w+") do |file|
@@ -20,7 +20,7 @@ module WritingAdditions
     # ```
     # my_wad = WAD.read("Path/To/Wad")
     # File.open("Path/To/music.lmp", "w+") do |file|
-    #   my_wad.music.values[0].write(file)
+    #   my_wad.music["MyMusic"].write(file)
     # end
     # ```
     def write(io : IO) : UInt32

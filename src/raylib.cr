@@ -1,7 +1,7 @@
 require "raylib-cr"
 require "./wa-cr/**"
 
-# ### Additions to help wa-cr with graphical conversions using Raylib
+# ### Additions to help wa-cr with graphical conversions using [Raylib](https://github.com/raysan5/raylib/releases)
 #
 # To use these additions, just require it:
 #
@@ -31,10 +31,12 @@ require "./wa-cr/**"
 module RaylibAdditions
   # Reads and stores the data of a WAD file.
   module WAD
-    # Gets a texture as a raylib image given the texture name and a palette
+    # Gets a texture as a [Raylib Image](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L251)
+    # given the texture name and a palette
     #
     # Takes the name of a texture from TextureX and a palette
-    # and converts the texture to a Raylib Image and draws that image:
+    # and converts the texture to a [Raylib Image](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L251)
+    # and draws that image:
     # ```
     # require "wa-cr/raylib"
     # palette = my_wad.playpal.palettes[0]
@@ -90,7 +92,7 @@ module RaylibAdditions
     # ```
     # require "wa-cr/raylib"
     # palette = my_wad.playpal.palettes[0]
-    # my_image = my_wad.graphics["HELP1"].to_tex(palette)
+    # my_image = my_wad.graphics["HELP1"].to_image(palette)
     # Raylib.draw_texture(
     #   Raylib.load_texture_from_image(my_image),
     #   0,
@@ -98,7 +100,7 @@ module RaylibAdditions
     #   Raylib::WHITE
     # )
     # ```
-    def to_tex(palette : ::WAD::Playpal::Palette) : Raylib::Image
+    def to_image(palette : ::WAD::Playpal::Palette) : Raylib::Image
       image = Raylib.gen_image_color(width, height, Raylib::BLANK)
       data.each_with_index do |p, i|
         next if p.nil?
@@ -110,20 +112,22 @@ module RaylibAdditions
       image
     end
 
-    # Returns a Raylib Color for the pixel of a graphic
+    # Returns a [Raylib Color](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L235C6-L235C6)
+    # for the pixel of a graphic
     #
-    # Gets the Raylib Color of the pixel [2, 4] and draws it:
+    # Gets the [Raylib Color](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L235C6-L235C6)
+    # of the pixel [2, 4] and draws it:
     # ```
     # require "wa-cr/raylib"
     # palette = my_wad.playpal.palettes[0]
-    # my_pixel = my_wad.graphics["HELP1"].get_color(2, 4)
+    # my_pixel = my_wad.graphics["HELP1"].get_pixel(2, 4)
     # Raylib.draw_pixel(
     #   0,
     #   0,
     #   my_pixel
     # )
     # ```
-    def get_color(x : Int, y : Int) : Raylib::Color
+    def get_pixel(x : Int, y : Int) : Raylib::Color
       raise "Out of bounds" if x > width || y > height
       if pixel = self[x, y]
         palette_r = palette.colors[pixel].r
@@ -138,14 +142,14 @@ module RaylibAdditions
 
   # A WAD flat
   module Flat
-    # Converts a flat to a raylib image using a palette
+    # Converts a flat to a [Raylib Image](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L251) using a palette
     #
-    # Converts a flat to a Raylib Image given a palette:
+    # Converts a flat to a [Raylib Image](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L251) given a palette:
     # and draws that image.
     # ```
     # require "wa-cr/raylib"
     # palette = my_wad.playpal.palettes[0]
-    # my_image = my_wad.flats["FLOOR0_1"].to_tex(palette)
+    # my_image = my_wad.flats["FLOOR0_1"].to_image(palette)
     # Raylib.draw_texture(
     #   Raylib.load_texture_from_image(my_image),
     #   0,
@@ -153,7 +157,7 @@ module RaylibAdditions
     #   Raylib::WHITE
     # )
     # ```
-    def to_tex(palette : ::WAD::Playpal::Palette) : Raylib::Image
+    def to_image(palette : ::WAD::Playpal::Palette) : Raylib::Image
       image = Raylib.gen_image_color(width, height, Raylib::BLANK)
       colors.each_with_index do |p, i|
         palette_r = palette.colors[p].r
@@ -164,20 +168,22 @@ module RaylibAdditions
       image
     end
 
-    # Returns a Raylib Color for the pixel of a flat
+    # Returns a [Raylib Color](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L235C6-L235C6)
+    # for the pixel of a flat
     #
-    # Gets the Raylib Color of the pixel [5, 2] and draws it:
+    # Gets the [Raylib Color](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L235C6-L235C6)
+    # of the pixel [5, 2] and draws it:
     # ```
     # require "wa-cr/raylib"
     # palette = my_wad.playpal.palettes[0]
-    # my_pixel = my_wad.flat["FLOOR0_1"].get_color(5, 2)
+    # my_pixel = my_wad.flat["FLOOR0_1"].get_pixel(5, 2)
     # Raylib.draw_pixel(
     #   0,
     #   0,
     #   my_pixel
     # )
     # ```
-    def get_color(x : Int, y : Int) : Raylib::Color
+    def get_pixel(x : Int, y : Int) : Raylib::Color
       raise "Out of bounds" if x > width || y > height
       if pixel = self[x, y]
         palette_r = palette.colors[pixel].r

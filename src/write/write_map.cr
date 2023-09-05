@@ -6,7 +6,7 @@ module WritingAdditions
     # Writes a map in *my_wad* to a file:
     # ```
     # my_wad = WAD.read("Path/To/Wad")
-    # my_wad.maps.values[0].write("Path/To/map.lmp")
+    # my_wad.maps["MyMap"].write("Path/To/map.lmp")
     # ```
     def write(file : String | Path) : Array(::WAD::Directory)
       File.open(file, "w+") do |file|
@@ -20,7 +20,7 @@ module WritingAdditions
     # ```
     # my_wad = WAD.read("Path/To/Wad")
     # File.open("Path/To/map.lmp", "w+") do |file|
-    #   my_wad.maps.values[0].write(file)
+    #   my_wad.maps["MyMap"].write(file)
     # end
     # ```
     def write(io : IO) : Array(::WAD::Directory)
@@ -48,7 +48,7 @@ module WritingAdditions
       # Writes things in *my_wad* to a file:
       # ```
       # my_wad = WAD.read("Path/To/Wad")
-      # WAD::Map::Things.write("Path/To/things.lmp", my_wad.maps.values[0].things)
+      # WAD::Map::Things.write("Path/To/things.lmp", my_wad.maps["MyMap"].things)
       # ```
       def self.write(file : String | Path, things : Array(::WAD::Map::Things)) : ::WAD::Directory
         File.open(file, "w+") do |file|
@@ -63,7 +63,7 @@ module WritingAdditions
       # ```
       # my_wad = WAD.read("Path/To/Wad")
       # File.open("Path/To/things.lmp", "w+") do |file|
-      #   WAD::Map::Things.write(my_wad.maps.values[0].things)
+      #   WAD::Map::Things.write(my_wad.maps["MyMap"].things)
       # end
       # ```
       def self.write(io : IO, things : Array(::WAD::Map::Things)) : ::WAD::Directory
@@ -98,7 +98,7 @@ module WritingAdditions
       # Writes linedefs in *my_wad* to a file:
       # ```
       # my_wad = WAD.read("Path/To/Wad")
-      # WAD::Map::Linedefs.write("Path/To/linedefs.lmp", my_wad.maps.values[0].linedefs)
+      # WAD::Map::Linedefs.write("Path/To/linedefs.lmp", my_wad.maps["MyMap"].linedefs)
       # ```
       def self.write(file : String | Path, linedefs : Array(::WAD::Map::Linedefs)) : ::WAD::Directory
         File.open(file, "w+") do |file|
@@ -113,7 +113,7 @@ module WritingAdditions
       # ```
       # my_wad = WAD.read("Path/To/Wad")
       # File.open("Path/To/linedefs.lmp", "w+") do |file|
-      #   WAD::Map::Linedefs.write(my_wad.maps.values[0].linedefs)
+      #   WAD::Map::Linedefs.write(my_wad.maps["MyMap"].linedefs)
       # end
       # ```
       def self.write(io : IO, linedefs : Array(::WAD::Map::Linedefs)) : ::WAD::Directory
@@ -152,7 +152,7 @@ module WritingAdditions
       # Writes sidedefs in *my_wad* to a file:
       # ```
       # my_wad = WAD.read("Path/To/Wad")
-      # WAD::Map::Sidedefs.write("Path/To/sidedefs.lmp", my_wad.maps.values[0].sidedefs)
+      # WAD::Map::Sidedefs.write("Path/To/sidedefs.lmp", my_wad.maps["MyMap"].sidedefs)
       # ```
       def self.write(file : String | Path, sidedefs : Array(::WAD::Map::Sidedefs)) : ::WAD::Directory
         File.open(file, "w+") do |file|
@@ -167,7 +167,7 @@ module WritingAdditions
       # ```
       # my_wad = WAD.read("Path/To/Wad")
       # File.open("Path/To/sidedefs.lmp", "w+") do |file|
-      #   WAD::Map::Sidedefs.write(my_wad.maps.values[0].sidedefs)
+      #   WAD::Map::Sidedefs.write(my_wad.maps["MyMap"].sidedefs)
       # end
       # ```
       def self.write(io : IO, sidedefs : Array(::WAD::Map::Sidedefs)) : ::WAD::Directory
@@ -214,7 +214,7 @@ module WritingAdditions
       # Writes vertexes in *my_wad* to a file:
       # ```
       # my_wad = WAD.read("Path/To/Wad")
-      # WAD::Map::Vertexes.write("Path/To/vertexes.lmp", my_wad.maps.values[0].vertexes)
+      # WAD::Map::Vertexes.write("Path/To/vertexes.lmp", my_wad.maps["MyMap"].vertexes)
       # ```
       def self.write(file : String | Path, vertexes : Array(::WAD::Map::Vertexes)) : ::WAD::Directory
         File.open(file, "w+") do |file|
@@ -229,7 +229,7 @@ module WritingAdditions
       # ```
       # my_wad = WAD.read("Path/To/Wad")
       # File.open("Path/To/vertexes.lmp", "w+") do |file|
-      #   WAD::Map::Vertexes.write(my_wad.maps.values[0].vertexes)
+      #   WAD::Map::Vertexes.write(my_wad.maps["MyMap"].vertexes)
       # end
       # ```
       def self.write(io : IO, vertexes : Array(::WAD::Map::Vertexes)) : ::WAD::Directory
@@ -258,7 +258,7 @@ module WritingAdditions
       # Writes segs in *my_wad* to a file:
       # ```
       # my_wad = WAD.read("Path/To/Wad")
-      # WAD::Map::Segs.write("Path/To/segs.lmp", my_wad.maps.values[0].segs)
+      # WAD::Map::Segs.write("Path/To/segs.lmp", my_wad.maps["MyMap"].segs)
       # ```
       def self.write(file : String | Path, segs : Array(::WAD::Map::Segs)) : ::WAD::Directory
         File.open(file, "w+") do |file|
@@ -273,7 +273,7 @@ module WritingAdditions
       # ```
       # my_wad = WAD.read("Path/To/Wad")
       # File.open("Path/To/segs.lmp", "w+") do |file|
-      #   WAD::Map::Segs.write(my_wad.maps.values[0].segs)
+      #   WAD::Map::Segs.write(my_wad.maps["MyMap"].segs)
       # end
       # ```
       def self.write(io : IO, segs : Array(::WAD::Map::Segs)) : ::WAD::Directory
@@ -311,7 +311,7 @@ module WritingAdditions
       # Writes ssectors in *my_wad* to a file:
       # ```
       # my_wad = WAD.read("Path/To/Wad")
-      # WAD::Map::Ssectors.write("Path/To/ssectors.lmp", my_wad.maps.values[0].ssectors)
+      # WAD::Map::Ssectors.write("Path/To/ssectors.lmp", my_wad.maps["MyMap"].ssectors)
       # ```
       def self.write(file : String | Path, ssectors : Array(::WAD::Map::Ssectors)) : ::WAD::Directory
         File.open(file, "w+") do |file|
@@ -326,7 +326,7 @@ module WritingAdditions
       # ```
       # my_wad = WAD.read("Path/To/Wad")
       # File.open("Path/To/ssectors.lmp", "w+") do |file|
-      #   WAD::Map::Ssectors.write(my_wad.maps.values[0].ssectors)
+      #   WAD::Map::Ssectors.write(my_wad.maps["MyMap"].ssectors)
       # end
       # ```
       def self.write(io : IO, ssectors : Array(::WAD::Map::Ssectors)) : ::WAD::Directory
@@ -356,7 +356,7 @@ module WritingAdditions
       # Writes nodes in *my_wad* to a file:
       # ```
       # my_wad = WAD.read("Path/To/Wad")
-      # WAD::Map::Nodes.write("Path/To/nodes.lmp", my_wad.maps.values[0].nodes)
+      # WAD::Map::Nodes.write("Path/To/nodes.lmp", my_wad.maps["MyMap"].nodes)
       # ```
       def self.write(file : String | Path, nodes : Array(::WAD::Map::Nodes)) : ::WAD::Directory
         File.open(file, "w+") do |file|
@@ -371,7 +371,7 @@ module WritingAdditions
       # ```
       # my_wad = WAD.read("Path/To/Wad")
       # File.open("Path/To/nodes.lmp", "w+") do |file|
-      #   WAD::Map::Nodes.write(my_wad.maps.values[0].nodes)
+      #   WAD::Map::Nodes.write(my_wad.maps["MyMap"].nodes)
       # end
       # ```
       def self.write(io : IO, nodes : Array(::WAD::Map::Nodes)) : ::WAD::Directory
@@ -420,7 +420,7 @@ module WritingAdditions
       # Writes sectors in *my_wad* to a file:
       # ```
       # my_wad = WAD.read("Path/To/Wad")
-      # WAD::Map::Sectors.write("Path/To/sectors.lmp", my_wad.maps.values[0].sectors)
+      # WAD::Map::Sectors.write("Path/To/sectors.lmp", my_wad.maps["MyMap"].sectors)
       # ```
       def self.write(file : String | Path, sectors : Array(::WAD::Map::Sectors)) : ::WAD::Directory
         File.open(file, "w+") do |file|
@@ -435,7 +435,7 @@ module WritingAdditions
       # ```
       # my_wad = WAD.read("Path/To/Wad")
       # File.open("Path/To/sectors.lmp", "w+") do |file|
-      #   WAD::Map::Sectors.write(my_wad.maps.values[0].sectors)
+      #   WAD::Map::Sectors.write(my_wad.maps["MyMap"].sectors)
       # end
       # ```
       def self.write(io : IO, sectors : Array(::WAD::Map::Sectors)) : ::WAD::Directory
@@ -482,7 +482,7 @@ module WritingAdditions
       # Writes reject in *my_wad* to a file:
       # ```
       # my_wad = WAD.read("Path/To/Wad")
-      # my_wad.maps.values[0].reject.write("Path/To/reject.lmp")
+      # my_wad.maps["MyMap"].reject.write("Path/To/reject.lmp")
       # ```
       def write(file : String | Path) : ::WAD::Directory
         File.open(file, "w+") do |file|
@@ -497,7 +497,7 @@ module WritingAdditions
       # ```
       # my_wad = WAD.read("Path/To/Wad")
       # File.open("Path/To/reject.lmp", "w+") do |file|
-      #   my_wad.maps.values[0].reject.write(file)
+      #   my_wad.maps["MyMap"].reject.write(file)
       # end
       # ```
       def write(io : IO) : ::WAD::Directory
@@ -525,7 +525,7 @@ module WritingAdditions
       # Writes blockmap in *my_wad* to a file:
       # ```
       # my_wad = WAD.read("Path/To/Wad")
-      # my_wad.maps.values[0].blockmap.write("Path/To/blockmap.lmp")
+      # my_wad.maps["MyMap"].blockmap.write("Path/To/blockmap.lmp")
       # ```
       def write(file : String | Path) : ::WAD::Directory
         File.open(file, "w+") do |file|
@@ -540,7 +540,7 @@ module WritingAdditions
       # ```
       # my_wad = WAD.read("Path/To/Wad")
       # File.open("Path/To/blockmap.lmp", "w+") do |file|
-      #   my_wad.maps.values[0].blockmap.write(file)
+      #   my_wad.maps["MyMap"].blockmap.write(file)
       # end
       # ```
       def write(io : IO) : ::WAD::Directory

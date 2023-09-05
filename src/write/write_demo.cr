@@ -6,7 +6,7 @@ module WritingAdditions
     # Writes a demo in *my_wad* to a file:
     # ```
     # my_wad = WAD.read("Path/To/Wad")
-    # my_wad.demos.values[0].write("Path/To/demo.lmp")
+    # my_wad.demos["MyDemo"].write("Path/To/demo.lmp")
     # ```
     def write(file : String | Path) : UInt32
       File.open(file, "w+") do |file|
@@ -20,7 +20,7 @@ module WritingAdditions
     # ```
     # my_wad = WAD.read("Path/To/Wad")
     # File.open("Path/To/demo.lmp", "w+") do |file|
-    #   my_wad.demos.values[0].write(file)
+    #   my_wad.demos["MyDemo"].write(file)
     # end
     # ```
     def write(io : IO) : UInt32

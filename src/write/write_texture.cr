@@ -60,7 +60,7 @@ module WritingAdditions
     # Writes a colormap in *my_wad* to a file:
     # ```
     # my_wad = WAD.read("Path/To/Wad")
-    # File.open("./rsrc/colormap.lmp", "w+") do |file|
+    # File.open("Path/To/colormap.lmp", "w+") do |file|
     #   my_wad.colormap.write(file)
     # end
     # ```
@@ -120,7 +120,7 @@ module WritingAdditions
     # Writes a texture map in *my_wad* to a file:
     # ```
     # my_wad = WAD.read("Path/To/Wad")
-    # my_wad.texmapx.values[0].write("Path/To/texturex.lmp")
+    # my_wad.texmapx.["MyTexMap"].write("Path/To/texturex.lmp")
     # ```
     def write(file : String | Path) : UInt32
       File.open(file, "w+") do |file|
@@ -134,7 +134,7 @@ module WritingAdditions
     # ```
     # my_wad = WAD.read("Path/To/Wad")
     # File.open(".Path/To/texturex.lmp", "w+") do |file|
-    #   my_wad.texmaps.values[0].write(file)
+    #   my_wad.texmaps["MyTexMap"].write(file)
     # end
     # ```
     def write(io : IO) : UInt32
@@ -235,7 +235,7 @@ module WritingAdditions
     # Writes a graphic in *my_wad* to a file:
     # ```
     # my_wad = WAD.read("Path/To/Wad")
-    # my_wad.graphic.values[0].write("Path/To/Graphic.lmp")
+    # my_wad.graphic["MyGraphic"].write("Path/To/Graphic.lmp")
     # ```
     def write(file : String | Path) : UInt32
       File.open(file, "w+") do |file|
@@ -249,7 +249,7 @@ module WritingAdditions
     # ```
     # my_wad = WAD.read("Path/To/Wad")
     # File.open("Path/To/Graphic.lmp", "w+") do |file|
-    #   my_wad.graphic.values[0].write(file)
+    #   my_wad.graphic["MyGraphic"].write(file)
     # end
     # ```
     def write(io : IO) : UInt32
@@ -364,7 +364,7 @@ module WritingAdditions
     # Writes a playpal in *my_wad* to a file:
     # ```
     # my_wad = WAD.read("Path/To/Wad")
-    # my_wad.flats.values[0].write("Path/To/flat.lmp")
+    # my_wad.flats["MyFlat"].write("Path/To/flat.lmp")
     # ```
     def write(file : String | Path) : UInt32
       File.open(file, "w+") do |file|
@@ -378,7 +378,7 @@ module WritingAdditions
     # ```
     # my_wad = WAD.read("Path/To/Wad")
     # File.open("Path/To/flat.lmp", "w+") do |file|
-    #   my_wad.flats.values[0].write(file)
+    #   my_wad.flats["MyFlat"].write(file)
     # end
     # ```
     def write(io : IO) : UInt32

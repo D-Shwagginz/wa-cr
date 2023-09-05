@@ -59,7 +59,7 @@ require "debug"
 class WAD
   # The size of the header in bytes
   HEADER_SIZE = 16
-  # Type of WAD: Either IWAD, PWAD, or Broken.
+  # Type of WAD: Either Internal, IWAD, or Patch, PWAD.
   property type : Type = Type::Broken
   # An integer specifying the number of lumps in the WAD.
   property directories_count : UInt32 = 0_u32

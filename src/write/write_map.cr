@@ -26,14 +26,14 @@ module WritingAdditions
     def write(io : IO) : Array(::WAD::Directory)
       written_map_directories = [] of ::WAD::Directory
 
-      written_map_directories << Things.write(io, things)
-      written_map_directories << Linedefs.write(io, linedefs)
-      written_map_directories << Sidedefs.write(io, sidedefs)
-      written_map_directories << Vertexes.write(io, vertexes)
-      written_map_directories << Segs.write(io, segs)
-      written_map_directories << Ssectors.write(io, ssectors)
-      written_map_directories << Nodes.write(io, nodes)
-      written_map_directories << Sectors.write(io, sectors)
+      written_map_directories << Thing.write(io, things)
+      written_map_directories << Linedef.write(io, linedefs)
+      written_map_directories << Sidedef.write(io, sidedefs)
+      written_map_directories << Vertex.write(io, vertexes)
+      written_map_directories << Seg.write(io, segs)
+      written_map_directories << Ssector.write(io, ssectors)
+      written_map_directories << Node.write(io, nodes)
+      written_map_directories << Sector.write(io, sectors)
       written_map_directories << reject.write(io)
       written_map_directories << blockmap.write(io)
 
@@ -41,16 +41,16 @@ module WritingAdditions
     end
 
     # Structure of a thing.
-    struct Things
+    struct Thing
       # Writes a list of things given an output io and the things
       # to write and returns the written directory
       #
       # Writes things in *my_wad* to a file:
       # ```
       # my_wad = WAD.read("Path/To/Wad")
-      # WAD::Map::Things.write("Path/To/things.lmp", my_wad.maps["MyMap"].things)
+      # WAD::Map::Thing.write("Path/To/things.lmp", my_wad.maps["MyMap"].things)
       # ```
-      def self.write(file : String | Path, things : Array(::WAD::Map::Things)) : ::WAD::Directory
+      def self.write(file : String | Path, things : Array(::WAD::Map::Thing)) : ::WAD::Directory
         File.open(file, "w+") do |file|
           return self.write(file, things)
         end
@@ -63,10 +63,10 @@ module WritingAdditions
       # ```
       # my_wad = WAD.read("Path/To/Wad")
       # File.open("Path/To/things.lmp", "w+") do |file|
-      #   WAD::Map::Things.write(my_wad.maps["MyMap"].things)
+      #   WAD::Map::Thing.write(my_wad.maps["MyMap"].things)
       # end
       # ```
-      def self.write(io : IO, things : Array(::WAD::Map::Things)) : ::WAD::Directory
+      def self.write(io : IO, things : Array(::WAD::Map::Thing)) : ::WAD::Directory
         written_directory = ::WAD::Directory.new
         written_directory.name = "THINGS"
         written_directory.file_pos = io.pos.to_u32
@@ -91,16 +91,16 @@ module WritingAdditions
     end
 
     # Structure of a linedef.
-    struct Linedefs
+    struct Linedef
       # Writes a list of linedefs given an output io and the linedefs
       # to write and returns the written directory
       #
       # Writes linedefs in *my_wad* to a file:
       # ```
       # my_wad = WAD.read("Path/To/Wad")
-      # WAD::Map::Linedefs.write("Path/To/linedefs.lmp", my_wad.maps["MyMap"].linedefs)
+      # WAD::Map::Linedef.write("Path/To/linedefs.lmp", my_wad.maps["MyMap"].linedefs)
       # ```
-      def self.write(file : String | Path, linedefs : Array(::WAD::Map::Linedefs)) : ::WAD::Directory
+      def self.write(file : String | Path, linedefs : Array(::WAD::Map::Linedef)) : ::WAD::Directory
         File.open(file, "w+") do |file|
           return self.write(file, linedefs)
         end
@@ -113,10 +113,10 @@ module WritingAdditions
       # ```
       # my_wad = WAD.read("Path/To/Wad")
       # File.open("Path/To/linedefs.lmp", "w+") do |file|
-      #   WAD::Map::Linedefs.write(my_wad.maps["MyMap"].linedefs)
+      #   WAD::Map::Linedef.write(my_wad.maps["MyMap"].linedefs)
       # end
       # ```
-      def self.write(io : IO, linedefs : Array(::WAD::Map::Linedefs)) : ::WAD::Directory
+      def self.write(io : IO, linedefs : Array(::WAD::Map::Linedef)) : ::WAD::Directory
         written_directory = ::WAD::Directory.new
         written_directory.name = "LINEDEFS"
         written_directory.file_pos = io.pos.to_u32
@@ -145,16 +145,16 @@ module WritingAdditions
     end
 
     # Structure of a sidedef.
-    struct Sidedefs
+    struct Sidedef
       # Writes a list of sidedefs given an output io and the sidedefs
       # to write and returns the written directory
       #
       # Writes sidedefs in *my_wad* to a file:
       # ```
       # my_wad = WAD.read("Path/To/Wad")
-      # WAD::Map::Sidedefs.write("Path/To/sidedefs.lmp", my_wad.maps["MyMap"].sidedefs)
+      # WAD::Map::Sidedef.write("Path/To/sidedefs.lmp", my_wad.maps["MyMap"].sidedefs)
       # ```
-      def self.write(file : String | Path, sidedefs : Array(::WAD::Map::Sidedefs)) : ::WAD::Directory
+      def self.write(file : String | Path, sidedefs : Array(::WAD::Map::Sidedef)) : ::WAD::Directory
         File.open(file, "w+") do |file|
           return self.write(file, sidedefs)
         end
@@ -167,10 +167,10 @@ module WritingAdditions
       # ```
       # my_wad = WAD.read("Path/To/Wad")
       # File.open("Path/To/sidedefs.lmp", "w+") do |file|
-      #   WAD::Map::Sidedefs.write(my_wad.maps["MyMap"].sidedefs)
+      #   WAD::Map::Sidedef.write(my_wad.maps["MyMap"].sidedefs)
       # end
       # ```
-      def self.write(io : IO, sidedefs : Array(::WAD::Map::Sidedefs)) : ::WAD::Directory
+      def self.write(io : IO, sidedefs : Array(::WAD::Map::Sidedef)) : ::WAD::Directory
         written_directory = ::WAD::Directory.new
         written_directory.name = "SIDEDEFS"
         written_directory.file_pos = io.pos.to_u32
@@ -207,16 +207,16 @@ module WritingAdditions
     end
 
     # Structure of a vertex.
-    struct Vertexes
+    struct Vertex
       # Writes a list of vertexes given an output io and the vertexes
       # to write and returns the written directory
       #
       # Writes vertexes in *my_wad* to a file:
       # ```
       # my_wad = WAD.read("Path/To/Wad")
-      # WAD::Map::Vertexes.write("Path/To/vertexes.lmp", my_wad.maps["MyMap"].vertexes)
+      # WAD::Map::Vertex.write("Path/To/vertexes.lmp", my_wad.maps["MyMap"].vertexes)
       # ```
-      def self.write(file : String | Path, vertexes : Array(::WAD::Map::Vertexes)) : ::WAD::Directory
+      def self.write(file : String | Path, vertexes : Array(::WAD::Map::Vertex)) : ::WAD::Directory
         File.open(file, "w+") do |file|
           return self.write(file, vertexes)
         end
@@ -229,10 +229,10 @@ module WritingAdditions
       # ```
       # my_wad = WAD.read("Path/To/Wad")
       # File.open("Path/To/vertexes.lmp", "w+") do |file|
-      #   WAD::Map::Vertexes.write(my_wad.maps["MyMap"].vertexes)
+      #   WAD::Map::Vertex.write(my_wad.maps["MyMap"].vertexes)
       # end
       # ```
-      def self.write(io : IO, vertexes : Array(::WAD::Map::Vertexes)) : ::WAD::Directory
+      def self.write(io : IO, vertexes : Array(::WAD::Map::Vertex)) : ::WAD::Directory
         written_directory = ::WAD::Directory.new
         written_directory.name = "VERTEXES"
         written_directory.file_pos = io.pos.to_u32
@@ -251,16 +251,16 @@ module WritingAdditions
     end
 
     # Structure of a seg.
-    struct Segs
+    struct Seg
       # Writes a list of segs given an output io and the segs
       # to write and returns the written directory
       #
       # Writes segs in *my_wad* to a file:
       # ```
       # my_wad = WAD.read("Path/To/Wad")
-      # WAD::Map::Segs.write("Path/To/segs.lmp", my_wad.maps["MyMap"].segs)
+      # WAD::Map::Seg.write("Path/To/segs.lmp", my_wad.maps["MyMap"].segs)
       # ```
-      def self.write(file : String | Path, segs : Array(::WAD::Map::Segs)) : ::WAD::Directory
+      def self.write(file : String | Path, segs : Array(::WAD::Map::Seg)) : ::WAD::Directory
         File.open(file, "w+") do |file|
           return self.write(file, segs)
         end
@@ -273,10 +273,10 @@ module WritingAdditions
       # ```
       # my_wad = WAD.read("Path/To/Wad")
       # File.open("Path/To/segs.lmp", "w+") do |file|
-      #   WAD::Map::Segs.write(my_wad.maps["MyMap"].segs)
+      #   WAD::Map::Seg.write(my_wad.maps["MyMap"].segs)
       # end
       # ```
-      def self.write(io : IO, segs : Array(::WAD::Map::Segs)) : ::WAD::Directory
+      def self.write(io : IO, segs : Array(::WAD::Map::Seg)) : ::WAD::Directory
         written_directory = ::WAD::Directory.new
         written_directory.name = "SEGS"
         written_directory.file_pos = io.pos.to_u32
@@ -304,16 +304,16 @@ module WritingAdditions
     end
 
     # Structure of a ssector.
-    struct Ssectors
+    struct Ssector
       # Writes a list of ssectors given an output io and the ssectors
       # to write and returns the written directory
       #
       # Writes ssectors in *my_wad* to a file:
       # ```
       # my_wad = WAD.read("Path/To/Wad")
-      # WAD::Map::Ssectors.write("Path/To/ssectors.lmp", my_wad.maps["MyMap"].ssectors)
+      # WAD::Map::Ssector.write("Path/To/ssectors.lmp", my_wad.maps["MyMap"].ssectors)
       # ```
-      def self.write(file : String | Path, ssectors : Array(::WAD::Map::Ssectors)) : ::WAD::Directory
+      def self.write(file : String | Path, ssectors : Array(::WAD::Map::Ssector)) : ::WAD::Directory
         File.open(file, "w+") do |file|
           return self.write(file, ssectors)
         end
@@ -326,10 +326,10 @@ module WritingAdditions
       # ```
       # my_wad = WAD.read("Path/To/Wad")
       # File.open("Path/To/ssectors.lmp", "w+") do |file|
-      #   WAD::Map::Ssectors.write(my_wad.maps["MyMap"].ssectors)
+      #   WAD::Map::Ssector.write(my_wad.maps["MyMap"].ssectors)
       # end
       # ```
-      def self.write(io : IO, ssectors : Array(::WAD::Map::Ssectors)) : ::WAD::Directory
+      def self.write(io : IO, ssectors : Array(::WAD::Map::Ssector)) : ::WAD::Directory
         written_directory = ::WAD::Directory.new
         written_directory.name = "SSECTORS"
         written_directory.file_pos = io.pos.to_u32
@@ -349,16 +349,16 @@ module WritingAdditions
     end
 
     # Structure of a node.
-    struct Nodes
+    struct Node
       # Writes a list of nodes given an output io and the nodes
       # to write and returns the written directory
       #
       # Writes nodes in *my_wad* to a file:
       # ```
       # my_wad = WAD.read("Path/To/Wad")
-      # WAD::Map::Nodes.write("Path/To/nodes.lmp", my_wad.maps["MyMap"].nodes)
+      # WAD::Map::Node.write("Path/To/nodes.lmp", my_wad.maps["MyMap"].nodes)
       # ```
-      def self.write(file : String | Path, nodes : Array(::WAD::Map::Nodes)) : ::WAD::Directory
+      def self.write(file : String | Path, nodes : Array(::WAD::Map::Node)) : ::WAD::Directory
         File.open(file, "w+") do |file|
           return self.write(file, nodes)
         end
@@ -371,10 +371,10 @@ module WritingAdditions
       # ```
       # my_wad = WAD.read("Path/To/Wad")
       # File.open("Path/To/nodes.lmp", "w+") do |file|
-      #   WAD::Map::Nodes.write(my_wad.maps["MyMap"].nodes)
+      #   WAD::Map::Node.write(my_wad.maps["MyMap"].nodes)
       # end
       # ```
-      def self.write(io : IO, nodes : Array(::WAD::Map::Nodes)) : ::WAD::Directory
+      def self.write(io : IO, nodes : Array(::WAD::Map::Node)) : ::WAD::Directory
         written_directory = ::WAD::Directory.new
         written_directory.name = "NODES"
         written_directory.file_pos = io.pos.to_u32
@@ -413,16 +413,16 @@ module WritingAdditions
     end
 
     # Structure of a sector.
-    struct Sectors
+    struct Sector
       # Writes a list of sectors given an output io and the sectors
       # to write and returns the written directory
       #
       # Writes sectors in *my_wad* to a file:
       # ```
       # my_wad = WAD.read("Path/To/Wad")
-      # WAD::Map::Sectors.write("Path/To/sectors.lmp", my_wad.maps["MyMap"].sectors)
+      # WAD::Map::Sector.write("Path/To/sectors.lmp", my_wad.maps["MyMap"].sectors)
       # ```
-      def self.write(file : String | Path, sectors : Array(::WAD::Map::Sectors)) : ::WAD::Directory
+      def self.write(file : String | Path, sectors : Array(::WAD::Map::Sector)) : ::WAD::Directory
         File.open(file, "w+") do |file|
           return self.write(file, sectors)
         end
@@ -435,10 +435,10 @@ module WritingAdditions
       # ```
       # my_wad = WAD.read("Path/To/Wad")
       # File.open("Path/To/sectors.lmp", "w+") do |file|
-      #   WAD::Map::Sectors.write(my_wad.maps["MyMap"].sectors)
+      #   WAD::Map::Sector.write(my_wad.maps["MyMap"].sectors)
       # end
       # ```
-      def self.write(io : IO, sectors : Array(::WAD::Map::Sectors)) : ::WAD::Directory
+      def self.write(io : IO, sectors : Array(::WAD::Map::Sector)) : ::WAD::Directory
         written_directory = ::WAD::Directory.new
         written_directory.name = "SECTORS"
         written_directory.file_pos = io.pos.to_u32

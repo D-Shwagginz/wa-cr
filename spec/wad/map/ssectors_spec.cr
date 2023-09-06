@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-describe WAD::Map::Ssectors, tags: "map" do
+describe WAD::Map::Ssector, tags: "map" do
   it "should properly set map ssectors", tags: "ssectors" do
     my_wad = WAD.read("./rsrc/DOOM.WAD")
 

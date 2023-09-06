@@ -8,6 +8,20 @@ class WAD
 
     # Parses a pc sound lump.
     #
+    # Opens a pc sound file and parses it:
+    # ```
+    # my_pcsound = WAD::PcSound.parse("Path/To/PcSound")
+    # ```
+    def self.parse(filename : String | Path) : PcSound
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Pc Sound invalid"
+    end
+
+    # Parses a pc sound lump.
+    #
     # Opens a pc sound io and parses it:
     # ```
     # File.open("Path/To/PcSound") do |file|
@@ -53,7 +67,7 @@ class WAD
 
     # Parses a sound lump.
     #
-    # Opens a sound io and parses it:
+    # Opens a sound file and parses it:
     # ```
     # my_sound = WAD::Sound.parse("Path/To/Sound")
     # ```
@@ -108,8 +122,14 @@ class WAD
       !!(name =~ /^DS/)
     end
 
-    def to_wav(file : File | Path)
-      File.open(file, "w+") do |io|
+    # Writes to wav file given an output *file*.
+    #
+    # Writes a 'wav' file from the *my_wad* sound "DSPISTOL":
+    # ```
+    # my_wad.sounds["DSPISTOL"].to_wav("Path/To/MyWav.wav")
+    # ```
+    def to_wav(filename : String | Path)
+      File.open(filename, "w+") do |io|
         to_wav(io)
       end
     end

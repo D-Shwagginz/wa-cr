@@ -46,16 +46,16 @@ require "./write/**"
 # File.open("Path/To/Test.file") do |file|
 #   my_map.write(file) # => An array of all written directories in the order listed below
 #
-#   Map::Things.new(file, my_things : Array)             # => The written file's directory
-#   Map::Linedefs.new(file, my_linedefs : Array)         # => The written file's directory
-#   Map::Sidedefs.new(file, my_sidedefs : Array)         # => etc.
-#   Map::Vertexes.new(file, my_vertexes : Array)         # => etc.
-#   Map::Segs.new(file, my_segs : Array)                 # => etc.
-#   Map::Ssectors.new(file, my_ssectors : Array)         # => etc.
-#   Map::Nodes.new(file, my_nodes : Array)               # => etc.
-#   Map::Sectors.new(file, my_sectors : Array)           # => etc.
-#   Map::Reject.new(file, my_reject : Map::Reject)       # => etc.
-#   Map::Blockmap.new(file, my_blockmap : Map::Blockmap) # => etc.
+#   Map::Thing.write(file, my_things : Array)              # => The written file's directory
+#   Map::Linedef.write(file, my_linedefs : Array)          # => The written file's directory
+#   Map::Sidedef.write(file, my_sidedefs : Array)          # => etc.
+#   Map::Vertex.write(file, my_vertexs : Array)            # => etc.
+#   Map::Seg.write(file, my_segs : Array)                  # => etc.
+#   Map::Ssector.write(file, my_ssectors : Array)          # => etc.
+#   Map::Node.write(file, my_nodes : Array)                # => etc.
+#   Map::Sector.write(file, my_sectors : Array)            # => etc.
+#   Map::Reject.write(file, my_reject : Map::Reject)       # => etc.
+#   Map::Blockmap.write(file, my_blockmap : Map::Blockmap) # => etc.
 # end
 # ```
 #
@@ -90,16 +90,16 @@ require "./write/**"
 # # Map Data
 # my_map.write("Path/To/File") # => An array of all written directories in the order listed below
 #
-# Map::Things.new("Path/To/File", my_things : Array)             # => The written file's directory
-# Map::Linedefs.new("Path/To/File", my_linedefs : Array)         # => The written file's directory
-# Map::Sidedefs.new("Path/To/File", my_sidedefs : Array)         # => etc.
-# Map::Vertexes.new("Path/To/File", my_vertexes : Array)         # => etc.
-# Map::Segs.new("Path/To/File", my_segs : Array)                 # => etc.
-# Map::Ssectors.new("Path/To/File", my_ssectors : Array)         # => etc.
-# Map::Nodes.new("Path/To/File", my_nodes : Array)               # => etc.
-# Map::Sectors.new("Path/To/File", my_sectors : Array)           # => etc.
-# Map::Reject.new("Path/To/File", my_reject : Map::Reject)       # => etc.
-# Map::Blockmap.new("Path/To/File", my_blockmap : Map::Blockmap) # => etc.
+# Map::Thing.write("Path/To/File", my_thing : Array)             # => The written file's directory
+# Map::Linedefwrite("Path/To/File", my_linedefs : Array)         # => The written file's directory
+# Map::Sidedef.write("Path/To/File", my_sidedefs : Array)         # => etc.
+# Map::Vertex.write("Path/To/File", my_vertexes : Array)         # => etc.
+# Map::Seg.write("Path/To/File", my_segs : Array)                 # => etc.
+# Map::Ssector.write("Path/To/File", my_ssectors : Array)         # => etc.
+# Map::Node.write("Path/To/File", my_nodes : Array)               # => etc.
+# Map::Sector.write("Path/To/File", my_sectors : Array)           # => etc.
+# Map::Reject.write("Path/To/File", my_reject : Map::Reject)       # => etc.
+# Map::Blockmap.write("Path/To/File", my_blockmap : Map::Blockmap) # => etc.
 # ```
 module WritingAdditions
   # Reads, writes, and stores the data of a WAD file.
@@ -133,7 +133,7 @@ module WritingAdditions
   module WAD
     # Writes a WAD class to an file and returns the written file's size
     #
-    # Writes a wad file to *mynewwad.WAD*:
+    # Writes a wad file to *my_new_wad.WAD*:
     # ```
     # my_wad = WAD.read("Path/To/Wad")
     # my_wad.write("Path/To/my_wad.WAD")
@@ -146,10 +146,10 @@ module WritingAdditions
 
     # Writes a WAD class to an io and returns the written file's size
     #
-    # Writes a wad file to *mynewwad.WAD*:
+    # Writes a wad file to *my_new_wad.WAD*:
     # ```
     # my_wad = WAD.read("Path/To/Wad")
-    # File.open("Path/To/mynewwad.WAD", "w+") do |file|
+    # File.open("Path/To/my_new_wad.WAD", "w+") do |file|
     #   my_wad.write(file)
     # end
     # ```
@@ -201,7 +201,7 @@ module WritingAdditions
           next
         end
 
-        if maps.has_key?(directory.name)
+        if maps.[directory.name]?
           written_directory.size = 0
           written_directories << written_directory
           maps[directory.name].write(io).each do |lump_dir|
@@ -214,49 +214,49 @@ module WritingAdditions
           next
         end
 
-        if pcsounds.has_key?(directory.name)
+        if pcsounds.[directory.name]?
           written_directory.size = pcsounds[directory.name].write(io)
           written_directories << written_directory
           next
         end
 
-        if sounds.has_key?(directory.name)
+        if sounds.[directory.name]?
           written_directory.size = sounds[directory.name].write(io)
           written_directories << written_directory
           next
         end
 
-        if music.has_key?(directory.name)
+        if music.[directory.name]?
           written_directory.size = music[directory.name].write(io)
           written_directories << written_directory
           next
         end
 
-        if texmaps.has_key?(directory.name)
+        if texmaps.[directory.name]?
           written_directory.size = texmaps[directory.name].write(io)
           written_directories << written_directory
           next
         end
 
-        if graphics.has_key?(directory.name)
+        if graphics.[directory.name]?
           written_directory.size = graphics[directory.name].write(io)
           written_directories << written_directory
           next
         end
 
-        if sprites.has_key?(directory.name)
+        if sprites.[directory.name]?
           written_directory.size = sprites[directory.name].write(io)
           written_directories << written_directory
           next
         end
 
-        if flats.has_key?(directory.name)
+        if flats.[directory.name]?
           written_directory.size = flats[directory.name].write(io)
           written_directories << written_directory
           next
         end
 
-        if demos.has_key?(directory.name)
+        if demos.[directory.name]?
           written_directory.size = demos[directory.name].write(io)
           written_directories << written_directory
           next
@@ -297,7 +297,7 @@ module WritingAdditions
       io.write_bytes(directory.file_pos.to_u32, IO::ByteFormat::LittleEndian)
       io.write_bytes(directory.size.to_u32, IO::ByteFormat::LittleEndian)
       name_slice = Bytes.new(8)
-      name_slice.copy_from(::WAD.string_cut(directory.name).to_slice)
+      name_slice.copy_from(::WAD.string_sub_chars(::WAD.string_cut(directory.name)).to_slice)
       io.write(name_slice)
     end
   end

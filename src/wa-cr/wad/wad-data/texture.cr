@@ -15,9 +15,9 @@ class WAD
       property b : UInt8 = 0_u8
     end
 
-    # Parses a playpal file given the io
+    # Parses a playpal file given the filename
     #
-    # Opens a playpal io and parses it:
+    # Opens a playpal file and parses it:
     # ```
     # my_playpal = WAD::Playpal.parse("Path/To/Playpal")
     # ```
@@ -81,9 +81,9 @@ class WAD
       property table : Array(UInt8) = [] of UInt8
     end
 
-    # Parses a colormap file given the io
+    # Parses a colormap file given the filename
     #
-    # Opens a colormap io and parses it:
+    # Opens a colormap file and parses it:
     # ```
     # my_colormap = WAD::Colormap.parse("Path/To/Colormap")
     # ```
@@ -136,16 +136,20 @@ class WAD
 
   # The colorful screen shown when Doom exits.
   class EnDoom
+    # An array of all the characters in the EnDoom
     property characters : Array(EnDoomChars) = [] of EnDoomChars
 
+    # A character in the EnDoom
     struct EnDoomChars
+      # The character's ascii value
       property ascii_value : UInt8 = 0_u8
+      # The character's color
       property color : UInt8 = 0_u8
     end
 
-    # Parses a endoom file given the io
+    # Parses a endoom file given the filename
     #
-    # Opens a endoom io and parses it:
+    # Opens a endoom file and parses it:
     # ```
     # my_endoom = WAD::EnDoom.parse("Path/To/EnDoom")
     # ```
@@ -222,9 +226,9 @@ class WAD
       property colormap : Int16 = 0_i16
     end
 
-    # Parses a texture map file given the io
+    # Parses a texture map file given the filename
     #
-    # Opens a texture map io and parses it:
+    # Opens a texture map file and parses it:
     # ```
     # my_texturemap = WAD::TextureX.parse("Path/To/TextureMap")
     # ```
@@ -299,9 +303,9 @@ class WAD
     property num_patches : Int32 = 0_i32
     property patches : Array(String) = [] of String
 
-    # Parses a pnames file given the io
+    # Parses a pnames file given the filename
     #
-    # Example: Opens a pnames io and parses it
+    # Example: Opens a pnames file and parses it
     # ```
     # my_pnames = WAD::Pnames.parse("Path/To/Pnames")
     # ```
@@ -397,13 +401,13 @@ class WAD
       end
     end
 
-    # Parses a graphic file given the io and the start of the data in the file
+    # Parses a graphic file given the filename
     #
-    # Opens a graphic io and parses it:
+    # Opens a graphic file and parses it:
     # ```
     # my_graphic = WAD::Graphic.parse("Path/To/Graphic")
     # ```
-    def self.parse(filename : String | Path) : Graphic
+    def self.parse(filename : String | Path) : Graphic | Nil
       File.open(filename) do |file|
         return self.parse(file)
       end
@@ -411,15 +415,15 @@ class WAD
       raise "Graphic invalid"
     end
 
-    # Parses a graphic file given the io and the start of the data in the file
+    # Parses a graphic file given the file
     #
-    # Opens a graphic io and parses it:
+    # Opens a graphic file and parses it:
     # ```
     # File.open("Path/To/Graphic") do |file|
     #   my_graphic = WAD::Graphic.parse(file)
     # end
     # ```
-    def self.parse(file : File | IO, file_pos : Int = 0, size : Int = -1) : Graphic | Nil
+    def self.parse(file : File, file_pos : Int = 0, size : Int = -1) : Graphic | Nil
       begin
         size = file.size if size < 0
         graphic_parse = GraphicParse.new
@@ -565,9 +569,9 @@ class WAD
       colors[x + y * width]
     end
 
-    # Parses a flat file given the io
+    # Parses a flat file given the filename
     #
-    # Opens a flat io and parses it:
+    # Opens a flat file and parses it:
     # ```
     # my_flat = WAD::Flat.parse("Path/To/Flat")
     # ```

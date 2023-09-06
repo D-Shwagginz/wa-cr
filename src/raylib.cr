@@ -127,7 +127,7 @@ module RaylibAdditions
     #   my_pixel
     # )
     # ```
-    def get_pixel(x : Int, y : Int) : Raylib::Color
+    def get_pixel(x : Int, y : Int, palette : ::WAD::Playpal::Palette) : Raylib::Color
       raise "Out of bounds" if x > width || y > height
       if pixel = self[x, y]
         palette_r = palette.colors[pixel].r
@@ -176,14 +176,14 @@ module RaylibAdditions
     # ```
     # require "wa-cr/raylib"
     # palette = my_wad.playpal.palettes[0]
-    # my_pixel = my_wad.flat["FLOOR0_1"].get_pixel(5, 2)
+    # my_pixel = my_wad.flats["FLOOR0_1"].get_pixel(5, 2)
     # Raylib.draw_pixel(
     #   0,
     #   0,
     #   my_pixel
     # )
     # ```
-    def get_pixel(x : Int, y : Int) : Raylib::Color
+    def get_pixel(x : Int, y : Int, palette : ::WAD::Playpal::Palette) : Raylib::Color
       raise "Out of bounds" if x > width || y > height
       if pixel = self[x, y]
         palette_r = palette.colors[pixel].r

@@ -14,9 +14,9 @@ class WAD
 
     property song = [] of UInt8
 
-    # Parses a music file given the io
+    # Parses a music file given the filename
     #
-    # Opens a music io and parses it:
+    # Opens a music file and parses it:
     # ```
     # my_music = WAD::Music.parse("Path/To/Music")
     # ```
@@ -95,9 +95,9 @@ class WAD
       property voice2_data : Array(Int8 | Int16) = [] of Int8 | Int16
     end
 
-    # Parses a genmidi file given the io
+    # Parses a genmidi file given the filename
     #
-    # Opens a genmidi io and parses it:
+    # Opens a genmidi file and parses it:
     # ```
     # my_genmidi = WAD::Genmidi.parse("Path/To/Genmidi")
     # ```
@@ -184,9 +184,9 @@ class WAD
       property filename : String = ""
     end
 
-    # Parses a dmxgus file given the io
+    # Parses a dmxgus file given the filename
     #
-    # Opens a dmxgus io and parses it:
+    # Opens a dmxgus file and parses it:
     # ```
     # my_dmxgus = WAD::Dmxgus.parse("Path/To/Dmxgus")
     # ```

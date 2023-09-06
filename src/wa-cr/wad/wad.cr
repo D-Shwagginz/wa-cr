@@ -18,6 +18,15 @@ require "debug"
 # end
 # ```
 #
+# ### Creating a new `WAD`
+#
+# To create a new `WAD`, you call `WAD.new(type)`, with type being of `WAD::Type`
+#
+# ```
+# my_new_internal_wad = WAD.new(WAD::Type::Internal)
+# my_new_patch_wad = WAD.new(WAD::Type::Patch)
+# ```
+#
 # ### Using the `WAD`'s data
 #
 # wa-cr sorts the the parsed wad's data into easy to use variables.
@@ -40,20 +49,29 @@ require "debug"
 # You can also read in .lmp lump files:
 #
 # NOTE: `Graphic.parse` can take 2 arguments: The file to read and
-# the position of the start of the data (Default is 0. Should almost always be 0 when reading a .lmp)
+# the position of the start of the data (Default is -1. Should almost always be -1 when reading a .lmp)
 # ```
+# my_string_graphic = WAD::Graphic.parse("Path/To/MyGraphic.lmp")
+# my_path_graphic = WAD::Graphic.parse(Path["Path/To/MyGraphic.lmp"])
+#
 # File.open("Path/To/MyGraphic.lmp") do |file|
-#   my_graphic = WAD::Graphic.parse(file)
+#   my_io_graphic = WAD::Graphic.parse(file)
 # end
 # ```
 # ```
+# my_string_flat = WAD::Flat.parse("Path/To/MyFlat.lmp")
+# my_path_flat = WAD::Flat.parse(Path["Path/To/MyFlat.lmp"])
+#
 # File.open("Path/To/MyFlat.lmp") do |file|
-#   my_flat = WAD::Flat.parse(file)
+#   my_io_flat = WAD::Flat.parse(file)
 # end
 # ```
 # ```
+# my_string_sound = WAD::Sound.parse("Path/To/MySound.lmp")
+# my_path_sound = WAD::Sound.parse(Path["Path/To/MySound.lmp"])
+#
 # File.open("Path/To/MySound.lmp") do |file|
-#   my_sound = WAD::Sound.parse(file)
+#   my_io_sound = WAD::Sound.parse(file)
 # end
 # ```
 class WAD
@@ -133,17 +151,30 @@ class WAD
     Patch
   end
 
+  # Makes a new map with name *name* and maps it in the *maps* hash
+  #
+  # ```
+  # my_wad.new_map("MyNewMap")
+  # my_wad.maps["MyNewMap"]                          # => Returns the new empty map
+  # my_wad.maps["MyNewMap"].things << Map::Thing.new # => Pushes a new empty thing onto the map's *things* array
+  # ```
+  #
+  def new_map(name : String)
+    maps[name] = Map.new(name)
+    new_dir(name)
+  end
+
   # Allows easy parsing of lumps into the WAD
   #
   # ```
   # my_wad = WAD.new(WAD::Type::Internal)
   #
-  # my_wad.parse("MyTest", "Sound", "Path/To/SoundTest.lmp")
+  # my_wad.add("MyTest", "Sound", "Path/To/SoundTest.lmp")
   # ```
   #
-  def parse(name : String, type : String, file : Path | String)
+  def add(name : String, type : String, file : Path | String)
     File.open(file) do |io|
-      parse(name, type, io)
+      add(name, type, io)
     end
   end
 
@@ -153,11 +184,11 @@ class WAD
   # my_wad = WAD.new(WAD::Type::Internal)
   #
   # File.open("Path/To/Sound.lmp") do |file|
-  #   my_wad.parse("MyTest", "Sound", file)
+  #   my_wad.add("MyTest", "Sound", file)
   # end
   # ```
   #
-  def parse(name : String, type : String, file : IO)
+  def add(name : String, type : String, file : IO)
     case type
     when "PcSound"
       pcsounds[name] = PcSound.parse(file)
@@ -267,14 +298,14 @@ class WAD
           end
 
           # Parses each map lump into *map*.
-          map_parse(things, Things)
-          map_parse(linedefs, Linedefs)
-          map_parse(sidedefs, Sidedefs)
-          map_parse(vertexes, Vertexes)
-          map_parse(segs, Segs)
-          map_parse(ssectors, Ssectors)
-          map_parse(nodes, Nodes)
-          map_parse(sectors, Sectors)
+          map_parse(things, Thing)
+          map_parse(linedefs, Linedef)
+          map_parse(sidedefs, Sidedef)
+          map_parse(vertexes, Vertex)
+          map_parse(segs, Seg)
+          map_parse(ssectors, Ssector)
+          map_parse(nodes, Node)
+          map_parse(sectors, Sector)
           file.read_at(map.reject_directory.file_pos, map.reject_directory.size) do |io|
             map.reject = Map::Reject.parse(io, map.reject_directory.size, map.sectors.size)
           end
@@ -456,9 +487,8 @@ class WAD
     raise "WAD invalid"
   end
 
-  # Cuts a string down to length *len* if it is larger than *len*
+  # Cuts a string down to length *len* if it is larger than *len*:
   #
-  # Example:
   # ```
   # WAD.string_cut("Aberdine", 4) # => "Aber"
   # ```
@@ -470,9 +500,24 @@ class WAD
     end
   end
 
-  # Cuts a slice down to length *len* if it is larger than *len*
+  # Replaces all instances of ms-dos name incompatible chars of a string with "~":
   #
-  # Example:
+  # ```
+  # my_string = "My.TestString"
+  # WAD.string_sub_chars(my_string) # => "My~Test~String"
+  # ```
+  def self.string_sub_chars(string : String) : String
+    incompatible_chars = ['"', '*', '+', '.', ',', '/', ':', ';', '<', '=', '>', '?', '\\', '[', ']', '|']
+    new_string = string
+
+    incompatible_chars.each do |char|
+      new_string = new_string.gsub(char, '~')
+    end
+    return new_string
+  end
+
+  # Cuts a slice down to length *len* if it is larger than *len*:
+  #
   # ```
   # my_slice = "My Test Slice".to_slice # => Bytes[77, 121, 32, 84, 101, 115, 116, 32, 83, 108, 105, 99, 101]
   # WAD.slice_cut(my_slice, 5)          # => Bytes[77, 121, 32, 84, 101]

@@ -69,9 +69,9 @@ class WAD
       property special_mode : Bool = false
     end
 
-    # Parses an io in a demo format
+    # Parses an file in a demo format
     #
-    # Reads an io and puts out a demo:
+    # Reads an file and puts out a demo:
     # ```
     # my_demo = WAD::Demo.parse("Path/To/Demo")
     # ```

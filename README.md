@@ -1,5 +1,12 @@
 ![logo](logo/wa-cr.png)
 
+<!--
+When adding a class:
+* Add comments to the class and all its methods and variables
+* Add the class to the cheatsheet
+* Explain the class in the docs overview
+-->
+
 # Where's all the Crystal? | wa-cr
 
 A Crystal library used to parse .wad or .lmp files into usable Crystal code
@@ -41,16 +48,16 @@ You can read in specific .lmp files too <sup> *.lmp* : an exported doom lump.</s
 # Reads in a sound lump file and sets it to *my_sound*
 my_sound = WAD::Sound.parse("Path/To/Sound.lmp")
 ```
-You can also add the data into the wad file with `WAD#parse(name, type, file)`
+You can also add the data into the wad file with `WAD#add(name, type, file)`
 ```crystal
-my_wad.parse("MySound", "Sound", "Path/To/Sound.lmp")
+my_wad.add("MySound", "Sound", "Path/To/Sound.lmp")
 ```
 And you can create entirely new wad files too with `WAD.new(type)`
 ```crystal
 my_new_wad = WAD.new(WAD::Type::Internal)
 
 # You can read data into that new WAD too
-my_new_wad.parse("MySound", "Sound", "Path/To/Sound.lmp")
+my_new_wad.add("MySound", "Sound", "Path/To/Sound.lmp")
 ``` 
 ### Writing
 

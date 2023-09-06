@@ -4,8 +4,9 @@ module A_Overview
     #   - `WAD` - Stores all of the information relating to a WAD
     #     - `WAD.new(type)` - Creates a new `WAD` with `WAD.type`
     #     - `WAD.read(wad_file)` - Read in file in WAD format
-    #     - `WAD#parse(name, type, filename)` - Reads in *filename* as format *type*<br>
+    #     - `WAD#add(name, type, filename)` - Reads in *filename* as format *type*<br>
     #       and puts it into the `WAD` with *name*
+    #     - `WAD#new_map(name)` - Creates a new empty map with name *name* and maps it in `WAD#maps`
     #     - `WAD#type` - The type of a `WAD`
     #     - `WAD#maps` - The maps in the `WAD`
     #     - `WAD#pcsounds` - The pc sounds in the `WAD`
@@ -39,14 +40,14 @@ module A_Overview
     #     - `WAD::Map#sectors` - All sectors in the map
     #     - `WAD::Map#reject` - The reject table of the map
     #     - `WAD::Map#blockmap` - The blockmap of the map
-    #       - `WAD::Map::Things` - A thing
-    #       - `WAD::Map::Linedefs` - A linedef
-    #       - `WAD::Map::Sidedefs` - A sidedef
-    #       - `WAD::Map::Vertexes` - A vertex
-    #       - `WAD::Map::Segs` - A seg
-    #       - `WAD::Map::Ssectors` - A sub sector
-    #       - `WAD::Map::Nodes` - A node
-    #       - `WAD::Map::Sectors` - A sector
+    #       - `WAD::Map::Thing` - A thing
+    #       - `WAD::Map::Linedef` - A linedef
+    #       - `WAD::Map::Sidedef` - A sidedef
+    #       - `WAD::Map::Vertexe` - A vertex
+    #       - `WAD::Map::Seg` - A seg
+    #       - `WAD::Map::Ssector` - A sub sector
+    #       - `WAD::Map::Node` - A node
+    #       - `WAD::Map::Sector` - A sector
     #       - `WAD::Map::Reject` - The reject table
     #       - `WAD::Map::Blockmap` - The blockmap
     #

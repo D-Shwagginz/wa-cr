@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-describe WAD::Map::Vertexes, tags: "map" do
+describe WAD::Map::Vertex, tags: "map" do
   it "should properly set map vertexes", tags: "vertexes" do
     my_wad = WAD.read("./rsrc/DOOM.WAD")
 

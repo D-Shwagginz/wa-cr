@@ -2,7 +2,7 @@ module A_Overview
   # # Where's all the Crystal? | wa-cr
   #
   # wa-cr, or "Where's all the Crystal?," is a Crystal library used to read in and write
-  # out [.WAD](https://doomwiki.org/wiki/WAD) files and [lump](https://doomwiki.org/wiki/Lump) data.<br>
+  # out [.WAD](https://doomwiki.org/wiki/WAD) files and [Lump](https://doomwiki.org/wiki/Lump) data.<br>
   # It uses the `WritingAdditions` module to make writing lump and wad data seamless.<br>
   # It also has the `RaylibAdditions` module which combines [Raylib](https://github.com/raysan5/raylib/tree/master)
   # and [Raylib-cr](https://github.com/sol-vin/raylib-cr) to allow converting from a wad graphic, flat, or sprite to
@@ -30,7 +30,7 @@ module A_Overview
   # my_sound_lump.write("Path/To/my_sound.lmp")
   # ```
   #
-  # And you can read that lump back into a new `WAD` with `WAD#parse(name, type, filename)`:
+  # And you can read that lump back into a new `WAD` with `WAD#add(name, type, filename)`:
   #
   # ```
   # require "wa-cr"
@@ -38,7 +38,7 @@ module A_Overview
   # # When creating a new WAD, you have to set it's type (Internal or Patch)
   # my_new_wad = WAD.new(WAD::Type::Internal)
   #
-  # my_new_wad.parse("MySound", "Sound", "Path/To/my_sound.lmp")
+  # my_new_wad.add("MySound", "Sound", "Path/To/my_sound.lmp")
   # ```
   #
   # To use the Raylib additions, just require `wa-cr/raylib`:

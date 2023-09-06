@@ -1,7 +1,7 @@
 module A_Overview
   module C_Usage
-    # A `WAD::Directory` is a struct that hold information about a [Lump](https://doomwiki.org/wiki/Lump)<br>
-    # It acts as a librarian who tells you the location, name, and size of a book is in the library<br>
+    # A `WAD::Directory` is a struct that holds information about a [Lump](https://doomwiki.org/wiki/Lump)<br>
+    # It acts as a librarian who tells you the location, name, and size of a book in the library<br>
     # To dive deeper into directories and a wad's layout,
     # it is recommended you read the doom wiki's entry on [Wads](https://doomwiki.org/wiki/WAD)
     #
@@ -14,6 +14,7 @@ module A_Overview
     # my_linedefs_directory = my_map.linedefs_directory # => Returns the linedefs directory of the linedefs lump for the map "MyMap"
     # ```
     #
+    # ### Making New Directories
     #
     # When manually adding anything to a `WAD`, e.g. a graphic, sound, map, etc,
     # you need to call the `WAD#new_dir(name)` method to add a new directory
@@ -57,8 +58,7 @@ module A_Overview
     # my_new_wad.write("Path/To/MyWad.WAD")
     # ```
     #
-    # NOTE: When using methods like `WAD#add(name, type, file)`
-    # or `WAD#new_map(name)`, the directory is added automatically
+    # NOTE: When using `WAD#add(name, type, file)`, the directory is added automatically
     module C_OnDirectories
     end
   end

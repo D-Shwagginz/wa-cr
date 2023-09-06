@@ -10,9 +10,11 @@ module A_Overview
     #
     # With the `WritingAdditions` required, you can now write files
     # by using `.write(file : String | Path | IO)`:
-    # NOTE: Writing a `WAD` creates new `WAD::Directory`'s specific to that `WAD`,
-    # meaning you don't have to worry about directory management in between
-    # reading and writing a `WAD`
+    #
+    # NOTE: Writing a `WAD` creates new directories specific to that `WAD`,
+    # meaning that while the `WAD::Directory#size` and the `WAD::Directory#file_pos`
+    # are assigned automatically, you still have to make sure you [Make a New Directory](https://sol-vin.github.io/wad-reader/A_Overview/C_Usage/C_OnDirectories.html#making-new-directories)
+    # when creating something new in the wad, or else that new something won't get written out.
     #
     # ```
     # require "wa-cr/write"
@@ -76,7 +78,7 @@ module A_Overview
     # To get the size of the directory, refer to `WAD::Directory`'s `WAD::Directory#size` variable
     # NOTE: The `WAD::Directory#file_pos` of the written map data's
     # directory will always equal 0 when it is written to a .lmp file
-    module G_WritingFiles
+    module F_WritingFiles
     end
   end
 end

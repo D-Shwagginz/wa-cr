@@ -151,19 +151,6 @@ class WAD
     Patch
   end
 
-  # Makes a new map with name *name* and maps it in the *maps* hash
-  #
-  # ```
-  # my_wad.new_map("MyNewMap")
-  # my_wad.maps["MyNewMap"]                          # => Returns the new empty map
-  # my_wad.maps["MyNewMap"].things << Map::Thing.new # => Pushes a new empty thing onto the map's *things* array
-  # ```
-  #
-  def new_map(name : String)
-    maps[name] = Map.new(name)
-    new_dir(name)
-  end
-
   # Allows easy parsing of lumps into the WAD
   #
   # ```

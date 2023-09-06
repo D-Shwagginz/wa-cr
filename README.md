@@ -9,8 +9,8 @@ When adding a class:
 
 # Where's all the Crystal? | wa-cr
 
-A Crystal library used to parse .wad or .lmp files into usable Crystal code
-as well as writing out to a .wad or .lmp file or converting files.
+A Crystal library used to parse .wad and .lmp files into usable Crystal code,
+write out to a .wad or .lmp file, and convert file types.
 
 ## Installation
 
@@ -25,8 +25,8 @@ dependencies:
 
 ### Raylib Additions
 
-To use the wa-cr [Raylib](https://github.com/raysan5/raylib/releases)
-additions you must have [Raylib](https://github.com/raysan5/raylib/releases) installed:
+To use the wa-cr's [Raylib](https://github.com/raysan5/raylib/releases)
+additions, you must have [Raylib](https://github.com/raysan5/raylib/releases) installed:
 
 - Install raylib from [github](https://github.com/raysan5/raylib/releases).
 
@@ -34,16 +34,17 @@ additions you must have [Raylib](https://github.com/raysan5/raylib/releases) ins
 
 wa-cr includes many methods that make jumping into and out of a .wad or .lmp file very easy.<br>
 Following is a brief overview of what wa-cr can do.<br>
-For a complete overview visit wa-cr's [docs](https://sol-vin.github.io/wad-reader/index.html)
+For a complete overview see wa-cr's [docs](https://sol-vin.github.io/wad-reader/index.html)
 and the [complete overview](https://sol-vin.github.io/wad-reader/A_Overview.html).
+
 ### Wad Data
 
 Reading in a .wad is easy by using `WAD.read(filepath or io)`
 ```crystal
 # Reads in a wad and sets it to *my_wad*
-my_wad = WAD.read("Path/To/Wad.wad")
+my_wad = WAD.read("Path/To/Wad.WAD")
 ```
-You can read in specific .lmp files too <sup> *.lmp* : an exported doom lump.</sup>
+You can read in specific .lmp files too <sup> *.lmp* : an exported doom [Lump](https://doomwiki.org/wiki/Lump).</sup>
 ```crystal
 # Reads in a sound lump file and sets it to *my_sound*
 my_sound = WAD::Sound.parse("Path/To/Sound.lmp")
@@ -56,10 +57,19 @@ And you can create entirely new wad files too with `WAD.new(type)`
 ```crystal
 my_new_wad = WAD.new(WAD::Type::Internal)
 
-# You can read data into that new WAD too
+# You can read data into that new WAD as well
 my_new_wad.add("MySound", "Sound", "Path/To/Sound.lmp")
 ``` 
-### Writing
+
+### Sound Converting
+
+Converting doom-formatted sound data to a .wav file is just as simple by using `Sound#to_wav(filepath or io)`
+```crystal
+# Writes *my_sound* to a .wav file
+my_sound.to_wav("Path/To/WriteSound.wav")
+```
+
+### Writing Additions
 
 You can write out .wad and .lmp files from the parsed data as well by using `WAD#write(filepath or io)` and `ThingToWrite#write(filepath or io)`
 ```crystal
@@ -70,37 +80,36 @@ require "wa-cr/write"
 my_wad.write("Path/To/MyWad.wad")
 
 
-# Writes the lump *my_graphic* to a .lmp file
+# Writes the *my_graphic* lump to a .lmp file
 my_graphic.write("Path/To/MyLump.lmp")
 ```
-### Sound Converting
 
-Converting doom-formatted sound data to a .wav file is just as simple by using `Sound#to_wav(filepath or io)`
-```crystal
-# Writes *my_sound* to a .wav file
-my_sound.to_wav("Path/To/WriteSound.wav")
-```
 ### Raylib Additions
 
 wa-cr takes advantage of [Raylib](https://github.com/raysan5/raylib/releases)
 and [raylib-cr](https://github.com/sol-vin/raylib-cr) with ways to convert doom graphics to
 [Raylib Images](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L251)
 or [Raylib Colors](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L235C6-L235C6)
-and draw said images or pixels to the screen by using `WAD#get_texture(name, palette)` or `Graphic|Flat#to_tex(palette)`
+and draw said images or colors to the screen
 ```crystal
 # Include the wa-cr raylib library
 require "wa-cr/raylib"
 
 palette = my_wad.playpal.palettes[0]
+
 my_graphic_image = my_graphic.to_tex(palette)
 my_flat_image = my_flat.to_tex(palette)
 # You can also get textures from the texture maps
 my_texture_image = my_wad.get_texture("texture_name_in_texturex", palette)
+
+# Gets the pixel data in the graphic and the flat
+my_graphic_pixel = my_graphic.get_pixel(20, 5, palette)
+my_flat_pixel = my_flat.get_pixel(2, 10, palette)
 ```
 
 ## Limitations
 
-* Demos won't work properly because of how the doom engines psuedo-random number generator functions. If the wads are different at all, the demos won't function as intended
+* Demos won't work properly because of how the doom engine's psuedo-random number generator works. If the wads are different at all, the demos won't function as intended
 
 ## Contributing
 

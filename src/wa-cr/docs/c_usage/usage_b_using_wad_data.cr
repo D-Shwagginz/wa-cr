@@ -32,13 +32,14 @@ module A_Overview
     # `WAD#demos : Hash(String, Demo)` - A hash that maps a name to a `WAD::Demo` - [Wiki](https://doomwiki.org/wiki/Demo)<br>
     # `WAD#directories : Array(Directory)` - An array of all the `WAD::Directory`'s in the `WAD` - [Wiki](https://doomwiki.org/wiki/WAD#:~:text=serving%20as%20IWADs.-,Directory,-%5Bedit%5D)
     #
-    # NOTE: `WAD#texmaps` maps a name to `WAD::TextureX` not `WAD::TexMap`.<br>
-    # The reason for this class name is because a texture map's name will always
+    # NOTE: `WAD#texmaps` maps a name to a `WAD::TextureX`, not a "`WAD::TexMap`".
+    #
+    # The reason for this class name is because a texture map's file name will always
     # have the format "TextureX" where X is a number, which the class' name reflects.<br>
     # It also helps to prevent confusion when talking about a texture map, since
     # the data inside a texture map/TextureX are called texture maps - [Wiki](https://doomwiki.org/wiki/TEXTURE1_and_TEXTURE2#:~:text=equal%20to%20integers.-,Map%20textures%20structure%2C%20binary%20data,-%5Bedit%5D)
     #
-    # Here are a few examples of how to access and assign `WAD`'s data:
+    # Here are a few examples of how to access `WAD`'s data:
     #
     # ```
     # my_wad = WAD.read("Path/To/Wad") # => Reads in the wad

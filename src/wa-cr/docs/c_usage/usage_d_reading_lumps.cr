@@ -1,7 +1,7 @@
 module A_Overview
   module C_Usage
     # A [Wad](https://doomwiki.org/wiki/WAD) is a file that contains [Lumps](https://doomwiki.org/wiki/Lump).<br>
-    # A [Lumps](https://doomwiki.org/wiki/Lump) is a chunk of data.
+    # A [Lump](https://doomwiki.org/wiki/Lump) is a chunk of data.
     # It can be a [Graphic](https://doomwiki.org/wiki/Graphics),
     # a [Sound](https://doomwiki.org/wiki/Sound),
     # [Map data](https://doomwiki.org/wiki/WAD#:~:text=location%20is%20crucial.-,Map%20data%20lumps,-%5Bedit%5D),

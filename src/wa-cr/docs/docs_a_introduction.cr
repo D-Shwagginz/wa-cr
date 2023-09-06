@@ -3,7 +3,7 @@ module A_Overview
   #
   # wa-cr, or "Where's all the Crystal?," is a Crystal library used to read in and write
   # out [.WAD](https://doomwiki.org/wiki/WAD) files and [Lump](https://doomwiki.org/wiki/Lump) data.<br>
-  # It uses the `WritingAdditions` module to make writing lump and wad data seamless.<br>
+  # It uses the `WritingAdditions` module to allow for writing lump and wad data.<br>
   # It also has the `RaylibAdditions` module which combines [Raylib](https://github.com/raysan5/raylib/tree/master)
   # and [Raylib-cr](https://github.com/sol-vin/raylib-cr) to allow converting from a wad graphic, flat, or sprite to
   # a [Raylib Image](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L251)
@@ -25,7 +25,7 @@ module A_Overview
   # require "wa-cr"
   # require "wa-cr/write"
   #
-  # my_sound_lump = my_wad.sounds["MySound"]
+  # my_sound_lump = WAD::Sounds.parse("Path/To/MySound.lmp")
   #
   # my_sound_lump.write("Path/To/my_sound.lmp")
   # ```

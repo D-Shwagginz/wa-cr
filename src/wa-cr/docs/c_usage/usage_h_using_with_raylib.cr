@@ -51,8 +51,52 @@ module A_Overview
     # and [raylib-cr](https://github.com/sol-vin/raylib-cr) to draw it to the screen.<br>
     # Here is a simple example of how to draw `my_graphic_image` and `my_flat_image`:
     #
+    # NOTE: When requiring `wa-cr/raylib`, you don't need to also require `raylib-cr` since
+    # `wa-cr/raylib` requires `raylib-cr` anyways
+    #
     # ```
-    # 
+    # require "wa-cr/raylib"
+    #
+    # Raylib.init_window(800, 450, "Image Viewer")
+    # Raylib.set_target_fps(60)
+    #
+    # my_graphic = WAD::Graphic.parse("Path/To/MyGraphic.lmp")
+    # my_flat = WAD::Flat.parse("Path/To/MyFlat.lmp")
+    #
+    # palette = my_wad.playpal.palettes[0]
+    #
+    # my_graphic_image = my_graphic.to_image(palette)
+    # my_flat_image = my_flat.to_image(palette)
+    #
+    # # You can't draw images to the screen,
+    # # so you need to load them into a texture.
+    #
+    # # Note that Raylib::Texture2D's can't be set
+    # # as variables until the window has been initialized.
+    # my_graphic_texture = Raylib.load_texture_from_image(my_graphic_image)
+    #
+    # my_flat_texture = Raylib.load_texture_from_image(my_flat_image)
+    #
+    # until Raylib.close_window?
+    #   Raylib.begin_drawing
+    #   Raylib.clear_background(Raylib::RAYWHITE)
+    #
+    #   Raylib.draw_texture(my_graphic_texture, 0, 0, Raylib::WHITE)
+    #
+    #   # Sets the texture's x to the screen's width minus the width of the
+    #   # texture to have it be in the top right.
+    #   # Textures are drawn from the top left.
+    #   Raylib.draw_texture(
+    #     my_graphic_texture,
+    #     (Raylib.get_screen_width - my_graphic_texture.width),
+    #     0,
+    #     Raylib::White
+    #   )
+    #
+    #   Raylib.end_drawing
+    # end
+    #
+    # Raylib.close_window
     # ```
     module H_UsingWithRaylib
     end

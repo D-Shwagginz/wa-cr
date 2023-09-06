@@ -633,7 +633,7 @@ class WAD
       end
 
       property header : Header = Header.new
-      property offsets : Array(UInt16) = [] of UInt16
+      property offsets : Array(Int16) = [] of Int16
       property blocklists : Array(Blocklist) = [] of Blocklist
 
       # Parses a blockmap list given the io and the size

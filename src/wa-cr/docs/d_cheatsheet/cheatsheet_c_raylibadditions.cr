@@ -1,4 +1,4 @@
-module A_Overview
+module Documentation
   module D_Cheatsheet
     # - Raylib: `RaylibAdditions` - The module housing all of the raylib methods
     #   - `RaylibAdditions::WAD#get_texture(name, palette)` - Gets a texture from a `WAD`'s<br>

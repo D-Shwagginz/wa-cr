@@ -1,4 +1,4 @@
-module A_Overview
+module Documentation
   module C_Usage
     # A `WAD::Directory` is a struct that holds information about a [Lump](https://doomwiki.org/wiki/Lump)<br>
     # It acts as a librarian who tells you the location, name, and size of a book in the library<br>

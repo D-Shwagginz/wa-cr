@@ -1,4 +1,4 @@
-module A_Overview
+module Documentation
   # # Where's all the Crystal? | wa-cr
   #
   # wa-cr, or "Where's all the Crystal?," is a Crystal library used to read in and write

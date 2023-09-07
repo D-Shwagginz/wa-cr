@@ -1,4 +1,4 @@
-module A_Overview
+module Documentation
   module D_Cheatsheet
     # - Reading
     #   - `WAD` - Stores all of the information relating to a WAD

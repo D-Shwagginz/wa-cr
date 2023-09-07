@@ -1,4 +1,4 @@
-module A_Overview
+module Documentation
   # To install wa-cr, just add it to your `shard.yml` dependencies
   # ```yml
   # dependencies:

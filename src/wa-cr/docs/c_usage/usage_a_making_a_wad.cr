@@ -1,4 +1,4 @@
-module A_Overview
+module Documentation
   module C_Usage
     # You can make a `WAD` by either creating a new one or reading a .wad file in.<br>
     # Note that when creating a new `WAD`, you'll need to put its `WAD::Type` in:

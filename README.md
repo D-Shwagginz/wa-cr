@@ -35,7 +35,7 @@ additions, you must have [Raylib](https://github.com/raysan5/raylib/releases) in
 wa-cr includes many methods that make jumping into and out of a .wad or .lmp file very easy.<br>
 Following is a brief overview of what wa-cr can do.<br>
 For a complete overview see wa-cr's [docs](https://sol-vin.github.io/wad-reader/index.html)
-and the [complete overview](https://sol-vin.github.io/wad-reader/A_Overview.html).
+and the [complete overview](https://sol-vin.github.io/wad-reader/Documentation.html).
 
 ### Wad Data
 

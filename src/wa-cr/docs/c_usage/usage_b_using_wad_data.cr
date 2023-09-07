@@ -1,4 +1,4 @@
-module A_Overview
+module Documentation
   module C_Usage
     # Getting data from a `WAD` is fairly simple.<br>
     # Everything in a `WAD` is stored in either a hash or

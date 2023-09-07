@@ -1,4 +1,4 @@
-module A_Overview
+module Documentation
   module D_Cheatsheet
     # - Extras
     #   - `WAD.string_cut(string, len)` - Cuts a string down to a max length

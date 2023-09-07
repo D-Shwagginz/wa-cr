@@ -1,4 +1,4 @@
-module A_Overview
+module Documentation
   module C_Usage
     # wa-cr's `RaylibAdditions` allow converting `WAD::Graphic`s and `WAD::Flat`s
     # to [Raylib Images](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L251)

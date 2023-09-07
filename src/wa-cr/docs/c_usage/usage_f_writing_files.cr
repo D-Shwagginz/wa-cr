@@ -1,4 +1,4 @@
-module A_Overview
+module Documentation
   module C_Usage
     # The wa-cr `WritingAdditions` allow easy writing of [WAD](https://doomwiki.org/wiki/WAD)
     # and [Lump](https://doomwiki.org/wiki/Lump) files.<br>
@@ -13,7 +13,7 @@ module A_Overview
     #
     # NOTE: Writing a `WAD` creates new directories specific to that `WAD`,
     # meaning that while the `WAD::Directory#size` and the `WAD::Directory#file_pos`
-    # are assigned automatically, you still have to make sure you [Make a New Directory](https://sol-vin.github.io/wad-reader/A_Overview/C_Usage/C_OnDirectories.html#making-new-directories)
+    # are assigned automatically, you still have to make sure you [Make a New Directory](https://sol-vin.github.io/wad-reader/Documentation/C_Usage/C_OnDirectories.html#making-new-directories)
     # when creating something new in the wad, or else that new something won't get written out.
     #
     # ```

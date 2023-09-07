@@ -1,4 +1,4 @@
-module A_Overview
+module Documentation
   module D_Cheatsheet
     # - Writing: `WritingAdditions` - The module housing all of the write methods
     #   - `WritingAdditions.file_write(object, file)` - Writes the object to a file. Condenses file writing down to one line

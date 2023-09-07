@@ -15,15 +15,29 @@ class WAD
       property b : UInt8 = 0_u8
     end
 
+    # Parses a playpal file given the filename
+    #
+    # Opens a playpal file and parses it:
+    # ```
+    # my_playpal = WAD::Playpal.parse("Path/To/Playpal")
+    # ```
+    def self.parse(filename : String | Path) : Playpal
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Playpal invalid"
+    end
+
     # Parses a playpal file given the io
     #
-    # Example: Opens a playpal io and parses it
+    # Opens a playpal io and parses it:
     # ```
     # File.open("Path/To/Playpal") do |file|
     #   my_playpal = WAD::Playpal.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : Playpal
       playpal = Playpal.new
       colors_per_palette = 256
       amount_of_palettes = 14
@@ -44,7 +58,7 @@ class WAD
 
     # Checks to see if *name* is "PLAYPAL"
     #
-    # Example: Returns true if the name is a playpal
+    # Returns true if the name is a playpal:
     # ```
     # playpal_name = "PLAYPAL"
     # if WAD::Playpal.is_playpal?(playpal_name)
@@ -67,15 +81,29 @@ class WAD
       property table : Array(UInt8) = [] of UInt8
     end
 
+    # Parses a colormap file given the filename
+    #
+    # Opens a colormap file and parses it:
+    # ```
+    # my_colormap = WAD::Colormap.parse("Path/To/Colormap")
+    # ```
+    def self.parse(filename : String | Path) : Colormap
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Colormap invalid"
+    end
+
     # Parses a colormap file given the io
     #
-    # Example: Opens a colormap io and parses it
+    # Opens a colormap io and parses it:
     # ```
     # File.open("Path/To/Colormap") do |file|
     #   my_colormap = WAD::Colormap.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : Colormap
       colormap = Colormap.new
       amount_of_tables = 34
       length_of_table = 256
@@ -92,7 +120,7 @@ class WAD
 
     # Checks to see if *name* is "COLORMAP"
     #
-    # Example: Returns true if the name is a colormap
+    # Returns true if the name is a colormap:
     # ```
     # colormap_name = "COLORMAP"
     # if WAD::Colormap.is_colormap?(genmidi_name)
@@ -108,22 +136,40 @@ class WAD
 
   # The colorful screen shown when Doom exits.
   class EnDoom
+    # An array of all the characters in the EnDoom
     property characters : Array(EnDoomChars) = [] of EnDoomChars
 
+    # A character in the EnDoom
     struct EnDoomChars
+      # The character's ascii value
       property ascii_value : UInt8 = 0_u8
+      # The character's color
       property color : UInt8 = 0_u8
+    end
+
+    # Parses a endoom file given the filename
+    #
+    # Opens a endoom file and parses it:
+    # ```
+    # my_endoom = WAD::EnDoom.parse("Path/To/EnDoom")
+    # ```
+    def self.parse(filename : String | Path) : EnDoom
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "EnDoom invalid"
     end
 
     # Parses a endoom file given the io
     #
-    # Example: Opens a endoom io and parses it
+    # Opens a endoom io and parses it:
     # ```
     # File.open("Path/To/EnDoom") do |file|
     #   my_endoom = WAD::EnDoom.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : EnDoom
       endoom = EnDoom.new
       num_of_chars = 2000
 
@@ -140,7 +186,7 @@ class WAD
 
     # Checks to see if *name* is "ENDDOOM"
     #
-    # Example: Returns true if the name is a endoom
+    # Returns true if the name is a endoom:
     # ```
     # endoom_name = "ENDOOM"
     # if WAD::EnDoom.is_endoom?(endoom_name)
@@ -180,15 +226,29 @@ class WAD
       property colormap : Int16 = 0_i16
     end
 
+    # Parses a texture map file given the filename
+    #
+    # Opens a texture map file and parses it:
+    # ```
+    # my_texturemap = WAD::TextureX.parse("Path/To/TextureMap")
+    # ```
+    def self.parse(filename : String | Path) : TextureX
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Texture map invalid"
+    end
+
     # Parses a texture map file given the io
     #
-    # Example: Opens a texture map io and parses it
+    # Opens a texture map io and parses it:
     # ```
     # File.open("Path/To/TextureMap") do |file|
     #   my_texturemap = WAD::TextureX.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : TextureX
       texturex = TextureX.new
       texturex.numtextures = io.read_bytes(Int32, IO::ByteFormat::LittleEndian)
 
@@ -224,7 +284,7 @@ class WAD
 
     # Checks to see if *name* is "TEXTUREx"
     #
-    # Example: Returns true if the name is a texture map
+    # Returns true if the name is a texture map:
     # ```
     # texturemap_name = "TEXTURE1"
     # if WAD::TextureX.is_texturex?(texturemap_name)
@@ -243,6 +303,20 @@ class WAD
     property num_patches : Int32 = 0_i32
     property patches : Array(String) = [] of String
 
+    # Parses a pnames file given the filename
+    #
+    # Example: Opens a pnames file and parses it
+    # ```
+    # my_pnames = WAD::Pnames.parse("Path/To/Pnames")
+    # ```
+    def self.parse(filename : String | Path) : Pnames
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Pnames invalid"
+    end
+
     # Parses a pnames file given the io
     #
     # Example: Opens a pnames io and parses it
@@ -251,7 +325,7 @@ class WAD
     #   my_pnames = WAD::Pnames.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : Pnames
       pnames = Pnames.new
 
       pnames.num_patches = io.read_bytes(Int32, IO::ByteFormat::LittleEndian)
@@ -304,6 +378,10 @@ class WAD
   end
 
   # A WAD graphic
+  #
+  # NOTE: Graphic has no `is_graphic?` method.
+  # Instead, `Graphic#parse` will return `nil` if
+  # *io* is not a valid graphic
   class Graphic
     property width : UInt16 = 0_u16
     property height : UInt16 = 0_u16
@@ -323,16 +401,31 @@ class WAD
       end
     end
 
-    # Parses a graphic file given the io, the start of the file, and the size of the file
+    # Parses a graphic file given the filename
     #
-    # Example: Opens a graphic io and parses it
+    # Opens a graphic file and parses it:
+    # ```
+    # my_graphic = WAD::Graphic.parse("Path/To/Graphic")
+    # ```
+    def self.parse(filename : String | Path) : Graphic | Nil
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Graphic invalid"
+    end
+
+    # Parses a graphic file given the file
+    #
+    # Opens a graphic file and parses it:
     # ```
     # File.open("Path/To/Graphic") do |file|
-    #   my_graphic = WAD::Graphic.parse(file, 0, file.size)
+    #   my_graphic = WAD::Graphic.parse(file)
     # end
     # ```
-    def self.parse(file : File | IO, file_pos : Int, size : Int)
+    def self.parse(file : File, file_pos : Int = 0, size : Int = -1) : Graphic | Nil
       begin
+        size = file.size if size < 0
         graphic_parse = GraphicParse.new
         graphic = Graphic.new
         file.read_at(file_pos, size) do |g_io|
@@ -418,6 +511,7 @@ class WAD
       end
     end
 
+    # :nodoc:
     # Parses pixel stuff for parsing a graphic.
     # Used because of a bug in the Crystal compiler
     def self.pixel_parse(pixel_column, column, post, io)
@@ -435,7 +529,7 @@ class WAD
 
     # Checks to see if *name* is "S_START".
     #
-    # Example: Returns true if the name is a sprite marker start
+    # Returns true if the name is a sprite marker start:
     # ```
     # sprite_mark_name = "S_START"
     # if WAD::Graphic.is_sprite_mark_start?(sprite_mark_name)
@@ -450,7 +544,7 @@ class WAD
 
     # Checks to see if *name* is "S_END".
     #
-    # Example: Returns true if the name is a sprite marker end
+    # Returns true if the name is a sprite marker end:
     # ```
     # sprite_mark_name = "S_END"
     # if WAD::Graphic.is_sprite_mark_end?(sprite_mark_name)
@@ -475,15 +569,29 @@ class WAD
       colors[x + y * width]
     end
 
+    # Parses a flat file given the filename
+    #
+    # Opens a flat file and parses it:
+    # ```
+    # my_flat = WAD::Flat.parse("Path/To/Flat")
+    # ```
+    def self.parse(filename : String | Path) : Flat
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Flat invalid"
+    end
+
     # Parses a flat file given the io
     #
-    # Example: Opens a flat io and parses it
+    # Opens a flat io and parses it:
     # ```
     # File.open("Path/To/Flat") do |file|
     #   my_flat = WAD::Flat.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : Flat
       flat = Flat.new
 
       flat.lump_bytes.times do
@@ -495,7 +603,7 @@ class WAD
 
     # Checks to see if *name* is "F_START".
     #
-    # Example: Returns true if the name is a flat marker start
+    # Returns true if the name is a flat marker start:
     # ```
     # flat_mark_name = "F_START"
     # if WAD::Flat.is_flat_mark_start?(flat_mark_name)
@@ -510,7 +618,7 @@ class WAD
 
     # Checks to see if *name* is "F_END".
     #
-    # Example: Returns true if the name is a flat marker end
+    # Returns true if the name is a flat marker end:
     # ```
     # flat_mark_name = "F_END"
     # if WAD::Flat.is_flat_mark_end?(flat_mark_name)

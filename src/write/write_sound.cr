@@ -1,13 +1,26 @@
-class WAD
+module WritingAdditions
   # A pc speaker sound effect.
-  class PcSound
+  module PcSound
     # Writes a pc sound given an output io and returns the size of the written lump
     #
-    # Example: Writes a pc sound in *mywad* to a file
+    # Writes a pc sound in *my_wad* to a file:
     # ```
-    # mywad = WAD.read("./rsrc/DOOM.WAD")
-    # File.open("./rsrc/pcsound.lmp", "w+") do |file|
-    #   mywad.pcsound.values[0].write(file)
+    # my_wad = WAD.read("Path/To/Wad")
+    # my_wad.pcsounds.["MyPcSound"].write("Path/To/pcsound.lmp")
+    # ```
+    def write(file : String | Path) : UInt32
+      File.open(file, "w+") do |file|
+        return write(file)
+      end
+    end
+
+    # Writes a pc sound given an output io and returns the size of the written lump
+    #
+    # Writes a pc sound in *my_wad* to a file:
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    # File.open("Path/To/pcsound.lmp", "w+") do |file|
+    #   my_wad.pcsounds.["MyPcSound"].write(file)
     # end
     # ```
     def write(io : IO) : UInt32
@@ -27,14 +40,27 @@ class WAD
   end
 
   # A normal sound effect.
-  class Sound
+  module Sound
     # Writes a sound given an output io and returns the size of the written lump
     #
-    # Example: Writes a sound in *mywad* to a file
+    # Writes a sound in *my_wad* to a file:
     # ```
-    # mywad = WAD.read("./rsrc/DOOM.WAD")
-    # File.open("./rsrc/sound.lmp", "w+") do |file|
-    #   mywad.sound.values[0].write(file)
+    # my_wad = WAD.read("Path/To/Wad")
+    # my_wad.sounds["MySound"].write("Path/To/sound.lmp")
+    # ```
+    def write(file : String | Path) : UInt32
+      File.open(file, "w+") do |file|
+        return write(file)
+      end
+    end
+
+    # Writes a sound given an output io and returns the size of the written lump
+    #
+    # Writes a sound in *my_wad* to a file:
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    # File.open("Path/To/sound.lmp", "w+") do |file|
+    #   my_wad.sounds["MySound"].write(file)
     # end
     # ```
     def write(io : IO) : UInt32
@@ -51,7 +77,7 @@ class WAD
       io.write_bytes(0.to_u16, IO::ByteFormat::LittleEndian)
       lump_size += 2_u32
 
-      PAD_BYTES.times do
+      ::WAD::Sound::PAD_BYTES.times do
         io.write_bytes(samples[0].to_u8, IO::ByteFormat::LittleEndian)
         lump_size += 1_u32
       end
@@ -61,7 +87,7 @@ class WAD
         lump_size += 1_u32
       end
 
-      PAD_BYTES.times do
+      ::WAD::Sound::PAD_BYTES.times do
         io.write_bytes(samples[-1].to_u8, IO::ByteFormat::LittleEndian)
         lump_size += 1_u32
       end

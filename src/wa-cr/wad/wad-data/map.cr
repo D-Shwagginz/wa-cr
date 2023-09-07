@@ -28,21 +28,21 @@ class WAD
     property blockmap_directory : Directory = Directory.new
 
     # The parsed things lump
-    property things : Array(Things) = [] of Things
+    property things : Array(Thing) = [] of Thing
     # The parsed linedefs lump
-    property linedefs : Array(Linedefs) = [] of Linedefs
+    property linedefs : Array(Linedef) = [] of Linedef
     # The parsed sidedefs lump
-    property sidedefs : Array(Sidedefs) = [] of Sidedefs
+    property sidedefs : Array(Sidedef) = [] of Sidedef
     # The parsed vertexes lump
-    property vertexes : Array(Vertexes) = [] of Vertexes
+    property vertexes : Array(Vertex) = [] of Vertex
     # The parsed segs lump
-    property segs : Array(Segs) = [] of Segs
+    property segs : Array(Seg) = [] of Seg
     # The parsed ssectors lump
-    property ssectors : Array(Ssectors) = [] of Ssectors
+    property ssectors : Array(Ssector) = [] of Ssector
     # The parsed nodes lump
-    property nodes : Array(Nodes) = [] of Nodes
+    property nodes : Array(Node) = [] of Node
     # The parsed sectors lump
-    property sectors : Array(Sectors) = [] of Sectors
+    property sectors : Array(Sector) = [] of Sector
     # The parsed reject lump
     property reject : Reject = Reject.new
     # The parsed blockmap lump
@@ -52,24 +52,38 @@ class WAD
     end
 
     # Structure of a thing.
-    struct Things
+    struct Thing
       property x_position : Int16 = 0_i16
       property y_position : Int16 = 0_i16
       property angle_facing : Int16 = 0_i16
       property thing_type : Int16 = 0_i16
       property flags : Int16 = 0_i16
 
+      # Parses a things list given the filename
+      #
+      # Opens a things lump and parses it:
+      # ```
+      # my_things = WAD::Map::Thing.parse("Path/To/Thing")
+      # ```
+      def self.parse(filename : String | Path) : Array(Thing)
+        File.open(filename) do |file|
+          return self.parse(file, file.size)
+        end
+
+        raise "Thing invalid"
+      end
+
       # Parses a things list given the io and the size
       #
-      # Example: Opens a things lump and parses it
+      # Opens a things lump and parses it:
       # ```
-      # File.open("Path/To/Things") do |file|
-      #   my_things = WAD::Map::Things.parse(file)
+      # File.open("Path/To/Thing") do |file|
+      #   my_things = WAD::Map::Thing.parse(file, file.size)
       # end
       # ```
-      def self.parse(io : IO, lump_size : Int) : Array(Things)
+      def self.parse(io : IO, lump_size : Int) : Array(Thing)
         # Creates a list for all things that will be parsed from the lump.
-        parsed_things = [] of Things
+        parsed_things = [] of Thing
         # Sets the index to loop through.
         things_index = 0
         # Sets the length in bytes that each entry is.
@@ -77,7 +91,7 @@ class WAD
         # Loops while the length of the current index is smaller than the lump size.
         while things_index*entry_length < lump_size
           # Creates a new thing.
-          thing = Things.new
+          thing = Thing.new
           # Reads the data.
           thing.x_position = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           thing.y_position = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
@@ -95,7 +109,7 @@ class WAD
     end
 
     # Structure of a linedef.
-    struct Linedefs
+    struct Linedef
       property start_vertex : Int16 = 0_i16
       property end_vertex : Int16 = 0_i16
       property flags : Int16 = 0_i16
@@ -104,17 +118,31 @@ class WAD
       property front_sidedef : Int16 = 0_i16
       property back_sidedef : Int16 = 0_i16
 
+      # Parses a linedefs list given the filename
+      #
+      # Opens a linedefs lump and parses it:
+      # ```
+      # my_linedefs = WAD::Map::Linedef.parse("Path/To/Linedef")
+      # ```
+      def self.parse(filename : String | Path) : Array(Linedef)
+        File.open(filename) do |file|
+          return self.parse(file, file.size)
+        end
+
+        raise "Linedef invalid"
+      end
+
       # Parses a linedefs list given the io and the size
       #
-      # Example: Opens a linedefs lump and parses it
+      # Opens a linedefs lump and parses it:
       # ```
-      # File.open("Path/To/Linedefs") do |file|
-      #   my_linedefs = WAD::Map::Linedefs.parse(file)
+      # File.open("Path/To/Linedef") do |file|
+      #   my_linedefs = WAD::Map::Linedef.parse(file, file.size)
       # end
       # ```
-      def self.parse(io : IO, lump_size : Int) : Array(Linedefs)
+      def self.parse(io : IO, lump_size : Int) : Array(Linedef)
         # Creates a list for all linedefs that will be parsed from the lump.
-        parsed_linedefs = [] of Linedefs
+        parsed_linedefs = [] of Linedef
         # Sets the index to loop through.
         linedefs_index = 0
         # Sets the length in bytes that each entry is.
@@ -122,7 +150,7 @@ class WAD
         # Loops while the length of the current index is smaller than the lump size.
         while linedefs_index*entry_length < lump_size
           # Creates a new linedef.
-          linedef = Linedefs.new
+          linedef = Linedef.new
           # Reads the data.
           linedef.start_vertex = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           linedef.end_vertex = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
@@ -142,7 +170,7 @@ class WAD
     end
 
     # Structure of a sidedef.
-    struct Sidedefs
+    struct Sidedef
       property x_offset : Int16 = 0_i16
       property y_offset : Int16 = 0_i16
       property name_tex_up : String = ""
@@ -151,17 +179,31 @@ class WAD
       # Sector number this sidedef 'faces'.
       property facing_sector_num : Int16 = 0_i16
 
+      # Parses a sidedefs list given the filename
+      #
+      # Opens a sidedefs lump and parses it:
+      # ```
+      # my_sidedefs = WAD::Map::Sidedef.parse("Path/To/Sidedef")
+      # ```
+      def self.parse(filename : String | Path) : Array(Sidedef)
+        File.open(filename) do |file|
+          return self.parse(file, file.size)
+        end
+
+        raise "Sidedef invalid"
+      end
+
       # Parses a sidedefs list given the io and the size
       #
-      # Example: Opens a sidedefs lump and parses it
+      # Opens a sidedefs lump and parses it:
       # ```
-      # File.open("Path/To/Sidedefs") do |file|
-      #   my_sidedefs = WAD::Map::Sidedefs.parse(file)
+      # File.open("Path/To/Sidedef") do |file|
+      #   my_sidedefs = WAD::Map::Sidedef.parse(file, file.size)
       # end
       # ```
-      def self.parse(io : IO, lump_size : Int) : Array(Sidedefs)
+      def self.parse(io : IO, lump_size : Int) : Array(Sidedef)
         # Creates a list for all sidedefs that will be parsed from the lump.
-        parsed_sidedefs = [] of Sidedefs
+        parsed_sidedefs = [] of Sidedef
         # Sets the index to loop through.
         sidedefs_index = 0
         # Sets the length in bytes that each entry is.
@@ -169,7 +211,7 @@ class WAD
         # Loops while the length of the current index is smaller than the lump size.
         while sidedefs_index*entry_length < lump_size
           # Creates a new sidedef.
-          sidedef = Sidedefs.new
+          sidedef = Sidedef.new
           # Reads the data.
           sidedef.x_offset = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           sidedef.y_offset = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
@@ -188,21 +230,35 @@ class WAD
     end
 
     # Structure of a vertex.
-    struct Vertexes
+    struct Vertex
       property x_position : Int16 = 0_i16
       property y_position : Int16 = 0_i16
 
+      # Parses a vertexes list given the filename
+      #
+      # Opens a vertexes lump and parses it:
+      # ```
+      # my_vertexes = WAD::Map::Vertex.parse("Path/To/Vertex")
+      # ```
+      def self.parse(filename : String | Path) : Array(Vertex)
+        File.open(filename) do |file|
+          return self.parse(file, file.size)
+        end
+
+        raise "Vertex invalid"
+      end
+
       # Parses a vertexes list given the io and the size
       #
-      # Example: Opens a vertexes lump and parses it
+      # Opens a vertexes lump and parses it:
       # ```
-      # File.open("Path/To/Vertexes") do |file|
-      #   my_vertexes = WAD::Map::Vertexes.parse(file)
+      # File.open("Path/To/Vertex") do |file|
+      #   my_vertexes = WAD::Map::Vertex.parse(file, file.size)
       # end
       # ```
-      def self.parse(io : IO, lump_size : Int) : Array(Vertexes)
+      def self.parse(io : IO, lump_size : Int) : Array(Vertex)
         # Creates a list for all vertexes that will be parsed from the lump.
-        parsed_vertexes = [] of Vertexes
+        parsed_vertexes = [] of Vertex
         # Sets the index to loop through.
         vertexes_index = 0
         # Sets the length in bytes that each entry is.
@@ -210,7 +266,7 @@ class WAD
         # Loops while the length of the current index is smaller than the lump size.
         while vertexes_index*entry_length < lump_size
           # Creates a new vertex.
-          vertex = Vertexes.new
+          vertex = Vertex.new
           # Reads the data.
           vertex.x_position = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           vertex.y_position = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
@@ -225,7 +281,7 @@ class WAD
     end
 
     # Structure of a seg.
-    struct Segs
+    struct Seg
       property start_vertex_num : Int16 = 0_i16
       property end_vertex_num : Int16 = 0_i16
       # Angle, full circle is -32768 to 32767.
@@ -236,17 +292,31 @@ class WAD
       # Offset, distance along linedef to start of seg.
       property offset : Int16 = 0_i16
 
+      # Parses a segs list given the filename
+      #
+      # Opens a segs lump and parses it:
+      # ```
+      # my_segs = WAD::Map::Seg.parse("Path/To/Seg")
+      # ```
+      def self.parse(filename : String | Path) : Array(Seg)
+        File.open(filename) do |file|
+          return self.parse(file, file.size)
+        end
+
+        raise "Seg invalid"
+      end
+
       # Parses a segs list given the io and the size
       #
-      # Example: Opens a segs lump and parses it
+      # Opens a segs lump and parses it:
       # ```
-      # File.open("Path/To/Segs") do |file|
-      #   my_segs = WAD::Map::Segs.parse(file)
+      # File.open("Path/To/Seg") do |file|
+      #   my_segs = WAD::Map::Seg.parse(file, file.size)
       # end
       # ```
-      def self.parse(io : IO, lump_size : Int) : Array(Segs)
+      def self.parse(io : IO, lump_size : Int) : Array(Seg)
         # Creates a list for all segs that will be parsed from the lump.
-        parsed_segs = [] of Segs
+        parsed_segs = [] of Seg
         # Sets the index to loop through.
         segs_index = 0
         # Sets the length in bytes that each entry is.
@@ -254,7 +324,7 @@ class WAD
         # Loops while the length of the current index is smaller than the lump size.
         while segs_index*entry_length < lump_size
           # Creates a new seg.
-          seg = Segs.new
+          seg = Seg.new
           # Reads the data.
           seg.start_vertex_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
 
@@ -278,21 +348,35 @@ class WAD
     end
 
     # Structure of a ssector.
-    struct Ssectors
+    struct Ssector
       property seg_count : Int16 = 0_i16
       property first_seg_num : Int16 = 0_i16
 
+      # Parses a ssectors list given the filename
+      #
+      # Opens a ssectors lump and parses it:
+      # ```
+      # my_ssectors = WAD::Map::Ssector.parse("Path/To/Ssector")
+      # ```
+      def self.parse(filename : String | Path) : Array(Ssector)
+        File.open(filename) do |file|
+          return self.parse(file, file.size)
+        end
+
+        raise "Ssector invalid"
+      end
+
       # Parses a ssectors list given the io and the size
       #
-      # Example: Opens a ssectors lump and parses it
+      # Opens a ssectors lump and parses it:
       # ```
-      # File.open("Path/To/Ssectors") do |file|
-      #   my_ssectors = WAD::Map::Ssectors.parse(file)
+      # File.open("Path/To/Ssector") do |file|
+      #   my_ssectors = WAD::Map::Ssector.parse(file, file.size)
       # end
       # ```
-      def self.parse(io : IO, lump_size : Int) : Array(Ssectors)
+      def self.parse(io : IO, lump_size : Int) : Array(Ssector)
         # Creates a list for all ssectors that will be parsed from the lump.
-        parsed_ssectors = [] of Ssectors
+        parsed_ssectors = [] of Ssector
         # Sets the index to loop through.
         ssectors_index = 0
         # Sets the length in bytes that each entry is.
@@ -300,7 +384,7 @@ class WAD
         # Loops while the length of the current index is smaller than the lump size.
         while ssectors_index*entry_length < lump_size
           # Creates a new ssector.
-          ssector = Ssectors.new
+          ssector = Ssector.new
           # Reads the data
           ssector.seg_count = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           ssector.first_seg_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
@@ -315,7 +399,7 @@ class WAD
     end
 
     # Structure of a node.
-    struct Nodes
+    struct Node
       # X coordinate of partition line start.
       property x_coord : Int16 = 0_i16
       # Y coordinate of partition line start.
@@ -332,22 +416,37 @@ class WAD
       # giving the upper and lower bounds of the y coordinate and the lower and upper
       # bounds of the x coordinate (in that order).
       property right_bound_box : Array(Int16) = [] of Int16
+      # :ditto:
       property left_bound_box : Array(Int16) = [] of Int16
 
       property right_child : Int16 = 0_i16
       property left_child : Int16 = 0_i16
 
+      # Parses a nodes list given the filename
+      #
+      # Opens a nodes lump and parses it:
+      # ```
+      # my_nodes = WAD::Map::Node.parse("Path/To/Node")
+      # ```
+      def self.parse(filename : String | Path) : Array(Node)
+        File.open(filename) do |file|
+          return self.parse(file, file.size)
+        end
+
+        raise "Node invalid"
+      end
+
       # Parses a nodes list given the io and the size
       #
-      # Example: Opens a nodes lump and parses it
+      # Opens a nodes lump and parses it:
       # ```
-      # File.open("Path/To/Nodes") do |file|
-      #   my_nodes = WAD::Map::Nodes.parse(file)
+      # File.open("Path/To/Node") do |file|
+      #   my_nodes = WAD::Map::Node.parse(file, file.size)
       # end
       # ```
-      def self.parse(io : IO, lump_size : Int) : Array(Nodes)
+      def self.parse(io : IO, lump_size : Int) : Array(Node)
         # Creates a list for all nodes that will be parsed from the lump.
-        parsed_nodes = [] of Nodes
+        parsed_nodes = [] of Node
         # Sets the index to loop trough.
         nodes_index = 0
         # Sets the length in bytes that each entry is.
@@ -355,7 +454,7 @@ class WAD
         # Loops while the length of the current index is smaller than the lump size.
         while nodes_index*entry_length < lump_size
           # Creates a new node.
-          node = Nodes.new
+          node = Node.new
           # Reads the data.
           node.x_coord = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           node.y_coord = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
@@ -387,7 +486,7 @@ class WAD
     end
 
     # Structure of a sector.
-    struct Sectors
+    struct Sector
       property floor_height : Int16 = 0_i16
       property ceiling_height : Int16 = 0_i16
       property name_tex_floor : String = ""
@@ -396,17 +495,31 @@ class WAD
       property special_type : Int16 = 0_i16
       property tag_num : Int16 = 0_i16
 
+      # Parses a sectors list given the filename
+      #
+      # Opens a sectors lump and parses it:
+      # ```
+      # my_sectors = WAD::Map::Sector.parse("Path/To/Sector")
+      # ```
+      def self.parse(filename : String | Path) : Array(Sector)
+        File.open(filename) do |file|
+          return self.parse(file, file.size)
+        end
+
+        raise "Sector invalid"
+      end
+
       # Parses a sectors list given the io and the size
       #
-      # Example: Opens a sectors lump and parses it
+      # Opens a sectors lump and parses it:
       # ```
-      # File.open("Path/To/Sectors") do |file|
-      #   my_sectors = WAD::Map::Sectors.parse(file)
+      # File.open("Path/To/Sector") do |file|
+      #   my_sectors = WAD::Map::Sector.parse(file, file.size)
       # end
       # ```
-      def self.parse(io : IO, lump_size : Int) : Array(Sectors)
+      def self.parse(io : IO, lump_size : Int) : Array(Sector)
         # Creates a list for all sectors that will be parsed from the lump.
-        parsed_sectors = [] of Sectors
+        parsed_sectors = [] of Sector
         # Sets the index to loop through.
         sectors_index = 0
         # Sets the length in bytes that each entry is.
@@ -414,7 +527,7 @@ class WAD
         # Loops while the length of the current index is smaller than the lump size.
         while sectors_index*entry_length < lump_size
           # Create a new sector.
-          sector = Sectors.new
+          sector = Sector.new
           # Reads the data.
           sector.floor_height = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           sector.ceiling_height = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
@@ -453,7 +566,7 @@ class WAD
       # Example: Opens a reject lump and parses it
       # ```
       # File.open("Path/To/Reject") do |file|
-      #   my_reject = WAD::Map::Reject.parse(file)
+      #   my_reject = WAD::Map::Reject.parse(file, file.size)
       # end
       # ```
       def self.parse(io : IO, lump_size : Int, sectors : Int = 0) : Reject
@@ -525,10 +638,10 @@ class WAD
 
       # Parses a blockmap list given the io and the size
       #
-      # Example: Opens a blockmap lump and parses it
+      # Opens a blockmap lump and parses it:
       # ```
       # File.open("Path/To/Blockmap") do |file|
-      #   my_blockmap = WAD::Map::Blockmap.parse(file)
+      #   my_blockmap = WAD::Map::Blockmap.parse(file, file.size)
       # end
       # ```
       def self.parse(io : IO, lump_size : Int) : Blockmap
@@ -576,7 +689,7 @@ class WAD
 
     # Checks to see if *name* is a map with the name format 'ExMx' or 'MAPxx'.
     #
-    # Example: Returns true if the name is a map
+    # Returns true if the name is a map:
     # ```
     # map_name = "E1M1"
     # if WAD::Map.is_map?(map_name)
@@ -589,9 +702,7 @@ class WAD
       name =~ /^E\dM\d/ || name =~ /^MAP\d\d/
     end
 
-    # Inserts a property into the map based off *times_inserted*.
-    #
-    # Example: Inserts a directory based off of the property
+    # Inserts a directory based off of the property:
     # ```
     # map_name = "E1M1"
     # if WAD::Map.is_map?(map_name)

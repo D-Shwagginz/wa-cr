@@ -1,16 +1,26 @@
-class WAD
+module WritingAdditions
   # The set of color palettes
-  class Playpal
+  module Playpal
     # Writes a playpal given an output io and returns the size of the written lump
     #
-    # Example: Writes a playpal in *mywad* to a file
+    # Writes a playpal in *my_wad* to a file:
     # ```
-    # mywad = WAD.read("./rsrc/DOOM.WAD")
-    # File.open("./rsrc/playpal.lmp", "w+") do |file|
-    #   mywad.playpal.write(file)
-    #   directory = WAD::Directory.new
-    #   directory.name = "MYPLAYPL"
-    #   doom1wad.directories << directory
+    # my_wad = WAD.read("Path/To/Wad")
+    # my_wad.playpal.write("Path/To/Playpal.lmp")
+    # ```
+    def write(file : String | Path) : UInt32
+      File.open(file, "w+") do |file|
+        return write(file)
+      end
+    end
+
+    # Writes a playpal given an output io and returns the size of the written lump
+    #
+    # Writes a playpal in *my_wad* to a file:
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    # File.open("Path/To/Playpal.lmp", "w+") do |file|
+    #   my_wad.playpal.write(file)
     # end
     # ```
     def write(io : IO) : UInt32
@@ -30,15 +40,28 @@ class WAD
     end
   end
 
-  # The color map
-  class Colormap
+  # Writes out a colormap
+  module Colormap
     # Writes a colormap given an output io and returns the size of the written lump
     #
-    # Example: Writes a colormap in *mywad* to a file
+    # Writes a colormap in *my_wad* to a file:
     # ```
-    # mywad = WAD.read("./rsrc/DOOM.WAD")
-    # File.open("./rsrc/colormap.lmp", "w+") do |file|
-    #   mywad.colormap.write(file)
+    # my_wad = WAD.read("Path/To/Wad")
+    # my_wad.colormap.write("Path/To/my_colormap.lmp")
+    # ```
+    def write(file : String | Path) : UInt32
+      File.open(file, "w+") do |file|
+        return write(file)
+      end
+    end
+
+    # Writes a colormap given an output io and returns the size of the written lump
+    #
+    # Writes a colormap in *my_wad* to a file:
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    # File.open("Path/To/colormap.lmp", "w+") do |file|
+    #   my_wad.colormap.write(file)
     # end
     # ```
     def write(io : IO) : UInt32
@@ -54,14 +77,27 @@ class WAD
   end
 
   # "The colorful screen shown when Doom exits."
-  class EnDoom
+  module EnDoom
     # Writes a endoom given an output io and returns the size of the written lump
     #
-    # Example: Writes a endoom in *mywad* to a file
+    # Writes a endoom in *my_wad* to a file:
     # ```
-    # mywad = WAD.read("./rsrc/DOOM.WAD")
-    # File.open("./rsrc/endoom.lmp", "w+") do |file|
-    #   mywad.endoom.write(file)
+    # my_wad = WAD.read("Path/To/Wad")
+    # my_wad.endoom.write("Path/To/my_endoom.lmp")
+    # ```
+    def write(file : String | Path) : UInt32
+      File.open(file, "w+") do |file|
+        return write(file)
+      end
+    end
+
+    # Writes a endoom given an output io and returns the size of the written lump
+    #
+    # Writes a endoom in *my_wad* to a file:
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    # File.open("Path/To/my_endoom.lmp", "w+") do |file|
+    #   my_wad.endoom.write(file)
     # end
     # ```
     def write(io : IO) : UInt32
@@ -78,14 +114,27 @@ class WAD
   end
 
   # Defines how wall patches from the WAD file should combine to form wall textures.
-  class TextureX
+  module TextureX
     # Writes a texture map given an output io and returns the size of the written lump
     #
-    # Example: Writes a texture map in *mywad* to a file
+    # Writes a texture map in *my_wad* to a file:
     # ```
-    # mywad = WAD.read("./rsrc/DOOM.WAD")
-    # File.open("./rsrc/texturex.lmp", "w+") do |file|
-    #   mywad.texmaps.values[0].write(file)
+    # my_wad = WAD.read("Path/To/Wad")
+    # my_wad.texmapx.["MyTexMap"].write("Path/To/texturex.lmp")
+    # ```
+    def write(file : String | Path) : UInt32
+      File.open(file, "w+") do |file|
+        return write(file)
+      end
+    end
+
+    # Writes a texture map given an output io and returns the size of the written lump
+    #
+    # Writes a texture map in *my_wad* to a file:
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    # File.open(".Path/To/texturex.lmp", "w+") do |file|
+    #   my_wad.texmaps["MyTexMap"].write(file)
     # end
     # ```
     def write(io : IO) : UInt32
@@ -101,7 +150,7 @@ class WAD
 
       mtextures.each do |texture|
         name_slice = Bytes.new(8)
-        name_slice.copy_from(WAD.slice_cut(WAD.string_cut(texture.name).to_slice))
+        name_slice.copy_from(::WAD.slice_cut(::WAD.string_cut(texture.name).to_slice))
         io.write(name_slice)
         lump_size += 8_u32
 
@@ -140,14 +189,27 @@ class WAD
   end
 
   # Includes all the names for wall patches.
-  class Pnames
+  module Pnames
     # Writes a pnames given an output io and returns the size of the written lump
     #
-    # Example: Writes a pnames in *mywad* to a file
+    # Writes a pnames in *my_wad* to a file:
     # ```
-    # mywad = WAD.read("./rsrc/DOOM.WAD")
-    # File.open("./rsrc/pnames.lmp", "w+") do |file|
-    #   mywad.pnames.write(file)
+    # my_wad = WAD.read("Path/To/Wad")
+    # my_wad.pnames.write("Path/To/pnames.lmp")
+    # ```
+    def write(file : String | Path) : UInt32
+      File.open(file, "w+") do |file|
+        return write(file)
+      end
+    end
+
+    # Writes a pnames given an output io and returns the size of the written lump
+    #
+    # Writes a pnames in *my_wad* to a file:
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    # File.open("Path/To/pnames.lmp", "w+") do |file|
+    #   my_wad.pnames.write(file)
     # end
     # ```
     def write(io : IO) : UInt32
@@ -158,7 +220,7 @@ class WAD
 
       patches.each do |patch|
         name_slice = Bytes.new(8)
-        name_slice.copy_from(WAD.slice_cut(WAD.string_cut(patch).to_slice))
+        name_slice.copy_from(::WAD.slice_cut(::WAD.string_cut(patch).to_slice))
         io.write(name_slice)
         lump_size += 8_u32
       end
@@ -167,17 +229,27 @@ class WAD
   end
 
   # A WAD graphic
-  class Graphic
+  module Graphic
     # Writes a graphic given an output io and returns the size of the written lump
     #
-    # Example: Writes a graphic in *mywad* to a file
+    # Writes a graphic in *my_wad* to a file:
     # ```
-    # mywad = WAD.read("./rsrc/DOOM.WAD")
-    # File.open("./rsrc/graphic.lmp", "w+") do |file|
-    #   mywad.graphic.values[0].write(file)
-    #   directory = WAD::Directory.new
-    #   directory.name = "MYGRAPH"
-    #   doom1wad.directories << directory
+    # my_wad = WAD.read("Path/To/Wad")
+    # my_wad.graphic["MyGraphic"].write("Path/To/Graphic.lmp")
+    # ```
+    def write(file : String | Path) : UInt32
+      File.open(file, "w+") do |file|
+        return write(file)
+      end
+    end
+
+    # Writes a graphic given an output io and returns the size of the written lump
+    #
+    # Writes a graphic in *my_wad* to a file:
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    # File.open("Path/To/Graphic.lmp", "w+") do |file|
+    #   my_wad.graphic["MyGraphic"].write(file)
     # end
     # ```
     def write(io : IO) : UInt32
@@ -286,14 +358,27 @@ class WAD
   end
 
   # A WAD flat
-  class Flat
+  module Flat
+    # Writes a playpal given an output io and returns the size of the written lump
+    #
+    # Writes a playpal in *my_wad* to a file:
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    # my_wad.flats["MyFlat"].write("Path/To/flat.lmp")
+    # ```
+    def write(file : String | Path) : UInt32
+      File.open(file, "w+") do |file|
+        return write(file)
+      end
+    end
+
     # Writes a flat given an output io and returns the size of the written lump
     #
-    # Example: Writes a flat in *mywad* to a file
+    # Writes a flat in *my_wad* to a file:
     # ```
-    # mywad = WAD.read("./rsrc/DOOM.WAD")
-    # File.open("./rsrc/flat.lmp", "w+") do |file|
-    #   mywad.flat.values[0].write(file)
+    # my_wad = WAD.read("Path/To/Wad")
+    # File.open("Path/To/flat.lmp", "w+") do |file|
+    #   my_wad.flats["MyFlat"].write(file)
     # end
     # ```
     def write(io : IO) : UInt32

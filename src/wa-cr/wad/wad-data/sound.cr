@@ -8,13 +8,27 @@ class WAD
 
     # Parses a pc sound lump.
     #
-    # Example: Opens a pc sound io and parses it
+    # Opens a pc sound file and parses it:
+    # ```
+    # my_pcsound = WAD::PcSound.parse("Path/To/PcSound")
+    # ```
+    def self.parse(filename : String | Path) : PcSound
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Pc Sound invalid"
+    end
+
+    # Parses a pc sound lump.
+    #
+    # Opens a pc sound io and parses it:
     # ```
     # File.open("Path/To/PcSound") do |file|
     #   my_pcsound = WAD::PcSound.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : PcSound
       pcsound = PcSound.new
       pcsound.format_num = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
       pcsound.samples_num = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
@@ -29,7 +43,7 @@ class WAD
 
     # Checks to see if *name* is a pc sound with name format 'DPx..x'.
     #
-    # Example: Returns true if the name is a pc sound
+    # Returns true if the name is a pc sound:
     # ```
     # pcsound_name = "DPNOWAY"
     # if WAD::PcSound.is_pcsound?(pcsound_name)
@@ -53,13 +67,27 @@ class WAD
 
     # Parses a sound lump.
     #
-    # Example: Opens a sound io and parses it
+    # Opens a sound file and parses it:
+    # ```
+    # my_sound = WAD::Sound.parse("Path/To/Sound")
+    # ```
+    def self.parse(filename : String | Path) : Sound
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Sound invalid"
+    end
+
+    # Parses a sound lump.
+    #
+    # Opens a sound io and parses it:
     # ```
     # File.open("Path/To/Sound") do |file|
     #   my_sound = WAD::Sound.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : Sound
       sound = Sound.new
       sound.format_num = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
       sound.sample_rate = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
@@ -81,7 +109,7 @@ class WAD
 
     # Checks to see if *name* is a sound with name format 'DSx..x'.
     #
-    # Example: Returns true if the name is a sound
+    # Returns true if the name is a sound:
     # ```
     # sound_name = "DSNOWAY"
     # if WAD::Sound.is_sound?(sound_name)
@@ -94,12 +122,24 @@ class WAD
       !!(name =~ /^DS/)
     end
 
+    # Writes to wav file given an output *file*.
+    #
+    # Writes a 'wav' file from the *my_wad* sound "DSPISTOL":
+    # ```
+    # my_wad.sounds["DSPISTOL"].to_wav("Path/To/MyWav.wav")
+    # ```
+    def to_wav(filename : String | Path)
+      File.open(filename, "w+") do |io|
+        to_wav(io)
+      end
+    end
+
     # Writes to wav file given an output *io*.
     #
-    # Example: Writes a 'wav' file from the *MYWAD* sound with name "DSPISTOL"
+    # Writes a 'wav' file from the *my_wad* sound "DSPISTOL":
     # ```
-    # File.read("./rsrc/sound.wav", "w+") do |io|
-    #   MYWAD.sounds["DSPISTOL"].to_wav(io)
+    # File.open("Path/To/MyWav.wav", "w+") do |io|
+    #   my_wad.sounds["DSPISTOL"].to_wav(io)
     # end
     # ```
     def to_wav(io : IO)

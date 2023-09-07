@@ -69,15 +69,29 @@ class WAD
       property special_mode : Bool = false
     end
 
+    # Parses an file in a demo format
+    #
+    # Reads an file and puts out a demo:
+    # ```
+    # my_demo = WAD::Demo.parse("Path/To/Demo")
+    # ```
+    def self.parse(filename : String | Path) : Demo
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Demo invalid"
+    end
+
     # Parses an io in a demo format
     #
-    # Example: Reads an io and puts out a demo
+    # Reads an io and puts out a demo:
     # ```
     # File.open("Path/To/Demo") do |file|
     #   my_demo = WAD::Demo.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : Demo
       demo = Demo.new
 
       demo.game_version = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
@@ -138,7 +152,7 @@ class WAD
 
     # Checks if the demo is of doom version 1,9
     #
-    # Example: Returns true if an io is a demo
+    # Returns true if an io is a demo:
     # ```
     # File.open("Path/To/Demo") do |file|
     #   if WAD::Demo.is_demo(file)

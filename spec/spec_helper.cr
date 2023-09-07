@@ -1,5 +1,7 @@
 require "spec"
 require "../src/wa-cr"
+require "../src/write"
+require "../src/raylib"
 
 macro def_check(name, content, *parameters)
   def {{name}}(wad : WAD, map_name : String, index : Int{% for value in parameters %} ,{{value}}{% end %})

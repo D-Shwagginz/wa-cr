@@ -5,11 +5,79 @@ require "debug"
   Debug.enabled = true
 {% end %}
 
-# Reads and stores the data of a WAD file.
+# ### Reading a .WAD file's data
+#
+# To simply read in a WAD file, you just call `WAD.read(file : Path | String | IO) : WAD`:
+#
+# ```
+# my_string_wad = WAD.read("Path/To/Wad")
+# my_path_wad = WAD.read(Path["Path/To/Wad"])
+#
+# File.open("Path/To/Wad") do |file|
+#   my_io_wad = WAD.read(file)
+# end
+# ```
+#
+# ### Creating a new `WAD`
+#
+# To create a new `WAD`, you call `WAD.new(type)`, with type being of `WAD::Type`
+#
+# ```
+# my_new_internal_wad = WAD.new(WAD::Type::Internal)
+# my_new_patch_wad = WAD.new(WAD::Type::Patch)
+# ```
+#
+# ### Using the `WAD`'s data
+#
+# wa-cr sorts the the parsed wad's data into easy to use variables.
+#
+# To get the sample rate of the sound *"MYSOUND"*:
+#
+# ```
+# my_wad.sounds["MYSOUND"].sample_rate # => returns the sample rate of the sound
+# ```
+#
+# To get *y_position* of the 34th thing in the map *"MAP23"*:
+#
+# ```
+# # Gets the thing index 33 because it is zero indexed: the 33rd index is the 34th thing
+# my_wad.maps["MAP23"].things[33].y_position # => returns the y_position of the thing
+# ```
+#
+# ### Lumps
+#
+# You can also read in .lmp lump files:
+#
+# NOTE: `Graphic.parse` can take 2 arguments: The file to read and
+# the position of the start of the data (Default is -1. Should almost always be -1 when reading a .lmp)
+# ```
+# my_string_graphic = WAD::Graphic.parse("Path/To/MyGraphic.lmp")
+# my_path_graphic = WAD::Graphic.parse(Path["Path/To/MyGraphic.lmp"])
+#
+# File.open("Path/To/MyGraphic.lmp") do |file|
+#   my_io_graphic = WAD::Graphic.parse(file)
+# end
+# ```
+# ```
+# my_string_flat = WAD::Flat.parse("Path/To/MyFlat.lmp")
+# my_path_flat = WAD::Flat.parse(Path["Path/To/MyFlat.lmp"])
+#
+# File.open("Path/To/MyFlat.lmp") do |file|
+#   my_io_flat = WAD::Flat.parse(file)
+# end
+# ```
+# ```
+# my_string_sound = WAD::Sound.parse("Path/To/MySound.lmp")
+# my_path_sound = WAD::Sound.parse(Path["Path/To/MySound.lmp"])
+#
+# File.open("Path/To/MySound.lmp") do |file|
+#   my_io_sound = WAD::Sound.parse(file)
+# end
+# ```
 class WAD
   # The size of the header in bytes
   HEADER_SIZE = 16
-  # Type of WAD: Either IWAD, PWAD, or Broken.
+  # Type of WAD: Either Internal, IWAD, or Patch, PWAD.
   property type : Type = Type::Broken
   # An integer specifying the number of lumps in the WAD.
   property directories_count : UInt32 = 0_u32
@@ -48,6 +116,9 @@ class WAD
   # Array of all directories in the WAD.
   property directories : Array(Directory) = [] of Directory
 
+  def initialize(@type : Type = Type::Broken)
+  end
+
   # :nodoc:
   # Macro that parses a given *name* for a map.
   # WARNING: Only use at the end of self.read with *name* being a .map parse method
@@ -60,6 +131,13 @@ class WAD
 
   # Creates a new empty directory with *name* and puts it onto the list of directories.
   # WARNING: Directory will not work if *name* is not the correct name of the data
+  #
+  # ```
+  # File.open("Path/To/MySound.lmp", "w+") do |file|
+  #   my_wad.["MYSOUND"] = WAD::Sound.parse(file)
+  #   my_wad.new_dir("MYSOUND")
+  # end
+  # ```
   def new_dir(name : String)
     directory = WAD::Directory.new
     directory.name = name
@@ -73,6 +151,67 @@ class WAD
     Patch
   end
 
+  # Allows easy parsing of lumps into the WAD
+  #
+  # ```
+  # my_wad = WAD.new(WAD::Type::Internal)
+  #
+  # my_wad.add("MyTest", "Sound", "Path/To/SoundTest.lmp")
+  # ```
+  #
+  def add(name : String, type : String, file : Path | String)
+    File.open(file) do |io|
+      add(name, type, io)
+    end
+  end
+
+  # Allows easy parsing of lumps into the WAD
+  #
+  # ```
+  # my_wad = WAD.new(WAD::Type::Internal)
+  #
+  # File.open("Path/To/Sound.lmp") do |file|
+  #   my_wad.add("MyTest", "Sound", file)
+  # end
+  # ```
+  #
+  def add(name : String, type : String, file : IO)
+    case type
+    when "PcSound"
+      pcsounds[name] = PcSound.parse(file)
+      new_dir(name)
+    when "Sound"
+      sounds[name] = Sound.parse(file)
+      new_dir(name)
+    when "Music"
+      music[name] = Music.parse(file)
+      new_dir(name)
+    when "TextureX"
+      texmaps[name] = TextureX.parse(file)
+      new_dir(name)
+    when "Graphic"
+      Graphic.parse(file).try do |graphic|
+        graphics[name] = graphic
+        new_dir(name)
+      end
+    when "Flat"
+      flats[name] = Flat.parse(file)
+      new_dir(name)
+    when "Demo"
+      demos[name] = Demo.parse(file)
+      new_dir(name)
+    else
+      raise "#{type} IS AN INVALID TYPE"
+    end
+  end
+
+  # Reads in a WAD file given the *io*:
+  #
+  # ```
+  # File.open("Path/To/Wad") do |file|
+  #   my_wad = WAD.read(file)
+  # end
+  # ```
   def self.read(file : IO) : WAD
     wad = WAD.new
     start_pos = file.pos.to_u32
@@ -146,14 +285,14 @@ class WAD
           end
 
           # Parses each map lump into *map*.
-          map_parse(things, Things)
-          map_parse(linedefs, Linedefs)
-          map_parse(sidedefs, Sidedefs)
-          map_parse(vertexes, Vertexes)
-          map_parse(segs, Segs)
-          map_parse(ssectors, Ssectors)
-          map_parse(nodes, Nodes)
-          map_parse(sectors, Sectors)
+          map_parse(things, Thing)
+          map_parse(linedefs, Linedef)
+          map_parse(sidedefs, Sidedef)
+          map_parse(vertexes, Vertex)
+          map_parse(segs, Seg)
+          map_parse(ssectors, Ssector)
+          map_parse(nodes, Node)
+          map_parse(sectors, Sector)
           file.read_at(map.reject_directory.file_pos, map.reject_directory.size) do |io|
             map.reject = Map::Reject.parse(io, map.reject_directory.size, map.sectors.size)
           end
@@ -321,11 +460,10 @@ class WAD
     wad
   end
 
-  # Reads in a WAD file given the *filename*.
+  # Reads in a WAD file given the *filename*:
   #
-  # Example:
   # ```
-  # mywad = WAD.read("Path/To/Wad")
+  # my_wad = WAD.read("Path/To/Wad")
   # ```
   def self.read(filename : Path | String) : WAD
     # Opens the *filename* and sets according things.
@@ -336,9 +474,8 @@ class WAD
     raise "WAD invalid"
   end
 
-  # Cuts a string down to length *len* if it is larger than *len*
+  # Cuts a string down to length *len* if it is larger than *len*:
   #
-  # Example:
   # ```
   # WAD.string_cut("Aberdine", 4) # => "Aber"
   # ```
@@ -350,9 +487,24 @@ class WAD
     end
   end
 
-  # Cuts a slice down to length *len* if it is larger than *len*
+  # Replaces all instances of ms-dos name incompatible chars of a string with "~":
   #
-  # Example:
+  # ```
+  # my_string = "My.TestString"
+  # WAD.string_sub_chars(my_string) # => "My~Test~String"
+  # ```
+  def self.string_sub_chars(string : String) : String
+    incompatible_chars = ['"', '*', '+', '.', ',', '/', ':', ';', '<', '=', '>', '?', '\\', '[', ']', '|']
+    new_string = string
+
+    incompatible_chars.each do |char|
+      new_string = new_string.gsub(char, '~')
+    end
+    return new_string
+  end
+
+  # Cuts a slice down to length *len* if it is larger than *len*:
+  #
   # ```
   # my_slice = "My Test Slice".to_slice # => Bytes[77, 121, 32, 84, 101, 115, 116, 32, 83, 108, 105, 99, 101]
   # WAD.slice_cut(my_slice, 5)          # => Bytes[77, 121, 32, 84, 101]

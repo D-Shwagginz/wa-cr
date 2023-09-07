@@ -1,1 +1,1 @@
-require "./wa-cr/wad/**"
+require "./wa-cr/**"

@@ -14,15 +14,29 @@ class WAD
 
     property song = [] of UInt8
 
+    # Parses a music file given the filename
+    #
+    # Opens a music file and parses it:
+    # ```
+    # my_music = WAD::Music.parse("Path/To/Music")
+    # ```
+    def self.parse(filename : String | Path) : Music
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Music invalid"
+    end
+
     # Parses a music file given the io
     #
-    # Example: Opens a music io and parses it
+    # Opens a music io and parses it:
     # ```
     # File.open("Path/To/Music") do |file|
     #   my_music = WAD::Music.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : Music
       music = Music.new
       # Reads the data.
       music.identifier = io.gets(4).to_s
@@ -53,7 +67,7 @@ class WAD
 
     # Checks to see if *name* is music with name format 'D_x..x'.
     #
-    # Example: Returns true if the name is a music
+    # Returns true if the name is a music:
     # ```
     # music_name = "D_E1M1"
     # if WAD::Music.is_music?(music_name)
@@ -81,15 +95,29 @@ class WAD
       property voice2_data : Array(Int8 | Int16) = [] of Int8 | Int16
     end
 
+    # Parses a genmidi file given the filename
+    #
+    # Opens a genmidi file and parses it:
+    # ```
+    # my_genmidi = WAD::Genmidi.parse("Path/To/Genmidi")
+    # ```
+    def self.parse(filename : String | Path) : Genmidi
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Genmidi invalid"
+    end
+
     # Parses a genmidi file given the io
     #
-    # Example: Opens a genmidi io and parses it
+    # Opens a genmidi io and parses it:
     # ```
     # File.open("Path/To/Genmidi") do |file|
     #   my_genmidi = WAD::Genmidi.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : Genmidi
       genmidi = Genmidi.new
       # Reads the file header
       genmidi.header = io.gets(8).to_s
@@ -128,7 +156,7 @@ class WAD
 
     # Checks to see if *name* is "GENMIDI".
     #
-    # Example: Returns true if the name is a genmidi
+    # Returns true if the name is a genmidi:
     # ```
     # genmidi_name = "GENMIDI"
     # if WAD::Genmidi.is_genmidi?(genmidi_name)
@@ -156,15 +184,29 @@ class WAD
       property filename : String = ""
     end
 
+    # Parses a dmxgus file given the filename
+    #
+    # Opens a dmxgus file and parses it:
+    # ```
+    # my_dmxgus = WAD::Dmxgus.parse("Path/To/Dmxgus")
+    # ```
+    def self.parse(filename : String | Path) : Dmxgus
+      File.open(filename) do |file|
+        return self.parse(file)
+      end
+
+      raise "Dmxgus invalid"
+    end
+
     # Parses a dmxgus file given the io
     #
-    # Example: Opens a dmxgus io and parses it
+    # Opens a dmxgus io and parses it:
     # ```
     # File.open("Path/To/Dmxgus") do |file|
     #   my_dmxgus = WAD::Dmxgus.parse(file)
     # end
     # ```
-    def self.parse(io : IO)
+    def self.parse(io : IO) : Dmxgus
       dmxgus = Dmxgus.new
       # Reads each line of the dmxgus
       # NOTE: dmxgus is a text file
@@ -190,7 +232,7 @@ class WAD
 
     # Checks to see if *name* is "DMXGUS"
     #
-    # Example: Returns true if the name is a dmxgus
+    # Returns true if the name is a dmxgus:
     # ```
     # dmxgus_name = "DMXGUS"
     # if WAD::Dmxgus.is_dmxgus?(dmxgus_name)

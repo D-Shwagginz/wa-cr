@@ -1,85 +1,115 @@
 ![logo](logo/wa-cr.png)
+
+<!--
+When adding a class:
+* Add comments to the class and all its methods and variables
+* Add the class to the cheatsheet
+* Explain the class in the docs overview
+-->
+
 # Where's all the Crystal? | wa-cr
 
-Used to parse .wad files into usable Crystal code
-as well as writing out to a .wad or .lmp file or converting files.
+A Crystal library used to parse .wad and .lmp files into usable Crystal code,
+write out to a .wad or .lmp file, and convert file types.
 
 ## Installation
 
 1. Add `wa-cr` to your `shard.yml`:
 ```yml
 dependencies:
-  raylib-cr:
+  wa-cr:
     github: sol-vin/wa-cr
 ```
 
+2. Run `shards install`
+
 ### Raylib Additions
 
-To use the wa-cr Raylib additions you must have raylib installed:
+To use the wa-cr's [Raylib](https://github.com/raysan5/raylib/releases)
+additions, you must have [Raylib](https://github.com/raysan5/raylib/releases) installed:
 
 - Install raylib from [github](https://github.com/raysan5/raylib/releases).
 
 ## Usage
 
-wa-cr includes many methods that make jumping into and out of a .wad file very easy.<br>
+wa-cr includes many methods that make jumping into and out of a .wad or .lmp file very easy.<br>
 Following is a brief overview of what wa-cr can do.<br>
-For a complete overview visit wa-cr's [docs](https://sol-vin.github.io/wad-reader/index.html).
+For a complete overview see wa-cr's [docs](https://sol-vin.github.io/wad-reader/index.html)
+and the [complete overview](https://sol-vin.github.io/wad-reader/Documentation.html).
+
 ### Wad Data
 
-Reading in a .wad is as easy as
+Reading in a .wad is easy by using `WAD.read(filepath or io)`
 ```crystal
 # Reads in a wad and sets it to *my_wad*
-my_wad = WAD.read("Path/To/Wad.wad")
+my_wad = WAD.read("Path/To/Wad.WAD")
 ```
-You can read in specific .lmp files too. <sup> *.lmp* : an exported doom lump.</sup>
+You can read in specific .lmp files too <sup> *.lmp* : an exported doom [Lump](https://doomwiki.org/wiki/Lump).</sup>
 ```crystal
 # Reads in a sound lump file and sets it to *my_sound*
-File.open("Path/To/Sound.lmp") do |file|
-  my_sound = WAD::Sound.parse(file)
-end
+my_sound = WAD::Sound.parse("Path/To/Sound.lmp")
 ```
-You can also add the data into the wad file.
+You can also add the data into the wad file with `WAD#add(name, type, file)`
 ```crystal
-my_wad.sounds["MYSOUND"] = my_sound
-# You have to create a new directory with the same name as the data you inserted. 
-mywad.new_dir("MYSOUND")
+my_wad.add("MySound", "Sound", "Path/To/Sound.lmp")
 ```
-### Lump Writing
+And you can create entirely new wad files too with `WAD.new(type)`
+```crystal
+my_new_wad = WAD.new(WAD::Type::Internal)
 
-You can write out .lmp files from the parsed data as well.
-```crystal
-# Writes the lump *my_graphic* to a .lmp file
-File.open("Path/To/MyLump.lmp", "w+") do |file|
-  my_graphic.write(file)
-end
-```
+# You can read data into that new WAD as well
+my_new_wad.add("MySound", "Sound", "Path/To/Sound.lmp")
+``` 
+
 ### Sound Converting
 
-Converting doom-formatted sound data to a .wav file is just as simple.
+Converting doom-formatted sound data to a .wav file is just as simple by using `Sound#to_wav(filepath or io)`
 ```crystal
 # Writes *my_sound* to a .wav file
-File.open("Path/To/WriteSound.wav") do |file|
-  my_sound.to_wav(file)
-end
+my_sound.to_wav("Path/To/WriteSound.wav")
 ```
+
+### Writing Additions
+
+You can write out .wad and .lmp files from the parsed data as well by using `WAD#write(filepath or io)` and `ThingToWrite#write(filepath or io)`
+```crystal
+# Include the wa-cr write library
+require "wa-cr/write"
+
+# Write *my_wad* to *"MyWad.wad"*
+my_wad.write("Path/To/MyWad.wad")
+
+
+# Writes the *my_graphic* lump to a .lmp file
+my_graphic.write("Path/To/MyLump.lmp")
+```
+
 ### Raylib Additions
 
-wa-cr takes advantage of [raylib-cr](https://github.com/sol-vin/raylib-cr) with ways to convert doom<br>
-graphics to raylib images and draw said images to the screen
+wa-cr takes advantage of [Raylib](https://github.com/raysan5/raylib/releases)
+and [raylib-cr](https://github.com/sol-vin/raylib-cr) with ways to convert doom graphics to
+[Raylib Images](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L251)
+or [Raylib Colors](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L235C6-L235C6)
+and draw said images or colors to the screen
 ```crystal
-# You'll need to require the wa-cr raylib additions as well as wa-cr
+# Include the wa-cr raylib library
 require "wa-cr/raylib"
 
-palette = mywad.playpal.palettes[0]
+palette = my_wad.playpal.palettes[0]
+
 my_graphic_image = my_graphic.to_tex(palette)
 my_flat_image = my_flat.to_tex(palette)
 # You can also get textures from the texture maps
-my_texture_image = mywad.get_texture("texture_name_in_texturex", palette)
+my_texture_image = my_wad.get_texture("texture_name_in_texturex", palette)
+
+# Gets the pixel data in the graphic and the flat
+my_graphic_pixel = my_graphic.get_pixel(20, 5, palette)
+my_flat_pixel = my_flat.get_pixel(2, 10, palette)
 ```
 
 ## Limitations
 
-* Demos won't work properly because of how the doom engines psuedo-random number generator functions. If the wads are different at all, the demos won't function as intended
+* Demos won't work properly because of how the doom engine's psuedo-random number generator works. If the wads are different at all, the demos won't function as intended
 
 ## Contributing
 
@@ -92,4 +122,4 @@ my_texture_image = mywad.get_texture("texture_name_in_texturex", palette)
 ## Contributors
 
 - [Devin Shwagginz](https://github.com/D-Shwagginz) - creator and maintainer
-- [Ian Rash](https://github.com/sol-vin) - co-creator
+- [Ian Rash](https://github.com/sol-vin) - co-creator and owner of [raylib-cr](https://github.com/sol-vin/raylib-cr)

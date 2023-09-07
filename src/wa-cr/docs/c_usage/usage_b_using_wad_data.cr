@@ -50,6 +50,21 @@ module Documentation
     # my_linedef = my_map.linedefs[0]               # => Returns the first linedef out of *my_map*
     # my_linedef_sector_tag = my_linedef.sector_tag # => Returns the sector tag of the linedef
     # ```
+    #
+    # You can alter `WAD::Graphic` and `WAD::Flat` pixel data with `.set_pixel(x, y, value):
+    #
+    # NOTE: *value* does not refer to an rgb value, but to an index in the colors of a `WAD::Playpal::Palette`
+    #
+    # ```
+    # my_wad = WAD.read("Path/To/Wad") # => Reads in the wad
+    #
+    # my_graphic = my_wad.graphics["MyGraphic"] # => Sets *my_graphic* to be a graphic in *my_wad*
+    #
+    # my_flat = my_wad.flats["MyFlat"] # => Sets *my_flat* to be a flat in *my_wad*
+    #
+    # my_graphic.set_pixel(2, 5, 125) # => Sets the pixel at x=2 y=5 of *my_graphic* to be 125
+    #
+    # my_flat.set_pixel(10, 9, 245) # => Sets the pixel at x=10 y=9 of *my_flat* to be 245
     module B_UsingWadData
     end
   end

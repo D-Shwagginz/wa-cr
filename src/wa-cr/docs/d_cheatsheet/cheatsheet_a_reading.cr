@@ -6,7 +6,6 @@ module Documentation
     #     - `WAD.read(wad_file)` - Read in file in WAD format
     #     - `WAD#add(name, type, filename)` - Reads in *filename* as format *type*<br>
     #       and puts it into the `WAD` with *name*
-    #     - `WAD#new_map(name)` - Creates a new empty map with name *name* and maps it in `WAD#maps`
     #     - `WAD#type` - The type of a `WAD`
     #     - `WAD#maps` - The maps in the `WAD`
     #     - `WAD#pcsounds` - The pc sounds in the `WAD`
@@ -43,7 +42,7 @@ module Documentation
     #       - `WAD::Map::Thing` - A thing
     #       - `WAD::Map::Linedef` - A linedef
     #       - `WAD::Map::Sidedef` - A sidedef
-    #       - `WAD::Map::Vertexe` - A vertex
+    #       - `WAD::Map::Vertex` - A vertex
     #       - `WAD::Map::Seg` - A seg
     #       - `WAD::Map::Ssector` - A sub sector
     #       - `WAD::Map::Node` - A node
@@ -94,16 +93,18 @@ module Documentation
     #     - `WAD::Pnames.is_pnames?(name)` - Checks if *name* is of pnames name format
     #
     #   - `WAD::Graphic` - Stores the information of a graphic
-    #     - `WAD::Graphic.parse(io, file_offset)` - Reads in the io in graphic format.<br>
+    #     - `WAD::Graphic.parse(io, file_offset, file_size)` - Reads in the io in graphic format.<br>
     #       Returns `nil` if *io* is not a valid graphic.
     #     - `WAD::Graphic.is_sprite_mark_start?(name)` - Checks if *name* is a sprite start marker
     #     - `WAD::Graphic.is_sprite_mark_end?(name)` - Checks if *name* is a sprite end marker
+    #     - `WAD::Graphic#set_pixel(x, y, value)` - Sets the pixel at (x, y) to be *value*
     #     - `WAD::Graphic#[](x, y)` - Returns the  *x*, *y* pixel index in the palette for the graphic
     #
     #   - `WAD::Flat` - Stores the information of a flat
     #     - `WAD::Flat.parse(io)` - Reads in the io in flat format.<br>
     #     - `WAD::Flat.is_flat_mark_start?(name)` - Checks if *name* is a flat start marker
     #     - `WAD::Flat.is_flat_mark_end?(name)` - Checks if *name* is a flat end marker
+    #     - `WAD::Flat#set_pixel(x, y, value)` - Sets the pixel at (x, y) to be *value*
     #     - `WAD::Flat#[](x, y)` - Returns the  *x*, *y* pixel index in the palette for the graphic
     #
     #   - `WAD::Demo` - Stores the information of a demo

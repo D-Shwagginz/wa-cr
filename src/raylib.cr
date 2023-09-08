@@ -138,6 +138,24 @@ module RaylibAdditions
         return Raylib::Color.new(r: 0, g: 0, b: 0, a: 0)
       end
     end
+
+    def to_png(filename : String | Path) : UInt32
+      File.open(filename, "w+") do |io|
+        to_png(io)
+      end
+    end
+
+    def to_png(io : IO) : UInt32
+    end
+
+    def self.from_png(filename : String | Path) : Graphic
+      File.open(filename, "w+") do |io|
+        self.from_png(io)
+      end
+    end
+
+    def self.from_png(io : IO) : Graphic
+    end
   end
 
   # A WAD flat

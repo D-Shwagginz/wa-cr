@@ -57,6 +57,7 @@ module Documentation
     #   - `WAD::Sound` - Stores the information of a sound
     #     - `WAD::Sound.parse(io)` - Reads in the io in sound format
     #     - `WAD::Sound.is_sound?(name)` - Checks if *name* is of sound name format
+    #     - `WAD::Sound.from_wav(io) ` Converts a .wav to a `WAD::Sound`
     #     - `WAD::Sound#to_wav(io)` - Outputs the sound to *io* in .wav format
     #
     #   - `WAD::Music` - Stores the information of a music

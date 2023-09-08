@@ -3,6 +3,7 @@
 <!--
 When adding a class:
 * Add comments to the class and all its methods and variables
+* Add to readme if needed
 * Add the class to the cheatsheet
 * Explain the class in the docs overview
 -->

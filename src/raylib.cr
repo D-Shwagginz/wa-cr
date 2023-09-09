@@ -19,14 +19,14 @@ require "./wa-cr/**"
 #
 # my_wad.get_texture("NameOfTexture", palette) # => Raylib::Image
 #
-# my_graphic.to_tex(palette) # => Raylib::Image
+# my_graphic.to_image(palette) # => Raylib::Image
 #
 # # You can also get pixel data from the image
-# my_graphic.get_color(x, y) # => Raylib::Color
+# my_graphic.get_pixel(x, y, palette) # => Raylib::Color
 #
-# my_flat.to_tex(palette) # => Raylib::Image
+# my_flat.to_image(palette) # => Raylib::Image
 #
-# my_flat.get_color(x, y) # => Raylib::Color
+# my_flat.get_pixel(x, y, palette) # => Raylib::Color
 # ```
 module RaylibAdditions
   # Reads and stores the data of a WAD file.

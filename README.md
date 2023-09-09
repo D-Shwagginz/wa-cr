@@ -3,6 +3,7 @@
 <!--
 When adding a class:
 * Add comments to the class and all its methods and variables
+* Add to readme if needed
 * Add the class to the cheatsheet
 * Explain the class in the docs overview
 -->
@@ -28,7 +29,8 @@ dependencies:
 To use the wa-cr's [Raylib](https://github.com/raysan5/raylib/releases)
 additions, you must have [Raylib](https://github.com/raysan5/raylib/releases) installed:
 
-- Install raylib from [github](https://github.com/raysan5/raylib/releases).
+- Install raylib by following the raylib-cr [installation instructions](https://github.com/sol-vin/raylib-cr#installation).
+  For Linux, follow step 1. For Windows, follow steps 1-4.
 
 ## Usage
 
@@ -87,7 +89,9 @@ my_graphic.write("Path/To/MyLump.lmp")
 ### Raylib Additions
 
 wa-cr takes advantage of [Raylib](https://github.com/raysan5/raylib/releases)
-and [raylib-cr](https://github.com/sol-vin/raylib-cr) with ways to convert doom graphics to
+and [raylib-cr](https://github.com/sol-vin/raylib-cr) with ways to convert [.pngs](https://en.wikipedia.org/wiki/PNG)
+or [Raylib Images](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L251)
+to doom graphics and doom graphics to
 [Raylib Images](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L251)
 or [Raylib Colors](https://github.com/raysan5/raylib/blob/c147ab51c92abb09af5a5bc93759c7d360b8e1be/src/raylib.h#L235C6-L235C6)
 and draw said images or colors to the screen
@@ -105,6 +109,15 @@ my_texture_image = my_wad.get_texture("texture_name_in_texturex", palette)
 # Gets the pixel data in the graphic and the flat
 my_graphic_pixel = my_graphic.get_pixel(20, 5, palette)
 my_flat_pixel = my_flat.get_pixel(2, 10, palette)
+
+# Gets a png as a doom graphic
+my_graphic_png = WAD::Graphic.from_png("Path/To/MyGraphic.png", palette)
+my_flat_png = WAD::Graphic.from_png("Path/To/MyFlat.png", palette)
+
+# Png exports
+my_wad.export_texture("MyTexture", "Path/To/MyTexture.png", palette)
+my_graphic.to_png("Path/To/MyGraphic.png", palette)
+my_flat.to_png("Path/To/MyFlat.png", palette)
 ```
 
 ## Limitations

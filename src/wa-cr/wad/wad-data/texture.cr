@@ -383,6 +383,19 @@ class WAD
   # Instead, `Graphic#parse` will return `nil` if
   # *io* is not a valid graphic
   class Graphic
+    # An enum for preset offsets of the graphic
+    enum Offsets
+      TopLeft
+      TopCenter
+      TopRight
+      MiddleLeft
+      MiddleCenter
+      MiddleRight
+      BottomLeft
+      BottomCenter
+      BottomRight
+    end
+
     property width : UInt16 = 0_u16
     property height : UInt16 = 0_u16
     property leftoffset : Int16 = 0_i16
@@ -391,12 +404,45 @@ class WAD
 
     getter data : Array(UInt8?) = [] of UInt8?
 
+    # Sets a pixel in the graphic to be *value*.
+    # Raises an error if value is not within the bounds
+    # of a `UInt8`
+    #
+    # NOTE: *value* does not refer to an rgb color,
+    # but instead to an index in the colors of a `WAD::Playpal::Palette`
+    #
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    #
+    # my_graphic = my_wad.graphics["MyGraphic"]
+    #
+    # my_graphic[2, 3] # => Returns the value of the pixel at x=2 y=3
+    #
+    # my_graphic.set_pixel(2, 3, 120) # => Sets the value of the pixel at x=2 y=3 to be 120
+    #
+    # my_graphic[2, 3] # => 120
+    #
+    # my_graphic.set_pixel(2, 3, -1) # => Raises an exception
+    #
+    # my_graphic.set_pixel(2, 3, 256) # => Raises an exception
+    # ```
+    def set_pixel(x : Int, y : Int, value : Int)
+      raise "Out of bounds" if x > width || y > height
+      if self[x, y]
+        begin
+          data[x + y * width] = value.to_u8
+        rescue e : OverflowError
+          raise "'#{value}' IS NOT WITHIN THE BOUNDS OF A UInt8"
+        end
+      end
+    end
+
     def [](x : Int, y : Int)
       data[x + y * width]
     end
 
     def reset_data
-      (width*height).times do
+      (width.to_i*height.to_i).times do
         @data << nil
       end
     end
@@ -564,6 +610,39 @@ class WAD
     property lump_bytes : Int32 = 4096
     property width : Int32 = 64
     property height : Int32 = 64
+
+    # Sets a pixel in the flat to be *value*.
+    # Raises an error if value is not within the bounds
+    # of a `UInt8`
+    #
+    # NOTE: *value* does not refer to an rgb color,
+    # but instead to an index in the colors of a `WAD::Playpal::Palette`
+    #
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    #
+    # my_flat = my_wad.flats["MyFlat"]
+    #
+    # my_flat[2, 3] # => Returns the value of the pixel at x=2 y=3
+    #
+    # my_flat.set_pixel(2, 3, 120) # => Sets the value of the pixel at x=2 y=3 to be 120
+    #
+    # my_flat[2, 3] # => 120
+    #
+    # my_flat.set_pixel(2, 3, -1) # => Raises an exception
+    #
+    # my_flat.set_pixel(2, 3, 256) # => Raises an exception
+    # ```
+    def set_pixel(x : Int, y : Int, value : Int)
+      raise "Out of bounds" if x > width || y > height
+      if self[x, y]
+        begin
+          colors[x + y * width] = value.to_u8
+        rescue e : OverflowError
+          raise "'#{value}' IS NOT WITHIN THE BOUNDS OF A UInt8"
+        end
+      end
+    end
 
     def [](x : Int, y : Int)
       colors[x + y * width]

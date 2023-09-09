@@ -19,14 +19,14 @@ require "./wa-cr/**"
 #
 # my_wad.get_texture("NameOfTexture", palette) # => Raylib::Image
 #
-# my_graphic.to_tex(palette) # => Raylib::Image
+# my_graphic.to_image(palette) # => Raylib::Image
 #
 # # You can also get pixel data from the image
-# my_graphic.get_color(x, y) # => Raylib::Color
+# my_graphic.get_pixel(x, y, palette) # => Raylib::Color
 #
-# my_flat.to_tex(palette) # => Raylib::Image
+# my_flat.to_image(palette) # => Raylib::Image
 #
-# my_flat.get_color(x, y) # => Raylib::Color
+# my_flat.get_pixel(x, y, palette) # => Raylib::Color
 # ```
 module RaylibAdditions
   # Reads and stores the data of a WAD file.
@@ -49,14 +49,14 @@ module RaylibAdditions
     # )
     # ```
     def get_texture(name : String, palette : ::WAD::Playpal::Palette) : Raylib::Image
-      texmaps.each do |texmapx|
+      texmaps.values.each do |texmapx|
         if texturemap = texmapx.mtextures.find { |m| m.name == name }
           if texturemap.name == name
             image = Raylib.gen_image_color(texturemap.width, texturemap.height, Raylib::BLANK)
 
             texturemap.patches.each do |texmap_patch|
               patch_name = pnames.patches[texmap_patch.patch]
-              patch_image = graphics[patch_name.upcase.gsub("\u0000", "")].to_tex(palette)
+              patch_image = graphics[patch_name.upcase.gsub("\u0000", "")].to_image(palette)
               Raylib.image_draw(
                 pointerof(image),
                 patch_image,
@@ -80,6 +80,23 @@ module RaylibAdditions
         end
       end
       return Raylib.gen_image_color(64, 64, Raylib::PURPLE)
+    end
+
+    # Exports a texture to a png given a *texture_name*, a *filename*, and a *palette*
+    #
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    #
+    # palette = my_wad.playpal.palettes[0]
+    #
+    # my_wad.export_texture("MyTexture", "Path/To/MyGraphic.png", palette)
+    # ```
+    def export_texture(texture_name : String, filename : String | Path, palette : ::WAD::Playpal::Palette)
+      filename = filename.to_s
+      filename = filename + ".png" if filename[filename.rindex!('.'), filename.size - 1] != ".png"
+      image = self.get_texture(texture_name, palette)
+      Raylib.export_image?(image, filename)
+      Raylib.unload_image(image)
     end
   end
 
@@ -138,6 +155,117 @@ module RaylibAdditions
         return Raylib::Color.new(r: 0, g: 0, b: 0, a: 0)
       end
     end
+
+    # Exports a graphic to a png given a *filename* and a *palette*
+    #
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    #
+    # palette = my_wad.playpal.palettes[0]
+    #
+    # my_graphic = my_wad.graphics["MyGraphic"]
+    #
+    # my_graphic.to_png("Path/To/MyGraphic.png", palette)
+    # ```
+    def to_png(filename : String | Path, palette : ::WAD::Playpal::Palette)
+      filename = filename.to_s
+      filename = filename + ".png" if filename[filename.rindex!('.'), filename.size - 1] != ".png"
+      image = self.to_image(palette)
+      Raylib.export_image?(image, filename)
+      Raylib.unload_image(image)
+    end
+  end
+
+  # Raylib class methods for `WAD::Graphic`
+  module GraphicClassMethods
+    # Gets the absolute [Color Distance](https://en.wikipedia.org/wiki/Color_difference) between *color1* to *color*2
+    def color_distance(color1 : Raylib::Color, color2 : Raylib::Color) : Int
+      return (((color1.r.to_i - color2.r.to_i)**2) +
+        ((color1.g.to_i - color2.g.to_i)**2) +
+        ((color1.b.to_i - color2.b.to_i)**2)).abs
+    end
+
+    # Converts a .png to a `WAD::Graphic` given the *filename*, the *palette*, and the *offset*
+    #
+    # NOTE: If you get an arithmetic overflow error at any point, chances are that your image is too big
+    #
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    #
+    # palette = my_wad.playpal.palettes[0]
+    #
+    # my_png_graphic = WAD::Graphic.from_png("Path/To/MyGraphic.png", palette, WAD::Graphic::Offsets::BottomCenter)
+    # ```
+    def from_png(filename : String | Path, palette : ::WAD::Playpal::Palette, offset : ::WAD::Graphic::Offsets = ::WAD::Graphic::Offsets::TopLeft) : ::WAD::Graphic
+      filename = filename.to_s
+      filename = filename + ".png" if filename[filename.rindex!('.'), filename.size - 1] != ".png"
+      image = Raylib.load_image(filename)
+      graphic = from_image(image, palette, offset)
+      Raylib.unload_image(image)
+      return graphic
+    end
+
+    # Converts a `Raylib::Image` to a `WAD::Graphic` given the *filename*, the *palette*, and the *offset*
+    #
+    # NOTE: If you get an arithmetic overflow error at any point, chances are that your image is too big
+    #
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    #
+    # palette = my_wad.playpal.palettes[0]
+    #
+    # my_image = Raylib.gen_image_color(100, 80, Raylib::RED)
+    #
+    # my_image_graphic = WAD::Graphic.from_image(my_image, palette, WAD::Graphic::Offsets::BottomCenter)
+    # ```
+    def from_image(image : Raylib::Image, palette : ::WAD::Playpal::Palette, offset : ::WAD::Graphic::Offsets = ::WAD::Graphic::Offsets::TopLeft) : ::WAD::Graphic
+      offsets = [
+        [0_i16, 0_i16],
+        [0_i16, (image.width//2).to_i16],
+        [0_i16, image.width.to_i16],
+        [(image.height//2).to_i16, 0_i16],
+        [(image.height//2).to_i16, (image.width//2).to_i16],
+        [(image.height//2).to_i16, image.width.to_i16],
+        [image.height.to_i16, 0_i16],
+        [image.height.to_i16, (image.width//2).to_i16],
+        [image.height.to_i16, image.width.to_i16],
+      ]
+      # A tuple of the color, the index in the palette, and the distance to the current palette color
+      current_closest_color : Tuple(Raylib::Color, UInt8, Int32) = {Raylib::BLACK, 0_u8, 0}
+      graphic = ::WAD::Graphic.new
+
+      graphic.topoffset = offsets[offset.value][0]
+      graphic.leftoffset = offsets[offset.value][1]
+
+      graphic.width = image.width.to_u16
+      graphic.height = image.height.to_u16
+      graphic.reset_data
+
+      image.height.times do |y|
+        image.width.times do |x|
+          current_image_color = Raylib.get_image_color(image, x, y)
+
+          if current_image_color.a != 0
+            raylib_palette_color = Raylib::Color.new(
+              r: palette.colors[0].r, g: palette.colors[0].g, b: palette.colors[0].b, a: 255
+            )
+
+            current_closest_color = {raylib_palette_color, 0_u8, color_distance(current_image_color, raylib_palette_color)}
+
+            palette.colors.each.with_index do |color, index|
+              raylib_palette_color = Raylib::Color.new(r: color.r, g: color.g, b: color.b, a: 255)
+              if (current_distance = color_distance(current_image_color, raylib_palette_color)) < current_closest_color[2]
+                current_closest_color = {raylib_palette_color, index.to_u8, current_distance}
+              end
+            end
+
+            graphic.data[x + y * graphic.width] = current_closest_color[1]
+          end
+        end
+      end
+
+      return graphic
+    end
   end
 
   # A WAD flat
@@ -194,6 +322,105 @@ module RaylibAdditions
         return Raylib::Color.new(r: 0, g: 0, b: 0, a: 0)
       end
     end
+
+    # Exports a flat to a png given a *filename* and a *palette*
+    #
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    #
+    # palette = my_wad.playpal.palettes[0]
+    #
+    # my_flat = my_wad.flats["MyFlat"]
+    #
+    # my_flat.to_png("Path/To/MyFlat.png", palette)
+    # ```
+    def to_png(filename : String | Path, palette : ::WAD::Playpal::Palette)
+      filename = filename.to_s
+      filename = filename + ".png" if filename[filename.rindex!('.'), filename.size - 1] != ".png"
+      image = self.to_image(palette)
+      Raylib.export_image?(image, filename)
+      Raylib.unload_image(image)
+    end
+  end
+
+  # Raylib class methods for `WAD::Flat`
+  module FlatClassMethods
+    # Gets the absolute [Color Distance](https://en.wikipedia.org/wiki/Color_difference) between *color1* to *color*2
+    def color_distance(color1 : Raylib::Color, color2 : Raylib::Color) : Int
+      return (((color1.r.to_i - color2.r.to_i)**2) +
+        ((color1.g.to_i - color2.g.to_i)**2) +
+        ((color1.b.to_i - color2.b.to_i)**2)).abs
+    end
+
+    # Converts a .png to a `WAD::Flat` given the *filename* and the *palette*
+    #
+    # NOTE: The png has to be 64x64 and have no transparent pixels
+    #
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    #
+    # palette = my_wad.playpal.palettes[0]
+    #
+    # my_png_flat = WAD::Flat.from_png("Path/To/MyFlat.png", palette)
+    # ```
+    def from_png(filename : String | Path, palette : ::WAD::Playpal::Palette) : ::WAD::Flat
+      filename = filename.to_s
+      filename = filename + ".png" if filename[filename.rindex!('.'), filename.size - 1] != ".png"
+      image = Raylib.load_image(filename)
+      flat = from_image(image, palette)
+      Raylib.unload_image(image)
+      return flat
+    end
+
+    # Converts a `Raylib::Image` to a `WAD::Flat` given the *image* and the *palette*
+    #
+    # NOTE: The image has to be 64x64 and have no transparent pixels
+    #
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    #
+    # palette = my_wad.playpal.palettes[0]
+    #
+    # my_image = Raylib.gen_image_color(64, 64, Raylib::RED)
+    #
+    # my_image_flat = WAD::Flat.from_image(my_image, palette)
+    # ```
+    def from_image(image : Raylib::Image, palette : ::WAD::Playpal::Palette) : ::WAD::Flat
+      if image.width != 64 || image.height != 64
+        raise "A FLAT NEEDS TO BE 64x64. *image* IS #{image.width}x#{image.height}"
+      end
+
+      # A tuple of the color, the index in the palette, and the distance to the current palette color
+      current_closest_color : Tuple(Raylib::Color, UInt8, Int32) = {Raylib::BLACK, 0_u8, 0}
+      flat = ::WAD::Flat.new
+
+      image.height.times do |y|
+        image.width.times do |x|
+          current_image_color = Raylib.get_image_color(image, x, y)
+
+          if current_image_color.a != 0
+            raylib_palette_color = Raylib::Color.new(
+              r: palette.colors[0].r, g: palette.colors[0].g, b: palette.colors[0].b, a: 255
+            )
+
+            current_closest_color = {raylib_palette_color, 0_u8, color_distance(current_image_color, raylib_palette_color)}
+
+            palette.colors.each.with_index do |color, index|
+              raylib_palette_color = Raylib::Color.new(r: color.r, g: color.g, b: color.b, a: 255)
+              if (current_distance = color_distance(current_image_color, raylib_palette_color)) < current_closest_color[2]
+                current_closest_color = {raylib_palette_color, index.to_u8, current_distance}
+              end
+            end
+
+            flat.colors << current_closest_color[1]
+          else
+            raise "Pixel x: #{x}, y: #{y} is transparent. Flats can not have transparent pixels"
+          end
+        end
+      end
+
+      return flat
+    end
   end
 end
 
@@ -203,8 +430,10 @@ end
 
 class WAD::Graphic
   include RaylibAdditions::Graphic
+  extend RaylibAdditions::GraphicClassMethods
 end
 
 class WAD::Flat
   include RaylibAdditions::Flat
+  extend RaylibAdditions::FlatClassMethods
 end

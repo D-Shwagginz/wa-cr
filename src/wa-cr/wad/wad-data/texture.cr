@@ -383,6 +383,19 @@ class WAD
   # Instead, `Graphic#parse` will return `nil` if
   # *io* is not a valid graphic
   class Graphic
+    # An enum for preset offsets of the graphic
+    enum Offsets
+      TopLeft
+      TopCenter
+      TopRight
+      MiddleLeft
+      MiddleCenter
+      MiddleRight
+      BottomLeft
+      BottomCenter
+      BottomRight
+    end
+
     property width : UInt16 = 0_u16
     property height : UInt16 = 0_u16
     property leftoffset : Int16 = 0_i16
@@ -429,7 +442,7 @@ class WAD
     end
 
     def reset_data
-      (width*height).times do
+      (width.to_i*height.to_i).times do
         @data << nil
       end
     end

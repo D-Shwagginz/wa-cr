@@ -133,6 +133,8 @@ class WAD
     # my_wad.sounds["DSPISTOL"].to_wav("Path/To/MyWav.wav")
     # ```
     def to_wav(filename : String | Path) : UInt32
+      filename = filename.to_s
+      filename = filename + ".wav" if filename[filename.rindex!('.'), filename.size - 1] != ".wav"
       File.open(filename, "w+") do |io|
         to_wav(io)
       end
@@ -198,6 +200,8 @@ class WAD
     # my_wav_sound = WAD::Sound.from_wav("Path/To/Sound.wav")
     # ```
     def self.from_wav(filename : String | Path) : Sound
+      filename = filename.to_s
+      filename = filename + ".wav" if filename[filename.rindex!('.'), filename.size - 1] != ".wav"
       File.open(filename) do |io|
         return self.from_wav(io)
       end

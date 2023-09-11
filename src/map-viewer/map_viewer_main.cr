@@ -86,22 +86,22 @@ module MapViewer
 
     until RL.close_window?
       if RL.key_down?(RL::KeyboardKey::Up)
-        camera.target -= RL::Vector2.new(x: 0, y: camera_speed)
+        camera.target -= RL::Vector2.new(x: 0, y: camera_speed*RL.get_frame_time)
       end
       if RL.key_down?(RL::KeyboardKey::Down)
-        camera.target += RL::Vector2.new(x: 0, y: camera_speed)
+        camera.target += RL::Vector2.new(x: 0, y: camera_speed*RL.get_frame_time)
       end
       if RL.key_down?(RL::KeyboardKey::Left)
-        camera.target -= RL::Vector2.new(x: camera_speed, y: 0)
+        camera.target -= RL::Vector2.new(x: camera_speed*RL.get_frame_time, y: 0)
       end
       if RL.key_down?(RL::KeyboardKey::Right)
-        camera.target += RL::Vector2.new(x: camera_speed, y: 0)
+        camera.target += RL::Vector2.new(x: camera_speed*RL.get_frame_time, y: 0)
       end
       if RL.key_down?(RL::KeyboardKey::Equal)
-        camera.zoom += camera_zoom_speed
+        camera.zoom += camera_zoom_speed*RL.get_frame_time
       end
       if RL.key_down?(RL::KeyboardKey::Minus)
-        camera.zoom -= camera_zoom_speed
+        camera.zoom -= camera_zoom_speed*RL.get_frame_time
       end
       camera.zoom = camera.zoom.clamp(0.05, nil)
       camera_speed = (1/camera.zoom)*15

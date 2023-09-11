@@ -151,15 +151,26 @@ class WAD
     Patch
   end
 
+  # An enum for all types that can be added to the `WAD` by using `WAD#add`
+  enum AddTypes
+    PcSound
+    Sound
+    Music
+    TextureX
+    Graphic
+    Flat
+    Demo
+  end
+
   # Allows easy parsing of lumps into the WAD
   #
   # ```
   # my_wad = WAD.new(WAD::Type::Internal)
   #
-  # my_wad.add("MyTest", "Sound", "Path/To/SoundTest.lmp")
+  # my_wad.add("MyTest", WAD::AddTypes::Sound, "Path/To/SoundTest.lmp")
   # ```
   #
-  def add(name : String, type : String, file : Path | String)
+  def add(name : String, type : AddTypes, file : Path | String)
     File.open(file) do |io|
       add(name, type, io)
     end
@@ -171,33 +182,33 @@ class WAD
   # my_wad = WAD.new(WAD::Type::Internal)
   #
   # File.open("Path/To/Sound.lmp") do |file|
-  #   my_wad.add("MyTest", "Sound", file)
+  #   my_wad.add("MyTest", WAD::AddTypes::Sound, file)
   # end
   # ```
   #
-  def add(name : String, type : String, file : IO)
+  def add(name : String, type : AddTypes, file : IO)
     case type
-    when "PcSound"
+    when AddTypes::PcSound
       pcsounds[name] = PcSound.parse(file)
       new_dir(name)
-    when "Sound"
+    when AddTypes::Sound
       sounds[name] = Sound.parse(file)
       new_dir(name)
-    when "Music"
+    when AddTypes::Music
       music[name] = Music.parse(file)
       new_dir(name)
-    when "TextureX"
+    when AddTypes::TextureX
       texmaps[name] = TextureX.parse(file)
       new_dir(name)
-    when "Graphic"
+    when AddTypes::Graphic
       Graphic.parse(file).try do |graphic|
         graphics[name] = graphic
         new_dir(name)
       end
-    when "Flat"
+    when AddTypes::Flat
       flats[name] = Flat.parse(file)
       new_dir(name)
-    when "Demo"
+    when AddTypes::Demo
       demos[name] = Demo.parse(file)
       new_dir(name)
     else

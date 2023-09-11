@@ -8,6 +8,8 @@ authors:
 targets:
   wa-cr:
     main: src/wa-cr.cr
+  map-viewer:
+    main: src/map-viewer.cr
 
 dependencies:
   raylib-cr:

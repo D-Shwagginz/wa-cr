@@ -11,7 +11,7 @@ OptionParser.parse do |parser|
 
   parser.on("-w WAD", "--wad=WAD", "Sets the .wad for map-viewer to use") { |input_wad| wad = input_wad }
 
-  parser.on("-m MAP", "--map=MAP", "Sets the map for map-viewer to use") { |input_map| map = input_map }
+  parser.on("-m MAP", "--map=MAP", "Sets the map for map-viewer to use") { |input_map| map = input_map.upcase }
 
   parser.on("-h", "--help", "Shows this help") do
     puts parser

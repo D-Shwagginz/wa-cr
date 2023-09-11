@@ -3,6 +3,13 @@ class WAD
   class Map
     # A list of things that the map contains
     MAP_CONTENTS = ["THINGS", "LINEDEFS", "SIDEDEFS", "VERTEXES", "SEGS", "SSECTORS", "NODES", "SECTORS", "REJECT", "BLOCKMAP", "BEHAVIOR"]
+    # Hashes of a thing type number to the description and default sprite of the thing
+    THING_TYPES = {
+      1 => {"Player 1 Start", "PLAYA1"},
+      2 => {"Player 2 Start", "PLAYA1"},
+      3 => {"Player 3 Start", "PLAYA1"},
+      4 => {"Player 4 Start", "PLAYA1"},
+    }
 
     # The name of the map.
     property name : String = ""

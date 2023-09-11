@@ -30,11 +30,15 @@ module MapViewer
     end
 
     camera = RL::Camera2D.new
-    camera.zoom = 0.2
+    camera.zoom = 1.0
     camera.target = RL::Vector2.new(x: map.vertexes[0].x_position, y: -map.vertexes[0].y_position)
     camera.offset = RL::Vector2.new(x: RL.get_screen_width/2, y: RL.get_screen_height/2)
-    camera_speed = (0.1/camera.zoom)*100
-    camera_zoom_speed = 0.008
+    camera_speed_multiplier = 400
+    camera_zoom_speed = 0.4
+    camera_speed = 0
+
+    grid_size_exponent = 4
+    grid_size = 2**grid_size_exponent
 
     sectors : Array(Sector) = [] of Sector
 
@@ -84,6 +88,14 @@ module MapViewer
       sectors << current_sector
     end
 
+    things : Array(Thing) = [] of Thing
+
+    map.things.each.with_index do |thing, index|
+      current_thing = Thing.new(thing, index)
+      current_thing.texture = textures[WAD::Map::THING_TYPES[thing.thing_type][1]]?
+      things << current_thing
+    end
+
     until RL.close_window?
       if RL.key_down?(RL::KeyboardKey::Up)
         camera.target -= RL::Vector2.new(x: 0, y: camera_speed*RL.get_frame_time)
@@ -97,6 +109,19 @@ module MapViewer
       if RL.key_down?(RL::KeyboardKey::Right)
         camera.target += RL::Vector2.new(x: camera_speed*RL.get_frame_time, y: 0)
       end
+
+      if RL.key_pressed?(RL::KeyboardKey::LeftBracket)
+        grid_size_exponent -= 1
+        grid_size_exponent = grid_size_exponent.clamp(0, 10)
+        puts "Grid Size: #{grid_size_exponent}"
+      end
+      if RL.key_pressed?(RL::KeyboardKey::RightBracket)
+        grid_size_exponent += 1
+        grid_size_exponent = grid_size_exponent.clamp(0, 10)
+        puts "Grid Size: #{grid_size_exponent}"
+      end
+      grid_size = 2**grid_size_exponent
+
       if RL.key_down?(RL::KeyboardKey::Equal)
         camera.zoom += camera_zoom_speed*RL.get_frame_time
       end
@@ -104,11 +129,26 @@ module MapViewer
         camera.zoom -= camera_zoom_speed*RL.get_frame_time
       end
       camera.zoom = camera.zoom.clamp(0.05, nil)
-      camera_speed = (1/camera.zoom)*15
+      camera_speed = (1/camera.zoom)*camera_speed_multiplier
 
       # UPDATE START
 
       camera.offset = RL::Vector2.new(x: RL.get_screen_width/2, y: RL.get_screen_height/2)
+
+      things.each do |thing|
+        thing.mouse_over = RL.check_collision_point_circle?(
+          RL.get_screen_to_world_2d(
+            RL::Vector2.new(x: RL.get_mouse_x, y: RL.get_mouse_y),
+            camera
+          ),
+          RL::Vector2.new(
+            x: map.things[thing.index].x_position,
+            y: -map.things[thing.index].y_position
+          ),
+          WAD::Map::THING_TYPES[map.things[thing.index].thing_type][2]
+        )
+        thing.update
+      end
 
       # UPDATE END
 
@@ -117,6 +157,8 @@ module MapViewer
       RL.begin_mode_2d(camera)
 
       # DRAW START
+
+      draw_grid(grid_size)
 
       map.linedefs.each do |linedef|
         RL.draw_line(
@@ -137,27 +179,7 @@ module MapViewer
       #   )
       # end
 
-      map.things.each do |thing|
-        RL.draw_circle(
-          thing.x_position,
-          -thing.y_position,
-          15,
-          RL::RED
-        )
-
-        texture = textures[WAD::Map::THING_TYPES[thing.thing_type][1]]
-
-        RL.draw_texture_ex(
-          texture,
-          RL::Vector2.new(
-            x: thing.x_position - texture.width/4,
-            y: -thing.y_position - texture.height/4
-          ),
-          0,
-          0.5,
-          RL::WHITE
-        )
-      end
+      things.each { |thing| thing.draw }
 
       # DRAW END
 

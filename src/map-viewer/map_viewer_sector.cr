@@ -4,7 +4,7 @@ module MapViewer
   class Sector
     property texcoords : Array(RL::Vector2) = [] of RL::Vector2
     property points : Array(RL::Vector2) = [] of RL::Vector2
-    property image : RL::Image = RL::Image.new
+    property sector : WAD::Map::Sector = WAD::Map::Sector.new
     property index : Int32 = 0
   end
 

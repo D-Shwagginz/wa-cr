@@ -1,3 +1,6 @@
+# A module used for viewing maps
+#
+# To use, call `MapViewer.run(wad, map)
 module MapViewer
   VERSION =  1.0
   RESX    = 1000
@@ -29,6 +32,11 @@ module MapViewer
       textures[key] = RL.load_texture_from_image(image)
     end
 
+    wad.flats.each do |key, value|
+      image = value.to_image(palette)
+      textures[key] = RL.load_texture_from_image(image)
+    end
+
     camera = RL::Camera2D.new
     camera.zoom = 1.0
     camera.target = RL::Vector2.new(x: map.vertexes[0].x_position, y: -map.vertexes[0].y_position)
@@ -46,8 +54,7 @@ module MapViewer
       current_sector = Sector.new
       current_sector.index = index
 
-      current_sector.image = wad.flats[sector.name_tex_floor.gsub("\u0000", "")].to_image(palette)
-      textures[sector.name_tex_floor.gsub("\u0000", "")] = RL.load_texture_from_image(current_sector.image)
+      current_sector.sector = sector
 
       map.linedefs.each do |linedef|
         if linedef.front_sidedef != -1
@@ -172,7 +179,7 @@ module MapViewer
 
       # sectors.each do |sector|
       #   draw_texture_poly(
-      #     loaded_textures[sector.index],
+      #     textures[sector.sector.name_tex_floor.gsub("\u0000", "")],
       #     sector.points,
       #     sector.texcoords,
       #     RL::WHITE

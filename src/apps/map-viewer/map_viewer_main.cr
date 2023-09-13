@@ -1,7 +1,4 @@
 module Apps
-  # An app used for viewing maps
-  #
-  # To use, call `Apps::MapViewer.run(wad, map)
   module MapViewer
     VERSION =  1.0
     RESX    = 1000

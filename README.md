@@ -120,6 +120,13 @@ my_graphic.to_png("Path/To/MyGraphic.png", palette)
 my_flat.to_png("Path/To/MyFlat.png", palette)
 ```
 
+### Apps
+
+wa-cr provides useful apps that will help you with using `WAD` data.<br>
+Here is a full list of all of wa-cr's apps:
+
+- map-viewer/MapViewer
+
 ## Limitations
 
 * Demos won't work properly because of how the doom engine's psuedo-random number generator works. If the wads are different at all, the demos won't function as intended

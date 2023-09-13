@@ -1,15 +1,15 @@
-require "./wa-cr"
-require "./raylib"
+require "../wa-cr"
+require "../raylib"
 require "./map-viewer/**"
 require "option_parser"
 
-wad : String = ""
+wad_file : String = ""
 map : String = ""
 
 OptionParser.parse do |parser|
   parser.banner = "Usage: shards run map-viewer -- -w Path/To/MyWad.wad -m E1M1"
 
-  parser.on("-w WAD", "--wad=WAD", "Sets the .wad for map-viewer to use") { |input_wad| wad = input_wad }
+  parser.on("-w WAD", "--wad=WAD", "Sets the .wad for map-viewer to use") { |input_wad| wad_file = input_wad }
 
   parser.on("-m MAP", "--map=MAP", "Sets the map for map-viewer to use") { |input_map| map = input_map.upcase }
 
@@ -24,4 +24,6 @@ OptionParser.parse do |parser|
   end
 end
 
-MapViewer.run(wad, map)
+raise "Map Viewer requires a .wad file input by using `map-viewer -w Path/To/Wad`" if wad_file == ""
+
+Apps::MapViewer.run(wad_file, map)

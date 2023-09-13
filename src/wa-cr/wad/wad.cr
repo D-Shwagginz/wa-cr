@@ -319,7 +319,7 @@ class WAD
               wad.maps[map.name] = map
               directory_read = true
             end
-          rescue
+          rescue e
             raise "MAP '#{directory.name}' IS INVALID\n#{e}" if throw_errors
           end
         end
@@ -333,7 +333,7 @@ class WAD
                 directory_read = true
               end
             end
-          rescue
+          rescue e
             raise "PC SOUND '#{directory.name}' IS INVALID\n#{e}" if throw_errors
           end
         end
@@ -347,7 +347,7 @@ class WAD
                 directory_read = true
               end
             end
-          rescue
+          rescue e
             raise "SOUND '#{directory.name}' IS INVALID\n#{e}" if throw_errors
           end
         end
@@ -361,7 +361,7 @@ class WAD
                 directory_read = true
               end
             end
-          rescue
+          rescue e
             raise "MUSIC '#{directory.name}' IS INVALID\n#{e}" if throw_errors
           end
         end
@@ -375,7 +375,7 @@ class WAD
                 directory_read = true
               end
             end
-          rescue
+          rescue e
             raise "GENMIDI '#{directory.name}' IS INVALID\n#{e}" if throw_errors
           end
         end
@@ -389,7 +389,7 @@ class WAD
                 directory_read = true
               end
             end
-          rescue
+          rescue e
             raise "DMXGUS '#{directory.name}' IS INVALID\n#{e}" if throw_errors
           end
         end
@@ -403,7 +403,7 @@ class WAD
                 directory_read = true
               end
             end
-          rescue
+          rescue e
             raise "PLAYPAL '#{directory.name}' IS INVALID\n#{e}" if throw_errors
           end
         end
@@ -417,7 +417,7 @@ class WAD
                 directory_read = true
               end
             end
-          rescue
+          rescue e
             raise "COLORMAP '#{directory.name}' IS INVALID\n#{e}" if throw_errors
           end
         end
@@ -431,7 +431,7 @@ class WAD
                 directory_read = true
               end
             end
-          rescue
+          rescue e
             raise "TEXTURE MAP '#{directory.name}' IS INVALID\n#{e}" if throw_errors
           end
         end
@@ -445,7 +445,7 @@ class WAD
                 directory_read = true
               end
             end
-          rescue
+          rescue e
             raise "ENDOOM '#{directory.name}' IS INVALID\n#{e}" if throw_errors
           end
         end
@@ -459,7 +459,7 @@ class WAD
                 directory_read = true
               end
             end
-          rescue
+          rescue e
             raise "PNAMES '#{directory.name}' IS INVALID\n#{e}" if throw_errors
           end
         end
@@ -498,7 +498,7 @@ class WAD
               end
               directory_read = true
             end
-          rescue
+          rescue e
             raise "SPRITE '#{directory.name}' IS INVALID\n#{e}" if throw_errors
           end
         end
@@ -540,7 +540,7 @@ class WAD
               end
               directory_read = true
             end
-          rescue
+          rescue e
             raise "FLAT '#{directory.name}' IS INVALID\n#{e}" if throw_errors
           end
         end
@@ -552,7 +552,7 @@ class WAD
               wad.graphics[directory.name] = graphic
               directory_read = true
             end
-          rescue
+          rescue e
             raise "GRAPHIC '#{directory.name}' IS INVALID\n#{e}" if throw_errors
           end
         end
@@ -568,7 +568,7 @@ class WAD
                 end
               end
             end
-          rescue
+          rescue e
             raise "DEMO '#{directory.name}' IS INVALID\n#{e}" if throw_errors
           end
         end
@@ -604,7 +604,7 @@ class WAD
   # ```
   def self.read?(file : IO) : WAD | Nil
     begin
-      return self.read(file)
+      return self.read?(file, throw_error: true)
     rescue
       return nil
     end

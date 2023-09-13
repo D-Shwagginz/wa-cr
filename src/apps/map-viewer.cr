@@ -6,7 +6,10 @@ require "option_parser"
 module Apps
   # An app used for viewing maps
   #
-  # To use, call `Apps::MapViewer.run(wad, map)
+  # To use, call `Apps::MapViewer.run(wad, map)`
+  #
+  # To use in the command line, call`Apps::MapViewer.run_cli`
+  # and use `-w` and -m`
   module MapViewer
     # Runs the map viewer with *wad* and *map* defined in the command line
     # -w Path/To/Wad

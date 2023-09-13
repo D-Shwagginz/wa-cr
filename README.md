@@ -123,9 +123,10 @@ my_flat.to_png("Path/To/MyFlat.png", palette)
 ### Apps
 
 wa-cr provides useful apps that will help you with using `WAD` data.<br>
-Here is a full list of all of wa-cr's apps:
+To access wa-cr's apps, just require `wa-cr/apps`
+Here is a full list of all modules inside `Apps`:
 
-- map-viewer/MapViewer
+- MapViewer
 
 ## Limitations
 

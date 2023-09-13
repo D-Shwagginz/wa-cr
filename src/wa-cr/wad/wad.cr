@@ -604,7 +604,7 @@ class WAD
   # ```
   def self.read?(file : IO) : WAD | Nil
     begin
-      return self.read?(file, throw_errors: true)
+      return self.read(file, throw_errors: true)
     rescue
       return nil
     end

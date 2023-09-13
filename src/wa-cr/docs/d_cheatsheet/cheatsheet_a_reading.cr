@@ -3,7 +3,9 @@ module Documentation
     # - Reading
     #   - `WAD` - Stores all of the information relating to a WAD
     #     - `WAD.new(type)` - Creates a new `WAD` with `WAD.type`
-    #     - `WAD.read(wad_file)` - Read in file in WAD format
+    #     - `WAD.read(wad_file)` - Reads in file in WAD format
+    #     - `WAD.read?(wad_file)` - Reads in file in WAD format but returns Nil if parsing WAD throws errors
+    #     - `WAD.read!(wad_file)` - Reads in file in WAD format but raises any lump parsing errors
     #     - `WAD#add(name, type, filename)` - Reads in *filename* as format *type*<br>
     #       and puts it into the `WAD` with *name*
     #     - `WAD#type` - The type of a `WAD`

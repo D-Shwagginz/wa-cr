@@ -15,6 +15,7 @@ module MapViewer
 
     wad = WAD.read(input_wad)
     palette = wad.playpal.palettes[0]
+    
     if input_map == ""
       map = wad.maps.values[0]
     else
@@ -41,8 +42,8 @@ module MapViewer
     camera.zoom = 1.0
     camera.target = RL::Vector2.new(x: map.vertexes[0].x_position, y: -map.vertexes[0].y_position)
     camera.offset = RL::Vector2.new(x: RL.get_screen_width/2, y: RL.get_screen_height/2)
-    camera_speed_multiplier = 400
-    camera_zoom_speed = 0.4
+    camera_speed_multiplier = 600
+    camera_zoom_speed = 0.6
     camera_speed = 0
 
     grid_size_exponent = 4

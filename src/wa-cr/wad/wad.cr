@@ -224,6 +224,7 @@ class WAD
   # end
   # ```
   def self.read(file : IO, *, throw_errors : Bool = false) : WAD
+    invalid_lump_found = false
     wad = WAD.new
     start_pos = file.pos.to_u32
     # Sets the WAD type: Can only be the ASCII characters "IWAD" or "PWAD".
@@ -321,6 +322,7 @@ class WAD
             end
           rescue e
             raise "MAP '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
           end
         end
 
@@ -335,6 +337,7 @@ class WAD
             end
           rescue e
             raise "PC SOUND '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
           end
         end
 
@@ -349,6 +352,7 @@ class WAD
             end
           rescue e
             raise "SOUND '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
           end
         end
 
@@ -363,6 +367,7 @@ class WAD
             end
           rescue e
             raise "MUSIC '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
           end
         end
 
@@ -377,6 +382,7 @@ class WAD
             end
           rescue e
             raise "GENMIDI '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
           end
         end
 
@@ -391,6 +397,7 @@ class WAD
             end
           rescue e
             raise "DMXGUS '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
           end
         end
 
@@ -405,6 +412,7 @@ class WAD
             end
           rescue e
             raise "PLAYPAL '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
           end
         end
 
@@ -419,6 +427,7 @@ class WAD
             end
           rescue e
             raise "COLORMAP '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
           end
         end
 
@@ -433,6 +442,7 @@ class WAD
             end
           rescue e
             raise "TEXTURE MAP '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
           end
         end
 
@@ -447,6 +457,7 @@ class WAD
             end
           rescue e
             raise "ENDOOM '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
           end
         end
 
@@ -461,6 +472,7 @@ class WAD
             end
           rescue e
             raise "PNAMES '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
           end
         end
 
@@ -500,6 +512,7 @@ class WAD
             end
           rescue e
             raise "SPRITE '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
           end
         end
 
@@ -542,6 +555,7 @@ class WAD
             end
           rescue e
             raise "FLAT '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
           end
         end
 
@@ -554,6 +568,7 @@ class WAD
             end
           rescue e
             raise "GRAPHIC '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
           end
         end
 
@@ -570,6 +585,7 @@ class WAD
             end
           rescue e
             raise "DEMO '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
           end
         end
 
@@ -577,6 +593,7 @@ class WAD
         d_index += 1
       end
     end
+    puts "WARNING: Invalid lump(s) encountered but skipped" if invalid_lump_found
     wad
   end
 

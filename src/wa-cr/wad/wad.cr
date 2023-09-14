@@ -288,13 +288,9 @@ class WAD
                   # Checks if it has reached the end of the map's lumps
                   # By seeing if the *directory.name* is a map, showing
                   # it reached the next map.
-                  if Map.is_map?(directory.name)
+                  if !Map::MAP_CONTENTS.includes?(directory.name)
                     d_index -= 1
                     map_directory_end_reached = true
-                    break
-                  elsif !Map::MAP_CONTENTS.includes?(directory.name)
-                    map_directory_end_reached = true
-                    wad.directories << directory
                     break
                   end
                   # Inserts the directory into the map.

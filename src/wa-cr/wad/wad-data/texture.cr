@@ -259,7 +259,7 @@ class WAD
 
       texturex.offsets.each do
         texturemap = TextureMap.new
-        texturemap.name = io.gets(8).to_s
+        texturemap.name = io.gets(8).to_s.gsub("\u0000", "")
         texturemap.masked = io.read_bytes(Int32, IO::ByteFormat::LittleEndian) != 0
         texturemap.width = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
         texturemap.height = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
@@ -331,7 +331,7 @@ class WAD
       pnames.num_patches = io.read_bytes(Int32, IO::ByteFormat::LittleEndian)
 
       pnames.num_patches.times do
-        pnames.patches << io.gets(8).to_s
+        pnames.patches << io.gets(8).to_s.gsub("\u0000", "")
       end
       pnames
     end

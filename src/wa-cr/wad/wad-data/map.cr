@@ -341,9 +341,9 @@ class WAD
           # Reads the data.
           sidedef.x_offset = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           sidedef.y_offset = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-          sidedef.name_tex_up = io.gets(8).to_s
-          sidedef.name_tex_low = io.gets(8).to_s
-          sidedef.name_tex_mid = io.gets(8).to_s
+          sidedef.name_tex_up = io.gets(8).to_s.gsub("\u0000", "")
+          sidedef.name_tex_low = io.gets(8).to_s.gsub("\u0000", "")
+          sidedef.name_tex_mid = io.gets(8).to_s.gsub("\u0000", "")
           sidedef.facing_sector_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           # Iterates the index.
           sidedefs_index += 1
@@ -657,8 +657,8 @@ class WAD
           # Reads the data.
           sector.floor_height = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           sector.ceiling_height = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-          sector.name_tex_floor = io.gets(8).to_s
-          sector.name_tex_ceiling = io.gets(8).to_s
+          sector.name_tex_floor = io.gets(8).to_s.gsub("\u0000", "")
+          sector.name_tex_ceiling = io.gets(8).to_s.gsub("\u0000", "")
           sector.light_level = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           sector.special_type = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           sector.tag_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)

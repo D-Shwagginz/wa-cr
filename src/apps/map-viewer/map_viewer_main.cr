@@ -172,6 +172,38 @@ module Apps
 
         # DRAW START
 
+        RL.draw_text(
+          "Grid Size: #{grid_size_exponent}",
+          RL.get_screen_to_world_2d(RL::Vector2.new(x: 10, y: 10), camera).x,
+          RL.get_screen_to_world_2d(RL::Vector2.new(x: 10, y: 10), camera).y,
+          50/camera.zoom,
+          RL::RED
+        )
+
+        RL.draw_text(
+          "Zoom: #{camera.zoom}",
+          RL.get_screen_to_world_2d(RL::Vector2.new(x: 10, y: 60), camera).x,
+          RL.get_screen_to_world_2d(RL::Vector2.new(x: 10, y: 60), camera).y,
+          50/camera.zoom,
+          RL::RED
+        )
+
+        RL.draw_text(
+          "Cursor X: #{RL.get_screen_to_world_2d(RL::Vector2.new(x: RL.get_mouse_x, y: RL.get_mouse_y), camera).x}",
+          RL.get_screen_to_world_2d(RL::Vector2.new(x: 10, y: 110), camera).x,
+          RL.get_screen_to_world_2d(RL::Vector2.new(x: 10, y: 110), camera).y,
+          50/camera.zoom,
+          RL::RED
+        )
+        RL.draw_text(
+          "Cursor y: #{-RL.get_screen_to_world_2d(RL::Vector2.new(x: RL.get_mouse_x, y: RL.get_mouse_y), camera).y}",
+          RL.get_screen_to_world_2d(RL::Vector2.new(x: 10, y: 160), camera).x,
+          RL.get_screen_to_world_2d(RL::Vector2.new(x: 10, y: 160), camera).y,
+          50/camera.zoom,
+          RL::RED
+        )
+
+
         draw_grid(grid_size)
 
         map.linedefs.each do |linedef|

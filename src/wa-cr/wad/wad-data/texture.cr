@@ -212,6 +212,7 @@ class WAD
       property masked : Bool = false
       property width : Int16 = 0_i16
       property height : Int16 = 0_i16
+      # UNUSED
       property columndirectory : Int32 = 0_i32
       property patchcount : Int16 = 0_i16
       property patches : Array(Patch) = [] of Patch
@@ -222,7 +223,9 @@ class WAD
       property originx : Int16 = 0_i16
       property originy : Int16 = 0_i16
       property patch : Int16 = 0_i16
+      # UNUSED
       property stepdir : Int16 = 0_i16
+      # UNUSED
       property colormap : Int16 = 0_i16
     end
 
@@ -378,6 +381,8 @@ class WAD
   end
 
   # A WAD graphic
+  #
+  # WARNING: The max graphic height is 255. The max width is unlimited
   #
   # NOTE: Graphic has no `is_graphic?` method.
   # Instead, `Graphic#parse` will return `nil` if

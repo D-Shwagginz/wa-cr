@@ -168,41 +168,34 @@ module Apps
 
         RL.begin_drawing
         RL.clear_background(RL::RAYWHITE)
-        RL.begin_mode_2d(camera)
 
-        # DRAW START
-
-        RL.draw_text(
-          "Grid Size: #{grid_size_exponent}",
-          RL.get_screen_to_world_2d(RL::Vector2.new(x: 10, y: 10), camera).x,
-          RL.get_screen_to_world_2d(RL::Vector2.new(x: 10, y: 10), camera).y,
-          50/camera.zoom,
-          RL::RED
-        )
+        # UI DRAW START
 
         RL.draw_text(
-          "Zoom: #{camera.zoom}",
-          RL.get_screen_to_world_2d(RL::Vector2.new(x: 10, y: 60), camera).x,
-          RL.get_screen_to_world_2d(RL::Vector2.new(x: 10, y: 60), camera).y,
-          50/camera.zoom,
-          RL::RED
-        )
+          "Grid Size: #{grid_size_exponent}", 10, 10, 50, RL::RED)
+
+        RL.draw_text(
+          "Zoom: #{camera.zoom}", 10, 60, 50, RL::RED)
 
         RL.draw_text(
           "Cursor X: #{RL.get_screen_to_world_2d(RL::Vector2.new(x: RL.get_mouse_x, y: RL.get_mouse_y), camera).x}",
-          RL.get_screen_to_world_2d(RL::Vector2.new(x: 10, y: 110), camera).x,
-          RL.get_screen_to_world_2d(RL::Vector2.new(x: 10, y: 110), camera).y,
-          50/camera.zoom,
+          10,
+          110,
+          50,
           RL::RED
         )
         RL.draw_text(
           "Cursor y: #{-RL.get_screen_to_world_2d(RL::Vector2.new(x: RL.get_mouse_x, y: RL.get_mouse_y), camera).y}",
-          RL.get_screen_to_world_2d(RL::Vector2.new(x: 10, y: 160), camera).x,
-          RL.get_screen_to_world_2d(RL::Vector2.new(x: 10, y: 160), camera).y,
-          50/camera.zoom,
+          10,
+          160,
+          50,
           RL::RED
         )
+        # UI DRAW END
 
+        RL.begin_mode_2d(camera)
+
+        # DRAW START
 
         draw_grid(grid_size)
 

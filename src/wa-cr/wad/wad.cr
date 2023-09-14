@@ -589,7 +589,8 @@ class WAD
         d_index += 1
       end
     end
-    puts "WARNING: Invalid lump(s) encountered but skipped" if invalid_lump_found
+    # Commented so that people don't see a puts they may not want
+    # puts "WARNING: Invalid lump(s) encountered but skipped" if invalid_lump_found
     wad
   end
 

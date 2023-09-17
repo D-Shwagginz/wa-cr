@@ -197,7 +197,20 @@ module Apps
 
         # DRAW START
 
-        draw_grid(grid_size)
+        Raygui.grid(
+          RL::Rectangle.new(
+            x: -100000,
+            y: -100000,
+            width: 100000*2,
+            height: 100000*2
+          ),
+          nil,
+          grid_size,
+          1,
+          nil
+        )
+
+        # draw_grid(grid_size)
 
         map.linedefs.each do |linedef|
           RL.draw_line(

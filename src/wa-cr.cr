@@ -1,4 +1,5 @@
 require "./wa-cr/**"
 require "./apps"
 
-Apps::WadViewer.run_cli
+# Apps::MapViewer.run_cli
+# Apps::WadViewer.run_cli

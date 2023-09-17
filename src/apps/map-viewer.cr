@@ -1,5 +1,6 @@
 require "../wa-cr"
 require "../raylib"
+require "raylib-cr/raygui"
 require "./map-viewer/**"
 require "option_parser"
 

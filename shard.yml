@@ -11,7 +11,7 @@ targets:
 
 dependencies:
   raylib-cr:
-    github: sol-vin/raylib-cr
+    github: D-Shwagginz/raylib-cr
     branch: raylibadditions
   debug:
     github: Sija/debug.cr

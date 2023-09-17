@@ -1,6 +1,9 @@
 class WAD
   # Map containing all directories of data lumps.
   class Map
+    # Defines the #clone method
+    def_clone
+
     # A list of things that the map contains
     MAP_CONTENTS = ["THINGS", "LINEDEFS", "SIDEDEFS", "VERTEXES", "SEGS", "SSECTORS", "NODES", "SECTORS", "REJECT", "BLOCKMAP", "BEHAVIOR"]
     # Hashes of a thing type number to the description, the default sprite of the thing, and the radius
@@ -179,6 +182,9 @@ class WAD
 
     # Structure of a thing.
     struct Thing
+      # Defines the #clone method
+      def_clone
+
       property x_position : Int16 = 0_i16
       property y_position : Int16 = 0_i16
       property angle_facing : Int16 = 0_i16
@@ -236,6 +242,9 @@ class WAD
 
     # Structure of a linedef.
     struct Linedef
+      # Defines the #clone method
+      def_clone
+
       property start_vertex : Int16 = 0_i16
       property end_vertex : Int16 = 0_i16
       property flags : Int16 = 0_i16
@@ -297,6 +306,9 @@ class WAD
 
     # Structure of a sidedef.
     struct Sidedef
+      # Defines the #clone method
+      def_clone
+
       property x_offset : Int16 = 0_i16
       property y_offset : Int16 = 0_i16
       property name_tex_up : String = ""
@@ -357,6 +369,9 @@ class WAD
 
     # Structure of a vertex.
     struct Vertex
+      # Defines the #clone method
+      def_clone
+
       property x_position : Int16 = 0_i16
       property y_position : Int16 = 0_i16
 
@@ -408,6 +423,9 @@ class WAD
 
     # Structure of a seg.
     struct Seg
+      # Defines the #clone method
+      def_clone
+
       property start_vertex_num : Int16 = 0_i16
       property end_vertex_num : Int16 = 0_i16
       # Angle, full circle is -32768 to 32767.
@@ -475,6 +493,9 @@ class WAD
 
     # Structure of a ssector.
     struct Ssector
+      # Defines the #clone method
+      def_clone
+
       property seg_count : Int16 = 0_i16
       property first_seg_num : Int16 = 0_i16
 
@@ -526,6 +547,9 @@ class WAD
 
     # Structure of a node.
     struct Node
+      # Defines the #clone method
+      def_clone
+
       # X coordinate of partition line start.
       property x_coord : Int16 = 0_i16
       # Y coordinate of partition line start.
@@ -613,6 +637,9 @@ class WAD
 
     # Structure of a sector.
     struct Sector
+      # Defines the #clone method
+      def_clone
+
       property floor_height : Int16 = 0_i16
       property ceiling_height : Int16 = 0_i16
       property name_tex_floor : String = ""
@@ -674,6 +701,9 @@ class WAD
 
     # Class of a reject.
     class Reject
+      # Defines the #clone method
+      def_clone
+
       property data : BitArray = BitArray.new(0)
       property byte_data : Array(UInt8) = [] of UInt8
       @sectors : Int32 = 0
@@ -740,8 +770,14 @@ class WAD
 
     # Class of a blockmap.
     class Blockmap
+      # Defines the #clone method
+      def_clone
+
       # Structure of the blockmap header.
       struct Header
+        # Defines the #clone method
+        def_clone
+
         property grid_origin_x : Int16 = 0_i16
         property grid_origin_y : Int16 = 0_i16
         property num_of_columns : UInt16 = 0_u16
@@ -750,6 +786,9 @@ class WAD
 
       # Class of the blockmap blocklist
       class Blocklist
+        # Defines the #clone method
+        def_clone
+
         property linedefs_in_block : Array(UInt16) = [] of UInt16
       end
 

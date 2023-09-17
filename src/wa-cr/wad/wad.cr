@@ -5,6 +5,11 @@ require "debug"
   Debug.enabled = true
 {% end %}
 
+struct BitArray
+  # Defines the #clone method
+  def_clone
+end
+
 # ### Reading a .WAD file's data
 #
 # To simply read in a WAD file, you just call `WAD.read(file : Path | String | IO) : WAD`:
@@ -119,6 +124,9 @@ class WAD
   def initialize(@type : Type = Type::Broken)
   end
 
+  # Defines the #clone method
+  def_clone
+
   # :nodoc:
   # Macro that parses a given *name* for a map.
   # WARNING: Only use at the end of self.read with *name* being a .map parse method
@@ -142,6 +150,72 @@ class WAD
     directory = WAD::Directory.new
     directory.name = name
     directories << directory
+  end
+
+  # Finds what a name is in the `WAD`
+  # Usually used to find what type a directory points to
+  def what_is?(name : String) : String
+    return "Map" if maps.has_key?(name) && WAD::Map.is_map?(name)
+    return "PcSound" if pcsounds.has_key?(name) && WAD::PcSound.is_pcsound?(name)
+    return "Sound" if sounds.has_key?(name) && WAD::Sound.is_sound?(name)
+    return "Music" if music.has_key?(name) && WAD::Music.is_music?(name)
+    return "Genmidi" if WAD::Genmidi.is_genmidi?(name)
+    return "Dmxgus" if WAD::Dmxgus.is_dmxgus?(name)
+    return "Playpal" if WAD::Playpal.is_playpal?(name)
+    return "Colormap" if WAD::Colormap.is_colormap?(name)
+    return "EnDoom" if WAD::EnDoom.is_endoom?(name)
+    return "TexMap" if texmaps.has_key?(name) && WAD::TextureX.is_texturex?(name)
+    return "Pnames" if WAD::Pnames.is_pnames?(name)
+    return "Graphic" if graphics.has_key?(name)
+    return "Sprite" if sprites.has_key?(name)
+    return "Flat" if flats.has_key?(name)
+    return "Demo" if demos.has_key?(name) && WAD::Demo.is_demo(name)
+    return "Marker"
+  end
+
+  # Renames a lump that can be renamed in the WAD
+  # Usually used when renaming a directory
+  def rename_lump(to_rename : String, name : String) : Bool
+    case what_is?(to_rename)
+    when "Map"
+      maps[name] = maps[to_rename]
+      maps.delete(to_rename)
+      return true
+    when "PcSound"
+      pcsounds[name] = pcsounds[to_rename]
+      pcsounds.delete(to_rename)
+      return true
+    when "Sound"
+      sounds[name] = sounds[to_rename]
+      sounds.delete(to_rename)
+      return true
+    when "Music"
+      music[name] = music[to_rename]
+      music.delete(to_rename)
+      return true
+    when "TexMap"
+      texmaps[name] = texmaps[to_rename]
+      texmaps.delete(to_rename)
+      return true
+    when "Graphic"
+      graphics[name] = graphics[to_rename]
+      graphics.delete(to_rename)
+      return true
+    when "Sprite"
+      sprites[name] = sprites[to_rename]
+      sprites.delete(to_rename)
+      return true
+    when "Flat"
+      flats[name] = flats[to_rename]
+      flats.delete(to_rename)
+      return true
+    when "Demo"
+      demos[name] = demos[to_rename]
+      demos.delete(to_rename)
+      return true
+    else
+      return false
+    end
   end
 
   # Type of WAD: Broken if not Internal, IWAD, or Patch, PWAD.

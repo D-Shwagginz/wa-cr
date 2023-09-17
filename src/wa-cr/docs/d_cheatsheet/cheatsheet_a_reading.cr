@@ -8,6 +8,8 @@ module Documentation
     #     - `WAD.read!(wad_file)` - Reads in file in WAD format but raises any lump parsing errors
     #     - `WAD#add(name, type, filename)` - Reads in *filename* as format *type*<br>
     #       and puts it into the `WAD` with *name*
+    #     - `WAD#what_is?(name) - Returns a string for what *name* is in the `WAD`
+    #     - `WAD#rename_lump(lump_name, new_name) - Renames a lump in the `WAD` and returns true if succeeded
     #     - `WAD#type` - The type of a `WAD`
     #     - `WAD#maps` - The maps in the `WAD`
     #     - `WAD#pcsounds` - The pc sounds in the `WAD`

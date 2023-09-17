@@ -1,6 +1,6 @@
 module Apps
   module MapViewer
-    VERSION =  1.0
+    VERSION = "1.0.0"
     RESX    = 1000
     RESY    = 1000
 

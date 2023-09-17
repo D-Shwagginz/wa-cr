@@ -1,6 +1,9 @@
 class WAD
   # A music track.
   class Music
+    # Defines the #clone method
+    def_clone
+
     property identifier : String = ""
     property score_len : UInt16 = 0_u16
     property score_start : UInt16 = 0_u16
@@ -83,12 +86,18 @@ class WAD
 
   # "Instrument data for the DMX sound library to use for OPL synthesis".
   class Genmidi
+    # Defines the #clone method
+    def_clone
+
     property header : String = ""
     property instr_datas : Array(InstrumentData) = [] of InstrumentData
     property instr_names : Array(String) = [] of String
 
     # "The header is followed by 175 36-byte records of instrument data".
     struct InstrumentData
+      # Defines the #clone method
+      def_clone
+
       property header : Array(Int8 | Int16) = [] of Int8 | Int16
       # TODO: Create actual voice data struct
       property voice1_data : Array(Int8 | Int16) = [] of Int8 | Int16
@@ -172,9 +181,15 @@ class WAD
 
   # "Instrument data for the DMX sound library to use for Gravis Ultrasound soundcards".
   class Dmxgus
+    # Defines the #clone method
+    def_clone
+
     property instr_datas : Array(InstrumentData) = [] of InstrumentData
 
     struct InstrumentData
+      # Defines the #clone method
+      def_clone
+
       property patch : Int32 = 0
       # a = 256, b = 512, c = 768, d = 1024
       property a_k : Int32 = 0

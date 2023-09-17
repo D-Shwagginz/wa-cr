@@ -14,6 +14,29 @@ module Documentation
     # my_linedefs_directory = my_map.linedefs_directory # => Returns the linedefs directory of the linedefs lump for the map "MyMap"
     # ```
     #
+    # ### Renaming directories
+    #
+    # When changing the name of a directory, you will also need to change the
+    # lump name it refers to. To do this, use `WAD#rename_lump(lump_name, new_name)`.<br>
+    # The lump and directory MUST have the same name.
+    #
+    # NOTE: If two or more lumps have the same name, errors could occur
+    #
+    # ```
+    # my_wad = WAD.read("Path/To/Wad")
+    #
+    # my_changed_directory = my_wad.directories[0].clone
+    #
+    # my_changed_directory.name = "NewName"
+    #
+    # my_wad.rename_lump(
+    #   my_wad.directories[0].name,
+    #   my_changed_directory.name
+    # )
+    #
+    # my_wad.directories[0] = my_changed_directory
+    # ```
+    #
     # ### Making New Directories
     #
     # When manually adding anything to a `WAD`, e.g. a graphic, sound, map, etc,

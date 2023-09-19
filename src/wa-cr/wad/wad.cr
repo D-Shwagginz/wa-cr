@@ -5,6 +5,7 @@ require "debug"
   Debug.enabled = true
 {% end %}
 
+# :nodoc:
 struct BitArray
   # Defines the #clone method
   def_clone

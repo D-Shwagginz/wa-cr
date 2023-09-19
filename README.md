@@ -30,7 +30,8 @@ To use the wa-cr's [Raylib](https://github.com/raysan5/raylib/releases)
 additions, you must have [Raylib](https://github.com/raysan5/raylib/releases) installed:
 
 - Install raylib by following the raylib-cr [installation instructions](https://github.com/sol-vin/raylib-cr#installation).
-  For Linux, follow step 1. For Windows, follow steps 1-4.
+  - For Linux, follow step 1.
+  - For Windows, follow steps 1-4.
 
 ## Usage
 
@@ -126,7 +127,8 @@ wa-cr provides useful apps that will help you with using `WAD` data.<br>
 To access wa-cr's apps, just require `wa-cr/apps`
 Here is a full list of all modules inside `Apps`:
 
-- MapViewer
+- `Apps::MapViewer`
+- `Apps::WadViewer` - WIP
 
 ## Limitations
 

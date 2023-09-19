@@ -34,6 +34,7 @@ module Apps
     # :nodoc:
     alias RG = Raygui
 
+    # Removes all null bytes from a string
     def self.remove_nulls(string : String) : String
       new_string = String.build do |str|
         string.chars.each do |char|
@@ -43,12 +44,14 @@ module Apps
       return new_string
     end
 
+    # Runs the wad viewer given a wad path
     def self.run(input_file : String)
       raise "ERROR: '#{input_file}' IS NOT A VALID .wad FILE" unless File.exists?(input_file)
       wad = WAD.read(input_file)
       self.run(wad)
     end
 
+    # Runs the wad viewer given a wad
     def self.run(wad : WAD)
       RL.init_window(WINDOW_RESX, WINDOW_RESY, "Wad Viewer")
       RL.set_window_state(RL::ConfigFlags::WindowResizable)

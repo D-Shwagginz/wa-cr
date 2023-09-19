@@ -6,7 +6,16 @@ require "option_parser"
 require "raylib-cr/raygui"
 
 module Apps
+  # An app used for viewing wads
+  #
+  # To use, call `Apps::WadViewer.run(wad)`
+  #
+  # To use in the command line, call `Apps::WadViewer.run_cli`
+  # and use `-w`
   module WadViewer
+    # Runs the wad viewer with *wad* defined in the command line
+    # -w Path/To/Wad
+    # -h (Shows the help)
     def self.run_cli
       wad_file : String = ""
 

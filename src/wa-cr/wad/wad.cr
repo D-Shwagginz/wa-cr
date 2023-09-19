@@ -169,7 +169,7 @@ class WAD
     return "Graphic" if graphics.has_key?(name)
     return "Sprite" if sprites.has_key?(name)
     return "Flat" if flats.has_key?(name)
-    return "Demo" if demos.has_key?(name) && WAD::Demo.is_demo(name)
+    return "Demo" if demos.has_key?(name)
     return "Marker"
   end
 

@@ -582,7 +582,7 @@ module Apps
                   end
 
                   wad_saved = wad_unsaved.clone
-                  wad_saved.write("./rsrc/wad-viewer/#{wad_save_filename}")
+                  wad_saved.write("./rsrc/#{wad_save_filename}")
                 rescue
                   wad_save_status = 1
                 end
@@ -837,7 +837,7 @@ module Apps
                 end
 
                 wad_saved = wad_unsaved.clone
-                wad_saved.write("./rsrc/wad-viewer/#{wad_save_filename}")
+                wad_saved.write("./rsrc/#{wad_save_filename}")
               rescue
                 wad_save_status = 1
               end

@@ -2,20 +2,22 @@ name: wa-cr
 version: 1.0.0
 
 authors:
-  - Ian Rash <ian@sol.vin>
-  - D. Shwagginz <dshwagbusiness@gmail.com>
+  - (Creator) D. Shwagginz <dshwagbusiness@gmail.com>
+  - (Code Review/DevOPS) Ian Rash <ian@sol.vin>
 
 targets:
   wa-cr:
     main: src/wa-cr.cr
+  map-viewer:
+    main: src/apps/map-viewer.cr
+  wad-viewer:
+    main: src/apps/wad-viewer.cr
 
 dependencies:
   raylib-cr:
     github: sol-vin/raylib-cr
-  debug:
-    github: Sija/debug.cr
         
 
-crystal: 1.8.1
+crystal: 1.9.2
 
 license: MIT

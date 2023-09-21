@@ -1,9 +1,4 @@
 require "bit_array"
-require "debug"
-
-{% if flag?(:debug) %}
-  Debug.enabled = true
-{% end %}
 
 # :nodoc:
 struct BitArray

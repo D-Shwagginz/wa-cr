@@ -1,0 +1,45 @@
+name: Ubuntu - Pre Release(latest)
+
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  ubuntu-pre-release:
+    name: "Ubuntu - Pre Release(latest)"
+    runs-on: "ubuntu-latest"
+    permissions:
+      contents: write
+    steps:
+      - name: Download source
+        uses: actions/checkout@v2
+      - name: Install Crystal
+        uses: oprypin/install-crystal@v1
+      - name: Install Crystal libs
+        run: shards install
+      - name: raylib-cr post-install
+        run: sh ./lib/raylib-cr/rsrc/install-lib.sh
+      - name: Build map-viewer
+        run: shards build --release map-viewer 
+      - name: Zip files
+        run: zip -r ubuntu-map-viewer.zip bin/**
+      - uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          prerelease: true
+          tag: "latest"
+          artifacts: "ubuntu-map-viewer.zip"
+      - name: Cleanup
+        run: rm -rf bin
+      - name: Build wad-viewer
+        run: shards build --release wad-viewer 
+      - name: Zip files
+        run: zip -r ubuntu-wad-viewer.zip bin/**
+      - uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          prerelease: true
+          tag: "latest"
+          artifacts: "ubuntu-wad-viewer.zip"
+      

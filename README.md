@@ -145,4 +145,4 @@ Here is a full list of all modules inside `Apps`:
 ## Contributors
 
 - [Devin Shwagginz](https://github.com/D-Shwagginz) - creator and maintainer
-- [Ian Rash](https://github.com/sol-vin) - co-creator and owner of [raylib-cr](https://github.com/sol-vin/raylib-cr)
+- [Ian Rash](https://github.com/sol-vin) - Code Review and DevOPS

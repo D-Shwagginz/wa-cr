@@ -9,7 +9,7 @@ module Documentation
     # for information on the Raylib Crystal C-Bindings
     #
     # NOTE: Some file conversion methods that `RaylibAdditions` contains are not
-    # mentioned here, but in [E_ConvertingFileTypes](https://sol-vin.github.io/wad-reader/Documentation/C_Usage/E_ConvertingFileTypes.html#the-following-convertion-methods-use-raylib-additions)
+    # mentioned here, but in [E_ConvertingFileTypes](https://D-Shwagginz.github.io/wa-cr/Documentation/C_Usage/E_ConvertingFileTypes.html#the-following-convertion-methods-use-raylib-additions)
     #
     # To use the `RaylibAdditions`, just require `wa-cr/raylib`:
     #

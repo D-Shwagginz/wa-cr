@@ -13,7 +13,7 @@ module Documentation
     #
     # NOTE: Writing a `WAD` creates new directories specific to that `WAD`,
     # meaning that while the `WAD::Directory#size` and the `WAD::Directory#file_pos`
-    # are assigned automatically, you still have to make sure you [Make a New Directory](https://sol-vin.github.io/wad-reader/Documentation/C_Usage/C_OnDirectories.html#making-new-directories)
+    # are assigned automatically, you still have to make sure you [Make a New Directory](https://D-Shwagginz.github.io/wa-cr/Documentation/C_Usage/C_OnDirectories.html#making-new-directories)
     # when creating something new in the wad, or else that new something won't get written out.
     #
     # ```

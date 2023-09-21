@@ -10,7 +10,7 @@ module Documentation
     #
     # Here is a quick reference list of all wa-cr apps:
     #
-    #   - [MapViewer](https://sol-vin.github.io/wad-reader/Documentation/C_Usage/H_Apps.html#map-viewer)
+    #   - [MapViewer](https://D-Shwagginz.github.io/wa-cr/Documentation/C_Usage/H_Apps.html#map-viewer)
     #
     # ### Map Viewer
     #

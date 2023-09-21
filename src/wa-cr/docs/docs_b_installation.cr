@@ -3,7 +3,7 @@ module Documentation
   # ```yml
   # dependencies:
   #   wa-cr:
-  #     github: sol-vin/wa-cr
+  #     github: D-Shwagginz/wa-cr
   # ```
   # And then run `shards install`
   #

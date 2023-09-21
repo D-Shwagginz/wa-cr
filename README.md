@@ -19,7 +19,7 @@ write out to a .wad or .lmp file, and convert file types.
 ```yml
 dependencies:
   wa-cr:
-    github: sol-vin/wa-cr
+    github: D-Shwagginz/wa-cr
 ```
 
 2. Run `shards install`
@@ -37,8 +37,8 @@ additions, you must have [Raylib](https://github.com/raysan5/raylib/releases) in
 
 wa-cr includes many methods that make jumping into and out of a .wad or .lmp file very easy.<br>
 Following is a brief overview of what wa-cr can do.<br>
-For a complete overview see wa-cr's [docs](https://sol-vin.github.io/wad-reader/index.html)
-and the [complete overview](https://sol-vin.github.io/wad-reader/Documentation.html).
+For a complete overview see wa-cr's [docs](https://D-Shwagginz.github.io/wa-cr/index.html)
+and the [complete overview](https://D-Shwagginz.github.io/wa-cr/Documentation.html).
 
 ### Wad Data
 
@@ -136,7 +136,7 @@ Here is a full list of all modules inside `Apps`:
 
 ## Contributing
 
-1. Fork it (<https://github.com/sol-vin/wad-reader/fork>)
+1. Fork it (<https://github.com/D-Shwagginz/wa-cr/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

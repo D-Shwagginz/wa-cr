@@ -1,15 +1,24 @@
 class WAD
   # Color palettes for various situations.
   class Playpal
+    # Defines the #clone method
+    def_clone
+
     property palettes : Array(Palette) = [] of Palette
 
     # A color palette
     class Palette
+      # Defines the #clone method
+      def_clone
+
       property colors : Array(Color) = [] of Color
     end
 
     # A color
     struct Color
+      # Defines the #clone method
+      def_clone
+
       property r : UInt8 = 0_u8
       property g : UInt8 = 0_u8
       property b : UInt8 = 0_u8
@@ -74,10 +83,16 @@ class WAD
 
   # Map to adjust pixel values for reduced brightness.
   class Colormap
+    # Defines the #clone method
+    def_clone
+
     property tables : Array(Table) = [] of Table
 
     # A colormap containing it's table's data
     class Table
+      # Defines the #clone method
+      def_clone
+
       property table : Array(UInt8) = [] of UInt8
     end
 
@@ -136,11 +151,17 @@ class WAD
 
   # The colorful screen shown when Doom exits.
   class EnDoom
+    # Defines the #clone method
+    def_clone
+
     # An array of all the characters in the EnDoom
     property characters : Array(EnDoomChars) = [] of EnDoomChars
 
     # A character in the EnDoom
     struct EnDoomChars
+      # Defines the #clone method
+      def_clone
+
       # The character's ascii value
       property ascii_value : UInt8 = 0_u8
       # The character's color
@@ -202,16 +223,23 @@ class WAD
 
   # Defines how wall patches from the WAD file should combine to form wall textures.
   class TextureX
+    # Defines the #clone method
+    def_clone
+
     property numtextures : Int32 = 0_i32
     property offsets : Array(Int32) = [] of Int32
     property mtextures : Array(TextureMap) = [] of TextureMap
 
     # "The binary contents of the maptexture_t structure starts with a header of 22 bytes, followed by all the map patches."
     class TextureMap
+      # Defines the #clone method
+      def_clone
+
       property name : String = ""
       property masked : Bool = false
       property width : Int16 = 0_i16
       property height : Int16 = 0_i16
+      # UNUSED
       property columndirectory : Int32 = 0_i32
       property patchcount : Int16 = 0_i16
       property patches : Array(Patch) = [] of Patch
@@ -219,10 +247,15 @@ class WAD
 
     # "The binary contents of the mappatch_t structure contains 10 bytes defining how the patch should be drawn inside the texture."
     struct Patch
+      # Defines the #clone method
+      def_clone
+
       property originx : Int16 = 0_i16
       property originy : Int16 = 0_i16
       property patch : Int16 = 0_i16
+      # UNUSED
       property stepdir : Int16 = 0_i16
+      # UNUSED
       property colormap : Int16 = 0_i16
     end
 
@@ -259,7 +292,7 @@ class WAD
 
       texturex.offsets.each do
         texturemap = TextureMap.new
-        texturemap.name = io.gets(8).to_s
+        texturemap.name = io.gets(8).to_s.gsub("\u0000", "")
         texturemap.masked = io.read_bytes(Int32, IO::ByteFormat::LittleEndian) != 0
         texturemap.width = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
         texturemap.height = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
@@ -300,6 +333,9 @@ class WAD
 
   # Includes all the names for wall patches.
   class Pnames
+    # Defines the #clone method
+    def_clone
+
     property num_patches : Int32 = 0_i32
     property patches : Array(String) = [] of String
 
@@ -331,7 +367,7 @@ class WAD
       pnames.num_patches = io.read_bytes(Int32, IO::ByteFormat::LittleEndian)
 
       pnames.num_patches.times do
-        pnames.patches << io.gets(8).to_s
+        pnames.patches << io.gets(8).to_s.gsub("\u0000", "")
       end
       pnames
     end
@@ -355,15 +391,24 @@ class WAD
   # :nodoc:
   # A class used as a middle man for parsing a doom graphic
   class GraphicParse
+    # Defines the #clone method
+    def_clone
+
     property columnoffsets : Array(UInt32) = [] of UInt32
     property columns : Array(Column) = [] of Column
 
     class Column
+      # Defines the #clone method
+      def_clone
+
       property posts : Array(Post) = [] of Post
     end
 
     # A column of pixel data
     class Post
+      # Defines the #clone method
+      def_clone
+
       property topdelta : UInt8 = 0_u8
       property length : UInt8 = 0_u8
       property data : Array(UInt8) = [] of UInt8
@@ -371,6 +416,9 @@ class WAD
     end
 
     struct RowColumnPixel
+      # Defines the #clone method
+      def_clone
+
       property pixel : UInt8 = 0_u8
       property row : UInt32 = 0_u32
       property column : UInt32 = 0_u32
@@ -379,10 +427,15 @@ class WAD
 
   # A WAD graphic
   #
+  # WARNING: The max graphic height is 255. The max width is unlimited
+  #
   # NOTE: Graphic has no `is_graphic?` method.
   # Instead, `Graphic#parse` will return `nil` if
   # *io* is not a valid graphic
   class Graphic
+    # Defines the #clone method
+    def_clone
+
     # An enum for preset offsets of the graphic
     enum Offsets
       TopLeft
@@ -606,6 +659,9 @@ class WAD
 
   # A WAD flat
   class Flat
+    # Defines the #clone method
+    def_clone
+
     property colors : Array(UInt8) = [] of UInt8
     property lump_bytes : Int32 = 4096
     property width : Int32 = 64

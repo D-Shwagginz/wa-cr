@@ -21,6 +21,13 @@ module Documentation
     # my_read_string_wad = WAD.read("Path/To/Wad")
     # my_read_path_wad = WAD.read(Path["Path/To/Wad"])
     # ```
+    #
+    # `WAD` also has `WAD.read?(file : String | Path | IO)`
+    # and `WAD.read!(file : String | Path | IO)`
+    #
+    # `WAD.read?` is the same as `WAD.read` but returns Nil if parsing the WAD throws any errors
+    #
+    # `WAD.read!` is the same as `WAD.read` but returns any lump parsing errors
     module A_MakingAWad
     end
   end

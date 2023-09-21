@@ -1,8 +1,137 @@
 class WAD
   # Map containing all directories of data lumps.
   class Map
+    # Defines the #clone method
+    def_clone
+
     # A list of things that the map contains
     MAP_CONTENTS = ["THINGS", "LINEDEFS", "SIDEDEFS", "VERTEXES", "SEGS", "SSECTORS", "NODES", "SECTORS", "REJECT", "BLOCKMAP", "BEHAVIOR"]
+    # Hashes of a thing type number to the description, the default sprite of the thing, and the radius
+    THING_TYPES = {
+         1 => {"Player 1 start", "PLAYA1", 16},
+         2 => {"Player 2 start", "PLAYA1", 16},
+         3 => {"Player 3 start", "PLAYA1", 16},
+         4 => {"Player 4 start", "PLAYA1", 16},
+         5 => {"Blue keycard", "BKEYA0", 20},
+         6 => {"Yellow keycard", "YKEYA0", 20},
+         7 => {"Spiderdemon", "SPIDA1D1", 128},
+         8 => {"Backpack", "BPAKA0", 20},
+         9 => {"Shotgun guy", "SPOSA1", 20},
+        10 => {"Bloody mess", "PLAYW0", 20},
+        11 => {"Deathmatch start", "PLAYE1", 16},
+        12 => {"Bloody mess", "PLAYW0", 20},
+        13 => {"Red keycard", "RKEYA0", 20},
+        14 => {"Teleport landing", "TFOGA0", 20},
+        15 => {"Dead player", "PLAYN0", 20},
+        16 => {"Cyberdemon", "CYBRA1", 40},
+        17 => {"Energy cell pack", "CELPA0", 20},
+        18 => {"Dead former human", "POSSL0", 20},
+        19 => {"Dead former sergeant", "SPOSL0", 20},
+        20 => {"Dead imp", "TROOM0", 20},
+        21 => {"Dead demon", "SARGN0", 20},
+        22 => {"Dead cacodemon", "HEADL0", 20},
+        23 => {"Dead lost soul (invisible)", "", 20},
+        24 => {"Pool of blood and flesh", "POL5A0", 20},
+        25 => {"Impaled human", "POL1A0", 16},
+        26 => {"Twitching impaled human", "POL6A0", 16},
+        27 => {"Skull on a pole", "POL4A0", 16},
+        28 => {"Five skulls \"shish kebab\"", "POL2A0", 16},
+        29 => {"Pile of skulls and candles", "POL3A0", 16},
+        30 => {"Tall green pillar", "COL1A0", 16},
+        31 => {"Short green pillar", "COL2A0", 16},
+        32 => {"Tall red pillar", "COL3A0", 16},
+        33 => {"Short red pillar", "COL4A0", 16},
+        34 => {"Candle", "CANDA0", 20},
+        35 => {"Candelabra", "CBRAA0", 16},
+        36 => {"Short green pillar with beating heart", "COL5A0", 16},
+        37 => {"Short red pillar with skull", "COL6A0", 16},
+        38 => {"Red skull key", "RSKUA0", 20},
+        39 => {"Yellow skull key", "YSKUA0", 20},
+        40 => {"Blue skull key", "BSKUA0", 20},
+        41 => {"Evil eye", "CEYEA0", 16},
+        42 => {"Floating skull", "FSKUA0", 16},
+        43 => {"Burnt tree", "TRE1A0", 16},
+        44 => {"Tall blue firestick", "TBLUA0", 16},
+        45 => {"Tall green firestick", "TGRNA0", 16},
+        46 => {"Tall red firestick", "TREDA0", 16},
+        47 => {"Brown stump", "SMITA0", 16},
+        48 => {"Tall techno column", "ELECA0", 16},
+        49 => {"Hanging victim, twitching", "GOR1A0", 16},
+        50 => {"Hanging victim, arms out", "GOR2A0", 16},
+        51 => {"Hanging victim, one-legged", "GOR3A0", 16},
+        52 => {"Hanging pair of legs", "GOR4A0", 16},
+        53 => {"Hanging leg", "GOR5A0", 16},
+        54 => {"Large brown tree", "TRE2A0", 32},
+        55 => {"Short blue firestick", "SMBTA0", 16},
+        56 => {"Short green firestick", "SMGTA0", 16},
+        57 => {"Short red firestick", "SMRTA0", 16},
+        58 => {"Spectre", "SARGA1", 30},
+        59 => {"Hanging victim, arms out", "GOR2A0", 20},
+        60 => {"Hanging pair of legs", "GOR4A0", 20},
+        61 => {"Hanging victim, one-legged", "GOR3A0", 20},
+        62 => {"Hanging leg", "GOR5A0", 20},
+        63 => {"Hanging victim, twitching", "GOR1A0", 20},
+        64 => {"Arch-vile", "VILEA1D1", 20},
+        65 => {"Heavy weapon dude", "CPOSA1", 20},
+        66 => {"Revenant", "SKELA1D1", 20},
+        67 => {"Mancubus", "FATTA1", 48},
+        68 => {"Arachnotron", "BSPIA1D1", 64},
+        69 => {"Hell knight", "BOS2A1C1", 24},
+        70 => {"Burning barrel", "FCANA0", 16},
+        71 => {"Pain elemental", "PAINA1", 31},
+        72 => {"Commander keen", "KEENA0", 16},
+        73 => {"Hanging victim, guts removed", "HDB1A0", 16},
+        74 => {"Hanging victim, guts and brain removed", "HDB2A0", 16},
+        75 => {"Hanging torso, looking down", "HDB3A0", 16},
+        76 => {"Hanging torso, open skull", "HDB4A0", 16},
+        77 => {"Hanging torso, looking up", "HDB5A0", 16},
+        78 => {"Hanging torso, brain removed", "HDB6A0", 16},
+        79 => {"Pool of blood", "POB1A0", 20},
+        80 => {"Pool of blood", "POB2A0", 20},
+        81 => {"Pool of brains", "BRS1A0", 20},
+        82 => {"Super shotgun", "SGN2A0", 20},
+        83 => {"Megasphere", "MEGAA0", 20},
+        84 => {"Wolfenstein SS", "SSWVA1", 20},
+        85 => {"Tall techno floor lamp", "TLMPA0", 16},
+        86 => {"Short techno floor lamp", "TLP2A0", 16},
+        87 => {"Spawn spot", "FIREA0", 20},
+        88 => {"Romero's head", "BBRNA0", 16},
+        89 => {"Monster spawner", "BOSFA0", 20},
+      2001 => {"Shotgun", "SHOTA0", 20},
+      2002 => {"Chaingun", "MGUNA0", 20},
+      2003 => {"Rocket launcher", "LAUNA0", 20},
+      2004 => {"Plasma gun ", "PLASA0", 20},
+      2005 => {"Chainsaw", "CSAWA0", 20},
+      2006 => {"BFG9000", "BFUGA0", 20},
+      2007 => {"Clip", "CLIPA0", 20},
+      2008 => {"4 shotgun shells", "SHELA0", 20},
+      2010 => {"Rocket", "ROCKA0", 20},
+      2011 => {"Stimpack", "STIMA0", 20},
+      2012 => {"Medikit", "MEDIA0", 20},
+      2013 => {"Supercharge", "SOULA0", 20},
+      2014 => {"Health bonus", "BON1A0", 20},
+      2015 => {"Armor bonus", "BON2A0", 20},
+      2018 => {"Armor (green)", "ARM1A0", 20},
+      2019 => {"Megaarmor (blue)", "ARM2A0", 20},
+      2022 => {"Invulnerability", "PINVA0", 20},
+      2023 => {"Beserk", "PSTRA0", 20},
+      2024 => {"Partial invisibility", "PINSA0", 20},
+      2025 => {"Radiation shielding suit", "SUITA0", 20},
+      2026 => {"Computer area map", "PMAPA0", 20},
+      2028 => {"Floor lamp", "COLUA0", 16},
+      2035 => {"Exploding barrel", "BAR1A0", 10},
+      2045 => {"Light amplification visor", "PVISA0", 20},
+      2046 => {"Box of rockets", "BROKA0", 20},
+      2047 => {"Energy cell", "CELLA0", 20},
+      2048 => {"Box of bullets", "AMMOA0", 20},
+      2049 => {"Box of shotgun shells", "SBOXA0", 20},
+      3001 => {"Imp", "TROOA1", 20},
+      3002 => {"Demon", "SARGA1", 30},
+      3003 => {"Baron of hell", "BOSSA1", 24},
+      3004 => {"Zombieman", "POSSA1", 20},
+      3005 => {"Cacodemon", "HEADA1", 31},
+      3006 => {"Lost soul", "SKULA1", 16},
+    }
 
     # The name of the map.
     property name : String = ""
@@ -53,6 +182,9 @@ class WAD
 
     # Structure of a thing.
     struct Thing
+      # Defines the #clone method
+      def_clone
+
       property x_position : Int16 = 0_i16
       property y_position : Int16 = 0_i16
       property angle_facing : Int16 = 0_i16
@@ -110,6 +242,9 @@ class WAD
 
     # Structure of a linedef.
     struct Linedef
+      # Defines the #clone method
+      def_clone
+
       property start_vertex : Int16 = 0_i16
       property end_vertex : Int16 = 0_i16
       property flags : Int16 = 0_i16
@@ -171,6 +306,9 @@ class WAD
 
     # Structure of a sidedef.
     struct Sidedef
+      # Defines the #clone method
+      def_clone
+
       property x_offset : Int16 = 0_i16
       property y_offset : Int16 = 0_i16
       property name_tex_up : String = ""
@@ -215,9 +353,9 @@ class WAD
           # Reads the data.
           sidedef.x_offset = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           sidedef.y_offset = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-          sidedef.name_tex_up = io.gets(8).to_s
-          sidedef.name_tex_low = io.gets(8).to_s
-          sidedef.name_tex_mid = io.gets(8).to_s
+          sidedef.name_tex_up = io.gets(8).to_s.gsub("\u0000", "")
+          sidedef.name_tex_low = io.gets(8).to_s.gsub("\u0000", "")
+          sidedef.name_tex_mid = io.gets(8).to_s.gsub("\u0000", "")
           sidedef.facing_sector_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           # Iterates the index.
           sidedefs_index += 1
@@ -231,6 +369,9 @@ class WAD
 
     # Structure of a vertex.
     struct Vertex
+      # Defines the #clone method
+      def_clone
+
       property x_position : Int16 = 0_i16
       property y_position : Int16 = 0_i16
 
@@ -282,6 +423,9 @@ class WAD
 
     # Structure of a seg.
     struct Seg
+      # Defines the #clone method
+      def_clone
+
       property start_vertex_num : Int16 = 0_i16
       property end_vertex_num : Int16 = 0_i16
       # Angle, full circle is -32768 to 32767.
@@ -349,6 +493,9 @@ class WAD
 
     # Structure of a ssector.
     struct Ssector
+      # Defines the #clone method
+      def_clone
+
       property seg_count : Int16 = 0_i16
       property first_seg_num : Int16 = 0_i16
 
@@ -400,6 +547,9 @@ class WAD
 
     # Structure of a node.
     struct Node
+      # Defines the #clone method
+      def_clone
+
       # X coordinate of partition line start.
       property x_coord : Int16 = 0_i16
       # Y coordinate of partition line start.
@@ -487,6 +637,9 @@ class WAD
 
     # Structure of a sector.
     struct Sector
+      # Defines the #clone method
+      def_clone
+
       property floor_height : Int16 = 0_i16
       property ceiling_height : Int16 = 0_i16
       property name_tex_floor : String = ""
@@ -531,8 +684,8 @@ class WAD
           # Reads the data.
           sector.floor_height = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           sector.ceiling_height = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
-          sector.name_tex_floor = io.gets(8).to_s
-          sector.name_tex_ceiling = io.gets(8).to_s
+          sector.name_tex_floor = io.gets(8).to_s.gsub("\u0000", "")
+          sector.name_tex_ceiling = io.gets(8).to_s.gsub("\u0000", "")
           sector.light_level = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           sector.special_type = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
           sector.tag_num = io.read_bytes(Int16, IO::ByteFormat::LittleEndian)
@@ -548,6 +701,9 @@ class WAD
 
     # Class of a reject.
     class Reject
+      # Defines the #clone method
+      def_clone
+
       property data : BitArray = BitArray.new(0)
       property byte_data : Array(UInt8) = [] of UInt8
       @sectors : Int32 = 0
@@ -614,8 +770,14 @@ class WAD
 
     # Class of a blockmap.
     class Blockmap
+      # Defines the #clone method
+      def_clone
+
       # Structure of the blockmap header.
       struct Header
+        # Defines the #clone method
+        def_clone
+
         property grid_origin_x : Int16 = 0_i16
         property grid_origin_y : Int16 = 0_i16
         property num_of_columns : UInt16 = 0_u16
@@ -624,6 +786,9 @@ class WAD
 
       # Class of the blockmap blocklist
       class Blocklist
+        # Defines the #clone method
+        def_clone
+
         property linedefs_in_block : Array(UInt16) = [] of UInt16
       end
 

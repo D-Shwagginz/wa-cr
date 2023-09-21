@@ -5,6 +5,12 @@ require "debug"
   Debug.enabled = true
 {% end %}
 
+# :nodoc:
+struct BitArray
+  # Defines the #clone method
+  def_clone
+end
+
 # ### Reading a .WAD file's data
 #
 # To simply read in a WAD file, you just call `WAD.read(file : Path | String | IO) : WAD`:
@@ -119,6 +125,9 @@ class WAD
   def initialize(@type : Type = Type::Broken)
   end
 
+  # Defines the #clone method
+  def_clone
+
   # :nodoc:
   # Macro that parses a given *name* for a map.
   # WARNING: Only use at the end of self.read with *name* being a .map parse method
@@ -144,6 +153,72 @@ class WAD
     directories << directory
   end
 
+  # Finds what a name is in the `WAD`
+  # Usually used to find what type a directory points to
+  def what_is?(name : String) : String
+    return "Map" if maps.has_key?(name) && WAD::Map.is_map?(name)
+    return "PcSound" if pcsounds.has_key?(name) && WAD::PcSound.is_pcsound?(name)
+    return "Sound" if sounds.has_key?(name) && WAD::Sound.is_sound?(name)
+    return "Music" if music.has_key?(name) && WAD::Music.is_music?(name)
+    return "Genmidi" if WAD::Genmidi.is_genmidi?(name)
+    return "Dmxgus" if WAD::Dmxgus.is_dmxgus?(name)
+    return "Playpal" if WAD::Playpal.is_playpal?(name)
+    return "Colormap" if WAD::Colormap.is_colormap?(name)
+    return "EnDoom" if WAD::EnDoom.is_endoom?(name)
+    return "TexMap" if texmaps.has_key?(name) && WAD::TextureX.is_texturex?(name)
+    return "Pnames" if WAD::Pnames.is_pnames?(name)
+    return "Graphic" if graphics.has_key?(name)
+    return "Sprite" if sprites.has_key?(name)
+    return "Flat" if flats.has_key?(name)
+    return "Demo" if demos.has_key?(name)
+    return "Marker"
+  end
+
+  # Renames a lump that can be renamed in the WAD
+  # Usually used when renaming a directory
+  def rename_lump(to_rename : String, name : String) : Bool
+    case what_is?(to_rename)
+    when "Map"
+      maps[name] = maps[to_rename]
+      maps.delete(to_rename)
+      return true
+    when "PcSound"
+      pcsounds[name] = pcsounds[to_rename]
+      pcsounds.delete(to_rename)
+      return true
+    when "Sound"
+      sounds[name] = sounds[to_rename]
+      sounds.delete(to_rename)
+      return true
+    when "Music"
+      music[name] = music[to_rename]
+      music.delete(to_rename)
+      return true
+    when "TexMap"
+      texmaps[name] = texmaps[to_rename]
+      texmaps.delete(to_rename)
+      return true
+    when "Graphic"
+      graphics[name] = graphics[to_rename]
+      graphics.delete(to_rename)
+      return true
+    when "Sprite"
+      sprites[name] = sprites[to_rename]
+      sprites.delete(to_rename)
+      return true
+    when "Flat"
+      flats[name] = flats[to_rename]
+      flats.delete(to_rename)
+      return true
+    when "Demo"
+      demos[name] = demos[to_rename]
+      demos.delete(to_rename)
+      return true
+    else
+      return false
+    end
+  end
+
   # Type of WAD: Broken if not Internal, IWAD, or Patch, PWAD.
   enum Type
     Broken
@@ -151,15 +226,26 @@ class WAD
     Patch
   end
 
+  # An enum for all types that can be added to the `WAD` by using `WAD#add`
+  enum AddTypes
+    PcSound
+    Sound
+    Music
+    TextureX
+    Graphic
+    Flat
+    Demo
+  end
+
   # Allows easy parsing of lumps into the WAD
   #
   # ```
   # my_wad = WAD.new(WAD::Type::Internal)
   #
-  # my_wad.add("MyTest", "Sound", "Path/To/SoundTest.lmp")
+  # my_wad.add("MyTest", WAD::AddTypes::Sound, "Path/To/SoundTest.lmp")
   # ```
   #
-  def add(name : String, type : String, file : Path | String)
+  def add(name : String, type : AddTypes, file : Path | String)
     File.open(file) do |io|
       add(name, type, io)
     end
@@ -171,33 +257,33 @@ class WAD
   # my_wad = WAD.new(WAD::Type::Internal)
   #
   # File.open("Path/To/Sound.lmp") do |file|
-  #   my_wad.add("MyTest", "Sound", file)
+  #   my_wad.add("MyTest", WAD::AddTypes::Sound, file)
   # end
   # ```
   #
-  def add(name : String, type : String, file : IO)
+  def add(name : String, type : AddTypes, file : IO)
     case type
-    when "PcSound"
+    when AddTypes::PcSound
       pcsounds[name] = PcSound.parse(file)
       new_dir(name)
-    when "Sound"
+    when AddTypes::Sound
       sounds[name] = Sound.parse(file)
       new_dir(name)
-    when "Music"
+    when AddTypes::Music
       music[name] = Music.parse(file)
       new_dir(name)
-    when "TextureX"
+    when AddTypes::TextureX
       texmaps[name] = TextureX.parse(file)
       new_dir(name)
-    when "Graphic"
+    when AddTypes::Graphic
       Graphic.parse(file).try do |graphic|
         graphics[name] = graphic
         new_dir(name)
       end
-    when "Flat"
+    when AddTypes::Flat
       flats[name] = Flat.parse(file)
       new_dir(name)
-    when "Demo"
+    when AddTypes::Demo
       demos[name] = Demo.parse(file)
       new_dir(name)
     else
@@ -212,7 +298,8 @@ class WAD
   #   my_wad = WAD.read(file)
   # end
   # ```
-  def self.read(file : IO) : WAD
+  def self.read(file : IO, *, throw_errors : Bool = false) : WAD
+    invalid_lump_found = false
     wad = WAD.new
     start_pos = file.pos.to_u32
     # Sets the WAD type: Can only be the ASCII characters "IWAD" or "PWAD".
@@ -242,6 +329,9 @@ class WAD
     # Parses each directory in WAD.
     # OPTIMIZE: Rework to remove *d_index* and replace with *wad.directories_count.times*.
     while d_index < wad.directories_count
+      # Shows if the directory has been read
+      directory_read = false
+
       # The start of the directory
       directory_start = wad.directory_pointer + (d_index*Directory::SIZE)
       # Reads the directory at *directory_start* of *Directory::Size*.
@@ -249,207 +339,324 @@ class WAD
         # Reads directory *io* and pushes it onto *wad.directories*.
         directory = Directory.read(io, start_pos)
         wad.directories << directory
-        # Parses map if *directory.name* is of format 'ExMx' or 'MAPxx' .
-        if Map.is_map?(directory.name)
-          # Creates a new map variable with *directory.name*.
-          map = Map.new(directory.name)
-          # Creates a variable to show that the directory has ended.
-          # and runs until the end has been reached.
-          map_directory_end_reached = false
-          until (map_directory_end_reached)
-            # Iterates the directory index.
-            d_index += 1
-            # The start of the directory.
-            directory_start = wad.directory_pointer + (d_index*Directory::SIZE)
-            # Breaks if the the end of the directory is greater than the end of the WAD's total directories.
-            break if directory_start + Directory::SIZE > wad.directory_pointer + (wad.directories_count*Directory::SIZE)
-            # Reads the directory at *directory_start* of *Directory::Size*.
-            file.read_at(directory_start, Directory::SIZE) do |io|
-              # Reads directory *io* and pushes it onto *wad.directories*.
-              directory = Directory.read(io, start_pos)
-              # Checks if it has reached the end of the map's lumps
-              # By seeing if the *directory.name* is a map, showing
-              # it reached the next map.
-              if Map.is_map?(directory.name)
-                d_index -= 1
-                map_directory_end_reached = true
-                break
-              elsif !Map::MAP_CONTENTS.includes?(directory.name)
-                map_directory_end_reached = true
-                wad.directories << directory
-                break
+
+        if !directory_read
+          # Parses map if *directory.name* is of format 'ExMx' or 'MAPxx' .
+          begin
+            if Map.is_map?(directory.name)
+              # Creates a new map variable with *directory.name*.
+              map = Map.new(directory.name)
+              # Creates a variable to show that the directory has ended.
+              # and runs until the end has been reached.
+              map_directory_end_reached = false
+              until (map_directory_end_reached)
+                # Iterates the directory index.
+                d_index += 1
+                # The start of the directory.
+                directory_start = wad.directory_pointer + (d_index*Directory::SIZE)
+                # Breaks if the the end of the directory is greater than the end of the WAD's total directories.
+                break if directory_start + Directory::SIZE > wad.directory_pointer + (wad.directories_count*Directory::SIZE)
+                # Reads the directory at *directory_start* of *Directory::Size*.
+                file.read_at(directory_start, Directory::SIZE) do |io|
+                  # Reads directory *io* and pushes it onto *wad.directories*.
+                  directory = Directory.read(io, start_pos)
+                  # Checks if it has reached the end of the map's lumps
+                  # By seeing if the *directory.name* is a map, showing
+                  # it reached the next map.
+                  if !Map::MAP_CONTENTS.includes?(directory.name)
+                    d_index -= 1
+                    map_directory_end_reached = true
+                    break
+                  end
+                  # Inserts the directory into the map.
+                  map.insert_next_property(directory)
+                end
               end
-              # Inserts the directory into the map.
-              map.insert_next_property(directory)
+
+              # Parses each map lump into *map*.
+              map_parse(things, Thing)
+              map_parse(linedefs, Linedef)
+              map_parse(sidedefs, Sidedef)
+              map_parse(vertexes, Vertex)
+              map_parse(segs, Seg)
+              map_parse(ssectors, Ssector)
+              map_parse(nodes, Node)
+              map_parse(sectors, Sector)
+              file.read_at(map.reject_directory.file_pos, map.reject_directory.size) do |io|
+                map.reject = Map::Reject.parse(io, map.reject_directory.size, map.sectors.size)
+              end
+              map_parse(blockmap, Blockmap)
+
+              # Pushes map onto the list of maps
+              wad.maps[map.name] = map
+              directory_read = true
             end
-          end
-
-          # Parses each map lump into *map*.
-          map_parse(things, Thing)
-          map_parse(linedefs, Linedef)
-          map_parse(sidedefs, Sidedef)
-          map_parse(vertexes, Vertex)
-          map_parse(segs, Seg)
-          map_parse(ssectors, Ssector)
-          map_parse(nodes, Node)
-          map_parse(sectors, Sector)
-          file.read_at(map.reject_directory.file_pos, map.reject_directory.size) do |io|
-            map.reject = Map::Reject.parse(io, map.reject_directory.size, map.sectors.size)
-          end
-          map_parse(blockmap, Blockmap)
-
-          # Pushes map onto the list of maps
-          wad.maps[map.name] = map
-        end
-
-        # Parses pc sound if *directory.name* is of format 'DPx..x'
-        if PcSound.is_pcsound?(directory.name)
-          file.read_at(directory.file_pos, directory.size) do |io|
-            wad.pcsounds[directory.name] = PcSound.parse(io)
+          rescue e
+            raise "MAP '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
           end
         end
 
-        # Parses sound if *directory.name* is of format 'DSx..x'
-        if Sound.is_sound?(directory.name)
-          file.read_at(directory.file_pos, directory.size) do |io|
-            wad.sounds[directory.name] = Sound.parse(io)
-          end
-        end
-
-        # Parses music if *directory.name* is of format 'D_x..x'
-        if Music.is_music?(directory.name)
-          file.read_at(directory.file_pos, directory.size) do |io|
-            wad.music[directory.name] = Music.parse(io)
-          end
-        end
-
-        # Parses genmidi if *directory.name* is "GENMIDI"
-        if Genmidi.is_genmidi?(directory.name)
-          file.read_at(directory.file_pos, directory.size) do |io|
-            wad.genmidi = Genmidi.parse(io)
-          end
-        end
-
-        # Parses dmxgus if *directory.name* is "DMXGUS"
-        if Dmxgus.is_dmxgus?(directory.name)
-          file.read_at(directory.file_pos, directory.size) do |io|
-            wad.dmxgus = Dmxgus.parse(io)
-          end
-        end
-
-        # Parses playpal if *directory.name* is "PLAYPAL"
-        if Playpal.is_playpal?(directory.name)
-          file.read_at(directory.file_pos, directory.size) do |io|
-            wad.playpal = Playpal.parse(io)
-          end
-        end
-
-        # Parses colormap if *directory.name* is "COLORMAP"
-        if Colormap.is_colormap?(directory.name)
-          file.read_at(directory.file_pos, directory.size) do |io|
-            wad.colormap = Colormap.parse(io)
-          end
-        end
-
-        # Parses texture map if *directory.name* is "TEXTUREx"
-        if TextureX.is_texturex?(directory.name)
-          file.read_at(directory.file_pos, directory.size) do |io|
-            wad.texmaps[directory.name] = TextureX.parse(io)
-          end
-        end
-
-        # Parses EnDoom if *directory.name* is "ENDOOM"
-        if EnDoom.is_endoom?(directory.name)
-          file.read_at(directory.file_pos, directory.size) do |io|
-            wad.endoom = EnDoom.parse(io)
-          end
-        end
-
-        # Parses Pnames if *directory.name* is "PNAMES"
-        if Pnames.is_pnames?(directory.name)
-          file.read_at(directory.file_pos, directory.size) do |io|
-            wad.pnames = Pnames.parse(io)
-          end
-        end
-
-        # Parses sprites if *directory.name* is "S_START".
-        if Graphic.is_sprite_mark_start?(directory.name)
-          # Creates a variable to show that the directory has ended.
-          # and runs until the end has been reached.
-          sprite_directory_end_reached = false
-          until (sprite_directory_end_reached)
-            # Iterates the directory index.
-            d_index += 1
-            # The start of the directory.
-            directory_start = wad.directory_pointer + (d_index*Directory::SIZE)
-            # Breaks if the the end of the directory is greater than the end of the WAD's total directories.
-            break if directory_start + Directory::SIZE > wad.directory_pointer + (wad.directories_count*Directory::SIZE)
-            # Reads the directory at *directory_start* of *Directory::Size*.
-            file.read_at(directory_start, Directory::SIZE) do |io|
-              # Reads directory *io* and pushes it onto *wad.directories*.
-              directory = Directory.read(io, start_pos)
-              wad.directories << directory
-              # Checks if it has reached the end of the map's lumps
-              # By seeing if the *directory.name* is a map, showing
-              # it reached the next map.
-              if Graphic.is_sprite_mark_end?(directory.name)
-                sprite_directory_end_reached = true
-                break
-              end
-              # Parses Sprite if the size is the correct size of the lump
-              Graphic.parse(file, directory.file_pos, directory.size).try do |graphic|
-                wad.sprites[directory.name] = graphic
-              end
-            end
-          end
-        end
-
-        # Parses flats if *directory.name* is "F_START".
-        if Flat.is_flat_mark_start?(directory.name)
-          # Creates a variable to show that the directory has ended.
-          # and runs until the end has been reached.
-          flat_directory_end_reached = false
-          until (flat_directory_end_reached)
-            # Iterates the directory index.
-            d_index += 1
-            # The start of the directory.
-            directory_start = wad.directory_pointer + (d_index*Directory::SIZE)
-            # Breaks if the the end of the directory is greater than the end of the WAD's total directories.
-            break if directory_start + Directory::SIZE > wad.directory_pointer + (wad.directories_count*Directory::SIZE)
-            # Reads the directory at *directory_start* of *Directory::Size*.
-            file.read_at(directory_start, Directory::SIZE) do |io|
-              # Reads directory *io* and pushes it onto *wad.directories*.
-              directory = Directory.read(io, start_pos)
-              wad.directories << directory
-              # Checks if it has reached the end of the map's lumps
-              # By seeing if the *directory.name* is a map, showing
-              # it reached the next map.
-              if Flat.is_flat_mark_end?(directory.name)
-                flat_directory_end_reached = true
-                break
-              end
-              # Parses Flat
+        if !directory_read
+          # Parses pc sound if *directory.name* is of format 'DPx..x'
+          begin
+            if PcSound.is_pcsound?(directory.name)
               file.read_at(directory.file_pos, directory.size) do |io|
-                begin
-                  wad.flats[directory.name] = Flat.parse(io)
-                rescue e : IO::EOFError
+                wad.pcsounds[directory.name] = PcSound.parse(io)
+                directory_read = true
+              end
+            end
+          rescue e
+            raise "PC SOUND '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
+          end
+        end
+
+        if !directory_read
+          # Parses sound if *directory.name* is of format 'DSx..x'
+          begin
+            if Sound.is_sound?(directory.name)
+              file.read_at(directory.file_pos, directory.size) do |io|
+                wad.sounds[directory.name] = Sound.parse(io)
+                directory_read = true
+              end
+            end
+          rescue e
+            raise "SOUND '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
+          end
+        end
+
+        if !directory_read
+          # Parses music if *directory.name* is of format 'D_x..x'
+          begin
+            if Music.is_music?(directory.name)
+              file.read_at(directory.file_pos, directory.size) do |io|
+                wad.music[directory.name] = Music.parse(io)
+                directory_read = true
+              end
+            end
+          rescue e
+            raise "MUSIC '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
+          end
+        end
+
+        if !directory_read
+          # Parses genmidi if *directory.name* is "GENMIDI"
+          begin
+            if Genmidi.is_genmidi?(directory.name)
+              file.read_at(directory.file_pos, directory.size) do |io|
+                wad.genmidi = Genmidi.parse(io)
+                directory_read = true
+              end
+            end
+          rescue e
+            raise "GENMIDI '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
+          end
+        end
+
+        if !directory_read
+          # Parses dmxgus if *directory.name* is "DMXGUS"
+          begin
+            if Dmxgus.is_dmxgus?(directory.name)
+              file.read_at(directory.file_pos, directory.size) do |io|
+                wad.dmxgus = Dmxgus.parse(io)
+                directory_read = true
+              end
+            end
+          rescue e
+            raise "DMXGUS '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
+          end
+        end
+
+        if !directory_read
+          # Parses playpal if *directory.name* is "PLAYPAL"
+          begin
+            if Playpal.is_playpal?(directory.name)
+              file.read_at(directory.file_pos, directory.size) do |io|
+                wad.playpal = Playpal.parse(io)
+                directory_read = true
+              end
+            end
+          rescue e
+            raise "PLAYPAL '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
+          end
+        end
+
+        if !directory_read
+          # Parses colormap if *directory.name* is "COLORMAP"
+          begin
+            if Colormap.is_colormap?(directory.name)
+              file.read_at(directory.file_pos, directory.size) do |io|
+                wad.colormap = Colormap.parse(io)
+                directory_read = true
+              end
+            end
+          rescue e
+            raise "COLORMAP '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
+          end
+        end
+
+        if !directory_read
+          # Parses texture map if *directory.name* is "TEXTUREx"
+          begin
+            if TextureX.is_texturex?(directory.name)
+              file.read_at(directory.file_pos, directory.size) do |io|
+                wad.texmaps[directory.name] = TextureX.parse(io)
+                directory_read = true
+              end
+            end
+          rescue e
+            raise "TEXTURE MAP '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
+          end
+        end
+
+        if !directory_read
+          # Parses EnDoom if *directory.name* is "ENDOOM"
+          begin
+            if EnDoom.is_endoom?(directory.name)
+              file.read_at(directory.file_pos, directory.size) do |io|
+                wad.endoom = EnDoom.parse(io)
+                directory_read = true
+              end
+            end
+          rescue e
+            raise "ENDOOM '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
+          end
+        end
+
+        if !directory_read
+          # Parses Pnames if *directory.name* is "PNAMES"
+          begin
+            if Pnames.is_pnames?(directory.name)
+              file.read_at(directory.file_pos, directory.size) do |io|
+                wad.pnames = Pnames.parse(io)
+                directory_read = true
+              end
+            end
+          rescue e
+            raise "PNAMES '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
+          end
+        end
+
+        if !directory_read
+          # Parses sprites if *directory.name* is "S_START".
+          begin
+            if Graphic.is_sprite_mark_start?(directory.name)
+              # Creates a variable to show that the directory has ended.
+              # and runs until the end has been reached.
+              sprite_directory_end_reached = false
+              until (sprite_directory_end_reached)
+                # Iterates the directory index.
+                d_index += 1
+                # The start of the directory.
+                directory_start = wad.directory_pointer + (d_index*Directory::SIZE)
+                # Breaks if the the end of the directory is greater than the end of the WAD's total directories.
+                break if directory_start + Directory::SIZE > wad.directory_pointer + (wad.directories_count*Directory::SIZE)
+                # Reads the directory at *directory_start* of *Directory::Size*.
+                file.read_at(directory_start, Directory::SIZE) do |io|
+                  # Reads directory *io* and pushes it onto *wad.directories*.
+                  directory = Directory.read(io, start_pos)
+                  wad.directories << directory
+                  # Checks if it has reached the end of the map's lumps
+                  # By seeing if the *directory.name* is a map, showing
+                  # it reached the next map.
+                  if Graphic.is_sprite_mark_end?(directory.name)
+                    sprite_directory_end_reached = true
+                    break
+                  end
+                  # Parses Sprite if the size is the correct size of the lump
+                  Graphic.parse(file, directory.file_pos, directory.size).try do |graphic|
+                    wad.sprites[directory.name] = graphic
+                  end
+                end
+              end
+              directory_read = true
+            end
+          rescue e
+            raise "SPRITE '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
+          end
+        end
+
+        if !directory_read
+          # Parses flats if *directory.name* is "F_START".
+          begin
+            if Flat.is_flat_mark_start?(directory.name)
+              # Creates a variable to show that the directory has ended.
+              # and runs until the end has been reached.
+              flat_directory_end_reached = false
+              until (flat_directory_end_reached)
+                # Iterates the directory index.
+                d_index += 1
+                # The start of the directory.
+                directory_start = wad.directory_pointer + (d_index*Directory::SIZE)
+                # Breaks if the the end of the directory is greater than the end of the WAD's total directories.
+                break if directory_start + Directory::SIZE > wad.directory_pointer + (wad.directories_count*Directory::SIZE)
+                # Reads the directory at *directory_start* of *Directory::Size*.
+                file.read_at(directory_start, Directory::SIZE) do |io|
+                  # Reads directory *io* and pushes it onto *wad.directories*.
+                  directory = Directory.read(io, start_pos)
+                  wad.directories << directory
+                  # Checks if it has reached the end of the map's lumps
+                  # By seeing if the *directory.name* is a map, showing
+                  # it reached the next map.
+                  if Flat.is_flat_mark_end?(directory.name)
+                    flat_directory_end_reached = true
+                    break
+                  end
+                  # Parses Flat
+                  file.read_at(directory.file_pos, directory.size) do |io|
+                    begin
+                      wad.flats[directory.name] = Flat.parse(io)
+                    rescue e : IO::EOFError
+                    end
+                  end
+                end
+              end
+              directory_read = true
+            end
+          rescue e
+            raise "FLAT '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
+          end
+        end
+
+        if !directory_read
+          # Parses Graphic if the size is the correct size of the lump
+          begin
+            Graphic.parse(file, directory.file_pos, directory.size).try do |graphic|
+              wad.graphics[directory.name] = graphic
+              directory_read = true
+            end
+          rescue e
+            raise "GRAPHIC '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
+          end
+        end
+
+        if !directory_read
+          # Parses Demo if the first byte is == 109, showing the doom version
+          begin
+            file.read_at(directory.file_pos, directory.size) do |is_demo_io|
+              if Demo.is_demo?(is_demo_io)
+                file.read_at(directory.file_pos, directory.size) do |io|
+                  wad.demos[directory.name] = Demo.parse(io)
+                  directory_read = true
                 end
               end
             end
-          end
-        end
-
-        # Parses Graphic if the size is the correct size of the lump
-        Graphic.parse(file, directory.file_pos, directory.size).try do |graphic|
-          wad.graphics[directory.name] = graphic
-        end
-
-        # Parses Demo if the first byte is == 109, showing the doom version
-        file.read_at(directory.file_pos, directory.size) do |is_demo_io|
-          if Demo.is_demo?(is_demo_io)
-            file.read_at(directory.file_pos, directory.size) do |io|
-              wad.demos[directory.name] = Demo.parse(io)
-            end
+          rescue e
+            raise "DEMO '#{directory.name}' IS INVALID\n#{e}" if throw_errors
+            invalid_lump_found = true
           end
         end
 
@@ -457,6 +664,8 @@ class WAD
         d_index += 1
       end
     end
+    # Commented so that people don't see a puts they may not want
+    # puts "WARNING: Invalid lump(s) encountered but skipped" if invalid_lump_found
     wad
   end
 
@@ -469,6 +678,64 @@ class WAD
     # Opens the *filename* and sets according things.
     File.open(filename) do |file|
       return read(file)
+    end
+
+    raise "WAD invalid"
+  end
+
+  # Reads in a WAD file given the *io*
+  # but returns `Nil` if parsing the `WAD` throws an error:
+  #
+  # ```
+  # File.open("Path/To/Wad") do |file|
+  #   my_wad = WAD.read?(file)
+  # end
+  # ```
+  def self.read?(file : IO) : WAD | Nil
+    begin
+      return self.read(file, throw_errors: true)
+    rescue
+      return nil
+    end
+  end
+
+  # Reads in a WAD file given the *filename*
+  # but returns `Nil` if parsing the `WAD` throws an error:
+  #
+  # ```
+  # my_wad = WAD.read?("Path/To/Wad")
+  # ```
+  def self.read?(filename : Path | String) : WAD | Nil
+    # Opens the *filename* and sets according things.
+    File.open(filename) do |file|
+      return read?(file)
+    end
+
+    raise "WAD invalid"
+  end
+
+  # Reads in a WAD file given the *io*
+  # but returns all errors thrown when parsing lumps:
+  #
+  # ```
+  # File.open("Path/To/Wad") do |file|
+  #   my_wad = WAD.read!(file)
+  # end
+  # ```
+  def self.read!(file : IO) : WAD
+    return self.read(file, throw_errors: true)
+  end
+
+  # Reads in a WAD file given the *filename*
+  # but returns all errors thrown when parsing lumps:
+  #
+  # ```
+  # my_wad = WAD.read!("Path/To/Wad")
+  # ```
+  def self.read!(filename : Path | String) : WAD
+    # Opens the *filename* and sets according things.
+    File.open(filename) do |file|
+      return read!(file)
     end
 
     raise "WAD invalid"

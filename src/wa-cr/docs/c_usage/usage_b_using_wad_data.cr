@@ -51,7 +51,7 @@ module Documentation
     # my_linedef_sector_tag = my_linedef.sector_tag # => Returns the sector tag of the linedef
     # ```
     #
-    # You can alter `WAD::Graphic` and `WAD::Flat` pixel data with `.set_pixel(x, y, value):
+    # You can alter `WAD::Graphic` and `WAD::Flat` pixel data with `.set_pixel(x, y, value)`:
     #
     # NOTE: *value* does not refer to an rgb value, but to an index in the colors of a `WAD::Playpal::Palette`
     #

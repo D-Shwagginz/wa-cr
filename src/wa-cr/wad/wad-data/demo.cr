@@ -1,6 +1,9 @@
 class WAD
   # A doom demo which saves player input states
   class Demo
+    # Defines the #clone method
+    def_clone
+
     # 109 for version 1.9
     property game_version : UInt8 = 0_u8
     # Values 0 through 4 indicate "I'm too young to die" through "Nightmare!", respectively.
@@ -32,6 +35,9 @@ class WAD
 
     # Each input action for the demo
     struct InputAction
+      # Defines the #clone method
+      def_clone
+
       # Positive values indicate forward movement, negative backward.
       property movement_forward_back : Int8 = 0_i8
       # Positive values indicate rightward movement, negative leftward.
@@ -46,6 +52,9 @@ class WAD
 
     # "This byte encodes multiple actions in different bits"
     struct Interaction
+      # Defines the #clone method
+      def_clone
+
       # "If set, the weapon is fired; or in special mode pause is toggled"
       property shoot_pause : Bool = false
 

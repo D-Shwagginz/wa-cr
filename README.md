@@ -30,7 +30,8 @@ To use the wa-cr's [Raylib](https://github.com/raysan5/raylib/releases)
 additions, you must have [Raylib](https://github.com/raysan5/raylib/releases) installed:
 
 - Install raylib by following the raylib-cr [installation instructions](https://github.com/sol-vin/raylib-cr#installation).
-  For Linux, follow step 1. For Windows, follow steps 1-4.
+  - For Linux, follow step 1.
+  - For Windows, follow steps 1-4.
 
 ## Usage
 
@@ -119,6 +120,15 @@ my_wad.export_texture("MyTexture", "Path/To/MyTexture.png", palette)
 my_graphic.to_png("Path/To/MyGraphic.png", palette)
 my_flat.to_png("Path/To/MyFlat.png", palette)
 ```
+
+### Apps
+
+wa-cr provides useful apps that will help you with using `WAD` data.<br>
+To access wa-cr's apps, just require `wa-cr/apps`
+Here is a full list of all modules inside `Apps`:
+
+- `Apps::MapViewer`
+- `Apps::WadViewer` - WIP
 
 ## Limitations
 

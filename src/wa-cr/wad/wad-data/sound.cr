@@ -1,6 +1,9 @@
 class WAD
   # A pc speaker sound effect.
   class PcSound
+    # Defines the #clone method
+    def_clone
+
     SAMPLE_RATE = 140
     property format_num : UInt16 = 0_u16
     property samples_num : UInt16 = 0_u16
@@ -59,6 +62,9 @@ class WAD
 
   # A normal sound effect.
   class Sound
+    # Defines the #clone method
+    def_clone
+
     PAD_BYTES = 16
     property format_num : UInt16 = 0_u16
     # UInt16 | UInt32 because when reading from a .wav,

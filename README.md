@@ -1,4 +1,9 @@
-![logo](logo/wa-cr.png)
+![logo](https://github.com/D-Shwagginz/wa-cr/blob/master/logo/wa-cr.png)
+
+[![Build](https://github.com/D-Shwagginz/wa-cr/actions/workflows/build.yml/badge.svg)](https://github.com/D-Shwagginz/wa-cr/actions/workflows/build.yml)
+[![Spec](https://github.com/D-Shwagginz/wa-cr/actions/workflows/spec.yml/badge.svg)](https://github.com/D-Shwagginz/wa-cr/actions/workflows/spec.yml)
+
+[![Static Badge](https://img.shields.io/badge/Check%20The-Docs-blue)](https://d-shwagginz.github.io/wa-cr/)
 
 <!--
 When adding a class:

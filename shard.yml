@@ -12,10 +12,18 @@ targets:
     main: src/apps/map-viewer.cr
   wad-viewer:
     main: src/apps/wad-viewer.cr
+  wa-cli:
+    main: src/apps/wa-cli.cr
 
 dependencies:
   raylib-cr:
     github: sol-vin/raylib-cr
+  clim:
+    github: at-grandpa/clim
+    version: 0.17.1
+  crysterm:
+    github: crystallabs/crysterm
+    branch: master
         
 
 crystal: 1.9.2

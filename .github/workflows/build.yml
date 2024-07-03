@@ -24,7 +24,7 @@ jobs:
       - name: mk build dir
         run: mkdir raylib/build
       - name: install raylib deps
-        run: sudo apt install libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
+        run: sudo apt install libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev libwayland-dev
       - name: cmake 1
         run: cmake raylib -DBUILD_SHARED_LIBS=ON -B raylib/build 
       - name: cmake 2

@@ -17,6 +17,9 @@ class WAD
 
     property song = [] of UInt8
 
+    # The raw .mus file
+    property raw = [] of UInt8
+
     # Parses a music file given the filename
     #
     # Opens a music file and parses it:
@@ -40,7 +43,11 @@ class WAD
     # end
     # ```
     def self.parse(io : IO) : Music
+      
       music = Music.new
+      music.raw = io.getb_to_end.to_a
+      io.pos=0
+
       # Reads the data.
       music.identifier = io.gets(4).to_s
       music.score_len = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)

@@ -1,0 +1,2545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.16.3">
+<meta name="crystal_docs.project_version" content="master">
+<meta name="crystal_docs.project_name" content="wa-cr">
+
+
+
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/doc.js"></script>
+
+  <meta name="repository-name" content="wa-cr">
+  <title>WAD - wa-cr master</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="index.html">
+          wa-cr
+        </a>
+      </h1>
+
+      <span class="project-version">
+        master
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent " data-id="wa-cr/Apps" data-name="apps">
+      <a href="Apps.html">Apps</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/Apps/MapViewer" data-name="apps::mapviewer">
+      <a href="Apps/MapViewer.html">MapViewer</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Apps/WadViewer" data-name="apps::wadviewer">
+      <a href="Apps/WadViewer.html">WadViewer</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/Documentation" data-name="documentation">
+      <a href="Documentation.html">Documentation</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/Documentation/A_Introduction" data-name="documentation::a_introduction">
+      <a href="Documentation/A_Introduction.html">A_Introduction</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/B_Installation" data-name="documentation::b_installation">
+      <a href="Documentation/B_Installation.html">B_Installation</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/Documentation/C_Usage" data-name="documentation::c_usage">
+      <a href="Documentation/C_Usage.html">C_Usage</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/A_MakingAWad" data-name="documentation::c_usage::a_makingawad">
+      <a href="Documentation/C_Usage/A_MakingAWad.html">A_MakingAWad</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/B_UsingWadData" data-name="documentation::c_usage::b_usingwaddata">
+      <a href="Documentation/C_Usage/B_UsingWadData.html">B_UsingWadData</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/C_OnDirectories" data-name="documentation::c_usage::c_ondirectories">
+      <a href="Documentation/C_Usage/C_OnDirectories.html">C_OnDirectories</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/D_ReadingLumps" data-name="documentation::c_usage::d_readinglumps">
+      <a href="Documentation/C_Usage/D_ReadingLumps.html">D_ReadingLumps</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/E_ConvertingFileTypes" data-name="documentation::c_usage::e_convertingfiletypes">
+      <a href="Documentation/C_Usage/E_ConvertingFileTypes.html">E_ConvertingFileTypes</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/F_WritingFiles" data-name="documentation::c_usage::f_writingfiles">
+      <a href="Documentation/C_Usage/F_WritingFiles.html">F_WritingFiles</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/G_UsingWithRaylib" data-name="documentation::c_usage::g_usingwithraylib">
+      <a href="Documentation/C_Usage/G_UsingWithRaylib.html">G_UsingWithRaylib</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/H_Apps" data-name="documentation::c_usage::h_apps">
+      <a href="Documentation/C_Usage/H_Apps.html">H_Apps</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/Documentation/D_Cheatsheet" data-name="documentation::d_cheatsheet">
+      <a href="Documentation/D_Cheatsheet.html">D_Cheatsheet</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/Documentation/D_Cheatsheet/A_Reading" data-name="documentation::d_cheatsheet::a_reading">
+      <a href="Documentation/D_Cheatsheet/A_Reading.html">A_Reading</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/D_Cheatsheet/B_WritingAdditions" data-name="documentation::d_cheatsheet::b_writingadditions">
+      <a href="Documentation/D_Cheatsheet/B_WritingAdditions.html">B_WritingAdditions</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/D_Cheatsheet/C_RaylibAdditions" data-name="documentation::d_cheatsheet::c_raylibadditions">
+      <a href="Documentation/D_Cheatsheet/C_RaylibAdditions.html">C_RaylibAdditions</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/D_Cheatsheet/D_Extras" data-name="documentation::d_cheatsheet::d_extras">
+      <a href="Documentation/D_Cheatsheet/D_Extras.html">D_Extras</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/D_Cheatsheet/E_Apps" data-name="documentation::d_cheatsheet::e_apps">
+      <a href="Documentation/D_Cheatsheet/E_Apps.html">E_Apps</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/RaylibAdditions" data-name="raylibadditions">
+      <a href="RaylibAdditions.html">RaylibAdditions</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/RaylibAdditions/Flat" data-name="raylibadditions::flat">
+      <a href="RaylibAdditions/Flat.html">Flat</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/RaylibAdditions/FlatClassMethods" data-name="raylibadditions::flatclassmethods">
+      <a href="RaylibAdditions/FlatClassMethods.html">FlatClassMethods</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/RaylibAdditions/Graphic" data-name="raylibadditions::graphic">
+      <a href="RaylibAdditions/Graphic.html">Graphic</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/RaylibAdditions/GraphicClassMethods" data-name="raylibadditions::graphicclassmethods">
+      <a href="RaylibAdditions/GraphicClassMethods.html">GraphicClassMethods</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/RaylibAdditions/WAD" data-name="raylibadditions::wad">
+      <a href="RaylibAdditions/WAD.html">WAD</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent open current" data-id="wa-cr/WAD" data-name="wad">
+      <a href="WAD.html">WAD</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/AddTypes" data-name="wad::addtypes">
+      <a href="WAD/AddTypes.html">AddTypes</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/Colormap" data-name="wad::colormap">
+      <a href="WAD/Colormap.html">Colormap</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Colormap/Table" data-name="wad::colormap::table">
+      <a href="WAD/Colormap/Table.html">Table</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/Demo" data-name="wad::demo">
+      <a href="WAD/Demo.html">Demo</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Demo/InputAction" data-name="wad::demo::inputaction">
+      <a href="WAD/Demo/InputAction.html">InputAction</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Demo/Interaction" data-name="wad::demo::interaction">
+      <a href="WAD/Demo/Interaction.html">Interaction</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Directory" data-name="wad::directory">
+      <a href="WAD/Directory.html">Directory</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/Dmxgus" data-name="wad::dmxgus">
+      <a href="WAD/Dmxgus.html">Dmxgus</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Dmxgus/InstrumentData" data-name="wad::dmxgus::instrumentdata">
+      <a href="WAD/Dmxgus/InstrumentData.html">InstrumentData</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/EnDoom" data-name="wad::endoom">
+      <a href="WAD/EnDoom.html">EnDoom</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/EnDoom/EnDoomChars" data-name="wad::endoom::endoomchars">
+      <a href="WAD/EnDoom/EnDoomChars.html">EnDoomChars</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Flat" data-name="wad::flat">
+      <a href="WAD/Flat.html">Flat</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/Genmidi" data-name="wad::genmidi">
+      <a href="WAD/Genmidi.html">Genmidi</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Genmidi/InstrumentData" data-name="wad::genmidi::instrumentdata">
+      <a href="WAD/Genmidi/InstrumentData.html">InstrumentData</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/Graphic" data-name="wad::graphic">
+      <a href="WAD/Graphic.html">Graphic</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Graphic/Offsets" data-name="wad::graphic::offsets">
+      <a href="WAD/Graphic/Offsets.html">Offsets</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/Map" data-name="wad::map">
+      <a href="WAD/Map.html">Map</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="wa-cr/WAD/Map/Blockmap" data-name="wad::map::blockmap">
+      <a href="WAD/Map/Blockmap.html">Blockmap</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Blockmap/Blocklist" data-name="wad::map::blockmap::blocklist">
+      <a href="WAD/Map/Blockmap/Blocklist.html">Blocklist</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Blockmap/Header" data-name="wad::map::blockmap::header">
+      <a href="WAD/Map/Blockmap/Header.html">Header</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Linedef" data-name="wad::map::linedef">
+      <a href="WAD/Map/Linedef.html">Linedef</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Node" data-name="wad::map::node">
+      <a href="WAD/Map/Node.html">Node</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Reject" data-name="wad::map::reject">
+      <a href="WAD/Map/Reject.html">Reject</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Sector" data-name="wad::map::sector">
+      <a href="WAD/Map/Sector.html">Sector</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Seg" data-name="wad::map::seg">
+      <a href="WAD/Map/Seg.html">Seg</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Sidedef" data-name="wad::map::sidedef">
+      <a href="WAD/Map/Sidedef.html">Sidedef</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Ssector" data-name="wad::map::ssector">
+      <a href="WAD/Map/Ssector.html">Ssector</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Thing" data-name="wad::map::thing">
+      <a href="WAD/Map/Thing.html">Thing</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Vertex" data-name="wad::map::vertex">
+      <a href="WAD/Map/Vertex.html">Vertex</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Music" data-name="wad::music">
+      <a href="WAD/Music.html">Music</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/PcSound" data-name="wad::pcsound">
+      <a href="WAD/PcSound.html">PcSound</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/Playpal" data-name="wad::playpal">
+      <a href="WAD/Playpal.html">Playpal</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Playpal/Color" data-name="wad::playpal::color">
+      <a href="WAD/Playpal/Color.html">Color</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Playpal/Palette" data-name="wad::playpal::palette">
+      <a href="WAD/Playpal/Palette.html">Palette</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Pnames" data-name="wad::pnames">
+      <a href="WAD/Pnames.html">Pnames</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Sound" data-name="wad::sound">
+      <a href="WAD/Sound.html">Sound</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/TextureX" data-name="wad::texturex">
+      <a href="WAD/TextureX.html">TextureX</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/TextureX/Patch" data-name="wad::texturex::patch">
+      <a href="WAD/TextureX/Patch.html">Patch</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/TextureX/TextureMap" data-name="wad::texturex::texturemap">
+      <a href="WAD/TextureX/TextureMap.html">TextureMap</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Type" data-name="wad::type">
+      <a href="WAD/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WritingAdditions" data-name="writingadditions">
+      <a href="WritingAdditions.html">WritingAdditions</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Colormap" data-name="writingadditions::colormap">
+      <a href="WritingAdditions/Colormap.html">Colormap</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Demo" data-name="writingadditions::demo">
+      <a href="WritingAdditions/Demo.html">Demo</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Dmxgus" data-name="writingadditions::dmxgus">
+      <a href="WritingAdditions/Dmxgus.html">Dmxgus</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/EnDoom" data-name="writingadditions::endoom">
+      <a href="WritingAdditions/EnDoom.html">EnDoom</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Flat" data-name="writingadditions::flat">
+      <a href="WritingAdditions/Flat.html">Flat</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Genmidi" data-name="writingadditions::genmidi">
+      <a href="WritingAdditions/Genmidi.html">Genmidi</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Graphic" data-name="writingadditions::graphic">
+      <a href="WritingAdditions/Graphic.html">Graphic</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WritingAdditions/Map" data-name="writingadditions::map">
+      <a href="WritingAdditions/Map.html">Map</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Blockmap" data-name="writingadditions::map::blockmap">
+      <a href="WritingAdditions/Map/Blockmap.html">Blockmap</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Linedef" data-name="writingadditions::map::linedef">
+      <a href="WritingAdditions/Map/Linedef.html">Linedef</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Node" data-name="writingadditions::map::node">
+      <a href="WritingAdditions/Map/Node.html">Node</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Reject" data-name="writingadditions::map::reject">
+      <a href="WritingAdditions/Map/Reject.html">Reject</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Sector" data-name="writingadditions::map::sector">
+      <a href="WritingAdditions/Map/Sector.html">Sector</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Seg" data-name="writingadditions::map::seg">
+      <a href="WritingAdditions/Map/Seg.html">Seg</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Sidedef" data-name="writingadditions::map::sidedef">
+      <a href="WritingAdditions/Map/Sidedef.html">Sidedef</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Ssector" data-name="writingadditions::map::ssector">
+      <a href="WritingAdditions/Map/Ssector.html">Ssector</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Thing" data-name="writingadditions::map::thing">
+      <a href="WritingAdditions/Map/Thing.html">Thing</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Vertex" data-name="writingadditions::map::vertex">
+      <a href="WritingAdditions/Map/Vertex.html">Vertex</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Music" data-name="writingadditions::music">
+      <a href="WritingAdditions/Music.html">Music</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/PcSound" data-name="writingadditions::pcsound">
+      <a href="WritingAdditions/PcSound.html">PcSound</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Playpal" data-name="writingadditions::playpal">
+      <a href="WritingAdditions/Playpal.html">Playpal</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Pnames" data-name="writingadditions::pnames">
+      <a href="WritingAdditions/Pnames.html">Pnames</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Sound" data-name="writingadditions::sound">
+      <a href="WritingAdditions/Sound.html">Sound</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/TextureX" data-name="writingadditions::texturex">
+      <a href="WritingAdditions/TextureX.html">TextureX</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/WAD" data-name="writingadditions::wad">
+      <a href="WritingAdditions/WAD.html">WAD</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">
+    class
+  </span> WAD
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="WAD.html">WAD</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <h3><a id="reading-a-.wad-files-data" class="anchor" href="#reading-a-.wad-files-data">  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Reading a .WAD file's data</h3>
+<p>To simply read in a WAD file, you just call <code><a href="WAD.html#read%28filename%3APath%7CString%29%3AWAD-class-method">WAD.read(file : Path | String | IO)</a> : <a href="WAD.html">WAD</a></code>:</p>
+<pre><code class="language-crystal">my_string_wad <span class="o">=</span> <span class="t">WAD</span>.read(<span class="s">&quot;Path/To/Wad&quot;</span>)
+my_path_wad <span class="o">=</span> <span class="t">WAD</span>.read(<span class="t">Path</span>[<span class="s">&quot;Path/To/Wad&quot;</span>])
+
+<span class="t">File</span>.open(<span class="s">&quot;Path/To/Wad&quot;</span>) <span class="k">do</span> <span class="o">|</span>file<span class="o">|</span>
+  my_io_wad <span class="o">=</span> <span class="t">WAD</span>.read(file)
+<span class="k">end</span></code></pre>
+<h3><a id="creating-a-new-wad" class="anchor" href="#creating-a-new-wad">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Creating a new <code><a href="WAD.html">WAD</a></code></h3>
+<p>To create a new <code><a href="WAD.html">WAD</a></code>, you call <code><a href="WAD.html#new%28type%3AType%3DType%3A%3ABroken%29-class-method">WAD.new(type)</a></code>, with type being of <code><a href="WAD/Type.html">WAD::Type</a></code></p>
+<pre><code class="language-crystal">my_new_internal_wad <span class="o">=</span> <span class="t">WAD</span>.new(<span class="t">WAD</span><span class="t">::</span><span class="t">Type</span><span class="t">::</span><span class="t">Internal</span>)
+my_new_patch_wad <span class="o">=</span> <span class="t">WAD</span>.new(<span class="t">WAD</span><span class="t">::</span><span class="t">Type</span><span class="t">::</span><span class="t">Patch</span>)</code></pre>
+<h3><a id="using-the-wads-data" class="anchor" href="#using-the-wads-data">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Using the <code><a href="WAD.html">WAD</a></code>'s data</h3>
+<p>wa-cr sorts the the parsed wad's data into easy to use variables.</p>
+<p>To get the sample rate of the sound <em>&quot;MYSOUND&quot;</em>:</p>
+<pre><code class="language-crystal">my_wad.sounds[<span class="s">&quot;MYSOUND&quot;</span>].sample_rate <span class="c"># =&gt; returns the sample rate of the sound</span></code></pre>
+<p>To get <em>y_position</em> of the 34th thing in the map <em>&quot;MAP23&quot;</em>:</p>
+<pre><code class="language-crystal"><span class="c"># Gets the thing index 33 because it is zero indexed: the 33rd index is the 34th thing</span>
+my_wad.maps[<span class="s">&quot;MAP23&quot;</span>].things[<span class="n">33</span>].y_position <span class="c"># =&gt; returns the y_position of the thing</span></code></pre>
+<h3><a id="lumps" class="anchor" href="#lumps">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Lumps</h3>
+<p>You can also read in .lmp lump files:</p>
+<p><span class="flag purple">NOTE</span>  <code><a href="WAD/Graphic.html#parse%28filename%3AString%7CPath%29%3AGraphic%7CNil-class-method">Graphic.parse</a></code> can take 2 arguments: The file to read and
+the position of the start of the data (Default is -1. Should almost always be -1 when reading a .lmp)</p>
+<pre><code class="language-crystal">my_string_graphic <span class="o">=</span> <span class="t">WAD</span><span class="t">::</span><span class="t">Graphic</span>.parse(<span class="s">&quot;Path/To/MyGraphic.lmp&quot;</span>)
+my_path_graphic <span class="o">=</span> <span class="t">WAD</span><span class="t">::</span><span class="t">Graphic</span>.parse(<span class="t">Path</span>[<span class="s">&quot;Path/To/MyGraphic.lmp&quot;</span>])
+
+<span class="t">File</span>.open(<span class="s">&quot;Path/To/MyGraphic.lmp&quot;</span>) <span class="k">do</span> <span class="o">|</span>file<span class="o">|</span>
+  my_io_graphic <span class="o">=</span> <span class="t">WAD</span><span class="t">::</span><span class="t">Graphic</span>.parse(file)
+<span class="k">end</span></code></pre>
+<pre><code class="language-crystal">my_string_flat <span class="o">=</span> <span class="t">WAD</span><span class="t">::</span><span class="t">Flat</span>.parse(<span class="s">&quot;Path/To/MyFlat.lmp&quot;</span>)
+my_path_flat <span class="o">=</span> <span class="t">WAD</span><span class="t">::</span><span class="t">Flat</span>.parse(<span class="t">Path</span>[<span class="s">&quot;Path/To/MyFlat.lmp&quot;</span>])
+
+<span class="t">File</span>.open(<span class="s">&quot;Path/To/MyFlat.lmp&quot;</span>) <span class="k">do</span> <span class="o">|</span>file<span class="o">|</span>
+  my_io_flat <span class="o">=</span> <span class="t">WAD</span><span class="t">::</span><span class="t">Flat</span>.parse(file)
+<span class="k">end</span></code></pre>
+<pre><code class="language-crystal">my_string_sound <span class="o">=</span> <span class="t">WAD</span><span class="t">::</span><span class="t">Sound</span>.parse(<span class="s">&quot;Path/To/MySound.lmp&quot;</span>)
+my_path_sound <span class="o">=</span> <span class="t">WAD</span><span class="t">::</span><span class="t">Sound</span>.parse(<span class="t">Path</span>[<span class="s">&quot;Path/To/MySound.lmp&quot;</span>])
+
+<span class="t">File</span>.open(<span class="s">&quot;Path/To/MySound.lmp&quot;</span>) <span class="k">do</span> <span class="o">|</span>file<span class="o">|</span>
+  my_io_sound <span class="o">=</span> <span class="t">WAD</span><span class="t">::</span><span class="t">Sound</span>.parse(file)
+<span class="k">end</span></code></pre>
+
+
+
+
+
+
+
+  <h2>
+    <a id="included-modules" class="anchor" href="#included-modules">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Included Modules
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="RaylibAdditions/WAD.html">RaylibAdditions::WAD</a></li>
+    
+      <li class="other-type"><a href="WritingAdditions/WAD.html">WritingAdditions::WAD</a></li>
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/raylib.cr#L427" target="_blank">
+        raylib.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/demo.cr#L1" target="_blank">
+        wa-cr/wad/wad-data/demo.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/directory.cr#L1" target="_blank">
+        wa-cr/wad/wad-data/directory.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L1" target="_blank">
+        wa-cr/wad/wad-data/map.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/music.cr#L1" target="_blank">
+        wa-cr/wad/wad-data/music.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/sound.cr#L1" target="_blank">
+        wa-cr/wad/wad-data/sound.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/texture.cr#L1" target="_blank">
+        wa-cr/wad/wad-data/texture.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L78" target="_blank">
+        wa-cr/wad/wad.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/write.cr#L306" target="_blank">
+        write.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+  
+    <h2>
+      <a id="constant-summary" class="anchor" href="#constant-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Constant Summary
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="HEADER_SIZE">
+        <strong>HEADER_SIZE</strong> = <code><span class="n">16</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>The size of the header in bytes</p>
+      </dd>
+      
+    
+  </dl>
+
+
+
+  
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28type%3AType%3DType%3A%3ABroken%29-class-method" class="signature"><strong>.new</strong>(type : Type = <span class="t">Type</span><span class="t">::</span><span class="t">Broken</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#read%28filename%3APath%7CString%29%3AWAD-class-method" class="signature"><strong>.read</strong>(filename : Path | String) : WAD</a>
+        
+          <div class="summary"><p>Reads in a WAD file given the <em>filename</em>:</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#read%28file%3AIO%2C%2A%2Cthrow_errors%3ABool%3Dfalse%29%3AWAD-class-method" class="signature"><strong>.read</strong>(file : IO, *, throw_errors : Bool = <span class="n">false</span>) : WAD</a>
+        
+          <div class="summary"><p>Reads in a WAD file given the <em>io</em>:</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#read%21%28file%3AIO%29%3AWAD-class-method" class="signature"><strong>.read!</strong>(file : IO) : WAD</a>
+        
+          <div class="summary"><p>Reads in a WAD file given the <em>io</em> but returns all errors thrown when parsing lumps:</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#read%21%28filename%3APath%7CString%29%3AWAD-class-method" class="signature"><strong>.read!</strong>(filename : Path | String) : WAD</a>
+        
+          <div class="summary"><p>Reads in a WAD file given the <em>filename</em> but returns all errors thrown when parsing lumps:</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+  
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#read%3F%28file%3AIO%29%3AWAD%7CNil-class-method" class="signature"><strong>.read?</strong>(file : IO) : WAD | Nil</a>
+        
+          <div class="summary"><p>Reads in a WAD file given the <em>io</em> but returns <code>Nil</code> if parsing the <code><a href="WAD.html">WAD</a></code> throws an error:</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#read%3F%28filename%3APath%7CString%29%3AWAD%7CNil-class-method" class="signature"><strong>.read?</strong>(filename : Path | String) : WAD | Nil</a>
+        
+          <div class="summary"><p>Reads in a WAD file given the <em>filename</em> but returns <code>Nil</code> if parsing the <code><a href="WAD.html">WAD</a></code> throws an error:</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#slice_cut%28slice%3ASlice%2Clen%3AInt%3D8%29%3ASlice-class-method" class="signature"><strong>.slice_cut</strong>(slice : Slice, len : Int = <span class="n">8</span>) : Slice</a>
+        
+          <div class="summary"><p>Cuts a slice down to length <em>len</em> if it is larger than <em>len</em>:</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#string_cut%28string%3AString%2Clen%3AInt%3D8%29%3AString-class-method" class="signature"><strong>.string_cut</strong>(string : String, len : Int = <span class="n">8</span>) : String</a>
+        
+          <div class="summary"><p>Cuts a string down to length <em>len</em> if it is larger than <em>len</em>:</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#string_sub_chars%28string%3AString%29%3AString-class-method" class="signature"><strong>.string_sub_chars</strong>(string : String) : String</a>
+        
+          <div class="summary"><p>Replaces all instances of ms-dos name incompatible chars of a string with &quot;~&quot;:</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+  
+
+  
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#add%28name%3AString%2Ctype%3AAddTypes%2Cfile%3APath%7CString%29-instance-method" class="signature"><strong>#add</strong>(name : String, type : AddTypes, file : Path | String)</a>
+        
+          <div class="summary"><p>Allows easy parsing of lumps into the WAD</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add%28name%3AString%2Ctype%3AAddTypes%2Cfile%3AIO%29-instance-method" class="signature"><strong>#add</strong>(name : String, type : AddTypes, file : IO)</a>
+        
+          <div class="summary"><p>Allows easy parsing of lumps into the WAD</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#clone-instance-method" class="signature"><strong>#clone</strong></a>
+        
+          <div class="summary"><p>Returns a copy of <code>self</code> with all instance variables cloned.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#colormap%3AColormap-instance-method" class="signature"><strong>#colormap</strong> : Colormap</a>
+        
+          <div class="summary"><p>The Colormap in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#colormap%3D%28colormap%3AColormap%29-instance-method" class="signature"><strong>#colormap=</strong>(colormap : Colormap)</a>
+        
+          <div class="summary"><p>The Colormap in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#demos%3AHash%28String%2CDemo%29-instance-method" class="signature"><strong>#demos</strong> : Hash(String, Demo)</a>
+        
+          <div class="summary"><p>Array of Demos in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#demos%3D%28demos%3AHash%28String%2CDemo%29%29-instance-method" class="signature"><strong>#demos=</strong>(demos : Hash(String, Demo))</a>
+        
+          <div class="summary"><p>Array of Demos in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#directories%3AArray%28Directory%29-instance-method" class="signature"><strong>#directories</strong> : Array(Directory)</a>
+        
+          <div class="summary"><p>Array of all directories in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#directories%3D%28directories%3AArray%28Directory%29%29-instance-method" class="signature"><strong>#directories=</strong>(directories : Array(Directory))</a>
+        
+          <div class="summary"><p>Array of all directories in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#directories_count%3AUInt32-instance-method" class="signature"><strong>#directories_count</strong> : UInt32</a>
+        
+          <div class="summary"><p>An integer specifying the number of lumps in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#directories_count%3D%28directories_count%3AUInt32%29-instance-method" class="signature"><strong>#directories_count=</strong>(directories_count : UInt32)</a>
+        
+          <div class="summary"><p>An integer specifying the number of lumps in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#directory_pointer%3AUInt32-instance-method" class="signature"><strong>#directory_pointer</strong> : UInt32</a>
+        
+          <div class="summary"><p>An integer holding a pointer to the location of the directory.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#directory_pointer%3D%28directory_pointer%3AUInt32%29-instance-method" class="signature"><strong>#directory_pointer=</strong>(directory_pointer : UInt32)</a>
+        
+          <div class="summary"><p>An integer holding a pointer to the location of the directory.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#dmxgus%3ADmxgus-instance-method" class="signature"><strong>#dmxgus</strong> : Dmxgus</a>
+        
+          <div class="summary"><p>The Dmxgus in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#dmxgus%3D%28dmxgus%3ADmxgus%29-instance-method" class="signature"><strong>#dmxgus=</strong>(dmxgus : Dmxgus)</a>
+        
+          <div class="summary"><p>The Dmxgus in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#endoom%3AEnDoom-instance-method" class="signature"><strong>#endoom</strong> : EnDoom</a>
+        
+          <div class="summary"><p>The Endoom in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#endoom%3D%28endoom%3AEnDoom%29-instance-method" class="signature"><strong>#endoom=</strong>(endoom : EnDoom)</a>
+        
+          <div class="summary"><p>The Endoom in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#flats%3AHash%28String%2CFlat%29-instance-method" class="signature"><strong>#flats</strong> : Hash(String, Flat)</a>
+        
+          <div class="summary"><p>Array of Flats in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#flats%3D%28flats%3AHash%28String%2CFlat%29%29-instance-method" class="signature"><strong>#flats=</strong>(flats : Hash(String, Flat))</a>
+        
+          <div class="summary"><p>Array of Flats in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#genmidi%3AGenmidi-instance-method" class="signature"><strong>#genmidi</strong> : Genmidi</a>
+        
+          <div class="summary"><p>The Genmidi in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#genmidi%3D%28genmidi%3AGenmidi%29-instance-method" class="signature"><strong>#genmidi=</strong>(genmidi : Genmidi)</a>
+        
+          <div class="summary"><p>The Genmidi in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#graphics%3AHash%28String%2CGraphic%29-instance-method" class="signature"><strong>#graphics</strong> : Hash(String, Graphic)</a>
+        
+          <div class="summary"><p>Array of Graphics and patches in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#graphics%3D%28graphics%3AHash%28String%2CGraphic%29%29-instance-method" class="signature"><strong>#graphics=</strong>(graphics : Hash(String, Graphic))</a>
+        
+          <div class="summary"><p>Array of Graphics and patches in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#maps%3AHash%28String%2CMap%29-instance-method" class="signature"><strong>#maps</strong> : Hash(String, Map)</a>
+        
+          <div class="summary"><p>Array of maps in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#maps%3D%28maps%3AHash%28String%2CMap%29%29-instance-method" class="signature"><strong>#maps=</strong>(maps : Hash(String, Map))</a>
+        
+          <div class="summary"><p>Array of maps in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#music%3AHash%28String%2CMusic%29-instance-method" class="signature"><strong>#music</strong> : Hash(String, Music)</a>
+        
+          <div class="summary"><p>Array of music in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#music%3D%28music%3AHash%28String%2CMusic%29%29-instance-method" class="signature"><strong>#music=</strong>(music : Hash(String, Music))</a>
+        
+          <div class="summary"><p>Array of music in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new_dir%28name%3AString%29-instance-method" class="signature"><strong>#new_dir</strong>(name : String)</a>
+        
+          <div class="summary"><p>Creates a new empty directory with <em>name</em> and puts it onto the list of directories.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pcsounds%3AHash%28String%2CPcSound%29-instance-method" class="signature"><strong>#pcsounds</strong> : Hash(String, PcSound)</a>
+        
+          <div class="summary"><p>Array of speaker sounds in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pcsounds%3D%28pcsounds%3AHash%28String%2CPcSound%29%29-instance-method" class="signature"><strong>#pcsounds=</strong>(pcsounds : Hash(String, PcSound))</a>
+        
+          <div class="summary"><p>Array of speaker sounds in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#playpal%3APlaypal-instance-method" class="signature"><strong>#playpal</strong> : Playpal</a>
+        
+          <div class="summary"><p>The Playpal in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#playpal%3D%28playpal%3APlaypal%29-instance-method" class="signature"><strong>#playpal=</strong>(playpal : Playpal)</a>
+        
+          <div class="summary"><p>The Playpal in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pnames%3APnames-instance-method" class="signature"><strong>#pnames</strong> : Pnames</a>
+        
+          <div class="summary"><p>The Pnames in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pnames%3D%28pnames%3APnames%29-instance-method" class="signature"><strong>#pnames=</strong>(pnames : Pnames)</a>
+        
+          <div class="summary"><p>The Pnames in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rename_lump%28to_rename%3AString%2Cname%3AString%29%3ABool-instance-method" class="signature"><strong>#rename_lump</strong>(to_rename : String, name : String) : Bool</a>
+        
+          <div class="summary"><p>Renames a lump that can be renamed in the WAD Usually used when renaming a directory</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sounds%3AHash%28String%2CSound%29-instance-method" class="signature"><strong>#sounds</strong> : Hash(String, Sound)</a>
+        
+          <div class="summary"><p>Array of sounds in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sounds%3D%28sounds%3AHash%28String%2CSound%29%29-instance-method" class="signature"><strong>#sounds=</strong>(sounds : Hash(String, Sound))</a>
+        
+          <div class="summary"><p>Array of sounds in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sprites%3AHash%28String%2CGraphic%29-instance-method" class="signature"><strong>#sprites</strong> : Hash(String, Graphic)</a>
+        
+          <div class="summary"><p>Array of Sprites in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sprites%3D%28sprites%3AHash%28String%2CGraphic%29%29-instance-method" class="signature"><strong>#sprites=</strong>(sprites : Hash(String, Graphic))</a>
+        
+          <div class="summary"><p>Array of Sprites in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#texmaps%3AHash%28String%2CTextureX%29-instance-method" class="signature"><strong>#texmaps</strong> : Hash(String, TextureX)</a>
+        
+          <div class="summary"><p>Array of texture maps in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#texmaps%3D%28texmaps%3AHash%28String%2CTextureX%29%29-instance-method" class="signature"><strong>#texmaps=</strong>(texmaps : Hash(String, TextureX))</a>
+        
+          <div class="summary"><p>Array of texture maps in the WAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#type%3AType-instance-method" class="signature"><strong>#type</strong> : Type</a>
+        
+          <div class="summary"><p>Type of WAD: Either Internal, IWAD, or Patch, PWAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#type%3D%28type%3AType%29-instance-method" class="signature"><strong>#type=</strong>(type : Type)</a>
+        
+          <div class="summary"><p>Type of WAD: Either Internal, IWAD, or Patch, PWAD.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#what_is%3F%28name%3AString%29%3AString-instance-method" class="signature"><strong>#what_is?</strong>(name : String) : String</a>
+        
+          <div class="summary"><p>Finds what a name is in the <code><a href="WAD.html">WAD</a></code> Usually used to find what type a directory points to</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <div class="methods-inherited">
+    
+      
+
+  <h3>Instance methods inherited from module <code><a href="WritingAdditions/WAD.html">WritingAdditions::WAD</a></code></h3>
+  
+  
+    <a href="WritingAdditions/WAD.html#write%28file%3AString%7CPath%29%3AUInt32-instance-method" class="tooltip">
+      <span>write(file : String | Path) : UInt32<br/>write(io : IO) : UInt32</span>
+    write</a>
+    
+  
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+  <h3>Instance methods inherited from module <code><a href="RaylibAdditions/WAD.html">RaylibAdditions::WAD</a></code></h3>
+  
+  
+    <a href="RaylibAdditions/WAD.html#export_texture%28texture_name%3AString%2Cfilename%3AString%7CPath%2Cpalette%3A%3A%3AWAD%3A%3APlaypal%3A%3APalette%29-instance-method" class="tooltip">
+      <span>export_texture(texture_name : String, filename : String | Path, palette : ::WAD::Playpal::Palette)</span>
+    export_texture</a>, 
+    
+  
+    <a href="RaylibAdditions/WAD.html#get_texture%28name%3AString%2Cpalette%3A%3A%3AWAD%3A%3APlaypal%3A%3APalette%29%3ARaylib%3A%3AImage-instance-method" class="tooltip">
+      <span>get_texture(name : String, palette : ::WAD::Playpal::Palette) : Raylib::Image</span>
+    get_texture</a>
+    
+  
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+  </div>
+
+  
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(type:Type=Type::Broken)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(type : <a href="WAD/Type.html">Type</a> = <span class="t">Type</span><span class="t">::</span><span class="t">Broken</span>)
+
+        <a class="method-permalink" href="#new%28type%3AType%3DType%3A%3ABroken%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L120" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="read(filename:Path|String):WAD-class-method">
+      <div class="signature">
+        
+        def self.<strong>read</strong>(filename : Path | String) : <a href="WAD.html">WAD</a>
+
+        <a class="method-permalink" href="#read%28filename%3APath%7CString%29%3AWAD-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Reads in a WAD file given the <em>filename</em>:</p>
+<pre><code class="language-crystal">my_wad <span class="o">=</span> <span class="t">WAD</span>.read(<span class="s">&quot;Path/To/Wad&quot;</span>)</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L672" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="read(file:IO,*,throw_errors:Bool=false):WAD-class-method">
+      <div class="signature">
+        
+        def self.<strong>read</strong>(file : IO, *, throw_errors : Bool = <span class="n">false</span>) : <a href="WAD.html">WAD</a>
+
+        <a class="method-permalink" href="#read%28file%3AIO%2C%2A%2Cthrow_errors%3ABool%3Dfalse%29%3AWAD-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Reads in a WAD file given the <em>io</em>:</p>
+<pre><code class="language-crystal"><span class="t">File</span>.open(<span class="s">&quot;Path/To/Wad&quot;</span>) <span class="k">do</span> <span class="o">|</span>file<span class="o">|</span>
+  my_wad <span class="o">=</span> <span class="t">WAD</span>.read(file)
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L296" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="read!(file:IO):WAD-class-method">
+      <div class="signature">
+        
+        def self.<strong>read!</strong>(file : IO) : <a href="WAD.html">WAD</a>
+
+        <a class="method-permalink" href="#read%21%28file%3AIO%29%3AWAD-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Reads in a WAD file given the <em>io</em>
+but returns all errors thrown when parsing lumps:</p>
+<pre><code class="language-crystal"><span class="t">File</span>.open(<span class="s">&quot;Path/To/Wad&quot;</span>) <span class="k">do</span> <span class="o">|</span>file<span class="o">|</span>
+  my_wad <span class="o">=</span> <span class="t">WAD</span>.read!(file)
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L720" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="read!(filename:Path|String):WAD-class-method">
+      <div class="signature">
+        
+        def self.<strong>read!</strong>(filename : Path | String) : <a href="WAD.html">WAD</a>
+
+        <a class="method-permalink" href="#read%21%28filename%3APath%7CString%29%3AWAD-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Reads in a WAD file given the <em>filename</em>
+but returns all errors thrown when parsing lumps:</p>
+<pre><code class="language-crystal">my_wad <span class="o">=</span> <span class="t">WAD</span>.read!(<span class="s">&quot;Path/To/Wad&quot;</span>)</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L730" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+  
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="read?(file:IO):WAD|Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>read?</strong>(file : IO) : <a href="WAD.html">WAD</a> | Nil
+
+        <a class="method-permalink" href="#read%3F%28file%3AIO%29%3AWAD%7CNil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Reads in a WAD file given the <em>io</em>
+but returns <code>Nil</code> if parsing the <code><a href="WAD.html">WAD</a></code> throws an error:</p>
+<pre><code class="language-crystal"><span class="t">File</span>.open(<span class="s">&quot;Path/To/Wad&quot;</span>) <span class="k">do</span> <span class="o">|</span>file<span class="o">|</span>
+  my_wad <span class="o">=</span> <span class="t">WAD</span>.read?(file)
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L689" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="read?(filename:Path|String):WAD|Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>read?</strong>(filename : Path | String) : <a href="WAD.html">WAD</a> | Nil
+
+        <a class="method-permalink" href="#read%3F%28filename%3APath%7CString%29%3AWAD%7CNil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Reads in a WAD file given the <em>filename</em>
+but returns <code>Nil</code> if parsing the <code><a href="WAD.html">WAD</a></code> throws an error:</p>
+<pre><code class="language-crystal">my_wad <span class="o">=</span> <span class="t">WAD</span>.read?(<span class="s">&quot;Path/To/Wad&quot;</span>)</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L703" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="slice_cut(slice:Slice,len:Int=8):Slice-class-method">
+      <div class="signature">
+        
+        def self.<strong>slice_cut</strong>(slice : Slice, len : Int = <span class="n">8</span>) : Slice
+
+        <a class="method-permalink" href="#slice_cut%28slice%3ASlice%2Clen%3AInt%3D8%29%3ASlice-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Cuts a slice down to length <em>len</em> if it is larger than <em>len</em>:</p>
+<pre><code class="language-crystal">my_slice <span class="o">=</span> <span class="s">&quot;My Test Slice&quot;</span>.to_slice <span class="c"># =&gt; Bytes[77, 121, 32, 84, 101, 115, 116, 32, 83, 108, 105, 99, 101]</span>
+<span class="t">WAD</span>.slice_cut(my_slice, <span class="n">5</span>)          <span class="c"># =&gt; Bytes[77, 121, 32, 84, 101]</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L774" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="string_cut(string:String,len:Int=8):String-class-method">
+      <div class="signature">
+        
+        def self.<strong>string_cut</strong>(string : String, len : Int = <span class="n">8</span>) : String
+
+        <a class="method-permalink" href="#string_cut%28string%3AString%2Clen%3AInt%3D8%29%3AString-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Cuts a string down to length <em>len</em> if it is larger than <em>len</em>:</p>
+<pre><code class="language-crystal"><span class="t">WAD</span>.string_cut(<span class="s">&quot;Aberdine&quot;</span>, <span class="n">4</span>) <span class="c"># =&gt; &quot;Aber&quot;</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L744" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="string_sub_chars(string:String):String-class-method">
+      <div class="signature">
+        
+        def self.<strong>string_sub_chars</strong>(string : String) : String
+
+        <a class="method-permalink" href="#string_sub_chars%28string%3AString%29%3AString-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Replaces all instances of ms-dos name incompatible chars of a string with &quot;~&quot;:</p>
+<pre><code class="language-crystal">my_string <span class="o">=</span> <span class="s">&quot;My.TestString&quot;</span>
+<span class="t">WAD</span>.string_sub_chars(my_string) <span class="c"># =&gt; &quot;My~Test~String&quot;</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L758" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+  
+
+  
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="add(name:String,type:AddTypes,file:Path|String)-instance-method">
+      <div class="signature">
+        
+        def <strong>add</strong>(name : String, type : <a href="WAD/AddTypes.html">AddTypes</a>, file : Path | String)
+
+        <a class="method-permalink" href="#add%28name%3AString%2Ctype%3AAddTypes%2Cfile%3APath%7CString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Allows easy parsing of lumps into the WAD</p>
+<pre><code class="language-crystal">my_wad <span class="o">=</span> <span class="t">WAD</span>.new(<span class="t">WAD</span><span class="t">::</span><span class="t">Type</span><span class="t">::</span><span class="t">Internal</span>)
+
+my_wad.add(<span class="s">&quot;MyTest&quot;</span>, <span class="t">WAD</span><span class="t">::</span><span class="t">AddTypes</span><span class="t">::</span><span class="t">Sound</span>, <span class="s">&quot;Path/To/SoundTest.lmp&quot;</span>)</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L243" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add(name:String,type:AddTypes,file:IO)-instance-method">
+      <div class="signature">
+        
+        def <strong>add</strong>(name : String, type : <a href="WAD/AddTypes.html">AddTypes</a>, file : IO)
+
+        <a class="method-permalink" href="#add%28name%3AString%2Ctype%3AAddTypes%2Cfile%3AIO%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Allows easy parsing of lumps into the WAD</p>
+<pre><code class="language-crystal">my_wad <span class="o">=</span> <span class="t">WAD</span>.new(<span class="t">WAD</span><span class="t">::</span><span class="t">Type</span><span class="t">::</span><span class="t">Internal</span>)
+
+<span class="t">File</span>.open(<span class="s">&quot;Path/To/Sound.lmp&quot;</span>) <span class="k">do</span> <span class="o">|</span>file<span class="o">|</span>
+  my_wad.add(<span class="s">&quot;MyTest&quot;</span>, <span class="t">WAD</span><span class="t">::</span><span class="t">AddTypes</span><span class="t">::</span><span class="t">Sound</span>, file)
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L259" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="clone-instance-method">
+      <div class="signature">
+        
+        def <strong>clone</strong>
+
+        <a class="method-permalink" href="#clone-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns a copy of <code>self</code> with all instance variables cloned.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L124" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="colormap:Colormap-instance-method">
+      <div class="signature">
+        
+        def <strong>colormap</strong> : <a href="WAD/Colormap.html">Colormap</a>
+
+        <a class="method-permalink" href="#colormap%3AColormap-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The Colormap in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L102" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="colormap=(colormap:Colormap)-instance-method">
+      <div class="signature">
+        
+        def <strong>colormap=</strong>(colormap : <a href="WAD/Colormap.html">Colormap</a>)
+
+        <a class="method-permalink" href="#colormap%3D%28colormap%3AColormap%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The Colormap in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L102" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="demos:Hash(String,Demo)-instance-method">
+      <div class="signature">
+        
+        def <strong>demos</strong> : Hash(String, <a href="WAD/Demo.html">Demo</a>)
+
+        <a class="method-permalink" href="#demos%3AHash%28String%2CDemo%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of Demos in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L116" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="demos=(demos:Hash(String,Demo))-instance-method">
+      <div class="signature">
+        
+        def <strong>demos=</strong>(demos : Hash(String, <a href="WAD/Demo.html">Demo</a>))
+
+        <a class="method-permalink" href="#demos%3D%28demos%3AHash%28String%2CDemo%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of Demos in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L116" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="directories:Array(Directory)-instance-method">
+      <div class="signature">
+        
+        def <strong>directories</strong> : Array(<a href="WAD/Directory.html">Directory</a>)
+
+        <a class="method-permalink" href="#directories%3AArray%28Directory%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of all directories in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L118" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="directories=(directories:Array(Directory))-instance-method">
+      <div class="signature">
+        
+        def <strong>directories=</strong>(directories : Array(<a href="WAD/Directory.html">Directory</a>))
+
+        <a class="method-permalink" href="#directories%3D%28directories%3AArray%28Directory%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of all directories in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L118" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="directories_count:UInt32-instance-method">
+      <div class="signature">
+        
+        def <strong>directories_count</strong> : UInt32
+
+        <a class="method-permalink" href="#directories_count%3AUInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>An integer specifying the number of lumps in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L84" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="directories_count=(directories_count:UInt32)-instance-method">
+      <div class="signature">
+        
+        def <strong>directories_count=</strong>(directories_count : UInt32)
+
+        <a class="method-permalink" href="#directories_count%3D%28directories_count%3AUInt32%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>An integer specifying the number of lumps in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L84" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="directory_pointer:UInt32-instance-method">
+      <div class="signature">
+        
+        def <strong>directory_pointer</strong> : UInt32
+
+        <a class="method-permalink" href="#directory_pointer%3AUInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>An integer holding a pointer to the location of the directory.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L86" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="directory_pointer=(directory_pointer:UInt32)-instance-method">
+      <div class="signature">
+        
+        def <strong>directory_pointer=</strong>(directory_pointer : UInt32)
+
+        <a class="method-permalink" href="#directory_pointer%3D%28directory_pointer%3AUInt32%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>An integer holding a pointer to the location of the directory.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L86" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="dmxgus:Dmxgus-instance-method">
+      <div class="signature">
+        
+        def <strong>dmxgus</strong> : <a href="WAD/Dmxgus.html">Dmxgus</a>
+
+        <a class="method-permalink" href="#dmxgus%3ADmxgus-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The Dmxgus in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L98" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="dmxgus=(dmxgus:Dmxgus)-instance-method">
+      <div class="signature">
+        
+        def <strong>dmxgus=</strong>(dmxgus : <a href="WAD/Dmxgus.html">Dmxgus</a>)
+
+        <a class="method-permalink" href="#dmxgus%3D%28dmxgus%3ADmxgus%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The Dmxgus in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L98" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="endoom:EnDoom-instance-method">
+      <div class="signature">
+        
+        def <strong>endoom</strong> : <a href="WAD/EnDoom.html">EnDoom</a>
+
+        <a class="method-permalink" href="#endoom%3AEnDoom-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The Endoom in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L104" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="endoom=(endoom:EnDoom)-instance-method">
+      <div class="signature">
+        
+        def <strong>endoom=</strong>(endoom : <a href="WAD/EnDoom.html">EnDoom</a>)
+
+        <a class="method-permalink" href="#endoom%3D%28endoom%3AEnDoom%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The Endoom in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L104" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="flats:Hash(String,Flat)-instance-method">
+      <div class="signature">
+        
+        def <strong>flats</strong> : Hash(String, <a href="WAD/Flat.html">Flat</a>)
+
+        <a class="method-permalink" href="#flats%3AHash%28String%2CFlat%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of Flats in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L114" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="flats=(flats:Hash(String,Flat))-instance-method">
+      <div class="signature">
+        
+        def <strong>flats=</strong>(flats : Hash(String, <a href="WAD/Flat.html">Flat</a>))
+
+        <a class="method-permalink" href="#flats%3D%28flats%3AHash%28String%2CFlat%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of Flats in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L114" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="genmidi:Genmidi-instance-method">
+      <div class="signature">
+        
+        def <strong>genmidi</strong> : <a href="WAD/Genmidi.html">Genmidi</a>
+
+        <a class="method-permalink" href="#genmidi%3AGenmidi-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The Genmidi in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L96" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="genmidi=(genmidi:Genmidi)-instance-method">
+      <div class="signature">
+        
+        def <strong>genmidi=</strong>(genmidi : <a href="WAD/Genmidi.html">Genmidi</a>)
+
+        <a class="method-permalink" href="#genmidi%3D%28genmidi%3AGenmidi%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The Genmidi in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L96" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="graphics:Hash(String,Graphic)-instance-method">
+      <div class="signature">
+        
+        def <strong>graphics</strong> : Hash(String, <a href="WAD/Graphic.html">Graphic</a>)
+
+        <a class="method-permalink" href="#graphics%3AHash%28String%2CGraphic%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of Graphics and patches in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L110" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="graphics=(graphics:Hash(String,Graphic))-instance-method">
+      <div class="signature">
+        
+        def <strong>graphics=</strong>(graphics : Hash(String, <a href="WAD/Graphic.html">Graphic</a>))
+
+        <a class="method-permalink" href="#graphics%3D%28graphics%3AHash%28String%2CGraphic%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of Graphics and patches in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L110" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="maps:Hash(String,Map)-instance-method">
+      <div class="signature">
+        
+        def <strong>maps</strong> : Hash(String, <a href="WAD/Map.html">Map</a>)
+
+        <a class="method-permalink" href="#maps%3AHash%28String%2CMap%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of maps in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L88" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="maps=(maps:Hash(String,Map))-instance-method">
+      <div class="signature">
+        
+        def <strong>maps=</strong>(maps : Hash(String, <a href="WAD/Map.html">Map</a>))
+
+        <a class="method-permalink" href="#maps%3D%28maps%3AHash%28String%2CMap%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of maps in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L88" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="music:Hash(String,Music)-instance-method">
+      <div class="signature">
+        
+        def <strong>music</strong> : Hash(String, <a href="WAD/Music.html">Music</a>)
+
+        <a class="method-permalink" href="#music%3AHash%28String%2CMusic%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of music in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L94" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="music=(music:Hash(String,Music))-instance-method">
+      <div class="signature">
+        
+        def <strong>music=</strong>(music : Hash(String, <a href="WAD/Music.html">Music</a>))
+
+        <a class="method-permalink" href="#music%3D%28music%3AHash%28String%2CMusic%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of music in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L94" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new_dir(name:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>new_dir</strong>(name : String)
+
+        <a class="method-permalink" href="#new_dir%28name%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Creates a new empty directory with <em>name</em> and puts it onto the list of directories.</p>
+<p><span class="flag yellow">WARNING</span>  Directory will not work if <em>name</em> is not the correct name of the data</p>
+<pre><code class="language-crystal"><span class="t">File</span>.open(<span class="s">&quot;Path/To/MySound.lmp&quot;</span>, <span class="s">&quot;w+&quot;</span>) <span class="k">do</span> <span class="o">|</span>file<span class="o">|</span>
+  my_wad.[<span class="s">&quot;MYSOUND&quot;</span>] <span class="o">=</span> <span class="t">WAD</span><span class="t">::</span><span class="t">Sound</span>.parse(file)
+  my_wad.new_dir(<span class="s">&quot;MYSOUND&quot;</span>)
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L145" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="pcsounds:Hash(String,PcSound)-instance-method">
+      <div class="signature">
+        
+        def <strong>pcsounds</strong> : Hash(String, <a href="WAD/PcSound.html">PcSound</a>)
+
+        <a class="method-permalink" href="#pcsounds%3AHash%28String%2CPcSound%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of speaker sounds in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L90" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="pcsounds=(pcsounds:Hash(String,PcSound))-instance-method">
+      <div class="signature">
+        
+        def <strong>pcsounds=</strong>(pcsounds : Hash(String, <a href="WAD/PcSound.html">PcSound</a>))
+
+        <a class="method-permalink" href="#pcsounds%3D%28pcsounds%3AHash%28String%2CPcSound%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of speaker sounds in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L90" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="playpal:Playpal-instance-method">
+      <div class="signature">
+        
+        def <strong>playpal</strong> : <a href="WAD/Playpal.html">Playpal</a>
+
+        <a class="method-permalink" href="#playpal%3APlaypal-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The Playpal in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L100" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="playpal=(playpal:Playpal)-instance-method">
+      <div class="signature">
+        
+        def <strong>playpal=</strong>(playpal : <a href="WAD/Playpal.html">Playpal</a>)
+
+        <a class="method-permalink" href="#playpal%3D%28playpal%3APlaypal%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The Playpal in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L100" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="pnames:Pnames-instance-method">
+      <div class="signature">
+        
+        def <strong>pnames</strong> : <a href="WAD/Pnames.html">Pnames</a>
+
+        <a class="method-permalink" href="#pnames%3APnames-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The Pnames in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L108" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="pnames=(pnames:Pnames)-instance-method">
+      <div class="signature">
+        
+        def <strong>pnames=</strong>(pnames : <a href="WAD/Pnames.html">Pnames</a>)
+
+        <a class="method-permalink" href="#pnames%3D%28pnames%3APnames%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The Pnames in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L108" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rename_lump(to_rename:String,name:String):Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>rename_lump</strong>(to_rename : String, name : String) : Bool
+
+        <a class="method-permalink" href="#rename_lump%28to_rename%3AString%2Cname%3AString%29%3ABool-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Renames a lump that can be renamed in the WAD
+Usually used when renaming a directory</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L174" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sounds:Hash(String,Sound)-instance-method">
+      <div class="signature">
+        
+        def <strong>sounds</strong> : Hash(String, <a href="WAD/Sound.html">Sound</a>)
+
+        <a class="method-permalink" href="#sounds%3AHash%28String%2CSound%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of sounds in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L92" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sounds=(sounds:Hash(String,Sound))-instance-method">
+      <div class="signature">
+        
+        def <strong>sounds=</strong>(sounds : Hash(String, <a href="WAD/Sound.html">Sound</a>))
+
+        <a class="method-permalink" href="#sounds%3D%28sounds%3AHash%28String%2CSound%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of sounds in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L92" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sprites:Hash(String,Graphic)-instance-method">
+      <div class="signature">
+        
+        def <strong>sprites</strong> : Hash(String, <a href="WAD/Graphic.html">Graphic</a>)
+
+        <a class="method-permalink" href="#sprites%3AHash%28String%2CGraphic%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of Sprites in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L112" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sprites=(sprites:Hash(String,Graphic))-instance-method">
+      <div class="signature">
+        
+        def <strong>sprites=</strong>(sprites : Hash(String, <a href="WAD/Graphic.html">Graphic</a>))
+
+        <a class="method-permalink" href="#sprites%3D%28sprites%3AHash%28String%2CGraphic%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of Sprites in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L112" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="texmaps:Hash(String,TextureX)-instance-method">
+      <div class="signature">
+        
+        def <strong>texmaps</strong> : Hash(String, <a href="WAD/TextureX.html">TextureX</a>)
+
+        <a class="method-permalink" href="#texmaps%3AHash%28String%2CTextureX%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of texture maps in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L106" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="texmaps=(texmaps:Hash(String,TextureX))-instance-method">
+      <div class="signature">
+        
+        def <strong>texmaps=</strong>(texmaps : Hash(String, <a href="WAD/TextureX.html">TextureX</a>))
+
+        <a class="method-permalink" href="#texmaps%3D%28texmaps%3AHash%28String%2CTextureX%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array of texture maps in the WAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L106" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="type:Type-instance-method">
+      <div class="signature">
+        
+        def <strong>type</strong> : <a href="WAD/Type.html">Type</a>
+
+        <a class="method-permalink" href="#type%3AType-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Type of WAD: Either Internal, IWAD, or Patch, PWAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L82" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="type=(type:Type)-instance-method">
+      <div class="signature">
+        
+        def <strong>type=</strong>(type : <a href="WAD/Type.html">Type</a>)
+
+        <a class="method-permalink" href="#type%3D%28type%3AType%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Type of WAD: Either Internal, IWAD, or Patch, PWAD.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L82" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="what_is?(name:String):String-instance-method">
+      <div class="signature">
+        
+        def <strong>what_is?</strong>(name : String) : String
+
+        <a class="method-permalink" href="#what_is%3F%28name%3AString%29%3AString-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Finds what a name is in the <code><a href="WAD.html">WAD</a></code>
+Usually used to find what type a directory points to</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad.cr#L153" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+</div>
+
+</body>
+</html>

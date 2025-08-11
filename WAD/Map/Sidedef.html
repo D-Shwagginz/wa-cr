@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.16.3">
+<meta name="crystal_docs.project_version" content="master">
+<meta name="crystal_docs.project_name" content="wa-cr">
+
+
+
+<link href="../../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/doc.js"></script>
+
+  <meta name="repository-name" content="wa-cr">
+  <title>WAD::Map::Sidedef - wa-cr master</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../../index.html">
+          wa-cr
+        </a>
+      </h1>
+
+      <span class="project-version">
+        master
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent " data-id="wa-cr/Apps" data-name="apps">
+      <a href="../../Apps.html">Apps</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/Apps/MapViewer" data-name="apps::mapviewer">
+      <a href="../../Apps/MapViewer.html">MapViewer</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Apps/WadViewer" data-name="apps::wadviewer">
+      <a href="../../Apps/WadViewer.html">WadViewer</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/Documentation" data-name="documentation">
+      <a href="../../Documentation.html">Documentation</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/Documentation/A_Introduction" data-name="documentation::a_introduction">
+      <a href="../../Documentation/A_Introduction.html">A_Introduction</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/B_Installation" data-name="documentation::b_installation">
+      <a href="../../Documentation/B_Installation.html">B_Installation</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/Documentation/C_Usage" data-name="documentation::c_usage">
+      <a href="../../Documentation/C_Usage.html">C_Usage</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/A_MakingAWad" data-name="documentation::c_usage::a_makingawad">
+      <a href="../../Documentation/C_Usage/A_MakingAWad.html">A_MakingAWad</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/B_UsingWadData" data-name="documentation::c_usage::b_usingwaddata">
+      <a href="../../Documentation/C_Usage/B_UsingWadData.html">B_UsingWadData</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/C_OnDirectories" data-name="documentation::c_usage::c_ondirectories">
+      <a href="../../Documentation/C_Usage/C_OnDirectories.html">C_OnDirectories</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/D_ReadingLumps" data-name="documentation::c_usage::d_readinglumps">
+      <a href="../../Documentation/C_Usage/D_ReadingLumps.html">D_ReadingLumps</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/E_ConvertingFileTypes" data-name="documentation::c_usage::e_convertingfiletypes">
+      <a href="../../Documentation/C_Usage/E_ConvertingFileTypes.html">E_ConvertingFileTypes</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/F_WritingFiles" data-name="documentation::c_usage::f_writingfiles">
+      <a href="../../Documentation/C_Usage/F_WritingFiles.html">F_WritingFiles</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/G_UsingWithRaylib" data-name="documentation::c_usage::g_usingwithraylib">
+      <a href="../../Documentation/C_Usage/G_UsingWithRaylib.html">G_UsingWithRaylib</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/H_Apps" data-name="documentation::c_usage::h_apps">
+      <a href="../../Documentation/C_Usage/H_Apps.html">H_Apps</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/Documentation/D_Cheatsheet" data-name="documentation::d_cheatsheet">
+      <a href="../../Documentation/D_Cheatsheet.html">D_Cheatsheet</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/Documentation/D_Cheatsheet/A_Reading" data-name="documentation::d_cheatsheet::a_reading">
+      <a href="../../Documentation/D_Cheatsheet/A_Reading.html">A_Reading</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/D_Cheatsheet/B_WritingAdditions" data-name="documentation::d_cheatsheet::b_writingadditions">
+      <a href="../../Documentation/D_Cheatsheet/B_WritingAdditions.html">B_WritingAdditions</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/D_Cheatsheet/C_RaylibAdditions" data-name="documentation::d_cheatsheet::c_raylibadditions">
+      <a href="../../Documentation/D_Cheatsheet/C_RaylibAdditions.html">C_RaylibAdditions</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/D_Cheatsheet/D_Extras" data-name="documentation::d_cheatsheet::d_extras">
+      <a href="../../Documentation/D_Cheatsheet/D_Extras.html">D_Extras</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/D_Cheatsheet/E_Apps" data-name="documentation::d_cheatsheet::e_apps">
+      <a href="../../Documentation/D_Cheatsheet/E_Apps.html">E_Apps</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/RaylibAdditions" data-name="raylibadditions">
+      <a href="../../RaylibAdditions.html">RaylibAdditions</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/RaylibAdditions/Flat" data-name="raylibadditions::flat">
+      <a href="../../RaylibAdditions/Flat.html">Flat</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/RaylibAdditions/FlatClassMethods" data-name="raylibadditions::flatclassmethods">
+      <a href="../../RaylibAdditions/FlatClassMethods.html">FlatClassMethods</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/RaylibAdditions/Graphic" data-name="raylibadditions::graphic">
+      <a href="../../RaylibAdditions/Graphic.html">Graphic</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/RaylibAdditions/GraphicClassMethods" data-name="raylibadditions::graphicclassmethods">
+      <a href="../../RaylibAdditions/GraphicClassMethods.html">GraphicClassMethods</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/RaylibAdditions/WAD" data-name="raylibadditions::wad">
+      <a href="../../RaylibAdditions/WAD.html">WAD</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent open current" data-id="wa-cr/WAD" data-name="wad">
+      <a href="../../WAD.html">WAD</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/AddTypes" data-name="wad::addtypes">
+      <a href="../../WAD/AddTypes.html">AddTypes</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/Colormap" data-name="wad::colormap">
+      <a href="../../WAD/Colormap.html">Colormap</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Colormap/Table" data-name="wad::colormap::table">
+      <a href="../../WAD/Colormap/Table.html">Table</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/Demo" data-name="wad::demo">
+      <a href="../../WAD/Demo.html">Demo</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Demo/InputAction" data-name="wad::demo::inputaction">
+      <a href="../../WAD/Demo/InputAction.html">InputAction</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Demo/Interaction" data-name="wad::demo::interaction">
+      <a href="../../WAD/Demo/Interaction.html">Interaction</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Directory" data-name="wad::directory">
+      <a href="../../WAD/Directory.html">Directory</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/Dmxgus" data-name="wad::dmxgus">
+      <a href="../../WAD/Dmxgus.html">Dmxgus</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Dmxgus/InstrumentData" data-name="wad::dmxgus::instrumentdata">
+      <a href="../../WAD/Dmxgus/InstrumentData.html">InstrumentData</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/EnDoom" data-name="wad::endoom">
+      <a href="../../WAD/EnDoom.html">EnDoom</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/EnDoom/EnDoomChars" data-name="wad::endoom::endoomchars">
+      <a href="../../WAD/EnDoom/EnDoomChars.html">EnDoomChars</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Flat" data-name="wad::flat">
+      <a href="../../WAD/Flat.html">Flat</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/Genmidi" data-name="wad::genmidi">
+      <a href="../../WAD/Genmidi.html">Genmidi</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Genmidi/InstrumentData" data-name="wad::genmidi::instrumentdata">
+      <a href="../../WAD/Genmidi/InstrumentData.html">InstrumentData</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/Graphic" data-name="wad::graphic">
+      <a href="../../WAD/Graphic.html">Graphic</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Graphic/Offsets" data-name="wad::graphic::offsets">
+      <a href="../../WAD/Graphic/Offsets.html">Offsets</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent open current" data-id="wa-cr/WAD/Map" data-name="wad::map">
+      <a href="../../WAD/Map.html">Map</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="wa-cr/WAD/Map/Blockmap" data-name="wad::map::blockmap">
+      <a href="../../WAD/Map/Blockmap.html">Blockmap</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Blockmap/Blocklist" data-name="wad::map::blockmap::blocklist">
+      <a href="../../WAD/Map/Blockmap/Blocklist.html">Blocklist</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Blockmap/Header" data-name="wad::map::blockmap::header">
+      <a href="../../WAD/Map/Blockmap/Header.html">Header</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Linedef" data-name="wad::map::linedef">
+      <a href="../../WAD/Map/Linedef.html">Linedef</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Node" data-name="wad::map::node">
+      <a href="../../WAD/Map/Node.html">Node</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Reject" data-name="wad::map::reject">
+      <a href="../../WAD/Map/Reject.html">Reject</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Sector" data-name="wad::map::sector">
+      <a href="../../WAD/Map/Sector.html">Sector</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Seg" data-name="wad::map::seg">
+      <a href="../../WAD/Map/Seg.html">Seg</a>
+      
+    </li>
+  
+  <li class=" current" data-id="wa-cr/WAD/Map/Sidedef" data-name="wad::map::sidedef">
+      <a href="../../WAD/Map/Sidedef.html">Sidedef</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Ssector" data-name="wad::map::ssector">
+      <a href="../../WAD/Map/Ssector.html">Ssector</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Thing" data-name="wad::map::thing">
+      <a href="../../WAD/Map/Thing.html">Thing</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Vertex" data-name="wad::map::vertex">
+      <a href="../../WAD/Map/Vertex.html">Vertex</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Music" data-name="wad::music">
+      <a href="../../WAD/Music.html">Music</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/PcSound" data-name="wad::pcsound">
+      <a href="../../WAD/PcSound.html">PcSound</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/Playpal" data-name="wad::playpal">
+      <a href="../../WAD/Playpal.html">Playpal</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Playpal/Color" data-name="wad::playpal::color">
+      <a href="../../WAD/Playpal/Color.html">Color</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Playpal/Palette" data-name="wad::playpal::palette">
+      <a href="../../WAD/Playpal/Palette.html">Palette</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Pnames" data-name="wad::pnames">
+      <a href="../../WAD/Pnames.html">Pnames</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Sound" data-name="wad::sound">
+      <a href="../../WAD/Sound.html">Sound</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/TextureX" data-name="wad::texturex">
+      <a href="../../WAD/TextureX.html">TextureX</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/TextureX/Patch" data-name="wad::texturex::patch">
+      <a href="../../WAD/TextureX/Patch.html">Patch</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/TextureX/TextureMap" data-name="wad::texturex::texturemap">
+      <a href="../../WAD/TextureX/TextureMap.html">TextureMap</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Type" data-name="wad::type">
+      <a href="../../WAD/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WritingAdditions" data-name="writingadditions">
+      <a href="../../WritingAdditions.html">WritingAdditions</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Colormap" data-name="writingadditions::colormap">
+      <a href="../../WritingAdditions/Colormap.html">Colormap</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Demo" data-name="writingadditions::demo">
+      <a href="../../WritingAdditions/Demo.html">Demo</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Dmxgus" data-name="writingadditions::dmxgus">
+      <a href="../../WritingAdditions/Dmxgus.html">Dmxgus</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/EnDoom" data-name="writingadditions::endoom">
+      <a href="../../WritingAdditions/EnDoom.html">EnDoom</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Flat" data-name="writingadditions::flat">
+      <a href="../../WritingAdditions/Flat.html">Flat</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Genmidi" data-name="writingadditions::genmidi">
+      <a href="../../WritingAdditions/Genmidi.html">Genmidi</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Graphic" data-name="writingadditions::graphic">
+      <a href="../../WritingAdditions/Graphic.html">Graphic</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WritingAdditions/Map" data-name="writingadditions::map">
+      <a href="../../WritingAdditions/Map.html">Map</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Blockmap" data-name="writingadditions::map::blockmap">
+      <a href="../../WritingAdditions/Map/Blockmap.html">Blockmap</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Linedef" data-name="writingadditions::map::linedef">
+      <a href="../../WritingAdditions/Map/Linedef.html">Linedef</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Node" data-name="writingadditions::map::node">
+      <a href="../../WritingAdditions/Map/Node.html">Node</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Reject" data-name="writingadditions::map::reject">
+      <a href="../../WritingAdditions/Map/Reject.html">Reject</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Sector" data-name="writingadditions::map::sector">
+      <a href="../../WritingAdditions/Map/Sector.html">Sector</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Seg" data-name="writingadditions::map::seg">
+      <a href="../../WritingAdditions/Map/Seg.html">Seg</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Sidedef" data-name="writingadditions::map::sidedef">
+      <a href="../../WritingAdditions/Map/Sidedef.html">Sidedef</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Ssector" data-name="writingadditions::map::ssector">
+      <a href="../../WritingAdditions/Map/Ssector.html">Ssector</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Thing" data-name="writingadditions::map::thing">
+      <a href="../../WritingAdditions/Map/Thing.html">Thing</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Vertex" data-name="writingadditions::map::vertex">
+      <a href="../../WritingAdditions/Map/Vertex.html">Vertex</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Music" data-name="writingadditions::music">
+      <a href="../../WritingAdditions/Music.html">Music</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/PcSound" data-name="writingadditions::pcsound">
+      <a href="../../WritingAdditions/PcSound.html">PcSound</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Playpal" data-name="writingadditions::playpal">
+      <a href="../../WritingAdditions/Playpal.html">Playpal</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Pnames" data-name="writingadditions::pnames">
+      <a href="../../WritingAdditions/Pnames.html">Pnames</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Sound" data-name="writingadditions::sound">
+      <a href="../../WritingAdditions/Sound.html">Sound</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/TextureX" data-name="writingadditions::texturex">
+      <a href="../../WritingAdditions/TextureX.html">TextureX</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/WAD" data-name="writingadditions::wad">
+      <a href="../../WritingAdditions/WAD.html">WAD</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">
+    struct
+  </span> WAD::<wbr>Map::<wbr>Sidedef
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../WAD/Map/Sidedef.html">WAD::Map::Sidedef</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Structure of a sidedef.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L308" target="_blank">
+        wa-cr/wad/wad-data/map.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+  
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new-class-method" class="signature"><strong>.new</strong></a>
+        
+      </li>
+    
+  </ul>
+
+
+  
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#parse%28io%3AIO%2Clump_size%3AInt%29%3AArray%28Sidedef%29-class-method" class="signature"><strong>.parse</strong>(io : IO, lump_size : Int) : Array(Sidedef)</a>
+        
+          <div class="summary"><p>Parses a sidedefs list given the io and the size</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#parse%28filename%3AString%7CPath%29%3AArray%28Sidedef%29-class-method" class="signature"><strong>.parse</strong>(filename : String | Path) : Array(Sidedef)</a>
+        
+          <div class="summary"><p>Parses a sidedefs list given the filename</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+  
+
+  
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#clone-instance-method" class="signature"><strong>#clone</strong></a>
+        
+          <div class="summary"><p>Returns a copy of <code>self</code> with all instance variables cloned.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#facing_sector_num%3AInt16-instance-method" class="signature"><strong>#facing_sector_num</strong> : Int16</a>
+        
+          <div class="summary"><p>Sector number this sidedef 'faces'.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#facing_sector_num%3D%28facing_sector_num%3AInt16%29-instance-method" class="signature"><strong>#facing_sector_num=</strong>(facing_sector_num : Int16)</a>
+        
+          <div class="summary"><p>Sector number this sidedef 'faces'.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#initialize-instance-method" class="signature"><strong>#initialize</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#name_tex_low%3AString-instance-method" class="signature"><strong>#name_tex_low</strong> : String</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#name_tex_low%3D%28name_tex_low%3AString%29-instance-method" class="signature"><strong>#name_tex_low=</strong>(name_tex_low : String)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#name_tex_mid%3AString-instance-method" class="signature"><strong>#name_tex_mid</strong> : String</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#name_tex_mid%3D%28name_tex_mid%3AString%29-instance-method" class="signature"><strong>#name_tex_mid=</strong>(name_tex_mid : String)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#name_tex_up%3AString-instance-method" class="signature"><strong>#name_tex_up</strong> : String</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#name_tex_up%3D%28name_tex_up%3AString%29-instance-method" class="signature"><strong>#name_tex_up=</strong>(name_tex_up : String)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#x_offset%3AInt16-instance-method" class="signature"><strong>#x_offset</strong> : Int16</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#x_offset%3D%28x_offset%3AInt16%29-instance-method" class="signature"><strong>#x_offset=</strong>(x_offset : Int16)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#y_offset%3AInt16-instance-method" class="signature"><strong>#y_offset</strong> : Int16</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#y_offset%3D%28y_offset%3AInt16%29-instance-method" class="signature"><strong>#y_offset=</strong>(y_offset : Int16)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <div class="methods-inherited">
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+  </div>
+
+  
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>
+
+        <a class="method-permalink" href="#new-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L308" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+  
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="parse(io:IO,lump_size:Int):Array(Sidedef)-class-method">
+      <div class="signature">
+        
+        def self.<strong>parse</strong>(io : IO, lump_size : Int) : Array(<a href="../../WAD/Map/Sidedef.html">Sidedef</a>)
+
+        <a class="method-permalink" href="#parse%28io%3AIO%2Clump_size%3AInt%29%3AArray%28Sidedef%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Parses a sidedefs list given the io and the size</p>
+<p>Opens a sidedefs lump and parses it:</p>
+<pre><code class="language-crystal"><span class="t">File</span>.open(<span class="s">&quot;Path/To/Sidedef&quot;</span>) <span class="k">do</span> <span class="o">|</span>file<span class="o">|</span>
+  my_sidedefs <span class="o">=</span> <span class="t">WAD</span><span class="t">::</span><span class="t">Map</span><span class="t">::</span><span class="t">Sidedef</span>.parse(file, file.size)
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L342" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="parse(filename:String|Path):Array(Sidedef)-class-method">
+      <div class="signature">
+        
+        def self.<strong>parse</strong>(filename : String | Path) : Array(<a href="../../WAD/Map/Sidedef.html">Sidedef</a>)
+
+        <a class="method-permalink" href="#parse%28filename%3AString%7CPath%29%3AArray%28Sidedef%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Parses a sidedefs list given the filename</p>
+<p>Opens a sidedefs lump and parses it:</p>
+<pre><code class="language-crystal">my_sidedefs <span class="o">=</span> <span class="t">WAD</span><span class="t">::</span><span class="t">Map</span><span class="t">::</span><span class="t">Sidedef</span>.parse(<span class="s">&quot;Path/To/Sidedef&quot;</span>)</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L326" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+  
+
+  
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="clone-instance-method">
+      <div class="signature">
+        
+        def <strong>clone</strong>
+
+        <a class="method-permalink" href="#clone-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns a copy of <code>self</code> with all instance variables cloned.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L310" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="facing_sector_num:Int16-instance-method">
+      <div class="signature">
+        
+        def <strong>facing_sector_num</strong> : Int16
+
+        <a class="method-permalink" href="#facing_sector_num%3AInt16-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Sector number this sidedef 'faces'.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L318" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="facing_sector_num=(facing_sector_num:Int16)-instance-method">
+      <div class="signature">
+        
+        def <strong>facing_sector_num=</strong>(facing_sector_num : Int16)
+
+        <a class="method-permalink" href="#facing_sector_num%3D%28facing_sector_num%3AInt16%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Sector number this sidedef 'faces'.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L318" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="initialize-instance-method">
+      <div class="signature">
+        
+        def <strong>initialize</strong>
+
+        <a class="method-permalink" href="#initialize-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L308" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="name_tex_low:String-instance-method">
+      <div class="signature">
+        
+        def <strong>name_tex_low</strong> : String
+
+        <a class="method-permalink" href="#name_tex_low%3AString-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L315" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="name_tex_low=(name_tex_low:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>name_tex_low=</strong>(name_tex_low : String)
+
+        <a class="method-permalink" href="#name_tex_low%3D%28name_tex_low%3AString%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L315" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="name_tex_mid:String-instance-method">
+      <div class="signature">
+        
+        def <strong>name_tex_mid</strong> : String
+
+        <a class="method-permalink" href="#name_tex_mid%3AString-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L316" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="name_tex_mid=(name_tex_mid:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>name_tex_mid=</strong>(name_tex_mid : String)
+
+        <a class="method-permalink" href="#name_tex_mid%3D%28name_tex_mid%3AString%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L316" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="name_tex_up:String-instance-method">
+      <div class="signature">
+        
+        def <strong>name_tex_up</strong> : String
+
+        <a class="method-permalink" href="#name_tex_up%3AString-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L314" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="name_tex_up=(name_tex_up:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>name_tex_up=</strong>(name_tex_up : String)
+
+        <a class="method-permalink" href="#name_tex_up%3D%28name_tex_up%3AString%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L314" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="x_offset:Int16-instance-method">
+      <div class="signature">
+        
+        def <strong>x_offset</strong> : Int16
+
+        <a class="method-permalink" href="#x_offset%3AInt16-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L312" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="x_offset=(x_offset:Int16)-instance-method">
+      <div class="signature">
+        
+        def <strong>x_offset=</strong>(x_offset : Int16)
+
+        <a class="method-permalink" href="#x_offset%3D%28x_offset%3AInt16%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L312" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="y_offset:Int16-instance-method">
+      <div class="signature">
+        
+        def <strong>y_offset</strong> : Int16
+
+        <a class="method-permalink" href="#y_offset%3AInt16-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L313" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="y_offset=(y_offset:Int16)-instance-method">
+      <div class="signature">
+        
+        def <strong>y_offset=</strong>(y_offset : Int16)
+
+        <a class="method-permalink" href="#y_offset%3D%28y_offset%3AInt16%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L313" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+</div>
+
+</body>
+</html>

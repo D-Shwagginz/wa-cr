@@ -1,0 +1,2174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.16.3">
+<meta name="crystal_docs.project_version" content="master">
+<meta name="crystal_docs.project_name" content="wa-cr">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="wa-cr">
+  <title>WAD::Map - wa-cr master</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          wa-cr
+        </a>
+      </h1>
+
+      <span class="project-version">
+        master
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent " data-id="wa-cr/Apps" data-name="apps">
+      <a href="../Apps.html">Apps</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/Apps/MapViewer" data-name="apps::mapviewer">
+      <a href="../Apps/MapViewer.html">MapViewer</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Apps/WadViewer" data-name="apps::wadviewer">
+      <a href="../Apps/WadViewer.html">WadViewer</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/Documentation" data-name="documentation">
+      <a href="../Documentation.html">Documentation</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/Documentation/A_Introduction" data-name="documentation::a_introduction">
+      <a href="../Documentation/A_Introduction.html">A_Introduction</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/B_Installation" data-name="documentation::b_installation">
+      <a href="../Documentation/B_Installation.html">B_Installation</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/Documentation/C_Usage" data-name="documentation::c_usage">
+      <a href="../Documentation/C_Usage.html">C_Usage</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/A_MakingAWad" data-name="documentation::c_usage::a_makingawad">
+      <a href="../Documentation/C_Usage/A_MakingAWad.html">A_MakingAWad</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/B_UsingWadData" data-name="documentation::c_usage::b_usingwaddata">
+      <a href="../Documentation/C_Usage/B_UsingWadData.html">B_UsingWadData</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/C_OnDirectories" data-name="documentation::c_usage::c_ondirectories">
+      <a href="../Documentation/C_Usage/C_OnDirectories.html">C_OnDirectories</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/D_ReadingLumps" data-name="documentation::c_usage::d_readinglumps">
+      <a href="../Documentation/C_Usage/D_ReadingLumps.html">D_ReadingLumps</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/E_ConvertingFileTypes" data-name="documentation::c_usage::e_convertingfiletypes">
+      <a href="../Documentation/C_Usage/E_ConvertingFileTypes.html">E_ConvertingFileTypes</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/F_WritingFiles" data-name="documentation::c_usage::f_writingfiles">
+      <a href="../Documentation/C_Usage/F_WritingFiles.html">F_WritingFiles</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/G_UsingWithRaylib" data-name="documentation::c_usage::g_usingwithraylib">
+      <a href="../Documentation/C_Usage/G_UsingWithRaylib.html">G_UsingWithRaylib</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/C_Usage/H_Apps" data-name="documentation::c_usage::h_apps">
+      <a href="../Documentation/C_Usage/H_Apps.html">H_Apps</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/Documentation/D_Cheatsheet" data-name="documentation::d_cheatsheet">
+      <a href="../Documentation/D_Cheatsheet.html">D_Cheatsheet</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/Documentation/D_Cheatsheet/A_Reading" data-name="documentation::d_cheatsheet::a_reading">
+      <a href="../Documentation/D_Cheatsheet/A_Reading.html">A_Reading</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/D_Cheatsheet/B_WritingAdditions" data-name="documentation::d_cheatsheet::b_writingadditions">
+      <a href="../Documentation/D_Cheatsheet/B_WritingAdditions.html">B_WritingAdditions</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/D_Cheatsheet/C_RaylibAdditions" data-name="documentation::d_cheatsheet::c_raylibadditions">
+      <a href="../Documentation/D_Cheatsheet/C_RaylibAdditions.html">C_RaylibAdditions</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/D_Cheatsheet/D_Extras" data-name="documentation::d_cheatsheet::d_extras">
+      <a href="../Documentation/D_Cheatsheet/D_Extras.html">D_Extras</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/Documentation/D_Cheatsheet/E_Apps" data-name="documentation::d_cheatsheet::e_apps">
+      <a href="../Documentation/D_Cheatsheet/E_Apps.html">E_Apps</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/RaylibAdditions" data-name="raylibadditions">
+      <a href="../RaylibAdditions.html">RaylibAdditions</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/RaylibAdditions/Flat" data-name="raylibadditions::flat">
+      <a href="../RaylibAdditions/Flat.html">Flat</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/RaylibAdditions/FlatClassMethods" data-name="raylibadditions::flatclassmethods">
+      <a href="../RaylibAdditions/FlatClassMethods.html">FlatClassMethods</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/RaylibAdditions/Graphic" data-name="raylibadditions::graphic">
+      <a href="../RaylibAdditions/Graphic.html">Graphic</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/RaylibAdditions/GraphicClassMethods" data-name="raylibadditions::graphicclassmethods">
+      <a href="../RaylibAdditions/GraphicClassMethods.html">GraphicClassMethods</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/RaylibAdditions/WAD" data-name="raylibadditions::wad">
+      <a href="../RaylibAdditions/WAD.html">WAD</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent open current" data-id="wa-cr/WAD" data-name="wad">
+      <a href="../WAD.html">WAD</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/AddTypes" data-name="wad::addtypes">
+      <a href="../WAD/AddTypes.html">AddTypes</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/Colormap" data-name="wad::colormap">
+      <a href="../WAD/Colormap.html">Colormap</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Colormap/Table" data-name="wad::colormap::table">
+      <a href="../WAD/Colormap/Table.html">Table</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/Demo" data-name="wad::demo">
+      <a href="../WAD/Demo.html">Demo</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Demo/InputAction" data-name="wad::demo::inputaction">
+      <a href="../WAD/Demo/InputAction.html">InputAction</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Demo/Interaction" data-name="wad::demo::interaction">
+      <a href="../WAD/Demo/Interaction.html">Interaction</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Directory" data-name="wad::directory">
+      <a href="../WAD/Directory.html">Directory</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/Dmxgus" data-name="wad::dmxgus">
+      <a href="../WAD/Dmxgus.html">Dmxgus</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Dmxgus/InstrumentData" data-name="wad::dmxgus::instrumentdata">
+      <a href="../WAD/Dmxgus/InstrumentData.html">InstrumentData</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/EnDoom" data-name="wad::endoom">
+      <a href="../WAD/EnDoom.html">EnDoom</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/EnDoom/EnDoomChars" data-name="wad::endoom::endoomchars">
+      <a href="../WAD/EnDoom/EnDoomChars.html">EnDoomChars</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Flat" data-name="wad::flat">
+      <a href="../WAD/Flat.html">Flat</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/Genmidi" data-name="wad::genmidi">
+      <a href="../WAD/Genmidi.html">Genmidi</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Genmidi/InstrumentData" data-name="wad::genmidi::instrumentdata">
+      <a href="../WAD/Genmidi/InstrumentData.html">InstrumentData</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/Graphic" data-name="wad::graphic">
+      <a href="../WAD/Graphic.html">Graphic</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Graphic/Offsets" data-name="wad::graphic::offsets">
+      <a href="../WAD/Graphic/Offsets.html">Offsets</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent open current" data-id="wa-cr/WAD/Map" data-name="wad::map">
+      <a href="../WAD/Map.html">Map</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="wa-cr/WAD/Map/Blockmap" data-name="wad::map::blockmap">
+      <a href="../WAD/Map/Blockmap.html">Blockmap</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Blockmap/Blocklist" data-name="wad::map::blockmap::blocklist">
+      <a href="../WAD/Map/Blockmap/Blocklist.html">Blocklist</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Blockmap/Header" data-name="wad::map::blockmap::header">
+      <a href="../WAD/Map/Blockmap/Header.html">Header</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Linedef" data-name="wad::map::linedef">
+      <a href="../WAD/Map/Linedef.html">Linedef</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Node" data-name="wad::map::node">
+      <a href="../WAD/Map/Node.html">Node</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Reject" data-name="wad::map::reject">
+      <a href="../WAD/Map/Reject.html">Reject</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Sector" data-name="wad::map::sector">
+      <a href="../WAD/Map/Sector.html">Sector</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Seg" data-name="wad::map::seg">
+      <a href="../WAD/Map/Seg.html">Seg</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Sidedef" data-name="wad::map::sidedef">
+      <a href="../WAD/Map/Sidedef.html">Sidedef</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Ssector" data-name="wad::map::ssector">
+      <a href="../WAD/Map/Ssector.html">Ssector</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Thing" data-name="wad::map::thing">
+      <a href="../WAD/Map/Thing.html">Thing</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Map/Vertex" data-name="wad::map::vertex">
+      <a href="../WAD/Map/Vertex.html">Vertex</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Music" data-name="wad::music">
+      <a href="../WAD/Music.html">Music</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/PcSound" data-name="wad::pcsound">
+      <a href="../WAD/PcSound.html">PcSound</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/Playpal" data-name="wad::playpal">
+      <a href="../WAD/Playpal.html">Playpal</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/Playpal/Color" data-name="wad::playpal::color">
+      <a href="../WAD/Playpal/Color.html">Color</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Playpal/Palette" data-name="wad::playpal::palette">
+      <a href="../WAD/Playpal/Palette.html">Palette</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Pnames" data-name="wad::pnames">
+      <a href="../WAD/Pnames.html">Pnames</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Sound" data-name="wad::sound">
+      <a href="../WAD/Sound.html">Sound</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WAD/TextureX" data-name="wad::texturex">
+      <a href="../WAD/TextureX.html">TextureX</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WAD/TextureX/Patch" data-name="wad::texturex::patch">
+      <a href="../WAD/TextureX/Patch.html">Patch</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/TextureX/TextureMap" data-name="wad::texturex::texturemap">
+      <a href="../WAD/TextureX/TextureMap.html">TextureMap</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WAD/Type" data-name="wad::type">
+      <a href="../WAD/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WritingAdditions" data-name="writingadditions">
+      <a href="../WritingAdditions.html">WritingAdditions</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Colormap" data-name="writingadditions::colormap">
+      <a href="../WritingAdditions/Colormap.html">Colormap</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Demo" data-name="writingadditions::demo">
+      <a href="../WritingAdditions/Demo.html">Demo</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Dmxgus" data-name="writingadditions::dmxgus">
+      <a href="../WritingAdditions/Dmxgus.html">Dmxgus</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/EnDoom" data-name="writingadditions::endoom">
+      <a href="../WritingAdditions/EnDoom.html">EnDoom</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Flat" data-name="writingadditions::flat">
+      <a href="../WritingAdditions/Flat.html">Flat</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Genmidi" data-name="writingadditions::genmidi">
+      <a href="../WritingAdditions/Genmidi.html">Genmidi</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Graphic" data-name="writingadditions::graphic">
+      <a href="../WritingAdditions/Graphic.html">Graphic</a>
+      
+    </li>
+  
+  <li class="parent " data-id="wa-cr/WritingAdditions/Map" data-name="writingadditions::map">
+      <a href="../WritingAdditions/Map.html">Map</a>
+      
+        <ul>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Blockmap" data-name="writingadditions::map::blockmap">
+      <a href="../WritingAdditions/Map/Blockmap.html">Blockmap</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Linedef" data-name="writingadditions::map::linedef">
+      <a href="../WritingAdditions/Map/Linedef.html">Linedef</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Node" data-name="writingadditions::map::node">
+      <a href="../WritingAdditions/Map/Node.html">Node</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Reject" data-name="writingadditions::map::reject">
+      <a href="../WritingAdditions/Map/Reject.html">Reject</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Sector" data-name="writingadditions::map::sector">
+      <a href="../WritingAdditions/Map/Sector.html">Sector</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Seg" data-name="writingadditions::map::seg">
+      <a href="../WritingAdditions/Map/Seg.html">Seg</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Sidedef" data-name="writingadditions::map::sidedef">
+      <a href="../WritingAdditions/Map/Sidedef.html">Sidedef</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Ssector" data-name="writingadditions::map::ssector">
+      <a href="../WritingAdditions/Map/Ssector.html">Ssector</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Thing" data-name="writingadditions::map::thing">
+      <a href="../WritingAdditions/Map/Thing.html">Thing</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Map/Vertex" data-name="writingadditions::map::vertex">
+      <a href="../WritingAdditions/Map/Vertex.html">Vertex</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Music" data-name="writingadditions::music">
+      <a href="../WritingAdditions/Music.html">Music</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/PcSound" data-name="writingadditions::pcsound">
+      <a href="../WritingAdditions/PcSound.html">PcSound</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Playpal" data-name="writingadditions::playpal">
+      <a href="../WritingAdditions/Playpal.html">Playpal</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Pnames" data-name="writingadditions::pnames">
+      <a href="../WritingAdditions/Pnames.html">Pnames</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/Sound" data-name="writingadditions::sound">
+      <a href="../WritingAdditions/Sound.html">Sound</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/TextureX" data-name="writingadditions::texturex">
+      <a href="../WritingAdditions/TextureX.html">TextureX</a>
+      
+    </li>
+  
+  <li class=" " data-id="wa-cr/WritingAdditions/WAD" data-name="writingadditions::wad">
+      <a href="../WritingAdditions/WAD.html">WAD</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">
+    class
+  </span> WAD::<wbr>Map
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../WAD/Map.html">WAD::Map</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Map containing all directories of data lumps.</p>
+
+
+
+
+
+
+
+  <h2>
+    <a id="included-modules" class="anchor" href="#included-modules">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Included Modules
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../WritingAdditions/Map.html">WritingAdditions::Map</a></li>
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L3" target="_blank">
+        wa-cr/wad/wad-data/map.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/write.cr#L314" target="_blank">
+        write.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+  
+    <h2>
+      <a id="constant-summary" class="anchor" href="#constant-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Constant Summary
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="MAP_CONTENTS">
+        <strong>MAP_CONTENTS</strong> = <code>[<span class="s">&quot;THINGS&quot;</span>, <span class="s">&quot;LINEDEFS&quot;</span>, <span class="s">&quot;SIDEDEFS&quot;</span>, <span class="s">&quot;VERTEXES&quot;</span>, <span class="s">&quot;SEGS&quot;</span>, <span class="s">&quot;SSECTORS&quot;</span>, <span class="s">&quot;NODES&quot;</span>, <span class="s">&quot;SECTORS&quot;</span>, <span class="s">&quot;REJECT&quot;</span>, <span class="s">&quot;BLOCKMAP&quot;</span>, <span class="s">&quot;BEHAVIOR&quot;</span>]</code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>A list of things that the map contains</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="THING_TYPES">
+        <strong>THING_TYPES</strong> = <code>{<span class="n">1</span> <span class="o">=&gt;</span> {<span class="s">&quot;Player 1 start&quot;</span>, <span class="s">&quot;PLAYA1&quot;</span>, <span class="n">16</span>}, <span class="n">2</span> <span class="o">=&gt;</span> {<span class="s">&quot;Player 2 start&quot;</span>, <span class="s">&quot;PLAYA1&quot;</span>, <span class="n">16</span>}, <span class="n">3</span> <span class="o">=&gt;</span> {<span class="s">&quot;Player 3 start&quot;</span>, <span class="s">&quot;PLAYA1&quot;</span>, <span class="n">16</span>}, <span class="n">4</span> <span class="o">=&gt;</span> {<span class="s">&quot;Player 4 start&quot;</span>, <span class="s">&quot;PLAYA1&quot;</span>, <span class="n">16</span>}, <span class="n">5</span> <span class="o">=&gt;</span> {<span class="s">&quot;Blue keycard&quot;</span>, <span class="s">&quot;BKEYA0&quot;</span>, <span class="n">20</span>}, <span class="n">6</span> <span class="o">=&gt;</span> {<span class="s">&quot;Yellow keycard&quot;</span>, <span class="s">&quot;YKEYA0&quot;</span>, <span class="n">20</span>}, <span class="n">7</span> <span class="o">=&gt;</span> {<span class="s">&quot;Spiderdemon&quot;</span>, <span class="s">&quot;SPIDA1D1&quot;</span>, <span class="n">128</span>}, <span class="n">8</span> <span class="o">=&gt;</span> {<span class="s">&quot;Backpack&quot;</span>, <span class="s">&quot;BPAKA0&quot;</span>, <span class="n">20</span>}, <span class="n">9</span> <span class="o">=&gt;</span> {<span class="s">&quot;Shotgun guy&quot;</span>, <span class="s">&quot;SPOSA1&quot;</span>, <span class="n">20</span>}, <span class="n">10</span> <span class="o">=&gt;</span> {<span class="s">&quot;Bloody mess&quot;</span>, <span class="s">&quot;PLAYW0&quot;</span>, <span class="n">20</span>}, <span class="n">11</span> <span class="o">=&gt;</span> {<span class="s">&quot;Deathmatch start&quot;</span>, <span class="s">&quot;PLAYE1&quot;</span>, <span class="n">16</span>}, <span class="n">12</span> <span class="o">=&gt;</span> {<span class="s">&quot;Bloody mess&quot;</span>, <span class="s">&quot;PLAYW0&quot;</span>, <span class="n">20</span>}, <span class="n">13</span> <span class="o">=&gt;</span> {<span class="s">&quot;Red keycard&quot;</span>, <span class="s">&quot;RKEYA0&quot;</span>, <span class="n">20</span>}, <span class="n">14</span> <span class="o">=&gt;</span> {<span class="s">&quot;Teleport landing&quot;</span>, <span class="s">&quot;TFOGA0&quot;</span>, <span class="n">20</span>}, <span class="n">15</span> <span class="o">=&gt;</span> {<span class="s">&quot;Dead player&quot;</span>, <span class="s">&quot;PLAYN0&quot;</span>, <span class="n">20</span>}, <span class="n">16</span> <span class="o">=&gt;</span> {<span class="s">&quot;Cyberdemon&quot;</span>, <span class="s">&quot;CYBRA1&quot;</span>, <span class="n">40</span>}, <span class="n">17</span> <span class="o">=&gt;</span> {<span class="s">&quot;Energy cell pack&quot;</span>, <span class="s">&quot;CELPA0&quot;</span>, <span class="n">20</span>}, <span class="n">18</span> <span class="o">=&gt;</span> {<span class="s">&quot;Dead former human&quot;</span>, <span class="s">&quot;POSSL0&quot;</span>, <span class="n">20</span>}, <span class="n">19</span> <span class="o">=&gt;</span> {<span class="s">&quot;Dead former sergeant&quot;</span>, <span class="s">&quot;SPOSL0&quot;</span>, <span class="n">20</span>}, <span class="n">20</span> <span class="o">=&gt;</span> {<span class="s">&quot;Dead imp&quot;</span>, <span class="s">&quot;TROOM0&quot;</span>, <span class="n">20</span>}, <span class="n">21</span> <span class="o">=&gt;</span> {<span class="s">&quot;Dead demon&quot;</span>, <span class="s">&quot;SARGN0&quot;</span>, <span class="n">20</span>}, <span class="n">22</span> <span class="o">=&gt;</span> {<span class="s">&quot;Dead cacodemon&quot;</span>, <span class="s">&quot;HEADL0&quot;</span>, <span class="n">20</span>}, <span class="n">23</span> <span class="o">=&gt;</span> {<span class="s">&quot;Dead lost soul (invisible)&quot;</span>, <span class="s">&quot;&quot;</span>, <span class="n">20</span>}, <span class="n">24</span> <span class="o">=&gt;</span> {<span class="s">&quot;Pool of blood and flesh&quot;</span>, <span class="s">&quot;POL5A0&quot;</span>, <span class="n">20</span>}, <span class="n">25</span> <span class="o">=&gt;</span> {<span class="s">&quot;Impaled human&quot;</span>, <span class="s">&quot;POL1A0&quot;</span>, <span class="n">16</span>}, <span class="n">26</span> <span class="o">=&gt;</span> {<span class="s">&quot;Twitching impaled human&quot;</span>, <span class="s">&quot;POL6A0&quot;</span>, <span class="n">16</span>}, <span class="n">27</span> <span class="o">=&gt;</span> {<span class="s">&quot;Skull on a pole&quot;</span>, <span class="s">&quot;POL4A0&quot;</span>, <span class="n">16</span>}, <span class="n">28</span> <span class="o">=&gt;</span> {<span class="s">&quot;Five skulls \&quot;shish kebab\&quot;&quot;</span>, <span class="s">&quot;POL2A0&quot;</span>, <span class="n">16</span>}, <span class="n">29</span> <span class="o">=&gt;</span> {<span class="s">&quot;Pile of skulls and candles&quot;</span>, <span class="s">&quot;POL3A0&quot;</span>, <span class="n">16</span>}, <span class="n">30</span> <span class="o">=&gt;</span> {<span class="s">&quot;Tall green pillar&quot;</span>, <span class="s">&quot;COL1A0&quot;</span>, <span class="n">16</span>}, <span class="n">31</span> <span class="o">=&gt;</span> {<span class="s">&quot;Short green pillar&quot;</span>, <span class="s">&quot;COL2A0&quot;</span>, <span class="n">16</span>}, <span class="n">32</span> <span class="o">=&gt;</span> {<span class="s">&quot;Tall red pillar&quot;</span>, <span class="s">&quot;COL3A0&quot;</span>, <span class="n">16</span>}, <span class="n">33</span> <span class="o">=&gt;</span> {<span class="s">&quot;Short red pillar&quot;</span>, <span class="s">&quot;COL4A0&quot;</span>, <span class="n">16</span>}, <span class="n">34</span> <span class="o">=&gt;</span> {<span class="s">&quot;Candle&quot;</span>, <span class="s">&quot;CANDA0&quot;</span>, <span class="n">20</span>}, <span class="n">35</span> <span class="o">=&gt;</span> {<span class="s">&quot;Candelabra&quot;</span>, <span class="s">&quot;CBRAA0&quot;</span>, <span class="n">16</span>}, <span class="n">36</span> <span class="o">=&gt;</span> {<span class="s">&quot;Short green pillar with beating heart&quot;</span>, <span class="s">&quot;COL5A0&quot;</span>, <span class="n">16</span>}, <span class="n">37</span> <span class="o">=&gt;</span> {<span class="s">&quot;Short red pillar with skull&quot;</span>, <span class="s">&quot;COL6A0&quot;</span>, <span class="n">16</span>}, <span class="n">38</span> <span class="o">=&gt;</span> {<span class="s">&quot;Red skull key&quot;</span>, <span class="s">&quot;RSKUA0&quot;</span>, <span class="n">20</span>}, <span class="n">39</span> <span class="o">=&gt;</span> {<span class="s">&quot;Yellow skull key&quot;</span>, <span class="s">&quot;YSKUA0&quot;</span>, <span class="n">20</span>}, <span class="n">40</span> <span class="o">=&gt;</span> {<span class="s">&quot;Blue skull key&quot;</span>, <span class="s">&quot;BSKUA0&quot;</span>, <span class="n">20</span>}, <span class="n">41</span> <span class="o">=&gt;</span> {<span class="s">&quot;Evil eye&quot;</span>, <span class="s">&quot;CEYEA0&quot;</span>, <span class="n">16</span>}, <span class="n">42</span> <span class="o">=&gt;</span> {<span class="s">&quot;Floating skull&quot;</span>, <span class="s">&quot;FSKUA0&quot;</span>, <span class="n">16</span>}, <span class="n">43</span> <span class="o">=&gt;</span> {<span class="s">&quot;Burnt tree&quot;</span>, <span class="s">&quot;TRE1A0&quot;</span>, <span class="n">16</span>}, <span class="n">44</span> <span class="o">=&gt;</span> {<span class="s">&quot;Tall blue firestick&quot;</span>, <span class="s">&quot;TBLUA0&quot;</span>, <span class="n">16</span>}, <span class="n">45</span> <span class="o">=&gt;</span> {<span class="s">&quot;Tall green firestick&quot;</span>, <span class="s">&quot;TGRNA0&quot;</span>, <span class="n">16</span>}, <span class="n">46</span> <span class="o">=&gt;</span> {<span class="s">&quot;Tall red firestick&quot;</span>, <span class="s">&quot;TREDA0&quot;</span>, <span class="n">16</span>}, <span class="n">47</span> <span class="o">=&gt;</span> {<span class="s">&quot;Brown stump&quot;</span>, <span class="s">&quot;SMITA0&quot;</span>, <span class="n">16</span>}, <span class="n">48</span> <span class="o">=&gt;</span> {<span class="s">&quot;Tall techno column&quot;</span>, <span class="s">&quot;ELECA0&quot;</span>, <span class="n">16</span>}, <span class="n">49</span> <span class="o">=&gt;</span> {<span class="s">&quot;Hanging victim, twitching&quot;</span>, <span class="s">&quot;GOR1A0&quot;</span>, <span class="n">16</span>}, <span class="n">50</span> <span class="o">=&gt;</span> {<span class="s">&quot;Hanging victim, arms out&quot;</span>, <span class="s">&quot;GOR2A0&quot;</span>, <span class="n">16</span>}, <span class="n">51</span> <span class="o">=&gt;</span> {<span class="s">&quot;Hanging victim, one-legged&quot;</span>, <span class="s">&quot;GOR3A0&quot;</span>, <span class="n">16</span>}, <span class="n">52</span> <span class="o">=&gt;</span> {<span class="s">&quot;Hanging pair of legs&quot;</span>, <span class="s">&quot;GOR4A0&quot;</span>, <span class="n">16</span>}, <span class="n">53</span> <span class="o">=&gt;</span> {<span class="s">&quot;Hanging leg&quot;</span>, <span class="s">&quot;GOR5A0&quot;</span>, <span class="n">16</span>}, <span class="n">54</span> <span class="o">=&gt;</span> {<span class="s">&quot;Large brown tree&quot;</span>, <span class="s">&quot;TRE2A0&quot;</span>, <span class="n">32</span>}, <span class="n">55</span> <span class="o">=&gt;</span> {<span class="s">&quot;Short blue firestick&quot;</span>, <span class="s">&quot;SMBTA0&quot;</span>, <span class="n">16</span>}, <span class="n">56</span> <span class="o">=&gt;</span> {<span class="s">&quot;Short green firestick&quot;</span>, <span class="s">&quot;SMGTA0&quot;</span>, <span class="n">16</span>}, <span class="n">57</span> <span class="o">=&gt;</span> {<span class="s">&quot;Short red firestick&quot;</span>, <span class="s">&quot;SMRTA0&quot;</span>, <span class="n">16</span>}, <span class="n">58</span> <span class="o">=&gt;</span> {<span class="s">&quot;Spectre&quot;</span>, <span class="s">&quot;SARGA1&quot;</span>, <span class="n">30</span>}, <span class="n">59</span> <span class="o">=&gt;</span> {<span class="s">&quot;Hanging victim, arms out&quot;</span>, <span class="s">&quot;GOR2A0&quot;</span>, <span class="n">20</span>}, <span class="n">60</span> <span class="o">=&gt;</span> {<span class="s">&quot;Hanging pair of legs&quot;</span>, <span class="s">&quot;GOR4A0&quot;</span>, <span class="n">20</span>}, <span class="n">61</span> <span class="o">=&gt;</span> {<span class="s">&quot;Hanging victim, one-legged&quot;</span>, <span class="s">&quot;GOR3A0&quot;</span>, <span class="n">20</span>}, <span class="n">62</span> <span class="o">=&gt;</span> {<span class="s">&quot;Hanging leg&quot;</span>, <span class="s">&quot;GOR5A0&quot;</span>, <span class="n">20</span>}, <span class="n">63</span> <span class="o">=&gt;</span> {<span class="s">&quot;Hanging victim, twitching&quot;</span>, <span class="s">&quot;GOR1A0&quot;</span>, <span class="n">20</span>}, <span class="n">64</span> <span class="o">=&gt;</span> {<span class="s">&quot;Arch-vile&quot;</span>, <span class="s">&quot;VILEA1D1&quot;</span>, <span class="n">20</span>}, <span class="n">65</span> <span class="o">=&gt;</span> {<span class="s">&quot;Heavy weapon dude&quot;</span>, <span class="s">&quot;CPOSA1&quot;</span>, <span class="n">20</span>}, <span class="n">66</span> <span class="o">=&gt;</span> {<span class="s">&quot;Revenant&quot;</span>, <span class="s">&quot;SKELA1D1&quot;</span>, <span class="n">20</span>}, <span class="n">67</span> <span class="o">=&gt;</span> {<span class="s">&quot;Mancubus&quot;</span>, <span class="s">&quot;FATTA1&quot;</span>, <span class="n">48</span>}, <span class="n">68</span> <span class="o">=&gt;</span> {<span class="s">&quot;Arachnotron&quot;</span>, <span class="s">&quot;BSPIA1D1&quot;</span>, <span class="n">64</span>}, <span class="n">69</span> <span class="o">=&gt;</span> {<span class="s">&quot;Hell knight&quot;</span>, <span class="s">&quot;BOS2A1C1&quot;</span>, <span class="n">24</span>}, <span class="n">70</span> <span class="o">=&gt;</span> {<span class="s">&quot;Burning barrel&quot;</span>, <span class="s">&quot;FCANA0&quot;</span>, <span class="n">16</span>}, <span class="n">71</span> <span class="o">=&gt;</span> {<span class="s">&quot;Pain elemental&quot;</span>, <span class="s">&quot;PAINA1&quot;</span>, <span class="n">31</span>}, <span class="n">72</span> <span class="o">=&gt;</span> {<span class="s">&quot;Commander keen&quot;</span>, <span class="s">&quot;KEENA0&quot;</span>, <span class="n">16</span>}, <span class="n">73</span> <span class="o">=&gt;</span> {<span class="s">&quot;Hanging victim, guts removed&quot;</span>, <span class="s">&quot;HDB1A0&quot;</span>, <span class="n">16</span>}, <span class="n">74</span> <span class="o">=&gt;</span> {<span class="s">&quot;Hanging victim, guts and brain removed&quot;</span>, <span class="s">&quot;HDB2A0&quot;</span>, <span class="n">16</span>}, <span class="n">75</span> <span class="o">=&gt;</span> {<span class="s">&quot;Hanging torso, looking down&quot;</span>, <span class="s">&quot;HDB3A0&quot;</span>, <span class="n">16</span>}, <span class="n">76</span> <span class="o">=&gt;</span> {<span class="s">&quot;Hanging torso, open skull&quot;</span>, <span class="s">&quot;HDB4A0&quot;</span>, <span class="n">16</span>}, <span class="n">77</span> <span class="o">=&gt;</span> {<span class="s">&quot;Hanging torso, looking up&quot;</span>, <span class="s">&quot;HDB5A0&quot;</span>, <span class="n">16</span>}, <span class="n">78</span> <span class="o">=&gt;</span> {<span class="s">&quot;Hanging torso, brain removed&quot;</span>, <span class="s">&quot;HDB6A0&quot;</span>, <span class="n">16</span>}, <span class="n">79</span> <span class="o">=&gt;</span> {<span class="s">&quot;Pool of blood&quot;</span>, <span class="s">&quot;POB1A0&quot;</span>, <span class="n">20</span>}, <span class="n">80</span> <span class="o">=&gt;</span> {<span class="s">&quot;Pool of blood&quot;</span>, <span class="s">&quot;POB2A0&quot;</span>, <span class="n">20</span>}, <span class="n">81</span> <span class="o">=&gt;</span> {<span class="s">&quot;Pool of brains&quot;</span>, <span class="s">&quot;BRS1A0&quot;</span>, <span class="n">20</span>}, <span class="n">82</span> <span class="o">=&gt;</span> {<span class="s">&quot;Super shotgun&quot;</span>, <span class="s">&quot;SGN2A0&quot;</span>, <span class="n">20</span>}, <span class="n">83</span> <span class="o">=&gt;</span> {<span class="s">&quot;Megasphere&quot;</span>, <span class="s">&quot;MEGAA0&quot;</span>, <span class="n">20</span>}, <span class="n">84</span> <span class="o">=&gt;</span> {<span class="s">&quot;Wolfenstein SS&quot;</span>, <span class="s">&quot;SSWVA1&quot;</span>, <span class="n">20</span>}, <span class="n">85</span> <span class="o">=&gt;</span> {<span class="s">&quot;Tall techno floor lamp&quot;</span>, <span class="s">&quot;TLMPA0&quot;</span>, <span class="n">16</span>}, <span class="n">86</span> <span class="o">=&gt;</span> {<span class="s">&quot;Short techno floor lamp&quot;</span>, <span class="s">&quot;TLP2A0&quot;</span>, <span class="n">16</span>}, <span class="n">87</span> <span class="o">=&gt;</span> {<span class="s">&quot;Spawn spot&quot;</span>, <span class="s">&quot;FIREA0&quot;</span>, <span class="n">20</span>}, <span class="n">88</span> <span class="o">=&gt;</span> {<span class="s">&quot;Romero&#39;s head&quot;</span>, <span class="s">&quot;BBRNA0&quot;</span>, <span class="n">16</span>}, <span class="n">89</span> <span class="o">=&gt;</span> {<span class="s">&quot;Monster spawner&quot;</span>, <span class="s">&quot;BOSFA0&quot;</span>, <span class="n">20</span>}, <span class="n">2001</span> <span class="o">=&gt;</span> {<span class="s">&quot;Shotgun&quot;</span>, <span class="s">&quot;SHOTA0&quot;</span>, <span class="n">20</span>}, <span class="n">2002</span> <span class="o">=&gt;</span> {<span class="s">&quot;Chaingun&quot;</span>, <span class="s">&quot;MGUNA0&quot;</span>, <span class="n">20</span>}, <span class="n">2003</span> <span class="o">=&gt;</span> {<span class="s">&quot;Rocket launcher&quot;</span>, <span class="s">&quot;LAUNA0&quot;</span>, <span class="n">20</span>}, <span class="n">2004</span> <span class="o">=&gt;</span> {<span class="s">&quot;Plasma gun &quot;</span>, <span class="s">&quot;PLASA0&quot;</span>, <span class="n">20</span>}, <span class="n">2005</span> <span class="o">=&gt;</span> {<span class="s">&quot;Chainsaw&quot;</span>, <span class="s">&quot;CSAWA0&quot;</span>, <span class="n">20</span>}, <span class="n">2006</span> <span class="o">=&gt;</span> {<span class="s">&quot;BFG9000&quot;</span>, <span class="s">&quot;BFUGA0&quot;</span>, <span class="n">20</span>}, <span class="n">2007</span> <span class="o">=&gt;</span> {<span class="s">&quot;Clip&quot;</span>, <span class="s">&quot;CLIPA0&quot;</span>, <span class="n">20</span>}, <span class="n">2008</span> <span class="o">=&gt;</span> {<span class="s">&quot;4 shotgun shells&quot;</span>, <span class="s">&quot;SHELA0&quot;</span>, <span class="n">20</span>}, <span class="n">2010</span> <span class="o">=&gt;</span> {<span class="s">&quot;Rocket&quot;</span>, <span class="s">&quot;ROCKA0&quot;</span>, <span class="n">20</span>}, <span class="n">2011</span> <span class="o">=&gt;</span> {<span class="s">&quot;Stimpack&quot;</span>, <span class="s">&quot;STIMA0&quot;</span>, <span class="n">20</span>}, <span class="n">2012</span> <span class="o">=&gt;</span> {<span class="s">&quot;Medikit&quot;</span>, <span class="s">&quot;MEDIA0&quot;</span>, <span class="n">20</span>}, <span class="n">2013</span> <span class="o">=&gt;</span> {<span class="s">&quot;Supercharge&quot;</span>, <span class="s">&quot;SOULA0&quot;</span>, <span class="n">20</span>}, <span class="n">2014</span> <span class="o">=&gt;</span> {<span class="s">&quot;Health bonus&quot;</span>, <span class="s">&quot;BON1A0&quot;</span>, <span class="n">20</span>}, <span class="n">2015</span> <span class="o">=&gt;</span> {<span class="s">&quot;Armor bonus&quot;</span>, <span class="s">&quot;BON2A0&quot;</span>, <span class="n">20</span>}, <span class="n">2018</span> <span class="o">=&gt;</span> {<span class="s">&quot;Armor (green)&quot;</span>, <span class="s">&quot;ARM1A0&quot;</span>, <span class="n">20</span>}, <span class="n">2019</span> <span class="o">=&gt;</span> {<span class="s">&quot;Megaarmor (blue)&quot;</span>, <span class="s">&quot;ARM2A0&quot;</span>, <span class="n">20</span>}, <span class="n">2022</span> <span class="o">=&gt;</span> {<span class="s">&quot;Invulnerability&quot;</span>, <span class="s">&quot;PINVA0&quot;</span>, <span class="n">20</span>}, <span class="n">2023</span> <span class="o">=&gt;</span> {<span class="s">&quot;Beserk&quot;</span>, <span class="s">&quot;PSTRA0&quot;</span>, <span class="n">20</span>}, <span class="n">2024</span> <span class="o">=&gt;</span> {<span class="s">&quot;Partial invisibility&quot;</span>, <span class="s">&quot;PINSA0&quot;</span>, <span class="n">20</span>}, <span class="n">2025</span> <span class="o">=&gt;</span> {<span class="s">&quot;Radiation shielding suit&quot;</span>, <span class="s">&quot;SUITA0&quot;</span>, <span class="n">20</span>}, <span class="n">2026</span> <span class="o">=&gt;</span> {<span class="s">&quot;Computer area map&quot;</span>, <span class="s">&quot;PMAPA0&quot;</span>, <span class="n">20</span>}, <span class="n">2028</span> <span class="o">=&gt;</span> {<span class="s">&quot;Floor lamp&quot;</span>, <span class="s">&quot;COLUA0&quot;</span>, <span class="n">16</span>}, <span class="n">2035</span> <span class="o">=&gt;</span> {<span class="s">&quot;Exploding barrel&quot;</span>, <span class="s">&quot;BAR1A0&quot;</span>, <span class="n">10</span>}, <span class="n">2045</span> <span class="o">=&gt;</span> {<span class="s">&quot;Light amplification visor&quot;</span>, <span class="s">&quot;PVISA0&quot;</span>, <span class="n">20</span>}, <span class="n">2046</span> <span class="o">=&gt;</span> {<span class="s">&quot;Box of rockets&quot;</span>, <span class="s">&quot;BROKA0&quot;</span>, <span class="n">20</span>}, <span class="n">2047</span> <span class="o">=&gt;</span> {<span class="s">&quot;Energy cell&quot;</span>, <span class="s">&quot;CELLA0&quot;</span>, <span class="n">20</span>}, <span class="n">2048</span> <span class="o">=&gt;</span> {<span class="s">&quot;Box of bullets&quot;</span>, <span class="s">&quot;AMMOA0&quot;</span>, <span class="n">20</span>}, <span class="n">2049</span> <span class="o">=&gt;</span> {<span class="s">&quot;Box of shotgun shells&quot;</span>, <span class="s">&quot;SBOXA0&quot;</span>, <span class="n">20</span>}, <span class="n">3001</span> <span class="o">=&gt;</span> {<span class="s">&quot;Imp&quot;</span>, <span class="s">&quot;TROOA1&quot;</span>, <span class="n">20</span>}, <span class="n">3002</span> <span class="o">=&gt;</span> {<span class="s">&quot;Demon&quot;</span>, <span class="s">&quot;SARGA1&quot;</span>, <span class="n">30</span>}, <span class="n">3003</span> <span class="o">=&gt;</span> {<span class="s">&quot;Baron of hell&quot;</span>, <span class="s">&quot;BOSSA1&quot;</span>, <span class="n">24</span>}, <span class="n">3004</span> <span class="o">=&gt;</span> {<span class="s">&quot;Zombieman&quot;</span>, <span class="s">&quot;POSSA1&quot;</span>, <span class="n">20</span>}, <span class="n">3005</span> <span class="o">=&gt;</span> {<span class="s">&quot;Cacodemon&quot;</span>, <span class="s">&quot;HEADA1&quot;</span>, <span class="n">31</span>}, <span class="n">3006</span> <span class="o">=&gt;</span> {<span class="s">&quot;Lost soul&quot;</span>, <span class="s">&quot;SKULA1&quot;</span>, <span class="n">16</span>}}</code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>Hashes of a thing type number to the description, the default sprite of the thing, and the radius</p>
+      </dd>
+      
+    
+  </dl>
+
+
+
+  
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28name%3AString%3D%22%22%29-class-method" class="signature"><strong>.new</strong>(name : String = <span class="s">&quot;&quot;</span>)</a>
+        
+      </li>
+    
+  </ul>
+
+
+  
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#is_map%3F%28name%3AString%29-class-method" class="signature"><strong>.is_map?</strong>(name : String)</a>
+        
+          <div class="summary"><p>Checks to see if <em>name</em> is a map with the name format 'ExMx' or 'MAPxx'.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+  
+
+  
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#blockmap%3ABlockmap-instance-method" class="signature"><strong>#blockmap</strong> : Blockmap</a>
+        
+          <div class="summary"><p>The parsed blockmap lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#blockmap%3D%28blockmap%3ABlockmap%29-instance-method" class="signature"><strong>#blockmap=</strong>(blockmap : Blockmap)</a>
+        
+          <div class="summary"><p>The parsed blockmap lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#blockmap_directory%3ADirectory-instance-method" class="signature"><strong>#blockmap_directory</strong> : Directory</a>
+        
+          <div class="summary"><p>The directory of the blockmap lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#blockmap_directory%3D%28blockmap_directory%3ADirectory%29-instance-method" class="signature"><strong>#blockmap_directory=</strong>(blockmap_directory : Directory)</a>
+        
+          <div class="summary"><p>The directory of the blockmap lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#clone-instance-method" class="signature"><strong>#clone</strong></a>
+        
+          <div class="summary"><p>Returns a copy of <code>self</code> with all instance variables cloned.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#insert_next_property%28prop%3ADirectory%29-instance-method" class="signature"><strong>#insert_next_property</strong>(prop : Directory)</a>
+        
+          <div class="summary"><p>Inserts a directory based off of the property: <code>map_name = &quot;E1M1&quot; if <a href="../WAD/Map.html#is_map%3F%28name%3AString%29-class-method">WAD::Map.is_map?(map_name)</a>   puts &quot;Is a <a href="../WAD/Map.html">Map</a>&quot; else   puts &quot;Is not a <a href="../WAD/Map.html">Map</a>&quot; end</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#linedefs%3AArray%28Linedef%29-instance-method" class="signature"><strong>#linedefs</strong> : Array(Linedef)</a>
+        
+          <div class="summary"><p>The parsed linedefs lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#linedefs%3D%28linedefs%3AArray%28Linedef%29%29-instance-method" class="signature"><strong>#linedefs=</strong>(linedefs : Array(Linedef))</a>
+        
+          <div class="summary"><p>The parsed linedefs lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#linedefs_directory%3ADirectory-instance-method" class="signature"><strong>#linedefs_directory</strong> : Directory</a>
+        
+          <div class="summary"><p>The directory of the linedefs lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#linedefs_directory%3D%28linedefs_directory%3ADirectory%29-instance-method" class="signature"><strong>#linedefs_directory=</strong>(linedefs_directory : Directory)</a>
+        
+          <div class="summary"><p>The directory of the linedefs lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#name%3AString-instance-method" class="signature"><strong>#name</strong> : String</a>
+        
+          <div class="summary"><p>The name of the map.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#name%3D%28name%3AString%29-instance-method" class="signature"><strong>#name=</strong>(name : String)</a>
+        
+          <div class="summary"><p>The name of the map.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#nodes%3AArray%28Node%29-instance-method" class="signature"><strong>#nodes</strong> : Array(Node)</a>
+        
+          <div class="summary"><p>The parsed nodes lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#nodes%3D%28nodes%3AArray%28Node%29%29-instance-method" class="signature"><strong>#nodes=</strong>(nodes : Array(Node))</a>
+        
+          <div class="summary"><p>The parsed nodes lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#nodes_directory%3ADirectory-instance-method" class="signature"><strong>#nodes_directory</strong> : Directory</a>
+        
+          <div class="summary"><p>The directory of the nodes lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#nodes_directory%3D%28nodes_directory%3ADirectory%29-instance-method" class="signature"><strong>#nodes_directory=</strong>(nodes_directory : Directory)</a>
+        
+          <div class="summary"><p>The directory of the nodes lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#reject%3AReject-instance-method" class="signature"><strong>#reject</strong> : Reject</a>
+        
+          <div class="summary"><p>The parsed reject lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#reject%3D%28reject%3AReject%29-instance-method" class="signature"><strong>#reject=</strong>(reject : Reject)</a>
+        
+          <div class="summary"><p>The parsed reject lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#reject_directory%3ADirectory-instance-method" class="signature"><strong>#reject_directory</strong> : Directory</a>
+        
+          <div class="summary"><p>The directory of the reject lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#reject_directory%3D%28reject_directory%3ADirectory%29-instance-method" class="signature"><strong>#reject_directory=</strong>(reject_directory : Directory)</a>
+        
+          <div class="summary"><p>The directory of the reject lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sectors%3AArray%28Sector%29-instance-method" class="signature"><strong>#sectors</strong> : Array(Sector)</a>
+        
+          <div class="summary"><p>The parsed sectors lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sectors%3D%28sectors%3AArray%28Sector%29%29-instance-method" class="signature"><strong>#sectors=</strong>(sectors : Array(Sector))</a>
+        
+          <div class="summary"><p>The parsed sectors lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sectors_directory%3ADirectory-instance-method" class="signature"><strong>#sectors_directory</strong> : Directory</a>
+        
+          <div class="summary"><p>The directory of the sectors lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sectors_directory%3D%28sectors_directory%3ADirectory%29-instance-method" class="signature"><strong>#sectors_directory=</strong>(sectors_directory : Directory)</a>
+        
+          <div class="summary"><p>The directory of the sectors lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#segs%3AArray%28Seg%29-instance-method" class="signature"><strong>#segs</strong> : Array(Seg)</a>
+        
+          <div class="summary"><p>The parsed segs lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#segs%3D%28segs%3AArray%28Seg%29%29-instance-method" class="signature"><strong>#segs=</strong>(segs : Array(Seg))</a>
+        
+          <div class="summary"><p>The parsed segs lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#segs_directory%3ADirectory-instance-method" class="signature"><strong>#segs_directory</strong> : Directory</a>
+        
+          <div class="summary"><p>The directory of the segs lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#segs_directory%3D%28segs_directory%3ADirectory%29-instance-method" class="signature"><strong>#segs_directory=</strong>(segs_directory : Directory)</a>
+        
+          <div class="summary"><p>The directory of the segs lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sidedefs%3AArray%28Sidedef%29-instance-method" class="signature"><strong>#sidedefs</strong> : Array(Sidedef)</a>
+        
+          <div class="summary"><p>The parsed sidedefs lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sidedefs%3D%28sidedefs%3AArray%28Sidedef%29%29-instance-method" class="signature"><strong>#sidedefs=</strong>(sidedefs : Array(Sidedef))</a>
+        
+          <div class="summary"><p>The parsed sidedefs lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sidedefs_directory%3ADirectory-instance-method" class="signature"><strong>#sidedefs_directory</strong> : Directory</a>
+        
+          <div class="summary"><p>The directory of the sidedefs lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sidedefs_directory%3D%28sidedefs_directory%3ADirectory%29-instance-method" class="signature"><strong>#sidedefs_directory=</strong>(sidedefs_directory : Directory)</a>
+        
+          <div class="summary"><p>The directory of the sidedefs lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#ssectors%3AArray%28Ssector%29-instance-method" class="signature"><strong>#ssectors</strong> : Array(Ssector)</a>
+        
+          <div class="summary"><p>The parsed ssectors lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#ssectors%3D%28ssectors%3AArray%28Ssector%29%29-instance-method" class="signature"><strong>#ssectors=</strong>(ssectors : Array(Ssector))</a>
+        
+          <div class="summary"><p>The parsed ssectors lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#ssectors_directory%3ADirectory-instance-method" class="signature"><strong>#ssectors_directory</strong> : Directory</a>
+        
+          <div class="summary"><p>The directory of the ssectors lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#ssectors_directory%3D%28ssectors_directory%3ADirectory%29-instance-method" class="signature"><strong>#ssectors_directory=</strong>(ssectors_directory : Directory)</a>
+        
+          <div class="summary"><p>The directory of the ssectors lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#things%3AArray%28Thing%29-instance-method" class="signature"><strong>#things</strong> : Array(Thing)</a>
+        
+          <div class="summary"><p>The parsed things lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#things%3D%28things%3AArray%28Thing%29%29-instance-method" class="signature"><strong>#things=</strong>(things : Array(Thing))</a>
+        
+          <div class="summary"><p>The parsed things lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#things_directory%3ADirectory-instance-method" class="signature"><strong>#things_directory</strong> : Directory</a>
+        
+          <div class="summary"><p>The directory of the things lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#things_directory%3D%28things_directory%3ADirectory%29-instance-method" class="signature"><strong>#things_directory=</strong>(things_directory : Directory)</a>
+        
+          <div class="summary"><p>The directory of the things lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#vertexes%3AArray%28Vertex%29-instance-method" class="signature"><strong>#vertexes</strong> : Array(Vertex)</a>
+        
+          <div class="summary"><p>The parsed vertexes lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#vertexes%3D%28vertexes%3AArray%28Vertex%29%29-instance-method" class="signature"><strong>#vertexes=</strong>(vertexes : Array(Vertex))</a>
+        
+          <div class="summary"><p>The parsed vertexes lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#vertexes_directory%3ADirectory-instance-method" class="signature"><strong>#vertexes_directory</strong> : Directory</a>
+        
+          <div class="summary"><p>The directory of the vertexes lump</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#vertexes_directory%3D%28vertexes_directory%3ADirectory%29-instance-method" class="signature"><strong>#vertexes_directory=</strong>(vertexes_directory : Directory)</a>
+        
+          <div class="summary"><p>The directory of the vertexes lump</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <div class="methods-inherited">
+    
+      
+
+  <h3>Instance methods inherited from module <code><a href="../WritingAdditions/Map.html">WritingAdditions::Map</a></code></h3>
+  
+  
+    <a href="../WritingAdditions/Map.html#write%28file%3AString%7CPath%29%3AArray%28%3A%3AWAD%3A%3ADirectory%29-instance-method" class="tooltip">
+      <span>write(file : String | Path) : Array(::WAD::Directory)<br/>write(io : IO) : Array(::WAD::Directory)</span>
+    write</a>
+    
+  
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+  </div>
+
+  
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(name:String=&quot;&quot;)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(name : String = <span class="s">&quot;&quot;</span>)
+
+        <a class="method-permalink" href="#new%28name%3AString%3D%22%22%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L180" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+  
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="is_map?(name:String)-class-method">
+      <div class="signature">
+        
+        def self.<strong>is_map?</strong>(name : String)
+
+        <a class="method-permalink" href="#is_map%3F%28name%3AString%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Checks to see if <em>name</em> is a map with the name format 'ExMx' or 'MAPxx'.</p>
+<p>Returns true if the name is a map:</p>
+<pre><code class="language-crystal">map_name <span class="o">=</span> <span class="s">&quot;E1M1&quot;</span>
+<span class="k">if</span> <span class="t">WAD</span><span class="t">::</span><span class="t">Map</span>.is_map?(map_name)
+  puts <span class="s">&quot;Is a Map&quot;</span>
+<span class="k">else</span>
+  puts <span class="s">&quot;Is not a Map&quot;</span>
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L866" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+  
+
+  
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="blockmap:Blockmap-instance-method">
+      <div class="signature">
+        
+        def <strong>blockmap</strong> : <a href="../WAD/Map/Blockmap.html">Blockmap</a>
+
+        <a class="method-permalink" href="#blockmap%3ABlockmap-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed blockmap lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L178" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="blockmap=(blockmap:Blockmap)-instance-method">
+      <div class="signature">
+        
+        def <strong>blockmap=</strong>(blockmap : <a href="../WAD/Map/Blockmap.html">Blockmap</a>)
+
+        <a class="method-permalink" href="#blockmap%3D%28blockmap%3ABlockmap%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed blockmap lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L178" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="blockmap_directory:Directory-instance-method">
+      <div class="signature">
+        
+        def <strong>blockmap_directory</strong> : <a href="../WAD/Directory.html">Directory</a>
+
+        <a class="method-permalink" href="#blockmap_directory%3ADirectory-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the blockmap lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L157" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="blockmap_directory=(blockmap_directory:Directory)-instance-method">
+      <div class="signature">
+        
+        def <strong>blockmap_directory=</strong>(blockmap_directory : <a href="../WAD/Directory.html">Directory</a>)
+
+        <a class="method-permalink" href="#blockmap_directory%3D%28blockmap_directory%3ADirectory%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the blockmap lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L157" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="clone-instance-method">
+      <div class="signature">
+        
+        def <strong>clone</strong>
+
+        <a class="method-permalink" href="#clone-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns a copy of <code>self</code> with all instance variables cloned.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L5" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="insert_next_property(prop:Directory)-instance-method">
+      <div class="signature">
+        
+        def <strong>insert_next_property</strong>(prop : <a href="../WAD/Directory.html">Directory</a>)
+
+        <a class="method-permalink" href="#insert_next_property%28prop%3ADirectory%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Inserts a directory based off of the property:</p>
+<pre><code class="language-crystal">map_name <span class="o">=</span> <span class="s">&quot;E1M1&quot;</span>
+<span class="k">if</span> <span class="t">WAD</span><span class="t">::</span><span class="t">Map</span>.is_map?(map_name)
+  puts <span class="s">&quot;Is a Map&quot;</span>
+<span class="k">else</span>
+  puts <span class="s">&quot;Is not a Map&quot;</span>
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L879" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="linedefs:Array(Linedef)-instance-method">
+      <div class="signature">
+        
+        def <strong>linedefs</strong> : Array(<a href="../WAD/Map/Linedef.html">Linedef</a>)
+
+        <a class="method-permalink" href="#linedefs%3AArray%28Linedef%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed linedefs lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L162" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="linedefs=(linedefs:Array(Linedef))-instance-method">
+      <div class="signature">
+        
+        def <strong>linedefs=</strong>(linedefs : Array(<a href="../WAD/Map/Linedef.html">Linedef</a>))
+
+        <a class="method-permalink" href="#linedefs%3D%28linedefs%3AArray%28Linedef%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed linedefs lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L162" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="linedefs_directory:Directory-instance-method">
+      <div class="signature">
+        
+        def <strong>linedefs_directory</strong> : <a href="../WAD/Directory.html">Directory</a>
+
+        <a class="method-permalink" href="#linedefs_directory%3ADirectory-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the linedefs lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L141" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="linedefs_directory=(linedefs_directory:Directory)-instance-method">
+      <div class="signature">
+        
+        def <strong>linedefs_directory=</strong>(linedefs_directory : <a href="../WAD/Directory.html">Directory</a>)
+
+        <a class="method-permalink" href="#linedefs_directory%3D%28linedefs_directory%3ADirectory%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the linedefs lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L141" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="name:String-instance-method">
+      <div class="signature">
+        
+        def <strong>name</strong> : String
+
+        <a class="method-permalink" href="#name%3AString-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The name of the map.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L137" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="name=(name:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>name=</strong>(name : String)
+
+        <a class="method-permalink" href="#name%3D%28name%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The name of the map.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L137" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="nodes:Array(Node)-instance-method">
+      <div class="signature">
+        
+        def <strong>nodes</strong> : Array(<a href="../WAD/Map/Node.html">Node</a>)
+
+        <a class="method-permalink" href="#nodes%3AArray%28Node%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed nodes lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L172" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="nodes=(nodes:Array(Node))-instance-method">
+      <div class="signature">
+        
+        def <strong>nodes=</strong>(nodes : Array(<a href="../WAD/Map/Node.html">Node</a>))
+
+        <a class="method-permalink" href="#nodes%3D%28nodes%3AArray%28Node%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed nodes lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L172" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="nodes_directory:Directory-instance-method">
+      <div class="signature">
+        
+        def <strong>nodes_directory</strong> : <a href="../WAD/Directory.html">Directory</a>
+
+        <a class="method-permalink" href="#nodes_directory%3ADirectory-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the nodes lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L151" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="nodes_directory=(nodes_directory:Directory)-instance-method">
+      <div class="signature">
+        
+        def <strong>nodes_directory=</strong>(nodes_directory : <a href="../WAD/Directory.html">Directory</a>)
+
+        <a class="method-permalink" href="#nodes_directory%3D%28nodes_directory%3ADirectory%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the nodes lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L151" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="reject:Reject-instance-method">
+      <div class="signature">
+        
+        def <strong>reject</strong> : <a href="../WAD/Map/Reject.html">Reject</a>
+
+        <a class="method-permalink" href="#reject%3AReject-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed reject lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L176" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="reject=(reject:Reject)-instance-method">
+      <div class="signature">
+        
+        def <strong>reject=</strong>(reject : <a href="../WAD/Map/Reject.html">Reject</a>)
+
+        <a class="method-permalink" href="#reject%3D%28reject%3AReject%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed reject lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L176" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="reject_directory:Directory-instance-method">
+      <div class="signature">
+        
+        def <strong>reject_directory</strong> : <a href="../WAD/Directory.html">Directory</a>
+
+        <a class="method-permalink" href="#reject_directory%3ADirectory-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the reject lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L155" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="reject_directory=(reject_directory:Directory)-instance-method">
+      <div class="signature">
+        
+        def <strong>reject_directory=</strong>(reject_directory : <a href="../WAD/Directory.html">Directory</a>)
+
+        <a class="method-permalink" href="#reject_directory%3D%28reject_directory%3ADirectory%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the reject lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L155" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sectors:Array(Sector)-instance-method">
+      <div class="signature">
+        
+        def <strong>sectors</strong> : Array(<a href="../WAD/Map/Sector.html">Sector</a>)
+
+        <a class="method-permalink" href="#sectors%3AArray%28Sector%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed sectors lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L174" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sectors=(sectors:Array(Sector))-instance-method">
+      <div class="signature">
+        
+        def <strong>sectors=</strong>(sectors : Array(<a href="../WAD/Map/Sector.html">Sector</a>))
+
+        <a class="method-permalink" href="#sectors%3D%28sectors%3AArray%28Sector%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed sectors lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L174" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sectors_directory:Directory-instance-method">
+      <div class="signature">
+        
+        def <strong>sectors_directory</strong> : <a href="../WAD/Directory.html">Directory</a>
+
+        <a class="method-permalink" href="#sectors_directory%3ADirectory-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the sectors lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L153" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sectors_directory=(sectors_directory:Directory)-instance-method">
+      <div class="signature">
+        
+        def <strong>sectors_directory=</strong>(sectors_directory : <a href="../WAD/Directory.html">Directory</a>)
+
+        <a class="method-permalink" href="#sectors_directory%3D%28sectors_directory%3ADirectory%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the sectors lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L153" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="segs:Array(Seg)-instance-method">
+      <div class="signature">
+        
+        def <strong>segs</strong> : Array(<a href="../WAD/Map/Seg.html">Seg</a>)
+
+        <a class="method-permalink" href="#segs%3AArray%28Seg%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed segs lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L168" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="segs=(segs:Array(Seg))-instance-method">
+      <div class="signature">
+        
+        def <strong>segs=</strong>(segs : Array(<a href="../WAD/Map/Seg.html">Seg</a>))
+
+        <a class="method-permalink" href="#segs%3D%28segs%3AArray%28Seg%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed segs lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L168" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="segs_directory:Directory-instance-method">
+      <div class="signature">
+        
+        def <strong>segs_directory</strong> : <a href="../WAD/Directory.html">Directory</a>
+
+        <a class="method-permalink" href="#segs_directory%3ADirectory-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the segs lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L147" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="segs_directory=(segs_directory:Directory)-instance-method">
+      <div class="signature">
+        
+        def <strong>segs_directory=</strong>(segs_directory : <a href="../WAD/Directory.html">Directory</a>)
+
+        <a class="method-permalink" href="#segs_directory%3D%28segs_directory%3ADirectory%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the segs lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L147" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sidedefs:Array(Sidedef)-instance-method">
+      <div class="signature">
+        
+        def <strong>sidedefs</strong> : Array(<a href="../WAD/Map/Sidedef.html">Sidedef</a>)
+
+        <a class="method-permalink" href="#sidedefs%3AArray%28Sidedef%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed sidedefs lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L164" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sidedefs=(sidedefs:Array(Sidedef))-instance-method">
+      <div class="signature">
+        
+        def <strong>sidedefs=</strong>(sidedefs : Array(<a href="../WAD/Map/Sidedef.html">Sidedef</a>))
+
+        <a class="method-permalink" href="#sidedefs%3D%28sidedefs%3AArray%28Sidedef%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed sidedefs lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L164" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sidedefs_directory:Directory-instance-method">
+      <div class="signature">
+        
+        def <strong>sidedefs_directory</strong> : <a href="../WAD/Directory.html">Directory</a>
+
+        <a class="method-permalink" href="#sidedefs_directory%3ADirectory-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the sidedefs lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L143" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sidedefs_directory=(sidedefs_directory:Directory)-instance-method">
+      <div class="signature">
+        
+        def <strong>sidedefs_directory=</strong>(sidedefs_directory : <a href="../WAD/Directory.html">Directory</a>)
+
+        <a class="method-permalink" href="#sidedefs_directory%3D%28sidedefs_directory%3ADirectory%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the sidedefs lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L143" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="ssectors:Array(Ssector)-instance-method">
+      <div class="signature">
+        
+        def <strong>ssectors</strong> : Array(<a href="../WAD/Map/Ssector.html">Ssector</a>)
+
+        <a class="method-permalink" href="#ssectors%3AArray%28Ssector%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed ssectors lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L170" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="ssectors=(ssectors:Array(Ssector))-instance-method">
+      <div class="signature">
+        
+        def <strong>ssectors=</strong>(ssectors : Array(<a href="../WAD/Map/Ssector.html">Ssector</a>))
+
+        <a class="method-permalink" href="#ssectors%3D%28ssectors%3AArray%28Ssector%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed ssectors lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L170" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="ssectors_directory:Directory-instance-method">
+      <div class="signature">
+        
+        def <strong>ssectors_directory</strong> : <a href="../WAD/Directory.html">Directory</a>
+
+        <a class="method-permalink" href="#ssectors_directory%3ADirectory-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the ssectors lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L149" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="ssectors_directory=(ssectors_directory:Directory)-instance-method">
+      <div class="signature">
+        
+        def <strong>ssectors_directory=</strong>(ssectors_directory : <a href="../WAD/Directory.html">Directory</a>)
+
+        <a class="method-permalink" href="#ssectors_directory%3D%28ssectors_directory%3ADirectory%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the ssectors lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L149" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="things:Array(Thing)-instance-method">
+      <div class="signature">
+        
+        def <strong>things</strong> : Array(<a href="../WAD/Map/Thing.html">Thing</a>)
+
+        <a class="method-permalink" href="#things%3AArray%28Thing%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed things lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L160" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="things=(things:Array(Thing))-instance-method">
+      <div class="signature">
+        
+        def <strong>things=</strong>(things : Array(<a href="../WAD/Map/Thing.html">Thing</a>))
+
+        <a class="method-permalink" href="#things%3D%28things%3AArray%28Thing%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed things lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L160" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="things_directory:Directory-instance-method">
+      <div class="signature">
+        
+        def <strong>things_directory</strong> : <a href="../WAD/Directory.html">Directory</a>
+
+        <a class="method-permalink" href="#things_directory%3ADirectory-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the things lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L139" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="things_directory=(things_directory:Directory)-instance-method">
+      <div class="signature">
+        
+        def <strong>things_directory=</strong>(things_directory : <a href="../WAD/Directory.html">Directory</a>)
+
+        <a class="method-permalink" href="#things_directory%3D%28things_directory%3ADirectory%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the things lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L139" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="vertexes:Array(Vertex)-instance-method">
+      <div class="signature">
+        
+        def <strong>vertexes</strong> : Array(<a href="../WAD/Map/Vertex.html">Vertex</a>)
+
+        <a class="method-permalink" href="#vertexes%3AArray%28Vertex%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed vertexes lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L166" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="vertexes=(vertexes:Array(Vertex))-instance-method">
+      <div class="signature">
+        
+        def <strong>vertexes=</strong>(vertexes : Array(<a href="../WAD/Map/Vertex.html">Vertex</a>))
+
+        <a class="method-permalink" href="#vertexes%3D%28vertexes%3AArray%28Vertex%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The parsed vertexes lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L166" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="vertexes_directory:Directory-instance-method">
+      <div class="signature">
+        
+        def <strong>vertexes_directory</strong> : <a href="../WAD/Directory.html">Directory</a>
+
+        <a class="method-permalink" href="#vertexes_directory%3ADirectory-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the vertexes lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L145" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="vertexes_directory=(vertexes_directory:Directory)-instance-method">
+      <div class="signature">
+        
+        def <strong>vertexes_directory=</strong>(vertexes_directory : <a href="../WAD/Directory.html">Directory</a>)
+
+        <a class="method-permalink" href="#vertexes_directory%3D%28vertexes_directory%3ADirectory%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The directory of the vertexes lump</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/D-Shwagginz/wa-cr/blob/8d2bde88bcf34ec9dd61aae5e76d9a2ea529c85c/src/wa-cr/wad/wad-data/map.cr#L145" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+</div>
+
+</body>
+</html>

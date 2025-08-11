@@ -32,9 +32,9 @@ jobs:
       - name: make install raylib
         run: sudo make install -C raylib/build
       - name: Install raylib 1
-        run: sudo cp /usr/local/lib/libraylib.so.4.5.0 /usr/lib/libraylib.so.450
+        run: sudo cp /usr/local/lib/libraylib.so.5.5.0 /usr/lib/libraylib.so.550
       - name: Install raylib 2
-        run: sudo ln -s /usr/lib/libraylib.so.450 /lib/raylib.so
+        run: sudo ln -s /usr/lib/libraylib.so.550 /lib/raylib.so
       - name: Build project
         run: |
           shards build map-viewer

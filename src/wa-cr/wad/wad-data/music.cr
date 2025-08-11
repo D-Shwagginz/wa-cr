@@ -43,11 +43,9 @@ class WAD
     # end
     # ```
     def self.parse(io : IO) : Music
-      
       music = Music.new
       music.raw = io.getb_to_end.to_a
-      io.pos=0
-
+      io.rewind
       # Reads the data.
       music.identifier = io.gets(4).to_s
       music.score_len = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)

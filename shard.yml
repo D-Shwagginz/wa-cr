@@ -12,6 +12,8 @@ targets:
     main: src/apps/map-viewer.cr
   wad-viewer:
     main: src/apps/wad-viewer.cr
+  map-gen:
+    main: src/apps/map-gen.cr
 
 dependencies:
   raylib-cr:

@@ -868,14 +868,6 @@ class WAD
     end
 
     # Inserts a directory based off of the property:
-    # ```
-    # map_name = "E1M1"
-    # if WAD::Map.is_map?(map_name)
-    #   puts "Is a Map"
-    # else
-    #   puts "Is not a Map"
-    # end
-    # ```
     def insert_next_property(prop : Directory)
       case prop.name
       when "THINGS"
